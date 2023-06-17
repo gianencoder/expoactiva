@@ -1,0 +1,28 @@
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { DarkTheme, NavigationContainer } from '@react-navigation/native';
+import { MyStack } from './src/navigators/StackNavigator';
+import { styles } from './src/theme/GlobalTheme';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { HeaderComponent } from './src/components/HeaderComponent';
+import { StatusBar } from 'react-native';
+import { MyColors } from './src/theme/ColorsTheme';
+import { AuthScreen } from './src/screens/AuthScreen';
+
+
+
+
+export default function App() {
+  return (
+    <NavigationContainer >
+      <SafeAreaView style={styles.container} >
+        <StatusBar
+          barStyle={'light-content'}
+          backgroundColor={MyColors.primary}
+        />
+        <HeaderComponent />
+        <MyStack />
+      </SafeAreaView>
+    </NavigationContainer>
+  );
+}
