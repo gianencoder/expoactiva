@@ -16,11 +16,11 @@ export const MyStack = () => {
                 headerShown: false
             }}
         >
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
-            <Stack.Screen name="Tickets" component={TicketsScreen} />
-            <Stack.Screen name="InterestPoints" component={InterestPointScreen} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+            <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+            <Stack.Screen name="TicketsScreen" component={TicketsScreen} />
+            <Stack.Screen name="InterestPointScreen" component={InterestPointScreen} />
             <Stack.Screen name="AuthScreen" component={AuthScreen} />
         </Stack.Navigator>
     );

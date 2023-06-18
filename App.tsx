@@ -7,9 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeaderComponent } from './src/components/HeaderComponent';
 import { StatusBar } from 'react-native';
 import { MyColors } from './src/theme/ColorsTheme';
-import { AuthScreen } from './src/screens/AuthScreen';
-
-
+import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 
 
 export default function App() {
@@ -21,7 +19,7 @@ export default function App() {
           backgroundColor={MyColors.primary}
         />
         <HeaderComponent />
-        <MyStack />
+        <BottomTabNavigator />
       </SafeAreaView>
     </NavigationContainer>
   );

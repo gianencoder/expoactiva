@@ -27,6 +27,11 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-around',
 
     },
+    littleComponentTxt: {
+        color: MyColors.primary,
+        fontSize: 20,
+        fontWeight: '600'
+    },
 
     bigComponent: {
         flex: 1,
@@ -70,8 +75,6 @@ export const styles = StyleSheet.create({
         width: '100%',
         borderRadius: 30,
         backgroundColor: MyColors.white,
-        borderWidth: 2,
-        borderColor: MyColors.primary
 
     }
 })
