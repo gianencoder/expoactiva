@@ -14,12 +14,14 @@ export const BottomTabNavigator = () => {
             screenOptions={({ route }) => ({
                 tabBarActiveTintColor: MyColors.primary,
                 headerShown: false,
+                tabBarInactiveTintColor: 'black',
+
                 tabBarIcon: () => {
+
                     let iconName = '';
-                    let iconSource = ''
 
                     switch (route.name) {
-                        case 'Home':
+                        case 'Inicio':
                             iconName = 'home';
                             break;
                         case 'Mis entradas':
@@ -29,11 +31,11 @@ export const BottomTabNavigator = () => {
                             iconName = 'widget';
                             break;
                     }
-                    return <Foundation name={iconName} size={24} color={MyColors.primary} />
+                    return <Foundation name={iconName} size={25} color={MyColors.primary} />
                 }
             })}
         >
-            <Tab.Screen name="Home" component={MyStack} />
+            <Tab.Screen name="Inicio" component={MyStack} />
             <Tab.Screen name="Mis entradas" component={TicketsScreen} />
             <Tab.Screen name="Configuracion" component={ProfileScreen} />
         </Tab.Navigator >

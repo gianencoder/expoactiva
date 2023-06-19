@@ -19,7 +19,7 @@ export const HomeScreen = ({ navigation }: Props) => {
             <View style={styles.littleComponentContainer}>
                 <HomeLittleComponent action={() => navigation.navigate('TicketsScreen')} page={'Entradas'} icon={<Fontisto name='ticket' color={MyColors.primary} size={50} />} />
                 <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Puntos de interes'} icon={<MaterialCommunityIcons name='map-search' color={MyColors.primary} size={50} />} />
-                <HomeLittleComponent action={() => navigation.navigate('SettingsScreen')} page={'Eventos'} icon={<MaterialIcons name='event-available' color={MyColors.primary} size={50} />} />
+                <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<MaterialIcons name='event-available' color={MyColors.primary} size={50} />} />
                 <HomeLittleComponent action={() => navigation.navigate('AuthScreen')} page={'Autenticación'} icon={<MaterialCommunityIcons name='login' color={MyColors.primary} size={50} />} />
             </View>
 
