@@ -5,16 +5,21 @@ import { Foundation } from '@expo/vector-icons';
 import { MyColors } from '../theme/ColorsTheme';
 import { TicketsScreen } from '../screens/TicketsScreen';
 
-
 const Tab = createBottomTabNavigator();
 
 export const BottomTabNavigator = () => {
+
+
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 tabBarActiveTintColor: MyColors.primary,
                 headerShown: false,
                 tabBarInactiveTintColor: 'black',
+                tabBarLabelStyle: {
+                    fontSize: 12,
+                    fontWeight: '500'
+                },
 
                 tabBarIcon: () => {
 
@@ -31,7 +36,7 @@ export const BottomTabNavigator = () => {
                             iconName = 'widget';
                             break;
                     }
-                    return <Foundation name={iconName} size={25} color={MyColors.primary} />
+                    return <Foundation name={iconName} size={30} color={MyColors.primary} />
                 }
             })}
         >

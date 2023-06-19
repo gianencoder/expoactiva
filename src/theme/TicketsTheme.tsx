@@ -12,20 +12,18 @@ export const ticketStyles = StyleSheet.create({
     },
 
     qrCode: {
-        flex: 2,
+        flex: 2.5,
         // backgroundColor: 'red',
         justifyContent: 'flex-end',
     },
 
     qrCodeImg: {
         flex: 1,
-        // height: height < 700 ? 150 : 250
     },
 
     buttonsContainer: {
         flex: 1,
         justifyContent: 'space-evenly',
-        // backgroundColor: 'blue'
     },
 
     button: {

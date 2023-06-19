@@ -15,13 +15,13 @@ export const styles = StyleSheet.create({
     },
 
     bigComponentContainer: {
-        flex: 1,
+        height: 150,
         marginHorizontal: 10,
         marginVertical: '2%',
     },
 
     littleComponentContainer: {
-        flex: 3,
+        flex: 2,
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
@@ -50,8 +50,8 @@ export const styles = StyleSheet.create({
     },
 
     homeComponents: {
-        height: '37%',
-        width: '43.5%',
+        height: 150,
+        width: 170,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 30,
