@@ -15,9 +15,6 @@ export const GoToPlaceScreen = () => {
             }
             let currentLocation = await Location.getCurrentPositionAsync({});
             setLocation(currentLocation);
-
-            console.log(location)
-
         }
         getPermissions()
     }, [])
