@@ -23,8 +23,6 @@ export const CarouselComponent = ({ data }: props | any) => {
     const spacer = (width - size) / 2
     const [newData] = useState([{ key: 'spacer-left' }, ...data, { key: 'spacer-right' }])
     const x = useSharedValue(0)
-    const lastIndex = newData.length - 1;
-    const isReversed = useRef(false);
     const currentIndex = useRef(1);
 
     const onScroll = useAnimatedScrollHandler({
@@ -37,33 +35,6 @@ export const CarouselComponent = ({ data }: props | any) => {
             }
         },
     });
-
-    const startAutoScroll = () => {
-        timerId = setInterval(() => {
-            if (isReversed.current) {
-                currentIndex.current--;
-            } else {
-                currentIndex.current++;
-            }
-
-            if (currentIndex.current === newData.length - 1) {
-                // Si se alcanza la última imagen, cambia la dirección del desplazamiento
-                isReversed.current = true;
-            } else if (currentIndex.current === 0) {
-                // Si se alcanza la primera imagen, cambia la dirección del desplazamiento
-                isReversed.current = false;
-            }
-
-            const nextX = currentIndex.current * size;
-
-            scrollViewRef.current?.scrollTo({
-                x: nextX,
-                animated: true,
-            });
-            x.value = nextX;
-        }, 1500);
-    };
-
     useEffect(() => {
         let timerId: string | number | NodeJS.Timer | undefined;
 
@@ -83,9 +54,8 @@ export const CarouselComponent = ({ data }: props | any) => {
                         animated: true,
                     });
                 }
-            }, 1300);
+            }, 1500);
         };
-
 
         const stopAutoScroll = () => {
             clearInterval(timerId);
@@ -102,9 +72,6 @@ export const CarouselComponent = ({ data }: props | any) => {
         };
     }, [autoScroll]);
 
-
-
-
     return (
         <Animated.ScrollView
             ref={scrollViewRef}
@@ -116,7 +83,7 @@ export const CarouselComponent = ({ data }: props | any) => {
             decelerationRate={'normal'}
             centerContent
             onScroll={onScroll}
-            pagingEnabled
+        // pagingEnabled
         >
             {newData.map((item, index) => {
                 const style = useAnimatedStyle(() => {
