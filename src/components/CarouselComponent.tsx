@@ -6,8 +6,6 @@ import Animated,
     useAnimatedStyle,
     useAnimatedScrollHandler,
     interpolate,
-    Easing,
-    withTiming,
 } from 'react-native-reanimated';
 
 interface props {

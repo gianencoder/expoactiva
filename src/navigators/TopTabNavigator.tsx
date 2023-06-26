@@ -1,6 +1,5 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { EventScreen } from '../screens/EventScreen';
-import { SettingsScreen } from '../screens/SettingsScreen';
 import { MyColors } from '../theme/ColorsTheme';
 import { FavouriteEventScreen } from '../screens/FavouriteEventScreen';
 

@@ -17,7 +17,6 @@ export default function App() {
         <StatusBar
           barStyle={'light-content'}
           backgroundColor={MyColors.primary}
-          showHideTransition={'fade'}
         />
         <HeaderComponent />
         <BottomTabNavigator />
