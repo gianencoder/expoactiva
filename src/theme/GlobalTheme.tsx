@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     bigComponentContainer: {
         height: 150,
         marginHorizontal: 10,
-        marginVertical: '2%',
+        marginVertical: 15,
     },
 
     littleComponentContainer: {
@@ -37,7 +37,6 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: MyColors.white,
         borderRadius: 30,
-
         shadowColor: "#000",
         shadowOffset: {
             width: 0,

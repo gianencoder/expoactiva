@@ -9,7 +9,7 @@ export const HeaderComponent = () => {
             ...headerStyles.icon,
             marginTop: android ? 0 : 30,
         }}>
-            <Image source={require('../assets/en2023.png')} />
+            <Image style={{ height: 65 }} source={require('../assets/icon.png')} />
         </View>
     )
 }

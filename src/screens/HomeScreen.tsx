@@ -6,6 +6,8 @@ import { HomeLittleComponent } from '../components/HomeLittleComponent';
 import { Fontisto, MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
 import { MyColors } from '../theme/ColorsTheme';
 import { useIsFocused } from '@react-navigation/native';
+import { CarouselComponent } from '../components/CarouselComponent';
+import { data } from '../helper/imageList';
 
 
 
@@ -27,12 +29,12 @@ export const HomeScreen = ({ navigation }: Props) => {
         }
     }, [isFocused]);
 
-
     return (
-
         <View style={styles.homeContainer}>
             <View style={styles.bigComponentContainer}>
-                <View style={styles.bigComponent}></View>
+                <View style={styles.bigComponent}>
+                    <CarouselComponent data={data} />
+                </View>
             </View>
             <ScrollView
                 ref={scrollViewRef}
