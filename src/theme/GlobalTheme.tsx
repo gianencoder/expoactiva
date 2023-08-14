@@ -29,8 +29,10 @@ export const styles = StyleSheet.create({
     },
     littleComponentTxt: {
         color: MyColors.primary,
-        fontSize: 20,
-        fontWeight: '600'
+        fontSize: 15,
+        fontWeight: '600',
+        textTransform: 'uppercase',
+        top: 8
     },
 
     bigComponent: {

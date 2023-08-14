@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, Image } from 'react-native';
 import { styles } from '../theme/GlobalTheme';
 
 

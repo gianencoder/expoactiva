@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
-import { Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
+import React, { useEffect, useState } from 'react'
+import { Text, View, ScrollView, TouchableOpacity, Image, FlatList } from 'react-native';
 import { eventStyle } from '../theme/EventTheme'
 import { TextInput } from 'react-native-gesture-handler'
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { MyColors } from '../theme/ColorsTheme';
+import { event } from '../helper/events';
+import { format, formatDistance, formatRelative, subDays, differenceInMinutes } from 'date-fns';
+import { differenceInHours } from 'date-fns/fp';
+
+
+
 
 
 export const EventScreen = () => {
+
+    interface props {
+        event: []
+    }
 
     const [favourite, setfavourite] = useState(true);
     let iconName = ''
@@ -24,6 +34,10 @@ export const EventScreen = () => {
         color = MyColors.hearth
     }
 
+    const currentDay = format(Date.now(), 'dd-MM-yyyy HH:mm')
+
+    console.log(currentDay)
+
     return (
         <View style={eventStyle.container} >
             <View style={eventStyle.filters}>
@@ -34,48 +48,50 @@ export const EventScreen = () => {
                         placeholder='Buscar por nombre...'
                     />
                 </View>
-
                 <View style={eventStyle.comboBox}>
                     <TextInput
                         placeholder='aca va el combobox'
                     />
-
                 </View>
-
             </View>
-
             <View style={eventStyle.days}>
-
             </View>
 
             <View style={eventStyle.eventListContainer}>
-                <ScrollView>
-                    <View style={eventStyle.eventList}>
-                        <View style={eventStyle.eventListImg}>
-                            <Image style={eventStyle.img} source={require('../assets/carousel/johnDeere.jpg')} />
-                        </View>
 
-                        <View style={eventStyle.eventListTitle}>
-                            <Text style={eventStyle.titleTxt}>Charla con Cyb3rSoft</Text>
-                            <Text style={eventStyle.titleMinutes}>En 50 minutos</Text>
-                        </View>
 
-                        <View style={eventStyle.eventListFavourite}>
-                            <View>
-                                <TouchableOpacity onPress={handleFavourite}>
-                                    <Ionicons name={iconName} size={23} color={color} />
-                                </TouchableOpacity>
-                            </View>
-                            <View>
-                                <Text style={eventStyle.titleMinutes}>22/11/2023</Text>
+                <FlatList
+                    data={event}
+                    renderItem={({ item }) =>
+                        <View style={eventStyle.eventList}>
+                            <View style={eventStyle.eventListImg}>
+                                <Image style={eventStyle.img} source={item.image} />
                             </View>
 
+                            <View style={eventStyle.eventListTitle}>
+                                <Text style={eventStyle.titleTxt}>{item.title}</Text>
+                                <Text style={eventStyle.titleMinutes}>{differenceInMinutes(item.date, Date.now())} min</Text>
+                            </View>
+
+                            <View style={eventStyle.eventListFavourite}>
+                                <View>
+                                    <TouchableOpacity onPress={handleFavourite}>
+                                        <Ionicons name={iconName} size={23} color={color} />
+                                    </TouchableOpacity>
+                                </View>
+                                <View>
+                                    <Text style={eventStyle.titleMinutes}>{format(item.date, "dd-MM-yy HH:mm")}</Text>
+                                </View>
+
+                            </View>
+                            <View style={{ backgroundColor: MyColors.sparator, height: 1, marginHorizontal: 5, borderRadius: 150 }} />
+
                         </View>
-                    </View>
-                    <View style={{ backgroundColor: MyColors.sparator, height: 1, marginHorizontal: 5, borderRadius: 150 }} />
-                </ScrollView>
+                    }
+                />
             </View>
         </View >
-
     )
 }
+
+

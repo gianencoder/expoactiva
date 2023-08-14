@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MyStack } from './StackNavigator';
 import { ProfileScreen } from '../screens/ProfileScreen';
-import { Foundation } from '@expo/vector-icons';
+import { Foundation, AntDesign } from '@expo/vector-icons';
 import { MyColors } from '../theme/ColorsTheme';
 import { TicketsScreen } from '../screens/TicketsScreen';
 
@@ -32,8 +32,8 @@ export const BottomTabNavigator = () => {
                         case 'Mis entradas':
                             iconName = 'ticket';
                             break;
-                        case 'Configuracion':
-                            iconName = 'widget';
+                        case 'Perfil':
+                            iconName = 'torsos-male-female';
                             break;
                     }
                     return <Foundation name={iconName} size={30} color={MyColors.primary} />
@@ -42,7 +42,7 @@ export const BottomTabNavigator = () => {
         >
             <Tab.Screen name="Inicio" component={MyStack} />
             <Tab.Screen name="Mis entradas" component={TicketsScreen} />
-            <Tab.Screen name="Configuracion" component={ProfileScreen} />
+            <Tab.Screen name="Perfil" component={ProfileScreen} />
         </Tab.Navigator >
     );
 }

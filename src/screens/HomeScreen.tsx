@@ -15,8 +15,7 @@ interface Props extends StackScreenProps<any, any> { }
 
 export const HomeScreen = ({ navigation }: Props) => {
     const scrollViewRef = useRef<ScrollView>(null);
-    const isFocused = useIsFocused(); //Si la pantalla se esta mostrando
-
+    const isFocused = useIsFocused(); //Se esta mostrando la pantalla?
     useEffect(() => {
         //Si la pantalla se esta mostrando y si existe una referencia al scrollView
         if (isFocused && scrollViewRef.current) {
@@ -41,7 +40,7 @@ export const HomeScreen = ({ navigation }: Props) => {
             >
                 <View style={styles.littleComponentContainer}>
                     <HomeLittleComponent action={() => navigation.navigate('TicketsScreen')} page={'Entradas'} icon={<Fontisto name='ticket' color={MyColors.primary} size={50} />} />
-                    <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Puntos de interes'} icon={<MaterialCommunityIcons name='map-search' color={MyColors.primary} size={50} />} />
+                    <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Puntos de interés'} icon={<MaterialCommunityIcons name='map-search' color={MyColors.primary} size={50} />} />
                     <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<MaterialIcons name='event-available' color={MyColors.primary} size={50} />} />
                     <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir al predio'} icon={<Ionicons name='navigate' color={MyColors.primary} size={50} />} />
                     <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<MaterialCommunityIcons name='car-select' color={MyColors.primary} size={50} />} />
