@@ -11,11 +11,11 @@ export const styles = StyleSheet.create({
 
     homeContainer: {
         flex: 1,
-        backgroundColor: MyColors.white
+        backgroundColor: MyColors.white,
     },
 
     bigComponentContainer: {
-        height: 150,
+        height: 90,
         marginHorizontal: 10,
         marginVertical: 15,
     },
@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-
+        backgroundColor: '#fff',
     },
     littleComponentTxt: {
         color: MyColors.primary,
@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     bigComponent: {
         flex: 1,
         backgroundColor: MyColors.white,
-        borderRadius: 30,
+        borderRadius: 25,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -47,16 +47,16 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.29,
         shadowRadius: 4.65,
 
-        elevation: 7,
+        elevation: 15,
     },
 
     homeComponents: {
-        height: 150,
-        width: 170,
+        height: 120,
+        width: 120,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 30,
-        marginVertical: 5,
+        borderRadius: 20,
+        marginVertical: 8,
         backgroundColor: MyColors.white,
         shadowColor: "#000",
         shadowOffset: {
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
         },
         shadowOpacity: 0.29,
         shadowRadius: 4.65,
-        elevation: 7,
+        elevation: 15,
     },
 
     buttonComponent: {

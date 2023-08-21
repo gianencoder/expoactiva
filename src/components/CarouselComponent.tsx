@@ -17,7 +17,7 @@ export const CarouselComponent = ({ data }: props | any) => {
     const [autoScroll, setAutoScroll] = useState(true);
     const scrollViewRef = useRef<Animated.ScrollView>(null);
     const { width } = useWindowDimensions()
-    const size = width * 0.5
+    const size = width * 0.3
     const spacer = (width - size) / 2
     const [newData] = useState([{ key: 'spacer-left' }, ...data, { key: 'spacer-right' }])
     const x = useSharedValue(0)
@@ -113,12 +113,12 @@ export const CarouselComponent = ({ data }: props | any) => {
 const imgStyles = StyleSheet.create({
 
     imgContainer: {
-        borderRadius: 20,
+        borderRadius: 5,
         overflow: 'hidden',
     },
 
     img: {
-        width: '100%',
+        width: 'auto',
         height: '100%',
 
     }
