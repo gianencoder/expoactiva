@@ -31,6 +31,7 @@
     "expo-status-bar": "~1.6.0",
     "expo-updates": "^0.18.11",
     "expo-web-browser": "~12.3.2",
+    "firebase": "^10.2.0",
     "lottie-react-native": "5.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",

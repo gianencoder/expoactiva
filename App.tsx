@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { DarkTheme, NavigationContainer } from '@react-navigation/native';
-import { MyStack } from './src/navigators/StackNavigator';
+import { NavigationContainer } from '@react-navigation/native';
+
 import { styles } from './src/theme/GlobalTheme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeaderComponent } from './src/components/HeaderComponent';
@@ -21,6 +21,7 @@ export default function App() {
         <BottomTabNavigator />
       </SafeAreaView>
     </NavigationContainer>
+
   );
 }
 

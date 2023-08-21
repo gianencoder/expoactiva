@@ -34,24 +34,26 @@ export const GoToPlaceScreen = () => {
 
     return (
         <View style={{ flex: 1 }}>
-
-            {isLoading ? <LoadingScreen></LoadingScreen> : <MapView
-                style={{ flex: 1 }}
-                initialRegion={{
-                    latitude: location?.coords.latitude,
-                    longitude: location?.coords.longitude,
-                    latitudeDelta: 0.005,
-                    longitudeDelta: 0.005,
-                }}
-            />}
-            <Marker
-                coordinate={{
-                    latitude: -34.905522156663494,
-                    longitude: -56.14871498737667,
-                }}
-                title="Mi Ubicación"
-                description="Estoy aquí!"
-            />
+            {isLoading
+                ? <LoadingScreen></LoadingScreen>
+                : <MapView
+                    style={{ flex: 1 }}
+                    initialRegion={{
+                        latitude: location?.coords.latitude,
+                        longitude: location?.coords.longitude,
+                        latitudeDelta: 0.005,
+                        longitudeDelta: 0.005,
+                    }}
+                >
+                    <Marker
+                        coordinate={{
+                            latitude: location?.coords.latitude,
+                            longitude: location?.coords.longitude,
+                        }}
+                        title="Mi Ubicación"
+                        description="Estoy aquí!"
+                    />
+                </MapView>}
         </View>
     )
 }

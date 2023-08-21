@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View, TouchableOpacity, Image, FlatList } from 'react-native';
 import { eventStyle } from '../theme/EventTheme'
 import { TextInput } from 'react-native-gesture-handler'
@@ -6,17 +6,31 @@ import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { MyColors } from '../theme/ColorsTheme';
 import { event } from '../helper/events';
 import { format, differenceInMinutes } from 'date-fns';
-
-
-
-
+// import { data } from '../helper/imageList';
+import { LoadingScreen } from './LoadingScreen';
+import { data } from '../helper/imageList';
 
 
 export const EventScreen = () => {
 
-    interface props {
-        event: []
-    }
+    const [datos, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch('https://expoactiva-nacional-395522.rj.r.appspot.com/events/');
+            const jsonData = await response.json();
+            setData(jsonData);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setLoading(false);
+        }
+    };
 
     const [favourite, setfavourite] = useState(true);
     let iconName = ''
@@ -58,17 +72,19 @@ export const EventScreen = () => {
             </View>
 
             <View style={eventStyle.eventListContainer}>
-                <FlatList
-                    data={event}
+
+
+                {loading ? <LoadingScreen /> : <FlatList
+                    data={datos}
                     renderItem={({ item }) =>
                         <View style={eventStyle.eventList}>
                             <View style={eventStyle.eventListImg}>
-                                <Image style={eventStyle.img} source={item.image} />
+                                <Image style={eventStyle.img} source={item.Image} />
                             </View>
 
                             <View style={eventStyle.eventListTitle}>
                                 <Text style={eventStyle.titleTxt}>{item.title}</Text>
-                                <Text style={eventStyle.titleMinutes}>{differenceInMinutes(item.date, Date.now())} min</Text>
+                                {/* <Text style={eventStyle.titleMinutes}>{differenceInMinutes(item.date, Date.now())} min</Text> */}
                             </View>
 
                             <View style={eventStyle.eventListFavourite}>
@@ -78,13 +94,15 @@ export const EventScreen = () => {
                                     </TouchableOpacity>
                                 </View>
                                 <View>
-                                    <Text style={eventStyle.titleMinutes}>{format(item.date, "dd-MM-yy HH:mm")}</Text>
+                                    {/* <Text style={eventStyle.titleMinutes}>{format(item.date, "dd-MM-yy HH:mm")}</Text> */}
                                 </View>
                             </View>
                             <View style={{ backgroundColor: MyColors.sparator, height: 1, marginHorizontal: 5, borderRadius: 150 }} />
                         </View>
                     }
-                />
+                />}
+
+
             </View>
         </View >
     )

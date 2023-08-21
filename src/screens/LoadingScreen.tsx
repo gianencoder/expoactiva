@@ -7,30 +7,32 @@ export const LoadingScreen = () => {
     const LoadingIndicator = ({ size }: { size: number }) => {
         return <MotiView
             from={{
-                width: 40,
-                height: 40,
-                borderRadius: 40 / 2
+                width: size / 2,
+                height: size / 2,
+                borderRadius: size / 2,
+                borderWidth: 0
             }}
             animate={{
-                width: 40 + 20,
-                height: 40 + 20,
-                borderRadius: (40 + 20) / 2
+                width: (size / 2) + 20,
+                height: (size / 2) + 20,
+                borderRadius: (size / 2 + 20) / 2,
+                borderWidth: (size / 2) / 10
             }}
 
             transition={{
-                type: 'spring',
+                type: 'timing',
                 duration: 1000,
                 loop: true,
             }}
             style={{
-                width: 40,
-                height: 40,
-                borderRadius: 40 / 2,
-                borderWidth: 40 / 10,
-                borderColor: MyColors.primary,
+                width: size,
+                height: size,
+                borderRadius: size / 4,
+                borderWidth: (size / 2) / 10,
+                borderColor: '#fff',
                 ...Platform.select({
                     ios: {
-                        shadowColor: MyColors.primary,
+                        shadowColor: '#fff',
                         shadowOffset: {
                             width: 0,
                             height: 0,
@@ -45,7 +47,7 @@ export const LoadingScreen = () => {
     return (
         <View style={styles.container}>
             <LoadingIndicator size={100} />
-            <Text style={{ top: 10 }}>Cargando...</Text>
+            <Text style={{ top: 10, color: '#fff' }}>Cargando...</Text>
         </View>
     )
 }
@@ -55,6 +57,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: MyColors.primary,
     },
 });

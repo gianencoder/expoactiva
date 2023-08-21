@@ -1,10 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { authStyles } from '../theme/AuthTheme';
-import * as WebBrowser from 'expo-web-browser'
-
-
-WebBrowser.maybeCompleteAuthSession()
 
 export const AuthScreen = () => {
 
