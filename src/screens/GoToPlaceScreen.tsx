@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native'
 import * as Location from 'expo-location'
 import MapView, { Marker } from 'react-native-maps';
 import { LoadingScreen } from './LoadingScreen';
-import Spinner from 'react-native-loading-spinner-overlay';
 
 
 export const GoToPlaceScreen = () => {
