@@ -9,7 +9,6 @@ import { StatusBar } from 'react-native';
 import { MyColors } from './src/theme/ColorsTheme';
 import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 
-
 export default function App() {
   return (
     <NavigationContainer >
@@ -24,3 +23,5 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+

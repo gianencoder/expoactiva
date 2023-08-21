@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { Text, View, ScrollView, TouchableOpacity, Image, FlatList } from 'react-native';
+import React, { useState } from 'react'
+import { Text, View, TouchableOpacity, Image, FlatList } from 'react-native';
 import { eventStyle } from '../theme/EventTheme'
 import { TextInput } from 'react-native-gesture-handler'
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { MyColors } from '../theme/ColorsTheme';
 import { event } from '../helper/events';
-import { format, formatDistance, formatRelative, subDays, differenceInMinutes } from 'date-fns';
-import { differenceInHours } from 'date-fns/fp';
+import { format, differenceInMinutes } from 'date-fns';
+
 
 
 
@@ -58,8 +58,6 @@ export const EventScreen = () => {
             </View>
 
             <View style={eventStyle.eventListContainer}>
-
-
                 <FlatList
                     data={event}
                     renderItem={({ item }) =>
@@ -82,10 +80,8 @@ export const EventScreen = () => {
                                 <View>
                                     <Text style={eventStyle.titleMinutes}>{format(item.date, "dd-MM-yy HH:mm")}</Text>
                                 </View>
-
                             </View>
                             <View style={{ backgroundColor: MyColors.sparator, height: 1, marginHorizontal: 5, borderRadius: 150 }} />
-
                         </View>
                     }
                 />
