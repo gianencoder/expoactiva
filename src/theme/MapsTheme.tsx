@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { MyColors } from "./ColorsTheme";
 
-export const authStyles = StyleSheet.create({
+export const mapsTheme = StyleSheet.create({
 
     container: {
         flex: 1,
@@ -32,19 +32,19 @@ export const authStyles = StyleSheet.create({
     },
 
     appleBtn: {
-        backgroundColor: MyColors.apple,
+        backgroundColor: MyColors.white,
         borderRadius: 5,
-        padding: 10,
+        padding: 5,
         width: '90%',
         margin: 10,
         flexDirection: 'row',
         alignItems: 'center',
     },
 
-    facebookBtn: {
-        backgroundColor: MyColors.facebook,
+    wazeBtn: {
+        backgroundColor: '#05c8f7',
         borderRadius: 5,
-        padding: 10,
+        padding: 15,
         width: '90%',
         margin: 10,
         flexDirection: 'row',
@@ -53,7 +53,7 @@ export const authStyles = StyleSheet.create({
 
     },
     txtBtn: {
-        color: MyColors.white,
+        color: '#010100',
         fontWeight: '600',
         fontSize: 15,
         padding: 10

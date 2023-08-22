@@ -42,9 +42,9 @@ export const HomeScreen = ({ navigation }: Props) => {
                     <HomeLittleComponent action={() => navigation.navigate('TicketsScreen')} page={'Entradas'} icon={<Fontisto name='ticket' color={MyColors.primary} size={50} />} />
                     <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Puntos de interés'} icon={<MaterialCommunityIcons name='map-search' color={MyColors.primary} size={50} />} />
                     <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<MaterialIcons name='event-available' color={MyColors.primary} size={50} />} />
-                    <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir al predio'} icon={<Ionicons name='navigate' color={MyColors.primary} size={50} />} />
+                    <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<Ionicons name='navigate' color={MyColors.primary} size={50} />} />
                     <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<MaterialCommunityIcons name='car-select' color={MyColors.primary} size={50} />} />
-                    <HomeLittleComponent action={() => navigation.navigate('AuthScreen')} page={'Autenticación'} icon={<MaterialCommunityIcons name='login' color={MyColors.primary} size={50} />} />
+                    <HomeLittleComponent action={() => navigation.navigate('ProfileScreen')} page={'Perfil'} icon={<MaterialCommunityIcons name='account-wrench' color={MyColors.primary} size={50} />} />
                 </View>
             </ScrollView>
         </View >

@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     },
 
     bigComponentContainer: {
-        height: 90,
+        height: 100,
         marginHorizontal: 10,
         marginVertical: 15,
     },
@@ -51,8 +51,8 @@ export const styles = StyleSheet.create({
     },
 
     homeComponents: {
-        height: 120,
-        width: 120,
+        height: 110,
+        width: 170,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 20,

@@ -23,7 +23,7 @@ export const BottomTabNavigator = () => {
 
                 tabBarIcon: () => {
 
-                    let iconName = '';
+                    let iconName: any;
 
                     switch (route.name) {
                         case 'Inicio':

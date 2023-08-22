@@ -17,7 +17,7 @@ export const CarouselComponent = ({ data }: props | any) => {
     const [autoScroll, setAutoScroll] = useState(true);
     const scrollViewRef = useRef<Animated.ScrollView>(null);
     const { width } = useWindowDimensions()
-    const size = width * 0.3
+    const size = width * 0.35
     const spacer = (width - size) / 2
     const [newData] = useState([{ key: 'spacer-left' }, ...data, { key: 'spacer-right' }])
     const x = useSharedValue(0)
@@ -34,7 +34,7 @@ export const CarouselComponent = ({ data }: props | any) => {
         },
     });
     useEffect(() => {
-        let timerId: string | number | NodeJS.Timer | undefined;
+        let timerId: any;
 
         const startAutoScroll = () => {
             timerId = setInterval(() => {
