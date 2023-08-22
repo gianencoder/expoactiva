@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Image, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import * as Location from 'expo-location'
-import { LoadingScreen } from './LoadingScreen';
 import { mapsTheme } from '../theme/MapsTheme';
 
-
-
-
 export const GoToPlaceScreen = () => {
-    const [location, setLocation] = useState<Location.LocationObject>()
+
     const endLatitude = -33.44588764457755
     const endLongitude = -57.90633102633074
 
