@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useEffect, useRef } from 'react'
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, FlatList, useColorScheme } from 'react-native';
 import { styles } from '../theme/GlobalTheme';
 import { HomeLittleComponent } from '../components/HomeLittleComponent';
 import { Fontisto, MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
@@ -35,8 +35,10 @@ export const HomeScreen = ({ navigation }: Props) => {
                     <CarouselComponent data={data} />
                 </View>
             </View>
+
             <ScrollView
                 ref={scrollViewRef}
+                style={styles.scrollView}
             >
                 <View style={styles.littleComponentContainer}>
                     <HomeLittleComponent action={() => navigation.navigate('TicketsScreen')} page={'Entradas'} icon={<Fontisto name='ticket' color={MyColors.primary} size={50} />} />
@@ -47,6 +49,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                     <HomeLittleComponent action={() => navigation.navigate('ProfileScreen')} page={'Perfil'} icon={<MaterialCommunityIcons name='account-wrench' color={MyColors.primary} size={50} />} />
                 </View>
             </ScrollView>
+
         </View >
 
     )

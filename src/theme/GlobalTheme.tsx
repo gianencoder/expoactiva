@@ -5,13 +5,13 @@ import { MyColors } from './ColorsTheme'
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: MyColors.primary,
+        backgroundColor: 'white',
         paddingTop: '5%',
     },
 
     homeContainer: {
         flex: 1,
-        backgroundColor: MyColors.white,
+        backgroundColor: 'white',
     },
 
     bigComponentContainer: {
@@ -21,11 +21,14 @@ export const styles = StyleSheet.create({
     },
 
     littleComponentContainer: {
-        flex: 2,
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        backgroundColor: '#fff',
+        backgroundColor: MyColors.white,
+        marginBottom: 40
+    },
+
+    scrollView: {
     },
     littleComponentTxt: {
         color: MyColors.primary,
@@ -39,13 +42,13 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: MyColors.white,
         borderRadius: 25,
-        shadowColor: "#000",
+        shadowColor: "#010101",
         shadowOffset: {
-            width: 0,
-            height: 3,
+            width: 5,
+            height: 5,
         },
-        shadowOpacity: 0.29,
-        shadowRadius: 4.65,
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
 
         elevation: 15,
     },
@@ -58,13 +61,14 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
         marginVertical: 8,
         backgroundColor: MyColors.white,
-        shadowColor: "#000",
+        shadowColor: "#010101",
         shadowOffset: {
-            width: 0,
-            height: 3,
+            width: 5,
+            height: 5,
         },
-        shadowOpacity: 0.29,
-        shadowRadius: 4.65,
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
+
         elevation: 15,
     },
 

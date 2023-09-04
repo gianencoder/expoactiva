@@ -4,5 +4,6 @@ export const headerStyles = StyleSheet.create({
     icon: {
         alignItems: 'center',
         backgroundColor: MyColors.white,
+
     }
 });
