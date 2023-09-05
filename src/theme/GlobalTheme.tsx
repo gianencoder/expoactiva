@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { MyColors } from './ColorsTheme'
 
 // const android = Platform.OS === 'android'
@@ -35,9 +35,9 @@ export const styles = StyleSheet.create({
     },
     littleComponentTxt: {
         color: MyColors.primary,
-        fontSize: 15,
+        fontSize: 16,
         fontWeight: '600',
-        textTransform: 'uppercase',
+        //textTransform: 'uppercase',
         top: 8
     },
 
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
             width: 5,
             height: 5,
         },
-        shadowOpacity: 0.5,
+        shadowOpacity: 0.25,
         shadowRadius: 8,
 
         elevation: 15,
