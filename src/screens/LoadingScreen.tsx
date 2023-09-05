@@ -37,7 +37,7 @@ export const LoadingScreen = () => {
                             width: 0,
                             height: 0,
                         },
-                        shadowOpacity: 1,
+                        shadowOpacity: 0.5,
                         shadowRadius: 10,
                     }
                 })
@@ -46,8 +46,8 @@ export const LoadingScreen = () => {
     }
     return (
         <View style={styles.container}>
-            <LoadingIndicator size={100} />
-            <Text style={{ top: 10, color: '#fff' }}>Cargando...</Text>
+            <LoadingIndicator size={95} />
+            <Text style={{ top: 15, color: '#fff' }}>Cargando</Text>
         </View>
     )
 }

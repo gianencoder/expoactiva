@@ -27,8 +27,7 @@ export const EventScreen = () => {
             setData(jsonData);
             setLoading(false);
         } catch (error) {
-            console.error('Error fetching data:', error);
-            setLoading(false);
+            console.log('Error fetching data:', error);
         }
     };
 

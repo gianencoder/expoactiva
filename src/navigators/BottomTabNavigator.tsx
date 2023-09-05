@@ -14,14 +14,16 @@ export const BottomTabNavigator = () => {
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 tabBarStyle: {
-                    height: '10%'
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '10.5%',
+                    paddingTop:5,
                 },
                 tabBarActiveTintColor: MyColors.primary,
                 tabBarInactiveTintColor: '#464646',
                 headerShown: false,
                 tabBarLabelStyle: {
-                    fontSize: 14,
-                    bottom: 6,
+                    fontSize: 13,
                 },
 
                 tabBarIcon: ({ focused, color }) => {
