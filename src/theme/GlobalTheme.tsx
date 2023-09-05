@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     },
 
     bigComponentContainer: {
-        height: 100,
+        height: 90,
         marginHorizontal: 10,
         marginVertical: 15,
     },
@@ -25,7 +25,10 @@ export const styles = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'space-around',
         backgroundColor: MyColors.white,
-        marginBottom: 40
+        marginBottom: 40,
+        marginTop: 20,
+        gap: 10,
+        paddingHorizontal: 10
     },
 
     scrollView: {
@@ -42,7 +45,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: MyColors.white,
         borderRadius: 25,
-        shadowColor: "#010101",
+        shadowColor: MyColors.primary,
         shadowOffset: {
             width: 5,
             height: 5,
@@ -61,12 +64,12 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
         marginVertical: 8,
         backgroundColor: MyColors.white,
-        shadowColor: "#010101",
+        shadowColor: MyColors.primary,
         shadowOffset: {
             width: 5,
             height: 5,
         },
-        shadowOpacity: 0.5,
+        shadowOpacity: 0.3,
         shadowRadius: 8,
 
         elevation: 15,

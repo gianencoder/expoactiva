@@ -11,7 +11,7 @@
   "dependencies": {
     "@babel/runtime": "^7.22.10",
     "@expo/vector-icons": "^13.0.0",
-    "@expo/webpack-config": "^0.12.52",
+    "@expo/webpack-config": "^19.0.0",
     "@motify/components": "^0.18.0",
     "@react-native-masked-view/masked-view": "0.2.9",
     "@react-navigation/bottom-tabs": "^6.5.7",
@@ -30,7 +30,7 @@
     "expo-notifications": "^0.20.1",
     "expo-permissions": "^14.2.1",
     "expo-random": "~13.2.0",
-    "expo-splash-screen": "^0.10.3",
+    "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
     "expo-updates": "~0.18.12",
     "expo-web-browser": "~12.3.2",

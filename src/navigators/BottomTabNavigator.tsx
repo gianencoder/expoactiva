@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MyStack } from './StackNavigator';
 import { ProfileScreen } from '../screens/ProfileScreen';
-import { Foundation, AntDesign } from '@expo/vector-icons';
-import { MyColors } from '../theme/ColorsTheme';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { TicketsScreen } from '../screens/TicketsScreen';
+import { MyColors } from '../theme/ColorsTheme';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,30 +13,31 @@ export const BottomTabNavigator = () => {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
+                tabBarStyle: {
+                    height: '10%'
+                },
                 tabBarActiveTintColor: MyColors.primary,
+                tabBarInactiveTintColor: '#464646',
                 headerShown: false,
-                tabBarInactiveTintColor: 'black',
                 tabBarLabelStyle: {
-                    fontSize: 12,
-                    fontWeight: '500'
+                    fontSize: 14,
+                    bottom: 6,
                 },
 
-                tabBarIcon: () => {
-
+                tabBarIcon: ({ focused, color }) => {
                     let iconName: any;
-
                     switch (route.name) {
                         case 'Inicio':
-                            iconName = 'home';
+                            iconName = !focused ? 'home-outline' : 'home'
                             break;
                         case 'Mis entradas':
-                            iconName = 'ticket';
+                            iconName = !focused ? 'ticket-confirmation-outline' : 'ticket-confirmation'
                             break;
                         case 'Perfil':
-                            iconName = 'torsos-male-female';
+                            iconName = !focused ? 'account-settings-outline' : 'account-settings'
                             break;
                     }
-                    return <Foundation name={iconName} size={30} color={MyColors.primary} />
+                    return <MaterialCommunityIcons name={iconName} size={32} color={'#237851'} />
                 }
             })}
         >
