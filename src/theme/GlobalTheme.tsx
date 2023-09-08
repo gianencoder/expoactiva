@@ -5,7 +5,7 @@ import { MyColors } from './ColorsTheme'
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: MyColors.primary,
         paddingTop: '5%',
     },
 
@@ -15,9 +15,25 @@ export const styles = StyleSheet.create({
     },
 
     bigComponentContainer: {
-        height: 90,
+        height: 100,
         marginHorizontal: 10,
         marginVertical: 15,
+        backgroundColor: 'white',
+        alignItems: 'center',
+    },
+    bigComponent: {
+        backgroundColor: MyColors.white,
+        borderRadius: 10,
+        width: '100%',
+        shadowColor: MyColors.primary,
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+
+        elevation: 15,
     },
 
     littleComponentContainer: {
@@ -41,20 +57,6 @@ export const styles = StyleSheet.create({
         top: 8
     },
 
-    bigComponent: {
-        flex: 1,
-        backgroundColor: MyColors.white,
-        borderRadius: 25,
-        shadowColor: MyColors.primary,
-        shadowOffset: {
-            width: 5,
-            height: 5,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 8,
-
-        elevation: 15,
-    },
 
     homeComponents: {
         height: 110,

@@ -81,7 +81,6 @@ export const CarouselComponent = ({ data }: props | any) => {
             decelerationRate={'normal'}
             centerContent
             onScroll={onScroll}
-        // pagingEnabled
         >
             {newData.map((item, index) => {
                 const style = useAnimatedStyle(() => {
@@ -109,17 +108,12 @@ export const CarouselComponent = ({ data }: props | any) => {
         </Animated.ScrollView>
     )
 }
-
 const imgStyles = StyleSheet.create({
-
     imgContainer: {
-        borderRadius: 5,
-        overflow: 'hidden',
+        overflow: 'hidden'
     },
-
     img: {
-        width: 'auto',
         height: '100%',
-
+        width: '100%',
     }
 });

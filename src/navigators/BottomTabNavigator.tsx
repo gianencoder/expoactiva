@@ -17,10 +17,11 @@ export const BottomTabNavigator = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     height: '10.5%',
-                    paddingTop:5,
+                    paddingTop: 5,
+                    backgroundColor: MyColors.primary
                 },
-                tabBarActiveTintColor: MyColors.primary,
-                tabBarInactiveTintColor: '#464646',
+                tabBarActiveTintColor: MyColors.white,
+                tabBarInactiveTintColor: MyColors.white,
                 headerShown: false,
                 tabBarLabelStyle: {
                     fontSize: 13,
@@ -39,7 +40,7 @@ export const BottomTabNavigator = () => {
                             iconName = !focused ? 'account-settings-outline' : 'account-settings'
                             break;
                     }
-                    return <MaterialCommunityIcons name={iconName} size={32} color={'#237851'} />
+                    return <MaterialCommunityIcons name={iconName} size={32} color={'white'} />
                 }
             })}
         >

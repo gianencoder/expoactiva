@@ -2,8 +2,6 @@ import React from 'react'
 import { View, TouchableOpacity, Text, Image } from 'react-native';
 import { styles } from '../theme/GlobalTheme';
 
-
-
 interface Props {
     action: (pagina: string) => void,
     page: string,

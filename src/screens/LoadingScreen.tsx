@@ -29,10 +29,10 @@ export const LoadingScreen = () => {
                 height: size,
                 borderRadius: size / 4,
                 borderWidth: (size / 2) / 10,
-                borderColor: '#fff',
+                borderColor: MyColors.primary,
                 ...Platform.select({
                     ios: {
-                        shadowColor: '#fff',
+                        shadowColor: MyColors.primary,
                         shadowOffset: {
                             width: 0,
                             height: 0,
@@ -47,7 +47,7 @@ export const LoadingScreen = () => {
     return (
         <View style={styles.container}>
             <LoadingIndicator size={95} />
-            <Text style={{ top: 15, color: '#fff' }}>Cargando</Text>
+            <Text style={{ top: 15, color: MyColors.primary }}>Cargando</Text>
         </View>
     )
 }
@@ -57,6 +57,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: MyColors.primary,
+        backgroundColor: MyColors.white,
     },
 });
