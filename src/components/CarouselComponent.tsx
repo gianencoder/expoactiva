@@ -6,8 +6,6 @@ import Animated,
     useAnimatedStyle,
     useAnimatedScrollHandler,
     interpolate,
-    Easing,
-    withTiming,
 } from 'react-native-reanimated';
 
 interface props {
@@ -19,7 +17,7 @@ export const CarouselComponent = ({ data }: props | any) => {
     const [autoScroll, setAutoScroll] = useState(true);
     const scrollViewRef = useRef<Animated.ScrollView>(null);
     const { width } = useWindowDimensions()
-    const size = width * 0.5
+    const size = width * 0.35
     const spacer = (width - size) / 2
     const [newData] = useState([{ key: 'spacer-left' }, ...data, { key: 'spacer-right' }])
     const x = useSharedValue(0)
@@ -36,7 +34,7 @@ export const CarouselComponent = ({ data }: props | any) => {
         },
     });
     useEffect(() => {
-        let timerId: string | number | NodeJS.Timer | undefined;
+        let timerId: any;
 
         const startAutoScroll = () => {
             timerId = setInterval(() => {
@@ -83,7 +81,6 @@ export const CarouselComponent = ({ data }: props | any) => {
             decelerationRate={'normal'}
             centerContent
             onScroll={onScroll}
-        // pagingEnabled
         >
             {newData.map((item, index) => {
                 const style = useAnimatedStyle(() => {
@@ -111,17 +108,12 @@ export const CarouselComponent = ({ data }: props | any) => {
         </Animated.ScrollView>
     )
 }
-
 const imgStyles = StyleSheet.create({
-
     imgContainer: {
-        borderRadius: 20,
-        overflow: 'hidden',
+        overflow: 'hidden'
     },
-
     img: {
-        width: '100%',
         height: '100%',
-
+        width: '100%',
     }
 });

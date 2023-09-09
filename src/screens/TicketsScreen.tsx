@@ -10,7 +10,7 @@ export const TicketsScreen = () => {
 
         <View style={ticketStyles.container}>
             <View style={{ ...ticketStyles.qrCode, paddingTop: height < 700 ? '20%' : '0%' }}>
-                <Image source={require('../assets/qr.png')}></Image>
+                <Image source={require('../assets/icons/qr.png')}></Image>
             </View>
             <Text>Que esperas para comprar tu entrada?</Text>
             <View style={ticketStyles.buttonsContainer}>

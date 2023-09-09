@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MyStack } from './StackNavigator';
 import { ProfileScreen } from '../screens/ProfileScreen';
-import { Foundation } from '@expo/vector-icons';
-import { MyColors } from '../theme/ColorsTheme';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { TicketsScreen } from '../screens/TicketsScreen';
+import { MyColors } from '../theme/ColorsTheme';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,36 +13,40 @@ export const BottomTabNavigator = () => {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
-                tabBarActiveTintColor: MyColors.primary,
+                tabBarStyle: {
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '10.5%',
+                    paddingTop: 5,
+                    backgroundColor: MyColors.primary
+                },
+                tabBarActiveTintColor: MyColors.white,
+                tabBarInactiveTintColor: MyColors.white,
                 headerShown: false,
-                tabBarInactiveTintColor: 'black',
                 tabBarLabelStyle: {
-                    fontSize: 12,
-                    fontWeight: '500'
+                    fontSize: 13,
                 },
 
-                tabBarIcon: () => {
-
-                    let iconName = '';
-
+                tabBarIcon: ({ focused, color }) => {
+                    let iconName: any;
                     switch (route.name) {
                         case 'Inicio':
-                            iconName = 'home';
+                            iconName = !focused ? 'home-outline' : 'home'
                             break;
                         case 'Mis entradas':
-                            iconName = 'ticket';
+                            iconName = !focused ? 'ticket-confirmation-outline' : 'ticket-confirmation'
                             break;
-                        case 'Configuracion':
-                            iconName = 'widget';
+                        case 'Perfil':
+                            iconName = !focused ? 'account-settings-outline' : 'account-settings'
                             break;
                     }
-                    return <Foundation name={iconName} size={30} color={MyColors.primary} />
+                    return <MaterialCommunityIcons name={iconName} size={32} color={'white'} />
                 }
             })}
         >
             <Tab.Screen name="Inicio" component={MyStack} />
             <Tab.Screen name="Mis entradas" component={TicketsScreen} />
-            <Tab.Screen name="Configuracion" component={ProfileScreen} />
+            <Tab.Screen name="Perfil" component={ProfileScreen} />
         </Tab.Navigator >
     );
 }
