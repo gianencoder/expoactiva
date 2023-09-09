@@ -8,8 +8,6 @@ import { MyColors } from '../theme/ColorsTheme';
 const Tab = createBottomTabNavigator();
 
 export const BottomTabNavigator = () => {
-
-
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({

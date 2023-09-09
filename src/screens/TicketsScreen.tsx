@@ -1,4 +1,3 @@
-import React from 'react'
 import { View, Text, TouchableOpacity, Image, TextInput, useWindowDimensions } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
 
