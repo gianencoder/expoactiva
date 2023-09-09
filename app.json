@@ -16,9 +16,6 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
-    "updates": {
-      "url": "https://u.expo.dev/2c686b1d-eb4d-42f7-88b9-882132b0bd23"
-    },
     "scheme": "expoactiva-nacional"
   }
 }

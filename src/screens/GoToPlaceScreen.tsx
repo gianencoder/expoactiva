@@ -13,21 +13,21 @@ export const GoToPlaceScreen = () => {
                 <TouchableOpacity style={mapsTheme.googleBtn}
                     onPress={androidNavigate}
                 >
-                    <Image style={{ width: 50, height: 50 }} source={require('../assets/googleMaps.png')} />
+                    <Image style={{ width: 50, height: 50 }} source={require('../assets/icons/googleMaps.png')} />
                     <Text style={mapsTheme.googleTxt}>Ir con Google Maps</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={mapsTheme.appleBtn}
                     onPress={iosNavigate}
                 >
-                    <Image style={{ width: 60, height: 60 }} source={require('../assets/appleMaps.png')} />
+                    <Image style={{ width: 60, height: 60 }} source={require('../assets/icons/appleMaps.png')} />
                     <Text style={mapsTheme.txtBtn}>Ir con Apple maps</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={mapsTheme.wazeBtn}
                     onPress={wazeNavigate}
                 >
-                    <Image style={{ width: 40, height: 40 }} source={require('../assets/wazeMaps.png')} />
+                    <Image style={{ width: 40, height: 40 }} source={require('../assets/icons/wazeMaps.png')} />
                     <Text style={mapsTheme.txtBtn}>Ir con Waze</Text>
                 </TouchableOpacity>
             </View>

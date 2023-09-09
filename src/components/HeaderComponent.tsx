@@ -12,7 +12,7 @@ export const HeaderComponent = () => {
             padding: 2.5,
             backgroundColor: MyColors.white
         }}>
-            <Image style={{ height: 55, overflow: 'hidden', width: 120 }} source={require('../assets/mainIcon.png')} />
+            <Image style={{ height: 55, overflow: 'hidden', width: 120 }} source={require('../assets/icons/mainIcon.png')} />
         </View>
     )
 }
