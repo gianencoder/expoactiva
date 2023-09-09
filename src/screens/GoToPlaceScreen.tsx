@@ -4,26 +4,6 @@ import { mapsTheme } from '../theme/MapsTheme';
 import { GoToPlaceFunction } from '../functions/GoToPlaceFunction';
 
 export const GoToPlaceScreen = () => {
-<<<<<<< HEAD
-    const [location, setLocation] = useState<Location.LocationObject>()
-
-    useEffect(() => {
-        const getPermissions = async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync()
-            if (status !== 'granted') {
-                console.log('Grant permission before')
-                return;
-            }
-            let currentLocation = await Location.getCurrentPositionAsync({});
-            setLocation(currentLocation);
-        }
-        getPermissions()
-    }, [])
-
-    console.log(location?.coords.longitude)
-    console.log(location?.coords.latitude)
-=======
->>>>>>> dev
 
     const { androidNavigate, iosNavigate, wazeNavigate } = GoToPlaceFunction()
 
@@ -54,7 +34,6 @@ export const GoToPlaceScreen = () => {
         </View>
     )
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
