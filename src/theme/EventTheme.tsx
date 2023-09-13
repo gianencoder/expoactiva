@@ -4,29 +4,31 @@ import { MyColors } from "./ColorsTheme";
 export const eventStyle = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: 'green'
+        backgroundColor: 'white'
     },
+
     filters: {
         flex: 1,
-        // backgroundColor: 'red',
-        flexDirection: 'row',
-        padding: 10
+        backgroundColor: 'white',
+
+        // flexDirection: 'row',
 
     },
-    days: {
-        flex: 1,
-        // backgroundColor: 'grey',
+    // days: {
+    //     flex: 1,
+    //     backgroundColor: 'grey',
 
-    },
+    // },
+
+
     eventListContainer: {
-        flex: 8,
-        // backgroundColor: 'orange',
-
+        flex: 2,
+        // backgroundColor: 'white'
 
     },
     eventList: {
-        height: 120,
-        // backgroundColor: 'green',
+        flex: 1,
+        backgroundColor: MyColors.white,
         flexDirection: 'row',
         padding: 10
 
@@ -40,22 +42,23 @@ export const eventStyle = StyleSheet.create({
 
     img: {
         flex: 1,
-        width: undefined,
-        height: undefined,
+        height: 80,
         resizeMode: 'stretch',
-        borderRadius: 15,
+        borderRadius: 10,
+        backgroundColor: '#010100'
     },
     eventListTitle: {
         flex: 3,
         alignItems: 'flex-start',
         justifyContent: 'space-between',
         padding: 10,
-        left: 5
+
     },
     titleTxt: {
         textTransform: 'uppercase',
         fontWeight: '600',
         fontSize: 15,
+        // color: 'white',
 
     },
     titleMinutes: {
@@ -73,31 +76,19 @@ export const eventStyle = StyleSheet.create({
         justifyContent: 'space-between',
     },
 
-    optionTxt: {
-        fontSize: 15,
-        textTransform: "uppercase",
-        marginBottom: 40,
-        fontWeight: '800',
-    },
-    searcher: {
-        flex: 2.5,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: MyColors.primary,
-        borderWidth: 1,
-        borderRadius: 30,
-        height: 40
+    // optionTxt: {
+    //     fontSize: 15,
+    //     textTransform: "uppercase",
+    //     marginBottom: 40,
+    //     fontWeight: '800',
+    // },
 
-    },
     inputText: {
         flex: 1,
         padding: 2,
 
     },
-    iconSearch: {
-        padding: 10
-    },
+
 
     comboBox: {
         flex: 1,

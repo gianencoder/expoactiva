@@ -1,10 +1,19 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MyColors } from '../theme/ColorsTheme';
 import { format } from 'date-fns';
+import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 export const EventFunction = () => {
-    const [datos, setData] = useState(null);
+
+    const navigation = useNavigation();
+    const [datos, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchText, setSearchText] = useState('');
+    const filterEvent = datos.filter((exp: any) =>
+        exp.title.toLowerCase().includes(searchText.toLowerCase())
+    );
 
     useEffect(() => {
         fetchData();
@@ -17,7 +26,12 @@ export const EventFunction = () => {
             setData(jsonData);
             setLoading(false);
         } catch (error) {
-            console.log('Error fetching data:', error);
+            setTimeout(() => {
+                Alert.alert("Hubo un problema obteniendo la información",
+                    "Intenta nuevamente en unos minutos",
+                    [{ text: "OK", onPress: () => navigation.goBack() }])
+                setLoading(false)
+            }, 15000);
         }
     };
 
@@ -45,6 +59,13 @@ export const EventFunction = () => {
         favourite,
         color,
         handleFavourite,
+        filterEvent,
+        setSearchText
+
 
     })
 }
+function componentWillMount() {
+    throw new Error('Function not implemented.');
+}
+

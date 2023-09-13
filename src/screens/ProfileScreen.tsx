@@ -1,7 +1,6 @@
-import { Image, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { ProfileStyle } from '../theme/ProfileTheme';
 import { AntDesign } from '@expo/vector-icons';
-import { MyColors } from '../theme/ColorsTheme';
 
 
 

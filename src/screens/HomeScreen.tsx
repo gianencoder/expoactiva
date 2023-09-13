@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { LogBox, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { styles } from '../theme/GlobalTheme';
 import { HomeLittleComponent } from '../components/HomeLittleComponent';
 import { Fontisto, MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
@@ -11,7 +11,7 @@ import { HomeFunction } from '../functions/HomeFunction';
 
 interface Props extends StackScreenProps<any, any> { }
 export const HomeScreen = ({ navigation }: Props) => {
-    LogBox.ignoreAllLogs();
+
     const { scrollViewRef } = HomeFunction();
     return (
         <View style={{ backgroundColor: 'white' }}>
@@ -36,5 +36,6 @@ export const HomeScreen = ({ navigation }: Props) => {
                 </View >
             </ScrollView>
         </View>
+
     )
 }

@@ -6,30 +6,31 @@ import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { MyColors } from '../theme/ColorsTheme';
 import { EventFunction } from '../functions/EventFunction';
 import { LoadingScreen } from './LoadingScreen';
+import SearchBar from '../components/SearchBarComponent';
+import { format } from 'date-fns';
 
 export const EventScreen = () => {
-    const { loading, datos, iconName, color, handleFavourite } = EventFunction()
+
+    const { loading, iconName, color, handleFavourite, filterEvent, setSearchText } = EventFunction()
     return (
         <View style={eventStyle.container} >
+
+            <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar eventos" />
+            {/* <View style={eventStyle.filters}>
+            </View>
+            <View style={eventStyle.days}>
+            </View> */}
+
+            {/* <View style={eventStyle.comboBox}>
+                <TextInput
+                    placeholder='aca va el combobox'
+                />
+            </View> */}
             <View style={eventStyle.eventListContainer}>
                 {loading ? <LoadingScreen /> :
-                    <View style={eventStyle.filters}>
-                        <View style={eventStyle.searcher}>
-                            <FontAwesome5 style={eventStyle.iconSearch} name='search' size={20} color={MyColors.primary} />
-                            <TextInput
-                                style={eventStyle.inputText}
-                                placeholder='Buscar por nombre...'
-                            />
-                        </View>
-                        <View style={eventStyle.comboBox}>
-                            <TextInput
-                                placeholder='aca va el combobox'
-                            />
-                        </View>
-                        <View style={eventStyle.days}>
-                        </View>
+                    <View style={{ backgroundColor: 'white' }}>
                         <FlatList
-                            data={datos}
+                            data={filterEvent}
                             renderItem={({ item }) =>
                                 <View style={eventStyle.eventList}>
                                     <View style={eventStyle.eventListImg}>
@@ -40,7 +41,6 @@ export const EventScreen = () => {
                                         <Text style={eventStyle.titleTxt}>{item.title}</Text>
                                         {/* <Text style={eventStyle.titleMinutes}>{differenceInMinutes(item.date, Date.now())} min</Text> */}
                                     </View>
-
                                     <View style={eventStyle.eventListFavourite}>
                                         <View>
                                             <TouchableOpacity onPress={handleFavourite}>
@@ -51,13 +51,17 @@ export const EventScreen = () => {
                                             {/* <Text style={eventStyle.titleMinutes}>{format(item.date, "dd-MM-yy HH:mm")}</Text> */}
                                         </View>
                                     </View>
-                                    <View style={{ backgroundColor: MyColors.sparator, height: 1, marginHorizontal: 5, borderRadius: 150 }} />
+                                    <View style={{ backgroundColor: '#101010', height: 1, borderRadius: 150 }} />
+
                                 </View>
+
                             }
                         />
                     </View>
+
                 }
             </View>
+
         </View >
     )
 }

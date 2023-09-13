@@ -11,15 +11,14 @@ export const styles = StyleSheet.create({
 
     homeContainer: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: 'white'
     },
 
     bigComponentContainer: {
         height: 100,
         marginHorizontal: 10,
-        marginVertical: 15,
+        marginVertical: 10,
         backgroundColor: 'white',
-        alignItems: 'center',
     },
     bigComponent: {
         backgroundColor: MyColors.white,
@@ -48,13 +47,13 @@ export const styles = StyleSheet.create({
     },
 
     scrollView: {
+        // marginTop: -10
     },
     littleComponentTxt: {
         color: MyColors.primary,
         fontSize: 16,
         fontWeight: '600',
         //textTransform: 'uppercase',
-        top: 8
     },
 
 

@@ -4,11 +4,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { styles } from './src/theme/GlobalTheme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeaderComponent } from './src/components/HeaderComponent';
-import { StatusBar } from 'react-native';
+import { LogBox, StatusBar } from 'react-native';
 import { MyColors } from './src/theme/ColorsTheme';
 import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 
 export default function App() {
+  LogBox.ignoreLogs(['Sending']);
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.container} >
