@@ -8,6 +8,7 @@ import { TopTabNavigator } from './TopTabNavigator';
 import { GoToPlaceScreen } from '../screens/GoToPlaceScreen';
 import { WhereIsMyCarScreen } from '../screens/WhereIsMyCarScreen';
 import { MyColors } from '../theme/ColorsTheme';
+import { HeaderComponent } from '../components/HeaderComponent';
 
 
 const Stack = createStackNavigator();
@@ -16,19 +17,18 @@ export const MyStack = () => {
     return (
         <Stack.Navigator
             screenOptions={{
-                headerShown: true,
-                title: '',
-                headerStatusBarHeight: -15,
-                headerBackTitle: 'Atrás',
-                headerBackTitleStyle: { fontSize: 20, fontWeight: '600', alignItems: 'center' },
-                headerBackTitleVisible: true,
-                headerShadowVisible: false,
-                headerTintColor: MyColors.primary,
-                headerBackAllowFontScaling: true,
-                gestureEnabled: true,
-                gestureDirection: 'horizontal',
-                gestureVelocityImpact: 5
+                // title: '',
+                // headerBackTitleVisible: false,
+                // headerShadowVisible: false,
+                // headerTintColor: MyColors.primary,
+                // gestureEnabled: true,
+                // gestureDirection: 'horizontal',
+                // gestureVelocityImpact: 15,
+                headerShown: false
             }}
+
+
+
         >
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />

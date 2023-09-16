@@ -4,6 +4,7 @@ import { ProfileScreen } from '../screens/ProfileScreen';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { TicketsScreen } from '../screens/TicketsScreen';
 import { MyColors } from '../theme/ColorsTheme';
+import { HeaderComponent } from '../components/HeaderComponent';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,6 +12,7 @@ export const BottomTabNavigator = () => {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
+                headerShown: false,
                 tabBarStyle: {
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -20,12 +22,11 @@ export const BottomTabNavigator = () => {
                 },
                 tabBarActiveTintColor: MyColors.white,
                 tabBarInactiveTintColor: MyColors.white,
-                headerShown: false,
                 tabBarLabelStyle: {
                     fontSize: 13,
                 },
 
-                tabBarIcon: ({ focused, color }) => {
+                tabBarIcon: ({ focused }) => {
                     let iconName: any;
                     switch (route.name) {
                         case 'Inicio':
@@ -38,7 +39,7 @@ export const BottomTabNavigator = () => {
                             iconName = !focused ? 'account-settings-outline' : 'account-settings'
                             break;
                     }
-                    return <MaterialCommunityIcons name={iconName} size={32} color={'white'} />
+                    return <MaterialCommunityIcons name={iconName} size={!focused ? 32 : 42} color={'white'} />
                 }
             })}
         >

@@ -7,31 +7,15 @@ export const eventStyle = StyleSheet.create({
         backgroundColor: 'white'
     },
 
-    filters: {
-        flex: 1,
-        backgroundColor: 'white',
-
-        // flexDirection: 'row',
-
-    },
-    // days: {
-    //     flex: 1,
-    //     backgroundColor: 'grey',
-
-    // },
-
 
     eventListContainer: {
-        flex: 2,
-        // backgroundColor: 'white'
-
-    },
-    eventList: {
         flex: 1,
-        backgroundColor: MyColors.white,
-        flexDirection: 'row',
-        padding: 10
+    },
 
+    event: {
+        height: 120,
+        flexDirection: 'row',
+        paddingVertical: 10,
     },
 
     eventListImg: {
@@ -45,7 +29,6 @@ export const eventStyle = StyleSheet.create({
         height: 80,
         resizeMode: 'stretch',
         borderRadius: 10,
-        backgroundColor: '#010100'
     },
     eventListTitle: {
         flex: 3,
@@ -55,9 +38,9 @@ export const eventStyle = StyleSheet.create({
 
     },
     titleTxt: {
-        textTransform: 'uppercase',
-        fontWeight: '600',
-        fontSize: 15,
+        // textTransform: 'uppercase',
+        fontWeight: '400',
+        fontSize: 18,
         // color: 'white',
 
     },
@@ -75,23 +58,5 @@ export const eventStyle = StyleSheet.create({
         padding: 10,
         justifyContent: 'space-between',
     },
-
-    // optionTxt: {
-    //     fontSize: 15,
-    //     textTransform: "uppercase",
-    //     marginBottom: 40,
-    //     fontWeight: '800',
-    // },
-
-    inputText: {
-        flex: 1,
-        padding: 2,
-
-    },
-
-
-    comboBox: {
-        flex: 1,
-    }
 
 });

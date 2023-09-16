@@ -1,12 +1,10 @@
 import { StyleSheet } from 'react-native'
 import { MyColors } from './ColorsTheme'
 
-// const android = Platform.OS === 'android'
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: MyColors.primary,
-        paddingTop: '5%',
+        backgroundColor: 'white',
     },
 
     homeContainer: {

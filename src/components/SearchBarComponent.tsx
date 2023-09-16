@@ -12,21 +12,19 @@ export default function SearchBar({ placeholder, onSearchTextChange }: any) {
     };
 
     return (
-        <View style={styles.search}>
-            <View style={styles.searchWrapper}>
-                <AntDesign name="search1" size={20} color="darkgreen" style={styles.searchIcon} />
-                <TextInput
-                    style={styles.searchInput}
-                    placeholder={placeholder}
-                    value={searchText}
-                    onChangeText={handleChangeText}
-                />
-                {searchText ? (
-                    <TouchableOpacity onPress={() => handleChangeText('')}>
-                        <AntDesign name="close" size={20} color="darkgreen" style={styles.closeIcon} />
-                    </TouchableOpacity>
-                ) : null}
-            </View>
+        <View style={styles.searchWrapper}>
+            <AntDesign name="search1" size={20} color="darkgreen" style={styles.searchIcon} />
+            <TextInput
+                style={styles.searchInput}
+                placeholder={placeholder}
+                value={searchText}
+                onChangeText={handleChangeText}
+            />
+            {searchText ? (
+                <TouchableOpacity onPress={() => handleChangeText('')}>
+                    <AntDesign name="close" size={20} color="darkgreen" style={styles.closeIcon} />
+                </TouchableOpacity>
+            ) : null}
         </View>
     );
 }

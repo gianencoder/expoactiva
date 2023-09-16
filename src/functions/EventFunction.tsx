@@ -4,7 +4,6 @@ import { format } from 'date-fns';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-
 export const EventFunction = () => {
 
     const navigation = useNavigation();
@@ -14,7 +13,6 @@ export const EventFunction = () => {
     const filterEvent = datos.filter((exp: any) =>
         exp.title.toLowerCase().includes(searchText.toLowerCase())
     );
-
     useEffect(() => {
         fetchData();
     }, []);
