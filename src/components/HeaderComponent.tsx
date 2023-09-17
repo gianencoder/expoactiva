@@ -10,7 +10,7 @@ export const HeaderComponent = () => {
     return (
         <View style={
             headerStyles.icon}>
-            <View style={{ flex: 1, justifyContent: 'center' }}>
+            <View style={{ flex: 1.1, justifyContent: 'center' }}>
                 {goBack && (<TouchableOpacity onPress={navigation.goBack} style={{ width: '50%' }}>
                     <Ionicons name="chevron-back" size={30} color={MyColors.primary} />
                 </TouchableOpacity>)}
