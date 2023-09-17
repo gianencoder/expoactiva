@@ -2,11 +2,10 @@ import { View, Text, TouchableOpacity, Image, TextInput, useWindowDimensions } f
 import { ticketStyles } from '../theme/TicketsTheme';
 
 
-export const TicketsScreen = () => {
 
+export const TicketsScreen = () => {
     const { height } = useWindowDimensions()
     return (
-
         <View style={ticketStyles.container}>
             <View style={{ ...ticketStyles.qrCode, paddingTop: height < 700 ? '20%' : '0%' }}>
                 <Image source={require('../assets/icons/qr.png')}></Image>

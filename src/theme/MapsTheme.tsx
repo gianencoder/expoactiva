@@ -21,8 +21,8 @@ export const mapsTheme = StyleSheet.create({
     },
 
     googleBtn: {
-        backgroundColor: MyColors.white,
-        borderRadius: 5,
+        backgroundColor: MyColors.primary,
+        borderRadius: 15,
         padding: 10,
         width: '90%',
         margin: 10,
@@ -32,9 +32,9 @@ export const mapsTheme = StyleSheet.create({
     },
 
     appleBtn: {
-        backgroundColor: MyColors.white,
-        borderRadius: 5,
-        padding: 5,
+        backgroundColor: MyColors.apple,
+        borderRadius: 15,
+        padding: 10,
         width: '90%',
         margin: 10,
         flexDirection: 'row',
@@ -43,7 +43,7 @@ export const mapsTheme = StyleSheet.create({
 
     wazeBtn: {
         backgroundColor: '#05c8f7',
-        borderRadius: 5,
+        borderRadius: 15,
         padding: 15,
         width: '90%',
         margin: 10,
@@ -53,7 +53,7 @@ export const mapsTheme = StyleSheet.create({
 
     },
     txtBtn: {
-        color: '#010100',
+        color: 'white',
         fontWeight: '600',
         fontSize: 15,
         padding: 10
@@ -65,6 +65,7 @@ export const mapsTheme = StyleSheet.create({
         width: '90%',
     },
     googleTxt: {
+        color: MyColors.white,
         fontWeight: '600',
         fontSize: 15,
         padding: 10

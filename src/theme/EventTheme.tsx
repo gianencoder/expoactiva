@@ -20,8 +20,8 @@ export const eventStyle = StyleSheet.create({
 
     eventListImg: {
         flex: 2.5,
-        padding: 2
-
+        padding: 10,
+        borderRadius: 10,
     },
 
     img: {

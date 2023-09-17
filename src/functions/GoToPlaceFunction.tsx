@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Linking } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export const GoToPlaceFunction = () => {
-    const endLatitude = -33.44588764457755
-    const endLongitude = -57.90633102633074
 
+    const [modal, setModal] = useState(false)
+    const navigation = useNavigation()
+
+    const showModal = () => {
+        setModal(prevState => !prevState)
+        navigation.goBack()
+    }
+
+    const endLatitude = -33.44658027584278
+    const endLongitude = -57.897090129037736
 
     // //  GUARDA LONGITUD Y LATITUD DEL USUARIO
     // useEffect(() => {
@@ -60,6 +69,9 @@ export const GoToPlaceFunction = () => {
     return ({
         androidNavigate,
         iosNavigate,
-        wazeNavigate
+        wazeNavigate,
+        showModal,
+        modal,
+        setModal
     })
 }

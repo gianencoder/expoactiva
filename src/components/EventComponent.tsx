@@ -13,6 +13,7 @@ interface Props {
 }
 
 export const EventComponent = ({ event, iconName, color, method }: Props) => {
+
     const correctDate = format(new Date(event.date), 'p dd/MM/yyyy');
     const [timeLeft, settimeLeft] = useState(0);
     const [timeLeftTxt, settimeLeftTxt] = useState('');
@@ -40,39 +41,39 @@ export const EventComponent = ({ event, iconName, color, method }: Props) => {
 
     useEffect(() => {
         calculateTimeLeft(); // Establece el valor inicial al montar el componente
-
         const interval = setInterval(calculateTimeLeft, 3000);
-
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <View>
-            <View style={{ backgroundColor: MyColors.sparator, height: 1, borderRadius: 150 }} />
-            <View style={eventStyle.event}>
-                <View style={eventStyle.eventListImg}>
-                    <Image style={eventStyle.img} source={{ uri: `https://picsum.photos/id/${250}/500/500` }} />
-                </View>
-                <View style={eventStyle.eventListTitle}>
-                    <Text style={eventStyle.titleTxt}>{event.title}</Text>
-                    {timeLeft <= 0 ? (
-                        <Text style={eventStyle.titleMinutes}>Finalizado</Text>
-                    ) : (
-                        <Text style={eventStyle.titleMinutes}>{`${timeLeft} ${timeLeftTxt}`}</Text>
-                    )}
-                </View>
-                <View style={eventStyle.eventListFavourite}>
-                    <View>
-                        <TouchableOpacity onPress={method}>
-                            <Ionicons name={iconName} size={23} color={color} />
-                        </TouchableOpacity>
+        <View style={{ backgroundColor: 'white' }}>
+            <TouchableOpacity
+                activeOpacity={0.5}
+            >
+                <View style={eventStyle.event}>
+                    <View style={eventStyle.eventListImg}>
+                        <Image style={eventStyle.img} source={{ uri: `https://picsum.photos/id/${250}/500/500` }} />
                     </View>
-                    <View>
-                        <Text style={eventStyle.titleMinutes}>{correctDate.toString()}</Text>
+                    <View style={eventStyle.eventListTitle}>
+                        <Text style={eventStyle.titleTxt}>{event.title}</Text>
+                        {timeLeft <= 0 ? (
+                            <Text style={eventStyle.titleMinutes}>Finalizado</Text>
+                        ) : (
+                            <Text style={eventStyle.titleMinutes}>{`${timeLeft} ${timeLeftTxt}`}</Text>
+                        )}
+                    </View>
+                    <View style={eventStyle.eventListFavourite}>
+                        <View>
+                            <TouchableOpacity onPress={method}>
+                                <Ionicons name={iconName} size={23} color={color} />
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <Text style={eventStyle.titleMinutes}>{correctDate.toString()}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-            <View style={{ backgroundColor: MyColors.sparator, height: 1, borderRadius: 150 }} />
+            </TouchableOpacity>
         </View>
     );
 };

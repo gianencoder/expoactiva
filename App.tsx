@@ -10,6 +10,7 @@ import { HeaderComponent } from './src/components/HeaderComponent';
 
 export default function App() {
   LogBox.ignoreLogs(['Sending']);
+  LogBox.ignoreLogs(['new NativeEventEmitter']);
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.container}>
