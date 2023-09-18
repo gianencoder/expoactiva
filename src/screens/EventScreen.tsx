@@ -15,10 +15,10 @@ export const EventScreen = () => {
     return (
         <View style={eventStyle.container} >
             {loading ? <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size={50} color={MyColors.primary} />
-                <Text style={{ color: MyColors.primary, fontSize: 16 }}>Cargando eventos...</Text>
+                <ActivityIndicator size={'large'} color={MyColors.primary} />
+                <Text style={{ fontSize: 16, padding: 10 }}>Cargando eventos...</Text>
             </View> :
-                <View style={{ backgroundColor: 'white' }}>
+                <View style={{ backgroundColor: 'white', padding: 10, marginRight: 5 }}>
                     <FlatList
                         data={filterEvent}
                         keyExtractor={(event: Event) => event._id.toString()}
@@ -26,7 +26,7 @@ export const EventScreen = () => {
                             <EventComponent event={item} iconName={iconName} color={color} method={() => console.log('hola')} />
                         }
                         ListHeaderComponent={
-                            <View style={{ width: '70%', marginVertical: 10 }}>
+                            <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 40 }}>
                                 <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar eventos" />
                             </View>
                         }

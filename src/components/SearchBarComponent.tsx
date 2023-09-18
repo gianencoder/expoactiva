@@ -30,14 +30,14 @@ export default function SearchBar({ placeholder, onSearchTextChange }: any) {
 }
 
 const styles = StyleSheet.create({
-    search: {
-        width: '100%',
-        height: '15%',
-        justifyContent: 'center',
-        marginBottom: 15,
-        paddingHorizontal: '5%',
-        backgroundColor: 'white'
-    },
+    // search: {
+    //     width: '10%',
+    //     height: '15%',
+    //     justifyContent: 'center',
+    //     marginBottom: 15,
+    //     paddingHorizontal: '5%',
+    //     backgroundColor: 'white'
+    // },
     searchWrapper: {
         flexDirection: 'row',
         alignItems: 'center',

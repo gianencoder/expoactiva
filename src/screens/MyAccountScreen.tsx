@@ -1,10 +1,10 @@
-import { Text, View } from 'react-native';
-import { ProfileStyle } from '../theme/ProfileTheme';
+import { View } from '@motify/components'
+import React from 'react'
+import { Text } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
+import { ProfileStyle } from '../theme/ProfileTheme'
 
-
-
-export const ProfileScreen = () => {
+export const MyAccountScreen = () => {
     return (
         <View style={ProfileStyle.container}>
             <View style={ProfileStyle.iconContainer}>

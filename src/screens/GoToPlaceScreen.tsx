@@ -15,7 +15,7 @@ export const GoToPlaceScreen = () => {
 
     return (
 
-        <Modal visible={modal} animationType='fade' transparent={true}>
+        <Modal visible={modal} animationType='fade' transparent={true} >
 
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
                 <Image source={require('../assets/icons/mainIcon.png')} style={{ width: 140, height: 60, marginTop: -40, marginBottom: 40 }} />
