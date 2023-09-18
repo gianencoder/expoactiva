@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Modal, Text, TouchableOpacity, View } from 'react-native'
 import { mapsTheme } from '../theme/MapsTheme';
 import { GoToPlaceFunction } from '../functions/GoToPlaceFunction';
 import { Ionicons } from '@expo/vector-icons';
@@ -16,8 +16,9 @@ export const GoToPlaceScreen = () => {
     return (
 
         <Modal visible={modal} animationType='fade' transparent={true}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
 
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+                <Image source={require('../assets/icons/mainIcon.png')} style={{ width: 140, height: 60, marginTop: -40, marginBottom: 40 }} />
 
                 <View style={{
                     width: '80%', backgroundColor: 'white', height: 400, borderRadius: 20, shadowColor: "#000",
@@ -60,29 +61,5 @@ export const GoToPlaceScreen = () => {
             </View>
 
         </Modal>
-        // <View style={mapsTheme.container}>
-        //     <View style={mapsTheme.buttonsContainer}>
-        //         <TouchableOpacity style={mapsTheme.googleBtn}
-        //             onPress={androidNavigate}
-        //         >
-        //             <Image style={{ width: 50, height: 50 }} source={require('../assets/icons/googleMaps.png')} />
-        //             <Text style={mapsTheme.googleTxt}>Ir con Google Maps</Text>
-        //         </TouchableOpacity>
-
-        //         <TouchableOpacity style={mapsTheme.appleBtn}
-        //             onPress={iosNavigate}
-        //         >
-        //             <Image style={{ width: 60, height: 60 }} source={require('../assets/icons/appleMaps.png')} />
-        //             <Text style={mapsTheme.txtBtn}>Ir con Apple maps</Text>
-        //         </TouchableOpacity>
-
-        //         <TouchableOpacity style={mapsTheme.wazeBtn}
-        //             onPress={wazeNavigate}
-        //         >
-        //             <Image style={{ width: 40, height: 40 }} source={require('../assets/icons/wazeMaps.png')} />
-        //             <Text style={mapsTheme.txtBtn}>Ir con Waze</Text>
-        //         </TouchableOpacity>
-        //     </View>
-        // </View>
     )
 }

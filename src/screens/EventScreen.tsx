@@ -34,7 +34,6 @@ export const EventScreen = () => {
                         onEndReached={getEvents}
                         onEndReachedThreshold={0.5}
                         onScrollEndDrag={handleSetFetching}
-                        pagingEnabled
                         ListFooterComponent={fetching ? <ActivityIndicator color={MyColors.primary} style={{ height: 50 }} /> : null}
 
                     />

@@ -7,9 +7,6 @@ import { AuthScreen } from '../screens/AuthScreen';
 import { TopTabNavigator } from './TopTabNavigator';
 import { GoToPlaceScreen } from '../screens/GoToPlaceScreen';
 import { WhereIsMyCarScreen } from '../screens/WhereIsMyCarScreen';
-import { MyColors } from '../theme/ColorsTheme';
-import { HeaderComponent } from '../components/HeaderComponent';
-
 
 const Stack = createStackNavigator();
 

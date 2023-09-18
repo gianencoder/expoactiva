@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { View, Image, TouchableOpacity, Text } from 'react-native';
+import React from 'react'
+import { View, Image, TouchableOpacity } from 'react-native';
 import { headerStyles } from '../theme/HeaderTheme';
 import { Ionicons } from '@expo/vector-icons';
 import { MyColors } from '../theme/ColorsTheme';
