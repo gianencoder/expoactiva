@@ -46,9 +46,10 @@ export const EventComponent = ({ event, iconName, color, method }: Props) => {
     }, []);
 
     return (
-        <View style={{ backgroundColor: 'white' }}>
+        <View style={{ backgroundColor: 'transparent', flex: 1 }}>
             <TouchableOpacity
-                activeOpacity={0.5}
+                activeOpacity={0.7}
+                onLongPress={() => console.log('Presione largo')}
             >
                 <View style={eventStyle.event}>
                     <View style={eventStyle.eventListImg}>

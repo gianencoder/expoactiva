@@ -4,11 +4,10 @@ import { Text } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import { ProfileStyle } from '../theme/ProfileTheme'
 
-export const MyAccountScreen = () => {
+export const ProfileScreen = () => {
     return (
         <View style={ProfileStyle.container}>
             <View style={ProfileStyle.iconContainer}>
-                {/* <Image style={ProfileStyle.img} source={require('../assets/user.png')} /> */}
                 <View style={ProfileStyle.iconCircle}>
                     <AntDesign name="user" size={45} color='#616161' style={{ padding: 10 }} />
                 </View>

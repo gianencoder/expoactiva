@@ -7,7 +7,7 @@ import { AuthScreen } from '../screens/AuthScreen';
 import { TopTabNavigator } from './TopTabNavigator';
 import { GoToPlaceScreen } from '../screens/GoToPlaceScreen';
 import { WhereIsMyCarScreen } from '../screens/WhereIsMyCarScreen';
-import { MyAccountScreen } from '../screens/MyAccountScreen';
+import { ProfileScreen } from '../screens/MyAccountScreen';
 
 const Stack = createStackNavigator();
 
@@ -19,13 +19,11 @@ export const MyStack = () => {
                 // headerBackTitleVisible: false,
                 // headerShadowVisible: false,
                 // headerTintColor: MyColors.primary,
-                // gestureEnabled: true,
-                // gestureDirection: 'horizontal',
-                // gestureVelocityImpact: 15,
+                gestureEnabled: true,
+                gestureDirection: 'horizontal',
+                gestureVelocityImpact: 15,
                 headerShown: false
             }}
-
-
 
         >
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
@@ -36,7 +34,7 @@ export const MyStack = () => {
             <Stack.Screen name="AuthScreen" component={AuthScreen} />
             <Stack.Screen name="GoToPlaceScreen" component={GoToPlaceScreen} />
             <Stack.Screen name="WhereIsMyCarScreen" component={WhereIsMyCarScreen} />
-            <Stack.Screen name="MyAccountScreen" component={MyAccountScreen} />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
 
         </Stack.Navigator >
     );

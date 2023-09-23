@@ -7,6 +7,7 @@ import { LogBox, StatusBar } from 'react-native';
 import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 import { MyColors } from './src/theme/ColorsTheme';
 import { HeaderComponent } from './src/components/HeaderComponent';
+import { GuestScreen } from './src/screens/GuestScreen';
 
 export default function App() {
   LogBox.ignoreLogs(['Sending']);
@@ -22,10 +23,14 @@ export default function App() {
           showHideTransition={'fade'}
         />
         <HeaderComponent />
+        {/* <GuestScreen /> */}
         <BottomTabNavigator />
+
       </SafeAreaView>
 
     </NavigationContainer >
+
+
 
 
   );

@@ -31,7 +31,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                         <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<MaterialIcons name='event-available' color={MyColors.primary} size={50} />} />
                         <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<Ionicons name='navigate' color={MyColors.primary} size={50} />} />
                         <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<MaterialCommunityIcons name='car-select' color={MyColors.primary} size={50} />} />
-                        <HomeLittleComponent action={() => navigation.navigate('MyAccountScreen')} page={'Mi cuenta'} icon={<MaterialCommunityIcons name='account' color={MyColors.primary} size={50} />} />
+                        <HomeLittleComponent action={() => navigation.navigate('ProfileScreen')} page={'Perfil'} icon={<MaterialCommunityIcons name='account' color={MyColors.primary} size={50} />} />
                     </View>
                 </View >
             </ScrollView>

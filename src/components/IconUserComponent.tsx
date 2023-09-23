@@ -7,7 +7,7 @@ interface Props { size: number }
 export const IconMenuComponent = ({ size }: Props) => {
     return (
         <View>
-            <Image source={require('../assets/icons/menu.png')} style={{ width: size, height: size }} />
+            <Image source={require('../assets/icons/usuarios.png')} style={{ width: size, height: size }} />
         </View>
     )
 }

@@ -18,18 +18,17 @@ export const EventScreen = () => {
                 <ActivityIndicator size={'large'} color={MyColors.primary} />
                 <Text style={{ fontSize: 16, padding: 10 }}>Cargando eventos...</Text>
             </View> :
-                <View style={{ backgroundColor: 'white', padding: 10, marginRight: 5 }}>
+                <View style={{ flex: 1, backgroundColor: 'white' }}>
+                    <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 45, backgroundColor: 'transparent' }}>
+                        <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar eventos" />
+                    </View>
                     <FlatList
                         data={filterEvent}
                         keyExtractor={(event: Event) => event._id.toString()}
                         renderItem={({ item }) =>
-                            <EventComponent event={item} iconName={iconName} color={color} method={() => console.log('hola')} />
+                            <EventComponent event={item} iconName={iconName} color={'orange'} method={() => console.log('hola')} />
                         }
-                        ListHeaderComponent={
-                            <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 40 }}>
-                                <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar eventos" />
-                            </View>
-                        }
+
                         ItemSeparatorComponent={() => <SeparatorComponent />}
                         onEndReached={getEvents}
                         onEndReachedThreshold={0.5}

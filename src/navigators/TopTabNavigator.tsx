@@ -16,7 +16,7 @@ export const TopTabNavigator = () => {
             }}
         >
             <Tab.Screen name="EVENTOS" component={EventScreen} />
-            <Tab.Screen name="MIS EVENTOS" component={FavouriteEventScreen} />
+            <Tab.Screen name="FAVORITOS" component={FavouriteEventScreen} />
         </Tab.Navigator>
     );
 }
