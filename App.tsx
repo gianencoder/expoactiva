@@ -6,34 +6,24 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { LogBox, StatusBar } from 'react-native';
 import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 import { MyColors } from './src/theme/ColorsTheme';
-import { HeaderComponent } from './src/components/HeaderComponent';
-import { GuestScreen } from './src/screens/GuestScreen';
+import { ThemeProvider } from './src/context/themeContext/ThemeContext';
 
 export default function App() {
   LogBox.ignoreLogs(['Sending']);
   LogBox.ignoreLogs(['new NativeEventEmitter']);
   return (
-    <NavigationContainer>
-      <SafeAreaView style={styles.container}>
-        <StatusBar
-          barStyle={'dark-content'}
-          animated={true}
-          translucent={true}
-          backgroundColor={MyColors.white}
-          showHideTransition={'fade'}
-        />
-        <HeaderComponent />
-        {/* <GuestScreen /> */}
-        <BottomTabNavigator />
+    <ThemeProvider>
+      <NavigationContainer>
+        <SafeAreaView style={styles.container}
+        >
+          <StatusBar
+            barStyle={'light-content'}
+            backgroundColor={MyColors.primary}
+          />
 
-      </SafeAreaView>
-
-    </NavigationContainer >
-
-
-
-
+          <BottomTabNavigator />
+        </SafeAreaView>
+      </NavigationContainer >
+    </ThemeProvider>
   );
 }
-
-

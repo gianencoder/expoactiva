@@ -7,7 +7,7 @@ import { AuthScreen } from '../screens/AuthScreen';
 import { TopTabNavigator } from './TopTabNavigator';
 import { GoToPlaceScreen } from '../screens/GoToPlaceScreen';
 import { WhereIsMyCarScreen } from '../screens/WhereIsMyCarScreen';
-import { ProfileScreen } from '../screens/MyAccountScreen';
+import { ProfileScreen } from '../screens/ProfileScreen';
 
 const Stack = createStackNavigator();
 

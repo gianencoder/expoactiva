@@ -5,7 +5,8 @@ export const headerStyles = StyleSheet.create({
     icon: {
         flexDirection: 'row',
         justifyContent: 'center',
-        backgroundColor: 'white',
-        marginTop: android ? 0 : 45,
+        backgroundColor: 'transparent',
+        marginTop: android ? 0 : 30,
+        position: 'relative',
     }
 });

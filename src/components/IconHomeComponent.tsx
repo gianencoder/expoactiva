@@ -1,14 +1,13 @@
 import { View } from '@motify/components'
 import React from 'react'
-import { Image } from 'react-native'
+import { Image, Text } from 'react-native'
 
-interface Props {
-    size: number
-}
-export const IconHomeComponent = ({ size }: Props) => {
+
+export const IconHomeComponent = ({ color, txtSize, iconSize }: BottomTabIcons) => {
     return (
-        <View>
-            <Image style={{ width: size, height: size }} source={require('../assets/icons/hogar.png')} />
+        <View style={{ justifyContent: 'center', alignItems: 'center', gap: 1 }}>
+            <Image style={{ width: iconSize, height: iconSize, tintColor: color }} source={require('../assets/icons/hogar.png')} />
+            <Text style={{ color: color, fontSize: txtSize, fontWeight: '600' }}>Inicio</Text>
         </View>
     )
 }

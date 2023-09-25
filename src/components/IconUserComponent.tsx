@@ -1,13 +1,12 @@
 import { View } from '@motify/components'
 import React from 'react'
-import { Image } from 'react-native'
+import { Image, Text } from 'react-native'
 
-interface Props { size: number }
-
-export const IconMenuComponent = ({ size }: Props) => {
+export const IconUserComponent = ({ color, txtSize, iconSize }: BottomTabIcons) => {
     return (
-        <View>
-            <Image source={require('../assets/icons/usuarios.png')} style={{ width: size, height: size }} />
+        <View style={{ justifyContent: 'center', alignItems: 'center', gap: 1 }}>
+            <Image style={{ width: iconSize, height: iconSize, tintColor: color }} source={require('../assets/icons/usuarios.png')} />
+            <Text style={{ color: color, fontSize: txtSize, fontWeight: '600' }}>Mi perfil</Text>
         </View>
     )
 }

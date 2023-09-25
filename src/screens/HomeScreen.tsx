@@ -14,7 +14,7 @@ export const HomeScreen = ({ navigation }: Props) => {
 
     const { scrollViewRef } = HomeFunction();
     return (
-        <View style={styles.container}>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
             <ScrollView
                 ref={scrollViewRef}
                 style={styles.scrollView}
