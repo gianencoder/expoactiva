@@ -12,7 +12,10 @@ export interface ThemeState extends Theme {
     currentTheme: 'light' | 'dark',
     dividerColor: string,
     customColors: {
-        transparent: string
+        transparent: string,
+        littleComponentBg: string,
+        littleComponentIcon: string,
+        bottomTabIcon: string,
 
     }
 }
@@ -30,7 +33,10 @@ export const lightTheme: ThemeState = {
         notification: 'black'
     },
     customColors: {
-        transparent: Platform.OS === 'android' ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)'
+        transparent: Platform.OS === 'android' ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)',
+        littleComponentBg: 'white',
+        littleComponentIcon: '#00654a',
+        bottomTabIcon: 'black'
     }
 }
 
@@ -48,6 +54,9 @@ export const darkTheme: ThemeState = {
     },
     customColors: {
         transparent: Platform.OS === 'android' ? 'rgba(0,0,0,0.95)' : 'rgba(0,0,0,0.5)',
+        littleComponentBg: '#00654a',
+        littleComponentIcon: 'black',
+        bottomTabIcon: 'white'
 
     }
 }

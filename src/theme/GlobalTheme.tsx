@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
         // marginTop: -10
     },
     littleComponentTxt: {
-        color: MyColors.primary,
+        color: MyColors.apple,
         fontSize: 16,
         fontWeight: '600',
         //textTransform: 'uppercase',
@@ -61,7 +61,6 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 20,
         marginVertical: 8,
-        backgroundColor: MyColors.white,
         shadowColor: 'black',
         shadowOffset: {
             width: 5,
@@ -80,7 +79,6 @@ export const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         borderRadius: 30,
-        backgroundColor: MyColors.white,
 
     }
 })
