@@ -9,28 +9,27 @@ export const styles = StyleSheet.create({
 
     homeContainer: {
         flex: 1,
-        backgroundColor: 'white'
     },
 
     bigComponentContainer: {
+        backgroundColor: 'white',
         height: 100,
         marginHorizontal: 10,
         marginVertical: 10,
-        backgroundColor: 'white',
-    },
-    bigComponent: {
-        backgroundColor: MyColors.white,
         borderRadius: 10,
-        width: '100%',
-        shadowColor: MyColors.primary,
         shadowOffset: {
-            width: 0,
-            height: 0,
+            width: 6,
+            height: 6,
         },
         shadowOpacity: 0.3,
-        shadowRadius: 8,
+        shadowRadius: 16.00,
 
-        elevation: 15,
+        elevation: 24,
+    },
+    bigComponent: {
+        borderRadius: 10,
+        width: '100%',
+
     },
 
     littleComponentContainer: {
