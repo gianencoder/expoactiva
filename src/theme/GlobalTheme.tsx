@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     littleComponentTxt: {
         color: MyColors.apple,
         fontSize: 16,
-        fontWeight: '600',
+        fontWeight: '400',
         //textTransform: 'uppercase',
     },
 

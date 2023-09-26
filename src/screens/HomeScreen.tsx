@@ -3,12 +3,16 @@ import React, { useContext } from 'react'
 import { ScrollView, View } from 'react-native';
 import { styles } from '../theme/GlobalTheme';
 import { HomeLittleComponent } from '../components/HomeLittleComponent';
-import { Fontisto, MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
-import { MyColors } from '../theme/ColorsTheme';
 import { CarouselComponent } from '../components/CarouselComponent';
 import { data } from '../helper/imageList';
 import { HomeFunction } from '../functions/HomeFunction';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
+import { InteresPointIconComponent } from '../components/Icons/InteresPointIconComponent';
+import { TicketIconComponent } from '../components/Icons/TicketIconComponent';
+import { EventIconComponent } from '../components/Icons/EventIconComponent';
+import { GoToPlaceIconComponent } from '../components/Icons/GoToPlaceIconComponent';
+import { WhereIsMyCarIconComponent } from '../components/Icons/WhereIsMyCarIconComponent';
+import { MyProfileIconComponent } from '../components/Icons/MyProfileIconComponent';
 
 interface Props extends StackScreenProps<any, any> { }
 export const HomeScreen = ({ navigation }: Props) => {
@@ -21,6 +25,7 @@ export const HomeScreen = ({ navigation }: Props) => {
             <ScrollView
                 ref={scrollViewRef}
                 style={styles.scrollView}
+
             >
                 <View style={{ ...styles.homeContainer, backgroundColor: theme.colors.background }}>
                     <View style={{ ...styles.bigComponentContainer }}>
@@ -29,12 +34,12 @@ export const HomeScreen = ({ navigation }: Props) => {
                         </View>
                     </View>
                     <View style={{ ...styles.littleComponentContainer, backgroundColor: theme.colors.background }}>
-                        <HomeLittleComponent action={() => navigation.navigate('TicketsScreen')} page={'Entradas'} icon={<Fontisto name='ticket' color={theme.customColors.littleComponentIcon} size={50} />} />
-                        <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Puntos de interés'} icon={<MaterialCommunityIcons name='map-search' color={theme.customColors.littleComponentIcon} size={50} />} />
-                        <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<MaterialIcons name='event-available' color={theme.customColors.littleComponentIcon} size={50} />} />
-                        <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<Ionicons name='navigate' color={theme.customColors.littleComponentIcon} size={50} />} />
-                        <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<MaterialCommunityIcons name='car-select' color={theme.customColors.littleComponentIcon} size={50} />} />
-                        <HomeLittleComponent action={() => navigation.navigate('ProfileScreen')} page={'Perfil'} icon={<MaterialCommunityIcons name='account' color={theme.customColors.littleComponentIcon} size={50} />} />
+                        <HomeLittleComponent action={() => navigation.navigate('TicketsScreen')} page={'Entradas'} icon={<TicketIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Puntos de interés'} icon={<InteresPointIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<EventIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<GoToPlaceIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<WhereIsMyCarIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('ProfileScreen')} page={'Configuración'} icon={<MyProfileIconComponent />} />
                     </View>
                 </View >
             </ScrollView>

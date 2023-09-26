@@ -6,7 +6,7 @@ export const IconMyTicketsComponent = ({ color, txtSize, iconSize }: BottomTabIc
     return (
         <View style={{ justifyContent: 'center', alignItems: 'center', gap: 1 }}>
             <Image style={{ width: iconSize, height: iconSize, tintColor: color }} source={require('../assets/icons/ticketQR.png')} />
-            <Text style={{ color: color, fontSize: txtSize, fontWeight: '600' }}>Mis entradas</Text>
+            <Text style={{ color: color, fontSize: txtSize, fontWeight: '400' }}>Mis entradas</Text>
         </View>
     )
 }
