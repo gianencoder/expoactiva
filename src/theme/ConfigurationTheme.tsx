@@ -9,8 +9,6 @@ export const themeConfig = StyleSheet.create
             height: 50,
             marginHorizontal: 20,
             padding: 10,
-            backgroundColor: 'orange'
-
         },
         itemContainer: {
             justifyContent: 'space-between',
@@ -20,7 +18,8 @@ export const themeConfig = StyleSheet.create
         },
         item: {
             flexDirection: 'row',
-            gap: 5
+            gap: 10,
+            alignItems: 'center'
         }
 
     })
