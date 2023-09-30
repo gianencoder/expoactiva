@@ -15,16 +15,14 @@ export default function App() {
 
     <ThemeProvider>
       <NavigationContainer>
-        <SafeAreaView style={styles.container}
-        >
+        <SafeAreaView style={{ ...styles.container }}>
           <StatusBar
             barStyle={'light-content'}
             backgroundColor={MyColors.primary}
           />
-
           <BottomTabNavigator />
         </SafeAreaView>
       </NavigationContainer >
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }

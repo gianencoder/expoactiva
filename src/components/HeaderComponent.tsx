@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Image, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { headerStyles } from '../theme/HeaderTheme';
-import { Ionicons } from '@expo/vector-icons';
+
 import { NavigationHook } from '../hooks/NavigationHook';
 
 export const HeaderComponent = () => {
@@ -12,10 +12,13 @@ export const HeaderComponent = () => {
             headerStyles.icon}>
             <View style={{ width: '100%', position: 'absolute' }}>
                 {goBack && (<TouchableOpacity onPress={navigation.goBack}>
-                    <Ionicons name="chevron-back" size={30} color={'white'} />
+                    <Image style={{ width: width / 35, height: height / 35, tintColor: 'white' }}
+                        source={require('../assets/icons/leftarrow.png')} />
                 </TouchableOpacity>)}
             </View>
-            <View>
+
+            <View style={{ flexDirection: 'row' }}>
+
                 <Image style={{ height: height / 12, width: width / 3 }} source={require('../assets/icons/expoactivaNacional.png')} />
             </View>
         </View >

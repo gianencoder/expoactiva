@@ -8,8 +8,8 @@ import { GoToPlaceScreen } from '../screens/GoToPlaceScreen';
 import { WhereIsMyCarScreen } from '../screens/WhereIsMyCarScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 import { FavouriteEventScreen } from '../screens/FavouriteEventScreen';
-import { EventScreen } from '../screens/EventScreen';
 import { TopTabNavigator } from './TopTabNavigator';
+import { ConfigurationScreen } from '../screens/ConfigurationScreen';
 
 const Stack = createStackNavigator();
 
@@ -17,10 +17,6 @@ export const MyStack = () => {
     return (
         <Stack.Navigator
             screenOptions={{
-                // title: '',
-                // headerBackTitleVisible: false,
-                // headerShadowVisible: false,
-                // headerTintColor: MyColors.primary,
                 gestureEnabled: true,
                 gestureDirection: 'horizontal',
                 gestureVelocityImpact: 15,
@@ -38,6 +34,7 @@ export const MyStack = () => {
             <Stack.Screen name="WhereIsMyCarScreen" component={WhereIsMyCarScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
             <Stack.Screen name="FavouriteEvent" component={FavouriteEventScreen} />
+            <Stack.Screen name="Configuration" component={ConfigurationScreen} />
 
         </Stack.Navigator >
     );

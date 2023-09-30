@@ -39,7 +39,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                         <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<EventIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<GoToPlaceIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<WhereIsMyCarIconComponent />} />
-                        <HomeLittleComponent action={() => navigation.navigate('ProfileScreen')} page={'Configuración'} icon={<MyProfileIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('Configuration')} page={'Configuración'} icon={<MyProfileIconComponent />} />
                     </View>
                 </View >
             </ScrollView>
