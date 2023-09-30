@@ -12,6 +12,7 @@ export default function App() {
   LogBox.ignoreLogs(['Sending']);
   LogBox.ignoreLogs(['new NativeEventEmitter']);
   return (
+
     <ThemeProvider>
       <NavigationContainer>
         <SafeAreaView style={styles.container}

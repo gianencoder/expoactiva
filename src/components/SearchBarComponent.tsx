@@ -44,15 +44,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#e8e8e8',
         borderRadius: 15,
         width: '100%',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.23,
-        shadowRadius: 2.62,
-
-        elevation: 4,
     },
     searchIcon: {
         paddingHorizontal: 15,

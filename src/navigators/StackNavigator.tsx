@@ -4,10 +4,12 @@ import { MenuScreen } from '../screens/MenuScreen';
 import { TicketsScreen } from '../screens/TicketsScreen';
 import { InterestPointScreen } from '../screens/InterestPointScreen';
 import { AuthScreen } from '../screens/AuthScreen';
-import { TopTabNavigator } from './TopTabNavigator';
 import { GoToPlaceScreen } from '../screens/GoToPlaceScreen';
 import { WhereIsMyCarScreen } from '../screens/WhereIsMyCarScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
+import { FavouriteEventScreen } from '../screens/FavouriteEventScreen';
+import { EventScreen } from '../screens/EventScreen';
+import { TopTabNavigator } from './TopTabNavigator';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +37,7 @@ export const MyStack = () => {
             <Stack.Screen name="GoToPlaceScreen" component={GoToPlaceScreen} />
             <Stack.Screen name="WhereIsMyCarScreen" component={WhereIsMyCarScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+            <Stack.Screen name="FavouriteEvent" component={FavouriteEventScreen} />
 
         </Stack.Navigator >
     );

@@ -7,9 +7,13 @@ import { useNavigation } from '@react-navigation/native';
 export const EventFunction = () => {
 
 
-    const [favourite, setfavourite] = useState(true);
+    const [favourite, setfavourite] = useState(false);
+    const [userLoggedIn, setUserLoggedIn] = useState(false)
+    // Los elementos de tu FlatList
+    const [favoritos, setFavoritos] = useState<Event[]>([]);
+
     let iconName = ''
-    let color = MyColors.primary
+    let colour = ''
     const [fetching, setFetching] = useState(false)
     const navigation = useNavigation();
     const [events, setEvents] = useState<Event[]>([]);
@@ -18,7 +22,7 @@ export const EventFunction = () => {
     const filterEvent = events.filter((exp: any) =>
         exp.title.toLowerCase().includes(searchText.toLowerCase())
     );
-
+    const [items, setItems] = useState([...events]);
     const getEvents = async () => {
         fetch('https://expoactiva-nacional-395522.rj.r.appspot.com/events/')
             .then(async res => await res.json())
@@ -44,17 +48,19 @@ export const EventFunction = () => {
 
     const handleSetFetching = () => { setFetching(true) }
 
-    // const handleFavourite = () => {
-    //     setfavourite(!favourite)
-    // }
+    const handleFavourite = (item: Event) => {
+        setfavourite(!favourite)
+        // setFavoritos([...favoritos, item]);
+        console.log('Add as favourite')
+    }
 
-    // if (favourite) {
-    //     iconName = 'ios-heart-outline'
-    //     color
-    // } else {
-    //     iconName = 'ios-heart-sharp'
-    //     color = MyColors.hearth
-    // }
+    if (!favourite) {
+        iconName = 'ios-heart-outline'
+        colour
+    } else {
+        iconName = 'ios-heart-sharp'
+        colour = MyColors.hearth
+    }
     const currentDay = format(Date.now(), 'dd-MM-yyyy HH:mm')
     return ({
         loading,
@@ -62,12 +68,14 @@ export const EventFunction = () => {
         iconName,
         currentDay,
         favourite,
-        color,
-        // handleFavourite,
+        colour,
+        handleFavourite,
         filterEvent,
         setSearchText,
         fetching,
         handleSetFetching,
-        getEvents
+        getEvents,
+        favoritos,
+        setFavoritos
     })
 }

@@ -3,6 +3,7 @@ import { EventScreen } from '../screens/EventScreen';
 import { MyColors } from '../theme/ColorsTheme';
 import { FavouriteEventScreen } from '../screens/FavouriteEventScreen';
 
+
 const Tab = createMaterialTopTabNavigator();
 
 export const TopTabNavigator = () => {
@@ -12,7 +13,8 @@ export const TopTabNavigator = () => {
                 tabBarActiveTintColor: MyColors.primary,
                 tabBarIndicatorStyle: {
                     backgroundColor: MyColors.primary
-                }
+                },
+
             }}
         >
             <Tab.Screen name="EVENTOS" component={EventScreen} />

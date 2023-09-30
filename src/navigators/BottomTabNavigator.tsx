@@ -30,8 +30,6 @@ export const BottomTabNavigator = () => {
                         borderTopColor: 'transparent'
                     },
                     tabBarHideOnKeyboard: true,
-
-
                 })}
             >
 

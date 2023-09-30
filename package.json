@@ -12,6 +12,7 @@
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@motify/components": "^0.18.0",
+    "@react-native-async-storage/async-storage": "1.18.2",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/material-top-tabs": "^6.6.3",
     "@react-navigation/stack": "^6.3.17",
