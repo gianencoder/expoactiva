@@ -12,14 +12,13 @@ export const HeaderComponent = () => {
             headerStyles.icon}>
             <View style={{ width: '100%', position: 'absolute' }}>
                 {goBack && (<TouchableOpacity onPress={navigation.goBack}>
-                    <Image style={{ width: width / 35, height: height / 35, tintColor: 'white' }}
-                        source={require('../assets/icons/leftarrow.png')} />
+                    <Image style={{ width: width / 35, height: height / 35, tintColor: 'white' }} source={require('../assets/icons/leftarrow.png')} />
                 </TouchableOpacity>)}
             </View>
 
             <View style={{ flexDirection: 'row' }}>
 
-                <Image style={{ height: height / 12, width: width / 3 }} source={require('../assets/icons/expoactivaNacional.png')} />
+                <Image style={{ height: 50, width: 120 }} source={require('../assets/icons/expoactivaNacional.png')} />
             </View>
         </View >
     )
