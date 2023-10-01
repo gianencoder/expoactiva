@@ -1,5 +1,6 @@
 import { Theme } from '@react-navigation/native'
 import { Platform } from 'react-native'
+import { MyColors } from '../../theme/ColorsTheme'
 
 
 type ThemeAction =
@@ -16,6 +17,10 @@ export interface ThemeState extends Theme {
         littleComponentBg: string,
         littleComponentIcon: string,
         bottomTabIcon: string,
+        iconColor: string,
+        shadow: string,
+        activeColor: string,
+        headerColor: string
 
     }
 }
@@ -25,18 +30,24 @@ export const lightTheme: ThemeState = {
     dark: false,
     dividerColor: 'rgba(0,0,0,0.7)',
     colors: {
-        primary: '#00624e',
+        primary: MyColors.primary,
         background: 'white',
         card: 'orange',
-        text: 'green',
+        text: 'black',
         border: 'grey',
-        notification: 'black'
+        notification: 'black',
+
+
     },
     customColors: {
-        transparent: Platform.OS === 'android' ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)',
+        transparent: Platform.OS === 'android' ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.90)',
         littleComponentBg: 'white',
-        littleComponentIcon: '#00654a',
-        bottomTabIcon: 'black'
+        littleComponentIcon: MyColors.primary,
+        bottomTabIcon: 'black',
+        iconColor: 'black',
+        shadow: 'black',
+        activeColor: MyColors.primary,
+        headerColor: MyColors.primary
     }
 }
 
@@ -45,18 +56,22 @@ export const darkTheme: ThemeState = {
     dark: true,
     dividerColor: 'rgba(0,0,0,0.7)',
     colors: {
-        primary: '#00624e',
-        background: 'black',
+        primary: MyColors.primary,
+        background: '#1b1b1b',
         card: 'orange',
-        text: '#00624e',
+        text: 'white',
         border: 'grey',
         notification: 'black',
     },
     customColors: {
-        transparent: Platform.OS === 'android' ? 'rgba(0,0,0,0.95)' : 'rgba(0,0,0,0.5)',
-        littleComponentBg: '#00654a',
-        littleComponentIcon: 'black',
-        bottomTabIcon: 'white'
+        transparent: Platform.OS === 'android' ? 'rgba(27,27,27,0.95)' : 'rgba(27,27,27,0.95)',
+        littleComponentBg: '#1d1d1d',
+        littleComponentIcon: '#03ffbb',
+        bottomTabIcon: 'white',
+        iconColor: '#03ffbb',
+        shadow: 'white',
+        activeColor: '#03ffbb',
+        headerColor: '#1b1b1b'
 
     }
 }

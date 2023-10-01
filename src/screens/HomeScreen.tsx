@@ -28,8 +28,8 @@ export const HomeScreen = ({ navigation }: Props) => {
 
             >
                 <View style={{ ...styles.homeContainer, backgroundColor: theme.colors.background }}>
-                    <View style={{ ...styles.bigComponentContainer }}>
-                        <View style={{ ...styles.bigComponent }}>
+                    <View style={{ ...styles.bigComponentContainer, backgroundColor: theme.customColors.littleComponentBg, shadowColor: 'black' }}>
+                        <View style={{ ...styles.bigComponent, backgroundColor: theme.customColors.littleComponentBg }}>
                             <CarouselComponent data={data} />
                         </View>
                     </View>

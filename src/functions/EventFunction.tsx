@@ -6,32 +6,29 @@ import { useNavigation } from '@react-navigation/native';
 
 export const EventFunction = () => {
 
-
-    const [favourite, setfavourite] = useState(false);
-    const [userLoggedIn, setUserLoggedIn] = useState(false)
-    // Los elementos de tu FlatList
-    const [favoritos, setFavoritos] = useState<Event[]>([]);
-
     let iconName = ''
     let colour = ''
+
+    const [favourite, setfavourite] = useState(false);
     const [fetching, setFetching] = useState(false)
     const navigation = useNavigation();
+
+    const [favoritos, setFavoritos] = useState<Event[]>([]);
     const [events, setEvents] = useState<Event[]>([]);
+    const [favoriteEvents, setFavoriteEvents] = useState<Event[]>([]);
+
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState('');
     const filterEvent = events.filter((exp: any) =>
         exp.title.toLowerCase().includes(searchText.toLowerCase())
     );
-    const [items, setItems] = useState([...events]);
+
     const getEvents = async () => {
         fetch('https://expoactiva-nacional-395522.rj.r.appspot.com/events/')
             .then(async res => await res.json())
             .then(res => {
                 setEvents(res)
                 setLoading(false)
-                if (res.status === 200) {
-                    console.log('200')
-                }
             })
             .catch(err => {
                 Alert.alert("Hubo un problema obteniendo la información",
@@ -39,28 +36,31 @@ export const EventFunction = () => {
                     [{ text: "OK", onPress: () => navigation.goBack() }])
             })
             .finally(() => setFetching(false))
+        console.log('fetching over')
     }
-
     useEffect(() => {
-        getEvents();
-    }, []);
+        getEvents()
+    }, [fetching])
 
 
-    const handleSetFetching = () => { setFetching(true) }
+
+    const handleSetFetching = () => {
+        setFetching(true)
+    }
 
     const handleFavourite = (item: Event) => {
+
+        // Comprueba si el evento ya está en la lista de favoritos
+        const isFavorite = favoritos.some((event) => event._id === item._id);
+
+        if (!isFavorite) {
+            // Si no está en la lista de favoritos, agrégalo
+            setFavoritos([...favoritos, item]);
+        }
         setfavourite(!favourite)
-        // setFavoritos([...favoritos, item]);
-        console.log('Add as favourite')
+
     }
 
-    if (!favourite) {
-        iconName = 'ios-heart-outline'
-        colour
-    } else {
-        iconName = 'ios-heart-sharp'
-        colour = MyColors.hearth
-    }
     const currentDay = format(Date.now(), 'dd-MM-yyyy HH:mm')
     return ({
         loading,
@@ -75,7 +75,6 @@ export const EventFunction = () => {
         fetching,
         handleSetFetching,
         getEvents,
-        favoritos,
-        setFavoritos
+        favoritos
     })
 }

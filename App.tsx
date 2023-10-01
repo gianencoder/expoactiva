@@ -6,11 +6,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { LogBox, StatusBar } from 'react-native';
 import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 import { MyColors } from './src/theme/ColorsTheme';
-import { ThemeProvider } from './src/context/themeContext/ThemeContext';
+import { ThemeContext, ThemeProvider } from './src/context/themeContext/ThemeContext';
+import { useContext } from 'react';
 
 export default function App() {
   LogBox.ignoreLogs(['Sending']);
   LogBox.ignoreLogs(['new NativeEventEmitter']);
+
+  const { theme } = useContext(ThemeContext)
   return (
 
     <ThemeProvider>

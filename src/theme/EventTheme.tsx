@@ -57,6 +57,7 @@ export const eventStyle = StyleSheet.create({
         alignItems: 'flex-end',
         padding: 10,
         justifyContent: 'space-between',
+
     },
 
 });

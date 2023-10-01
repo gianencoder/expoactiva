@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { eventStyle } from '../theme/EventTheme';
 import { Ionicons } from '@expo/vector-icons';
 import { differenceInDays, differenceInHours, differenceInMinutes, format } from 'date-fns';
 import { EventFunction } from '../functions/EventFunction';
-
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 interface Props {
-    event: Event;
+    event: Event
 }
 
 export const EventComponent = ({ event }: Props) => {
 
+    const { theme } = useContext(ThemeContext)
     const correctDate = format(new Date(event.date), 'p dd/MM/yyyy');
     const [timeLeft, settimeLeft] = useState(0);
     const [timeLeftTxt, settimeLeftTxt] = useState('');
+
     const { handleFavourite, iconName, favourite } = EventFunction()
 
     const calculateTimeLeft = () => {
@@ -38,6 +40,7 @@ export const EventComponent = ({ event }: Props) => {
         }
     };
 
+    //Renderiza el tiempo
     useEffect(() => {
         calculateTimeLeft(); // Establece el valor inicial al montar el componente
         const interval = setInterval(calculateTimeLeft, 3000);
@@ -56,7 +59,7 @@ export const EventComponent = ({ event }: Props) => {
                         <Image style={eventStyle.img} source={{ uri: `https://picsum.photos/id/${250}/500/500` }} />
                     </View>
                     <View style={eventStyle.eventListTitle}>
-                        <Text style={eventStyle.titleTxt}>{event.title}</Text>
+                        <Text style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{event.title}</Text>
                         {timeLeft <= 0 ? (
                             <Text style={eventStyle.titleMinutes}>Finalizado</Text>
                         ) : (
@@ -64,9 +67,9 @@ export const EventComponent = ({ event }: Props) => {
                         )}
                     </View>
                     <View style={eventStyle.eventListFavourite}>
-                        <TouchableOpacity onPress={() => handleFavourite}>
-                            <View style={{ height: 40, width: 40, justifyContent: 'center', alignItems: 'center' }}>
-                                <Ionicons style={{ position: 'absolute' }} name={iconName} size={23} color={favourite ? 'red' : 'black'} />
+                        <TouchableOpacity onPress={() => handleFavourite(event)}>
+                            <View style={{ height: 60, width: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 40 }}>
+                                <Ionicons style={{ position: 'absolute' }} name={favourite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={23} color={favourite ? 'red' : theme.customColors.activeColor} />
                             </View>
                         </TouchableOpacity>
                         <View>

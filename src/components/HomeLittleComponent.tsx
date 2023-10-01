@@ -12,11 +12,11 @@ interface Props {
 export const HomeLittleComponent = ({ action, page, icon }: Props) => {
     const { theme } = useContext(ThemeContext)
     return (
-        <View style={{ ...styles.homeComponents, backgroundColor: theme.customColors.littleComponentBg }}>
+        <View style={{ ...styles.homeComponents, backgroundColor: theme.colors.background }}>
             <TouchableOpacity style={{ ...styles.buttonComponent, flexDirection: 'column', backgroundColor: theme.customColors.littleComponentBg }}
                 onPress={() => action(page)} activeOpacity={0.2} >
                 {icon}
-                <Text style={styles.littleComponentTxt}>{page}</Text>
+                <Text style={{ ...styles.littleComponentTxt, color: theme.colors.text }}>{page}</Text>
             </TouchableOpacity>
 
         </View >

@@ -110,10 +110,12 @@ export const CarouselComponent = ({ data }: props | any) => {
 }
 const imgStyles = StyleSheet.create({
     imgContainer: {
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderRadius: 10,
     },
     img: {
         height: '100%',
         width: '100%',
+        padding: 10
     }
 });

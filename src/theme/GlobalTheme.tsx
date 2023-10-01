@@ -12,7 +12,6 @@ export const styles = StyleSheet.create({
     },
 
     bigComponentContainer: {
-        backgroundColor: 'white',
         height: 100,
         marginHorizontal: 10,
         marginVertical: 10,
@@ -46,13 +45,11 @@ export const styles = StyleSheet.create({
     scrollView: {
         // marginTop: -10
     },
+
     littleComponentTxt: {
-        color: MyColors.apple,
         fontSize: 16,
         fontWeight: '400',
-        //textTransform: 'uppercase',
     },
-
 
     homeComponents: {
         height: 110,
