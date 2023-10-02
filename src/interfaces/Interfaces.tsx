@@ -17,3 +17,14 @@ interface BottomTabIcons {
     color: string
 }
 
+interface EventoMoshi {
+    idEvent: number;
+    eventName: string;
+    dateHourStart: Date;
+    dateHourEnd: Date;
+    type: string;
+    description: string;
+    picture: string;
+    idPerson: number;
+    person: number;
+}

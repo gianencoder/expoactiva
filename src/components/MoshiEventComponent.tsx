@@ -1,0 +1,127 @@
+import React, { useContext, useEffect, useState } from 'react';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { eventStyle } from '../theme/EventTheme';
+import { Ionicons } from '@expo/vector-icons';
+import { differenceInDays, differenceInHours, differenceInMinutes, format } from 'date-fns';
+import { EventFunction } from '../functions/EventFunction';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
+
+interface Props {
+    event?: Event
+    moshiEvent: EventoMoshi
+}
+
+export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
+
+    const { theme } = useContext(ThemeContext)
+    const correctDate = format(new Date(moshiEvent.dateHourStart), 'p dd/MM/yyy');
+    const [timeLeftTxt, settimeLeftTxt] = useState('');
+
+    const [initTime, setInitTime] = useState(0)
+    const [leftTime, setLeftTime] = useState(0)
+
+    const [finished, setFinished] = useState(false)
+    const [inProgress, setInProgress] = useState(false)
+
+
+    const { handleFavourite, favourite } = EventFunction()
+
+
+    const calculateTimeLeft = () => {
+
+        const minutes = differenceInMinutes(new Date(moshiEvent.dateHourStart), new Date(Date.now()));
+        const days = differenceInDays(new Date(moshiEvent.dateHourStart), new Date(Date.now()));
+        const hours = differenceInHours(new Date(moshiEvent.dateHourStart), new Date(Date.now()));
+
+
+
+        //Hora de comenzado el evento - hora actual
+        const startEventTime = differenceInMinutes(new Date(moshiEvent.dateHourStart), new Date(Date.now()))
+
+        //Hora de fin del evento - hora actual
+        const endEventTime = differenceInMinutes(new Date(moshiEvent.dateHourEnd), new Date(Date.now()))
+
+
+        if (endEventTime <= 0) {
+            console.log(moshiEvent.eventName + ' ' + 'finalizado')
+            setFinished(true)
+            setInProgress(false)
+        } else if (endEventTime >= 0 && startEventTime <= 0) {
+            setInProgress(true)
+            setFinished(false)
+            setLeftTime(endEventTime)
+            console.log(moshiEvent.eventName + ' ' + 'En progreso')
+
+        } else {
+            setInProgress(false)
+            console.log(moshiEvent.eventName + ' ' + 'Por Empezar')
+        }
+
+
+        if (minutes > 60 && minutes < 1440) {
+            setInitTime(hours);
+            settimeLeftTxt('horas');
+
+        } else if (minutes > 1440) {
+            setInitTime(days);
+            settimeLeftTxt('días');
+
+        } else if (minutes <= 1 && minutes > 0) {
+            setInitTime(minutes);
+            settimeLeftTxt('minuto');
+
+        }
+        else {
+            setInitTime(minutes);
+            settimeLeftTxt('minutos');
+        }
+    };
+
+
+    //Renderiza el tiempo
+    useEffect(() => {
+        calculateTimeLeft(); // Establece el valor inicial al montar el componente
+        const interval = setInterval(calculateTimeLeft, 3000);
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <View style={{ backgroundColor: 'transparent', flex: 1 }}>
+            <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => console.log('Estoy presionando')}
+                onLongPress={() => console.log('Presione largo')}
+            >
+                <View style={eventStyle.event}>
+                    <View style={eventStyle.eventListImg}>
+                        <Image style={eventStyle.img} source={{ uri: `https://picsum.photos/id/${250}/500/500` }} />
+                    </View>
+                    <View style={eventStyle.eventListTitle}>
+                        <Text style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{moshiEvent.eventName}</Text>
+                        <Text style={{ ...eventStyle.titleMinutes, color: theme.colors.text }}> {moshiEvent.type}</Text>
+
+                        {inProgress && (<Text style={{ ...eventStyle.titleMinutes, backgroundColor: 'rgb( 253, 255, 156)', color: 'black' }}>Finaliza en {leftTime} {timeLeftTxt} </Text>)}
+
+                        {initTime > 0 && (<Text style={{ ...eventStyle.titleMinutes, backgroundColor: '#a4ff9e', color: 'black' }}>{`Inicia en ${initTime} ${timeLeftTxt}`}</Text>)}
+
+                        {finished && (<Text style={{ ...eventStyle.titleMinutes, backgroundColor: 'rgb(  255, 174, 174)', color: 'black' }}> Finalizado</Text>)}
+
+
+
+
+                    </View>
+                    <View style={eventStyle.eventListFavourite}>
+                        <TouchableOpacity onPress={() => handleFavourite(moshiEvent)}>
+                            <View style={{ height: 60, width: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 40 }}>
+                                <Ionicons style={{ position: 'absolute' }} name={favourite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={23} color={favourite ? 'red' : theme.customColors.activeColor} />
+                            </View>
+                        </TouchableOpacity>
+                        <View>
+                            <Text style={eventStyle.titleMinutes}>{correctDate.toString()}</Text>
+                        </View>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        </View>
+    );
+};

@@ -8,6 +8,9 @@ import { SeparatorComponent } from '../components/SeparatorComponent';
 import { MyColors } from '../theme/ColorsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { FlashList, useOnNativeBlankAreaEvents } from "@shopify/flash-list";
+import { MoshiEventComponent } from '../components/MoshiEventComponent';
+import { colors } from '../theme/Theme';
+import { RefreshControl } from 'react-native-gesture-handler';
 
 
 
@@ -27,18 +30,39 @@ export const EventScreen = () => {
                     <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 45, backgroundColor: 'transparent' }}>
                         <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar eventos" />
                     </View>
+                    {/* EVENTOS CYB3RSOFT
+                                <FlashList
+                                    data={filterEvent}
+                                    keyExtractor={(event: Event) => event._id.toString()}
+                                    renderItem={({ item }) => <EventComponent event={item} />}
 
+                                    ItemSeparatorComponent={() => <SeparatorComponent />}
+                                    estimatedItemSize={100}
+                                    onEndReached={handleSetFetching}
+                                    onEndReachedThreshold={0.3}
+                                    // ListHeaderComponent={fetching ? <ActivityIndicator color={theme.customColors.activeColor} style={{ height: 250, backgroundColor: theme.colors.background }} /> : null}
+                                    ListFooterComponent={fetching ? <ActivityIndicator color={theme.customColors.activeColor} style={{ height: 50, backgroundColor: theme.colors.background }} /> : null}
+                                /> */}
+
+                    {/* EVENTOS MOSHI MOSHI */}
                     <FlashList
                         data={filterEvent}
-                        keyExtractor={(event: Event) => event._id.toString()}
-                        renderItem={({ item }) => <EventComponent event={item} />}
-
+                        keyExtractor={(event: EventoMoshi) => event.idEvent.toString()}
+                        renderItem={({ item }) => <MoshiEventComponent moshiEvent={item} />}
+                        // onRefresh={() => handleSetFetching}
+                        // refreshing={fetching}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={fetching}
+                                progressBackgroundColor={theme.colors.background}
+                                onRefresh={handleSetFetching}
+                                colors={[theme.customColors.activeColor]} // for android
+                                tintColor={theme.customColors.activeColor} // for ios
+                            />
+                        }
                         ItemSeparatorComponent={() => <SeparatorComponent />}
                         estimatedItemSize={100}
-                        onEndReached={handleSetFetching}
-                        onEndReachedThreshold={0.3}
-                        // ListHeaderComponent={fetching ? <ActivityIndicator color={theme.customColors.activeColor} style={{ height: 250, backgroundColor: theme.colors.background }} /> : null}
-                        ListFooterComponent={fetching ? <ActivityIndicator color={theme.customColors.activeColor} style={{ height: 50, backgroundColor: theme.colors.background }} /> : null}
+                    // ListFooterComponent={fetching ? <ActivityIndicator color={theme.customColors.activeColor} style={{ height: 50, backgroundColor: theme.colors.background }} /> : null}
                     />
                 </View>
             }
