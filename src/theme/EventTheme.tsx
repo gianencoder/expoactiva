@@ -41,10 +41,12 @@ export const eventStyle = StyleSheet.create({
         // textTransform: 'uppercase',
         fontWeight: '400',
         fontSize: 18,
+
         // color: 'white',
 
     },
     titleMinutes: {
+        width: 70,
         textTransform: 'uppercase',
         fontWeight: '400',
         fontSize: 12,

@@ -34,7 +34,6 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
         const hours = differenceInHours(new Date(moshiEvent.dateHourStart), new Date(Date.now()));
 
 
-
         //Hora de comenzado el evento - hora actual
         const startEventTime = differenceInMinutes(new Date(moshiEvent.dateHourStart), new Date(Date.now()))
 
@@ -58,15 +57,23 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
         }
 
 
-        if (minutes > 60 && minutes < 1440) {
+        if (minutes > 60 && minutes < 120) {
+            setInitTime(hours);
+            settimeLeftTxt('hora');
+
+
+
+        } else if (minutes >= 120 && minutes < 1440) {
             setInitTime(hours);
             settimeLeftTxt('horas');
+        }
 
-        } else if (minutes > 1440) {
+        else if (minutes > 1440) {
             setInitTime(days);
             settimeLeftTxt('días');
 
-        } else if (minutes <= 1 && minutes > 0) {
+        }
+        else if (minutes < 2 && minutes > 0) {
             setInitTime(minutes);
             settimeLeftTxt('minuto');
 
@@ -75,13 +82,12 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
             setInitTime(minutes);
             settimeLeftTxt('minutos');
         }
-    };
-
+    }
 
     //Renderiza el tiempo
     useEffect(() => {
         calculateTimeLeft(); // Establece el valor inicial al montar el componente
-        const interval = setInterval(calculateTimeLeft, 3000);
+        const interval = setInterval(calculateTimeLeft, 30000);
         return () => clearInterval(interval);
     }, []);
 
@@ -98,13 +104,9 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
                     </View>
                     <View style={eventStyle.eventListTitle}>
                         <Text style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{moshiEvent.eventName}</Text>
-                        <Text style={{ ...eventStyle.titleMinutes, color: theme.colors.text }}> {moshiEvent.type}</Text>
+                        <Text style={{ ...eventStyle.titleMinutes }}> {moshiEvent.type}</Text>
 
-                        {inProgress && (<Text style={{ ...eventStyle.titleMinutes, backgroundColor: 'rgb( 253, 255, 156)', color: 'black' }}>Finaliza en {leftTime} {timeLeftTxt} </Text>)}
-
-                        {initTime > 0 && (<Text style={{ ...eventStyle.titleMinutes, backgroundColor: '#a4ff9e', color: 'black' }}>{`Inicia en ${initTime} ${timeLeftTxt}`}</Text>)}
-
-                        {finished && (<Text style={{ ...eventStyle.titleMinutes, backgroundColor: 'rgb(  255, 174, 174)', color: 'black' }}> Finalizado</Text>)}
+                        <Text style={eventStyle.titleMinutes}>{correctDate.toString()}</Text>
 
 
 
@@ -117,7 +119,12 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
                             </View>
                         </TouchableOpacity>
                         <View>
-                            <Text style={eventStyle.titleMinutes}>{correctDate.toString()}</Text>
+                            {inProgress && (<Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>En curso</Text>)}
+
+                            {initTime > 0 && (<Text style={{ ...eventStyle.titleMinutes, textAlign: 'justify' }}>{`Inicia en ${initTime} ${timeLeftTxt}`}</Text>)}
+
+                            {finished && (<Text style={{ ...eventStyle.titleMinutes }}> Finalizado</Text>)}
+
                         </View>
                     </View>
                 </View>
