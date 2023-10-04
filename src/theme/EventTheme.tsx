@@ -4,34 +4,62 @@ import { MyColors } from "./ColorsTheme";
 export const eventStyle = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: "row",
-        justifyContent: 'space-around',
-        padding: 20,
-        flexWrap: 'wrap',
-        // backgroundColor: 'green'
+        backgroundColor: 'white'
     },
-    container2: {
-        flex: 4,
-        // backgroundColor: 'red',
-        flexDirection: "row",
+
+
+    eventListContainer: {
+        flex: 1,
+    },
+
+    event: {
+        height: 120,
+        flexDirection: 'row',
+        paddingVertical: 5
+    },
+
+    eventListImg: {
+        flex: 2.5,
+        padding: 10,
+        borderRadius: 10,
+    },
+
+    img: {
+        flex: 1,
+        height: 80,
+        resizeMode: 'stretch',
+        borderRadius: 10,
+    },
+    eventListTitle: {
+        flex: 3,
+        alignItems: 'flex-start',
         justifyContent: 'space-between',
-        padding: 10
+        padding: 10,
+
+    },
+    titleTxt: {
+        // textTransform: 'uppercase',
+        fontWeight: '400',
+        fontSize: 18,
+
+        // color: 'white',
+
+    },
+    titleMinutes: {
+        width: 70,
+        textTransform: 'uppercase',
+        fontWeight: '400',
+        fontSize: 12,
+        color: MyColors.textGrey
+
     },
 
-    optionTxt: {
-        fontSize: 15,
-        textTransform: "uppercase",
-        marginBottom: 40,
-        fontWeight: '800',
+    eventListFavourite: {
+        flex: 2,
+        alignItems: 'flex-end',
+        padding: 10,
+        justifyContent: 'space-between',
+
     },
-    searcher: {
-        fontSize: 15,
-        borderColor: MyColors.primary,
-        borderWidth: 2,
-        borderRadius: 40,
-        paddingHorizontal: 10
-
-    }
-
 
 });

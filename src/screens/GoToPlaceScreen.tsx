@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
-import * as Location from 'expo-location'
-
+import React, { useEffect } from 'react'
+import { Image, Modal, Text, TouchableOpacity, View } from 'react-native'
+import { mapsTheme } from '../theme/MapsTheme';
+import { GoToPlaceFunction } from '../functions/GoToPlaceFunction';
+import { Ionicons } from '@expo/vector-icons';
 
 export const GoToPlaceScreen = () => {
-    const [location, setLocation] = useState<Location.LocationObject>()
+
+    const { androidNavigate, iosNavigate, wazeNavigate, showModal, modal, setModal } = GoToPlaceFunction()
 
     useEffect(() => {
+<<<<<<< HEAD
         const getPermissions = async () => {
             let { status } = await Location.requestForegroundPermissionsAsync()
             if (status !== 'granted') {
@@ -17,15 +20,59 @@ export const GoToPlaceScreen = () => {
             setLocation(currentLocation);
         }
         getPermissions()
+=======
+        setModal(true)
+>>>>>>> dev
     }, [])
-
-    console.log(location?.coords.longitude)
-    console.log(location?.coords.latitude)
 
 
     return (
-        <View>
-            <Text>Go To Place</Text>
-        </View>
+
+        <Modal visible={modal} animationType='fade' transparent={true} >
+
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+                <Image source={require('../assets/icons/mainIcon.png')} style={{ width: 140, height: 60, marginTop: -40, marginBottom: 40 }} />
+
+                <View style={{
+                    width: '80%', backgroundColor: 'white', height: 400, borderRadius: 20, shadowColor: "#000",
+                    shadowOffset: {
+                        width: 0,
+                        height: 12,
+                    },
+                    shadowOpacity: 0.58,
+                    shadowRadius: 16.00,
+
+                    elevation: 24,
+                }}>
+
+                    <TouchableOpacity style={{ alignItems: 'center', alignSelf: 'flex-end', padding: 25 }} onPress={showModal}>
+                        <Ionicons name="ios-close-outline" size={24} color="black" />
+                    </TouchableOpacity>
+                    <View style={{ alignItems: 'center', justifyContent: 'space-between' }}>
+                        <TouchableOpacity style={mapsTheme.googleBtn}
+                            onPress={androidNavigate}
+                        >
+                            <Image style={{ width: 50, height: 50, borderRadius: 10 }} source={require('../assets/icons/googleMaps.png')} />
+                            <Text style={mapsTheme.googleTxt}>Ir con Google Maps</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={mapsTheme.appleBtn}
+                            onPress={iosNavigate}
+                        >
+                            <Image style={{ width: 50, height: 50, borderRadius: 10 }} source={require('../assets/icons/appleMaps.png')} />
+                            <Text style={mapsTheme.txtBtn}>Ir con Apple maps</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={mapsTheme.wazeBtn}
+                            onPress={wazeNavigate}
+                        >
+                            <Image style={{ width: 40, height: 40 }} source={require('../assets/icons/wazeMaps.png')} />
+                            <Text style={mapsTheme.txtBtn}>Ir con Waze</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+
+        </Modal>
     )
 }

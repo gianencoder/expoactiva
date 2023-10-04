@@ -1,70 +1,72 @@
-import { Platform, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { MyColors } from './ColorsTheme'
 
-// const android = Platform.OS === 'android'
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: MyColors.primary,
-        paddingTop: '5%',
     },
 
     homeContainer: {
         flex: 1,
-        backgroundColor: MyColors.white
     },
 
     bigComponentContainer: {
-        height: 150,
+        height: 100,
         marginHorizontal: 10,
-        marginVertical: '2%',
+        marginVertical: 10,
+        borderRadius: 10,
+        shadowOffset: {
+            width: 6,
+            height: 6,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 16.00,
+
+        elevation: 24,
+    },
+    bigComponent: {
+        borderRadius: 10,
+        width: '100%',
+
     },
 
     littleComponentContainer: {
-        flex: 2,
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-
-    },
-    littleComponentTxt: {
-        color: MyColors.primary,
-        fontSize: 20,
-        fontWeight: '600'
-    },
-
-    bigComponent: {
-        flex: 1,
         backgroundColor: MyColors.white,
-        borderRadius: 30,
+        marginBottom: 40,
+        marginTop: 20,
+        gap: 10,
+        paddingHorizontal: 10
+    },
 
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.29,
-        shadowRadius: 4.65,
+    scrollView: {
+        // marginTop: -10
+    },
 
-        elevation: 7,
+    littleComponentTxt: {
+        fontSize: 16,
+        fontWeight: '400',
     },
 
     homeComponents: {
-        height: 150,
+        height: 110,
         width: 170,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 30,
-        marginVertical: 5,
-        backgroundColor: MyColors.white,
-        shadowColor: "#000",
+        borderRadius: 20,
+        marginVertical: 8,
+        shadowColor: 'black',
         shadowOffset: {
-            width: 0,
-            height: 3,
+            width: 5,
+            height: 5,
         },
-        shadowOpacity: 0.29,
-        shadowRadius: 4.65,
-        elevation: 7,
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+
+        elevation: 15,
     },
 
     buttonComponent: {
@@ -74,7 +76,6 @@ export const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         borderRadius: 30,
-        backgroundColor: MyColors.white,
 
     }
 })

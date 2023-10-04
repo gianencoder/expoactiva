@@ -1,52 +1,48 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useEffect, useRef } from 'react'
+import React, { useContext } from 'react'
 import { ScrollView, View } from 'react-native';
 import { styles } from '../theme/GlobalTheme';
 import { HomeLittleComponent } from '../components/HomeLittleComponent';
-import { Fontisto, MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
-import { MyColors } from '../theme/ColorsTheme';
-import { useIsFocused } from '@react-navigation/native';
-
-
+import { CarouselComponent } from '../components/CarouselComponent';
+import { data } from '../helper/imageList';
+import { HomeFunction } from '../functions/HomeFunction';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
+import { InteresPointIconComponent } from '../components/Icons/InteresPointIconComponent';
+import { TicketIconComponent } from '../components/Icons/TicketIconComponent';
+import { EventIconComponent } from '../components/Icons/EventIconComponent';
+import { GoToPlaceIconComponent } from '../components/Icons/GoToPlaceIconComponent';
+import { WhereIsMyCarIconComponent } from '../components/Icons/WhereIsMyCarIconComponent';
+import { MyProfileIconComponent } from '../components/Icons/MyProfileIconComponent';
 
 interface Props extends StackScreenProps<any, any> { }
-
 export const HomeScreen = ({ navigation }: Props) => {
-    const scrollViewRef = useRef<ScrollView>(null);
-    const isFocused = useIsFocused(); //Si la pantalla se esta mostrando
 
-    useEffect(() => {
-        //Si la pantalla se esta mostrando y si existe una referencia al scrollView
-        if (isFocused && scrollViewRef.current) {
+    const { theme } = useContext(ThemeContext)
 
-            const delay = 50;
-            const timeout = setTimeout(() => {
-                scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
-            }, delay);
-            return () => clearTimeout(timeout);
-        }
-    }, [isFocused]);
-
-
+    const { scrollViewRef } = HomeFunction();
     return (
-
-        <View style={styles.homeContainer}>
-            <View style={styles.bigComponentContainer}>
-                <View style={styles.bigComponent}></View>
-            </View>
+        <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <ScrollView
                 ref={scrollViewRef}
-            >
-                <View style={styles.littleComponentContainer}>
-                    <HomeLittleComponent action={() => navigation.navigate('TicketsScreen')} page={'Entradas'} icon={<Fontisto name='ticket' color={MyColors.primary} size={50} />} />
-                    <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Puntos de interes'} icon={<MaterialCommunityIcons name='map-search' color={MyColors.primary} size={50} />} />
-                    <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<MaterialIcons name='event-available' color={MyColors.primary} size={50} />} />
-                    <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir al predio'} icon={<Ionicons name='navigate' color={MyColors.primary} size={50} />} />
-                    <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<MaterialCommunityIcons name='car-select' color={MyColors.primary} size={50} />} />
-                    <HomeLittleComponent action={() => navigation.navigate('AuthScreen')} page={'Autenticación'} icon={<MaterialCommunityIcons name='login' color={MyColors.primary} size={50} />} />
-                </View>
-            </ScrollView>
-        </View >
+                style={styles.scrollView}
 
+            >
+                <View style={{ ...styles.homeContainer, backgroundColor: theme.colors.background }}>
+                    <View style={{ ...styles.bigComponentContainer, backgroundColor: theme.customColors.littleComponentBg, shadowColor: 'black' }}>
+                        <View style={{ ...styles.bigComponent, backgroundColor: theme.customColors.littleComponentBg }}>
+                            <CarouselComponent data={data} />
+                        </View>
+                    </View>
+                    <View style={{ ...styles.littleComponentContainer, backgroundColor: theme.colors.background }}>
+                        <HomeLittleComponent action={() => navigation.navigate('TicketsScreen')} page={'Entradas'} icon={<TicketIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Puntos de interés'} icon={<InteresPointIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<EventIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<GoToPlaceIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<WhereIsMyCarIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('Configuration')} page={'Configuración'} icon={<MyProfileIconComponent />} />
+                    </View>
+                </View >
+            </ScrollView>
+        </View>
     )
 }

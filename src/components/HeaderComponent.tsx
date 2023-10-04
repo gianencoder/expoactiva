@@ -1,15 +1,27 @@
-import React from 'react'
-import { View, Image, Platform } from 'react-native';
+import React, { useContext } from 'react'
+import { View, Image, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { headerStyles } from '../theme/HeaderTheme';
 
+import { NavigationHook } from '../hooks/NavigationHook';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
+
 export const HeaderComponent = () => {
-    const android = Platform.OS === 'android'
+    const { goBack, navigation } = NavigationHook()
+    const { width, height } = useWindowDimensions()
+    const { theme } = useContext(ThemeContext)
     return (
-        <View style={{
-            ...headerStyles.icon,
-            marginTop: android ? 0 : 30,
-        }}>
-            <Image source={require('../assets/en2023.png')} />
-        </View>
+        <View style={
+            { ...headerStyles.icon, backgroundColor: theme.customColors.headerColor }}>
+            <View style={{ width: '100%', position: 'absolute' }}>
+                {goBack && (<TouchableOpacity onPress={navigation.goBack}>
+                    <Image style={{ width: width / 35, height: height / 35, tintColor: 'white' }} source={require('../assets/icons/leftarrow.png')} />
+                </TouchableOpacity>)}
+            </View>
+
+            <View style={{ flexDirection: 'row' }}>
+
+                <Image style={{ height: 50, width: 120 }} source={require('../assets/icons/expoactivaNacional.png')} />
+            </View>
+        </View >
     )
 }
