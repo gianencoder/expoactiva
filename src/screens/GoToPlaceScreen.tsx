@@ -9,20 +9,7 @@ export const GoToPlaceScreen = () => {
     const { androidNavigate, iosNavigate, wazeNavigate, showModal, modal, setModal } = GoToPlaceFunction()
 
     useEffect(() => {
-<<<<<<< HEAD
-        const getPermissions = async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync()
-            if (status !== 'granted') {
-                console.log('Grant permission before')
-                return;
-            }
-            let currentLocation = await Location.getCurrentPositionAsync({});
-            setLocation(currentLocation);
-        }
-        getPermissions()
-=======
         setModal(true)
->>>>>>> dev
     }, [])
 
 
