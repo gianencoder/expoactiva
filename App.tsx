@@ -8,6 +8,7 @@ import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 import { MyColors } from './src/theme/ColorsTheme';
 import { ThemeContext, ThemeProvider } from './src/context/themeContext/ThemeContext';
 import { useContext } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   LogBox.ignoreLogs(['Sending']);
@@ -15,7 +16,7 @@ export default function App() {
 
   const { theme } = useContext(ThemeContext)
   return (
-
+    <SafeAreaProvider>
     <ThemeProvider>
       <NavigationContainer>
         <SafeAreaView style={{ ...styles.container }}>
@@ -27,5 +28,6 @@ export default function App() {
         </SafeAreaView>
       </NavigationContainer >
     </ThemeProvider >
+    </SafeAreaProvider>
   );
 }
