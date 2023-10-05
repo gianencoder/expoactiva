@@ -367,7 +367,7 @@ const Map = () => {
                 inputRange: selectedExhibitor ? [60,110] : [100, 200],
                 outputRange: followUserMode ? [1, 0.95] : [1, 0.45]
             }) }}>
-                <Mapbox.MapView ref={mapRef} style={{ flex: 1 }} onPress={onMapPress} styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' onRegionIsChanging={handleRegionChange} scaleBarEnabled={false}>
+                <Mapbox.MapView ref={mapRef} style={{ flex: 1 }} onPress={onMapPress} styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' onCameraChanged={handleRegionChange} scaleBarEnabled={false}>
                     
                     <Mapbox.UserLocation visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} renderMode='native' showsUserHeadingIndicator={followUserMode} />
                     <Mapbox.Camera
