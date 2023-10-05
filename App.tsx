@@ -16,7 +16,6 @@ export default function App() {
 
   const { theme } = useContext(ThemeContext)
   return (
-    <SafeAreaProvider>
     <ThemeProvider>
       <NavigationContainer>
         <SafeAreaView style={{ ...styles.container }}>
@@ -28,6 +27,5 @@ export default function App() {
         </SafeAreaView>
       </NavigationContainer >
     </ThemeProvider >
-    </SafeAreaProvider>
   );
 }

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Animated, Easing, Platform, Dimensions } 
 import Mapbox from '@rnmapbox/maps';
 import useNavigationApi from '../hooks/useNavigationApi.js';
 import MapNavigation from './MapNavigation.js';
-import { Foundation, AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import BottomSheet from './BottomSheet.js';
 import { exhibitors } from '../assets/expositores.js';
 import * as Location from 'expo-location';
@@ -12,56 +12,70 @@ import styles from './MapStyles';
 const MAPBOX_ACCESS_TOKEN = 'sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A';
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
-const UNSELECTED_MARKER_OPACITY = 0.4;
-
 const formatDistance = (distance) => {
     const roundedDistance = Math.round(distance);
     return `${roundedDistance}`;
 };
 
-const formatDuration = (duration) => {
-    const mins = Math.floor(duration / 60);
-    return `${mins}`;
-};
-
-const ExhibitorMarker = React.memo(({ exhibitor, selectedExhibitor, selectExhibitor, distance, navigationMode }) => {
+const iconImages = {
+    'selected-icon': require('./Icons/markerSelected.png'),
+    'unselected-icon': require('./Icons/marker.png')
+  };
+ 
+  const ExhibitorMarker = React.memo(({ exhibitor, selectedExhibitor, selectExhibitor, navigationMode, zoomLevel }) => {
     const isSelected = selectedExhibitor && selectedExhibitor.id === exhibitor.id;
-    const isVisible = navigationMode ? isSelected : true;
-    const markerOpacity = selectedExhibitor ? (isSelected ? 1 : UNSELECTED_MARKER_OPACITY) : 1;
+    
+    // Si navigationMode es true y el marcador no está seleccionado, no renderizamos nada.
+    if (navigationMode === true && !isSelected) {
+        return null;
+    }
+    
+    const featureCollection = {
+        type: 'FeatureCollection',
+        features: [{
+            type: 'Feature',
+            id: exhibitor.id,
+            properties: {
+                icon: isSelected ? 'selected-icon' : 'unselected-icon',
+                title: exhibitor.name,
+            },
+            geometry: {
+                type: 'Point',
+                coordinates: [exhibitor.longitude, exhibitor.latitude],
+            },
+        }]
+    };
+  
+    const shouldAllowOverlap = zoomLevel > 16
 
-    return isVisible ? (
-        <Mapbox.MarkerView
-            key={exhibitor.id}
-            id={String(exhibitor.id)}
-            coordinate={[exhibitor.longitude, exhibitor.latitude]}
-            isSelected={isSelected}
-            style={{ zIndex: isSelected ? 2 : 1 }}
+    return (
+        <Mapbox.ShapeSource
+            id={`source_${exhibitor.id}`}
+            shape={featureCollection}
+            onPress={() => selectExhibitor(exhibitor)}
         >
-           <TouchableOpacity onPress={() => selectExhibitor(exhibitor)}>
-                <View style={[styles.markerView, { opacity: markerOpacity }]}>
-                    {isSelected ? (
-                        <Foundation name="marker" size={Platform.OS === 'android' ? 34 : 62} color="red" />
-                    ) : (
-                        <Foundation name="marker" size={32} color="green" />
-                    )}
-                    <Text style={[
-                        styles.markerText,
-                        {
-                            fontSize: (Platform.OS === 'android' && isSelected) ? 16 : (isSelected ? 22 : 16),
-                            fontWeight: (Platform.OS === 'android' && isSelected) ? '500' : (isSelected ? '600' : '400'),
-                        }
-                    ]}>
-                        {exhibitor.name}
-                    </Text>
-                </View>
-            </TouchableOpacity>
-
-        </Mapbox.MarkerView>
-    ) : null;
+            <Mapbox.SymbolLayer
+                id={`layer_${exhibitor.id}`}
+                style={{
+                    iconImage: ['get', 'icon'],
+                    iconAllowOverlap: isSelected || shouldAllowOverlap ? true : false,
+                    iconSize: isSelected ? 0.6 : 0.5,
+                    iconOpacity: selectedExhibitor ? (isSelected ? 1 : 0.5) : 1,
+                    textField: ['get', 'title'],
+                    textAllowOverlap: isSelected || shouldAllowOverlap ? true : false,
+                    textAnchor: 'top',
+                    textOffset: [0, 1.5],
+                    textSize: isSelected ? 17 : 16,
+                    textOpacity: selectedExhibitor ? (isSelected ? 1 : 0.5) : 1,
+                }}
+            />
+        </Mapbox.ShapeSource>
+    );
 });
 
-
 const Map = () => {
+
+    const mapRef = useRef();
     const [navigationMode, setNavigationMode] = useState(false);
     
     const slideAnim = useRef(new Animated.Value(-500)).current;
@@ -72,9 +86,9 @@ const Map = () => {
     const cameraRef = useRef(null);
     const [firstOpen, setFirstOpen] = useState(true);
     const [cameraAdjusted, setCameraAdjusted] = useState(false);
-    const [originalCameraPosition, setOriginalCameraPosition] = useState(null);
     const [deviceCoordinates, setDeviceCoordinates] = useState(null);
     const [followUserMode, setFollowUserMode] = useState(false);
+    const [zoomLevel, setZoomLevel] = useState(16);
 
     useEffect(() => {
         (async () => {
@@ -113,6 +127,18 @@ const Map = () => {
         })();
     }, []);
 
+    const getZoomLevel = async () => {
+        try {
+            const zoom = await mapRef.current.getZoom(); 
+        } catch (error) {
+            console.log("Error getting zoom level: ", error);
+        }
+    };
+
+    const handleRegionChange = async () => {
+        getZoomLevel();
+    };
+
     useEffect(() => {
         if (selectedExhibitor === null && isSearchMode) {
             openBottomSheet();
@@ -122,8 +148,8 @@ const Map = () => {
     useEffect(() => {
         if (!followUserMode && cameraRef.current) {
             cameraRef.current.setCamera({
-                pitch: 0,  // Esto debería restablecer la perspectiva de la cámara a la normal.
-                animationDuration: 300  // Añade una duración para que la transición sea suave.
+                pitch: 0,  
+                animationDuration: 300  
             });
         } 
         
@@ -150,12 +176,12 @@ const Map = () => {
         token: MAPBOX_ACCESS_TOKEN,
         deviceCoordinates: deviceCoordinates,
         navigationMode: navigationMode
-    }), [deviceCoordinates, selectedExhibitor, navigationMode]); // Agregados los demás posibles cambios en dependencias
+    }), [deviceCoordinates, selectedExhibitor, navigationMode]);
     
     const { route, distance, duration, loading, error, origin, destination } = useNavigationApi(navigationConfig);
     
     const adjustCamera = () => {
-        // Si `deviceCoordinates` o `selectedExhibitor` son null, no ajustamos la cámara
+        // Si `deviceCoordinates` o `selectedExhibitor` son null, no ajusta la cámara
         if (!deviceCoordinates || !selectedExhibitor) return;
     
         if (!cameraAdjusted) {
@@ -164,7 +190,7 @@ const Map = () => {
             const midLatitude = (deviceCoordinates[1] + selectedExhibitor.latitude) / 2;
             const midLongitude = (deviceCoordinates[0] + selectedExhibitor.longitude) / 2;
     
-            let zoomLevel = 17;  // Ajusta esto basado en la distancia o según lo necesites
+            let zoomLevel = 17;
     
             // Ajusta la cámara a la nueva posición
             cameraRef.current.setCamera({
@@ -173,7 +199,7 @@ const Map = () => {
                 animationDuration: 500,
             });
     
-            // Marcar que la cámara ha sido ajustada
+            // Marcar que la cámara gue ajustada
             setCameraAdjusted(true);
         } else {
             // Si la cámara ya fue ajustada, vuelva a la posición original
@@ -184,15 +210,14 @@ const Map = () => {
                 pitch: 45,
             });
     
-            // Marcar que la cámara ha sido desajustada
+            // Marcar que la cámara fue desajustada
             setCameraAdjusted(false);
         }
     };
 
     const openBottomSheet = useCallback(() => {
-        console.log(selectedExhibitor)
 
-        const animationDuration = (firstOpen && isSearchMode) ? 250 : 300; // Puedes ajustar estos valores como desees
+        const animationDuration = (firstOpen && isSearchMode) ? 200 : 200; 
         let targetValue = selectedExhibitor ? 40 : 100;
         
         if (Platform.OS === 'android') {
@@ -219,8 +244,10 @@ const Map = () => {
     }, [slideAnim, heightAnim, selectedExhibitor, firstOpen, isSearchMode]);
     
     const closeBottomSheet = useCallback(() => {
-    
-        const toValueSlide = isSearchMode ? -500 : -100;  // Valor a animar basado en isSearchMode
+        
+        const animationDuration = followUserMode ? 400 : 250
+
+        const toValueSlide = isSearchMode ? -500 : -800;  // Valor a animar basado en isSearchMode
         const toValueHeight = isSearchMode ? 0 : 60;  // Valor a animar basado en isSearchMode
     
         if (Platform.OS === 'android') {
@@ -230,13 +257,13 @@ const Map = () => {
             Animated.parallel([
                 Animated.timing(slideAnim, {
                     toValue: toValueSlide,
-                    duration: 300,
+                    duration: animationDuration,
                     easing: Easing.in(Easing.cubic),
                     useNativeDriver: false,
                 }),
                 Animated.timing(heightAnim, {
                     toValue: toValueHeight,
-                    duration: 200,
+                    duration: animationDuration,
                     easing: Easing.in(Easing.cubic),
                     useNativeDriver: false,
                 })
@@ -286,13 +313,10 @@ const Map = () => {
             });
     
             setTimeout(() => {
-                setIsSearchMode(false); // Aseguramos que el modo búsqueda esté desactivado
+                setIsSearchMode(false);
                 openBottomSheet();
-            }, 80); // puedes ajustar el delay según necesites
+            }, 80); 
         } else {
-            // Si no estamos en el modo de búsqueda, simplemente cambiamos el expositor seleccionado
-            // y ajustamos la cámara sin cerrar y abrir la BottomSheet.
-
             selectedExhibitor ?? openBottomSheet();
 
             setSelectedExhibitor(exhibitor);
@@ -340,17 +364,19 @@ const Map = () => {
     return (
         <View style={{ flex: 1 }}>
             <Animated.View style={{ flex: heightAnim.interpolate({
-                inputRange: [60, 110],
-                outputRange: followUserMode ? [1, 0.90] : [1, 0.45]
+                inputRange: selectedExhibitor ? [60,110] : [100, 200],
+                outputRange: followUserMode ? [1, 0.95] : [1, 0.45]
             }) }}>
-                <Mapbox.MapView  style={{ flex: 1 }} onPress={onMapPress} styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' scaleBarEnabled={false}>
-                    <Mapbox.UserLocation visible={true} androidRenderMode={followUserMode ? 'compass' : 'gps'} renderMode='native' showsUserHeadingIndicator={followUserMode} />
+                <Mapbox.MapView ref={mapRef} style={{ flex: 1 }} onPress={onMapPress} styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' onRegionIsChanging={handleRegionChange} scaleBarEnabled={false}>
+                    
+                    <Mapbox.UserLocation visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} renderMode='native' showsUserHeadingIndicator={followUserMode} />
                     <Mapbox.Camera
                         ref={cameraRef}
                         centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [exhibitors[0].longitude, exhibitors[0].latitude]}
                         zoomLevel={16}
                         animationDuration={2000}
                     />
+                    <Mapbox.Images images={iconImages}/>
 
                     {exhibitors.map((exhibitor) => (
                         <ExhibitorMarker 
@@ -360,8 +386,11 @@ const Map = () => {
                             selectExhibitor={selectExhibitor}
                             distance={distance}
                             navigationMode={navigationMode}
+                            zoomLevel={zoomLevel}
                         />
                     ))}
+                    
+                    
 
                     {navigationMode && (
                         <MapNavigation route={route} cameraRef={cameraRef} origin={origin} destination={destination} />
@@ -373,7 +402,7 @@ const Map = () => {
                         style={[
                             styles.searchButton,
                             {
-                                bottom: selectedExhibitor ? 58 : 80,
+                                bottom: selectedExhibitor ? 55 : 50,
                                 left: '50%',
                                 transform: [{translateX: selectedExhibitor ? -50 : -100}],
                                 padding: selectedExhibitor ? 5 : 15,
@@ -404,8 +433,6 @@ const Map = () => {
                 selectExhibitor={selectExhibitor}
                 followUserMode={followUserMode}
                 toggleFollowUserMode={toggleFollowUserMode}
-                formatDuration={formatDuration}
-                duration={duration}
                 adjustCamera={adjustCamera}
             />
         </View>
