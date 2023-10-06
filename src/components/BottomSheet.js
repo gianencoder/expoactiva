@@ -30,8 +30,6 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode }) => {
     );
 });
 
-
-
 const BottomSheet = ({
     slideAnim,
     heightAnim,
@@ -59,7 +57,7 @@ const BottomSheet = ({
             style={{
                 height: heightAnim.interpolate({
                     inputRange: [0, 0],
-                    outputRange: ['0%', '90%']
+                    outputRange: ['0%', '92%']
                 }),
                 position: 'absolute',
                 bottom: slideAnim, 

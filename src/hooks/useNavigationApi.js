@@ -6,7 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const useNavigationApi = ({ origin, destination, token, navigationMode }) => {
   const [route, setRoute] = useState(null);
   const [distance, setDistance] = useState(null);
-  const [duration, setDuration] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -32,13 +31,12 @@ const useNavigationApi = ({ origin, destination, token, navigationMode }) => {
       const currentTime = new Date().getTime();
 
       if (storedRouteData) {
-        const { savedRoute, savedDistance, savedDuration, timestamp } = JSON.parse(storedRouteData);
+        const { savedRoute, savedDistance, timestamp } = JSON.parse(storedRouteData);
         
-        const oneMonthInMilliseconds = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+        const oneMonthInMilliseconds = 30 * 24 * 60 * 60 * 1000; // 30 dias
         if (currentTime - timestamp < oneMonthInMilliseconds) {
           setRoute(savedRoute);
           setDistance(savedDistance);
-          setDuration(savedDuration); // Recuperando y asignando la duración
         } else {
           await AsyncStorage.removeItem(routeKey);
           throw new Error("Route is outdated, fetching a new one.");
@@ -52,19 +50,14 @@ const useNavigationApi = ({ origin, destination, token, navigationMode }) => {
         const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${origin.longitude},${origin.latitude};${destination.longitude},${destination.latitude}?access_token=${token}&geometries=geojson`;
         const response = await axios.get(url, { cancelToken: cancelTokenSource.token });
 
-        console.log(response.data.routes[0]);
-
         const newRoute = makeLineString(response.data.routes[0].geometry.coordinates);
         const newDistance = response.data.routes[0].distance;
-        const newDuration = response.data.routes[0].duration;
         setRoute(newRoute);
         setDistance(newDistance);
-        setDuration(newDuration);
 
         await AsyncStorage.setItem(routeKey, JSON.stringify({
           savedRoute: newRoute,
           savedDistance: newDistance,
-          savedDuration: newDuration,
           timestamp: new Date().getTime()
         }));
 
@@ -89,7 +82,6 @@ const useNavigationApi = ({ origin, destination, token, navigationMode }) => {
   return {
     route,
     distance,
-    duration,
     loading,
     error,
     origin,

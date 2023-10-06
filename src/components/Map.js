@@ -162,14 +162,13 @@ const Map = () => {
         if (followUserMode && cameraRef.current) {
             cameraRef.current.setCamera({
                 centerCoordinate: deviceCoordinates,
-                zoomLevel: 19,
-                duration: 2000,
-                pitch: 45,
+                zoomLevel: 18,
+                duration: 1500,
+                pitch: 25,
             });
         }
     }, [followUserMode, deviceCoordinates]);
     
-
     const navigationConfig = useMemo(() => ({
         origin: deviceCoordinates ? {latitude: deviceCoordinates[1], longitude: deviceCoordinates[0]} : null,
         destination: selectedExhibitor ? {latitude: selectedExhibitor.latitude, longitude: selectedExhibitor.longitude} : null,
@@ -178,10 +177,10 @@ const Map = () => {
         navigationMode: navigationMode
     }), [deviceCoordinates, selectedExhibitor, navigationMode]);
     
-    const { route, distance, duration, loading, error, origin, destination } = useNavigationApi(navigationConfig);
+    const { route, distance, loading, error, origin, destination } = useNavigationApi(navigationConfig);
     
     const adjustCamera = () => {
-        // Si `deviceCoordinates` o `selectedExhibitor` son null, no ajusta la cámara
+        // Si deviceCoordinates o selectedExhibitor son null, no ajusta la cámara
         if (!deviceCoordinates || !selectedExhibitor) return;
     
         if (!cameraAdjusted) {
@@ -207,7 +206,7 @@ const Map = () => {
                 centerCoordinate: deviceCoordinates,
                 zoomLevel: 19,
                 duration: 500,
-                pitch: 45,
+                pitch: 25,
             });
     
             // Marcar que la cámara fue desajustada
@@ -328,7 +327,6 @@ const Map = () => {
             
         }
     }, [isSearchMode, openBottomSheet, closeBottomSheet]);
-    
 
     const onMapPress = useCallback(() => {
         closeBottomSheet();
@@ -347,15 +345,14 @@ const Map = () => {
     } ,[]);
 
     const initiateSearch = () => {
-        console.log(selectedExhibitor)
-        // Si la BottomSheet ya está visible, la cerramos
+        // Si la BottomSheet ya está visible, la cierro
         if (selectedExhibitor) {
             setSelectedExhibitor(null);
             closeBottomSheet();
             setIsSearchMode(true);
             
         } else {
-            // Si la BottomSheet no está visible, simplemente realizamos la operación de búsqueda
+            // Si la BottomSheet no está visible, se abre en modo busqueda
             setIsSearchMode(true);
             openBottomSheet();
         }
@@ -368,8 +365,7 @@ const Map = () => {
                 outputRange: followUserMode ? [1, 0.95] : [1, 0.45]
             }) }}>
                 <Mapbox.MapView ref={mapRef} style={{ flex: 1 }} onPress={onMapPress} styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' onCameraChanged={handleRegionChange} scaleBarEnabled={false}>
-                    
-                    <Mapbox.UserLocation visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} showsUserHeadingIndicator={true} />
+                    <Mapbox.UserLocation minDisplacement={2} visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} showsUserHeadingIndicator={true} />
                     <Mapbox.Camera
                         ref={cameraRef}
                         centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [exhibitors[0].longitude, exhibitors[0].latitude]}
@@ -377,7 +373,6 @@ const Map = () => {
                         animationDuration={2000}
                     />
                     <Mapbox.Images images={iconImages}/>
-
                     {exhibitors.map((exhibitor) => (
                         <ExhibitorMarker 
                             key={exhibitor.id}
@@ -389,9 +384,6 @@ const Map = () => {
                             zoomLevel={zoomLevel}
                         />
                     ))}
-                    
-                    
-
                     {navigationMode && (
                         <MapNavigation route={route} cameraRef={cameraRef} origin={origin} destination={destination} />
                     )}
