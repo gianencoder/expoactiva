@@ -164,7 +164,7 @@ const Map = () => {
                 centerCoordinate: deviceCoordinates,
                 zoomLevel: 19,
                 duration: 2000,
-                pitch: 60,
+                pitch: 45,
             });
         }
     }, [followUserMode, deviceCoordinates]);
@@ -369,7 +369,7 @@ const Map = () => {
             }) }}>
                 <Mapbox.MapView ref={mapRef} style={{ flex: 1 }} onPress={onMapPress} styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' onCameraChanged={handleRegionChange} scaleBarEnabled={false}>
                     
-                    <Mapbox.UserLocation visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} renderMode='native' showsUserHeadingIndicator={followUserMode} />
+                    <Mapbox.UserLocation visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} showsUserHeadingIndicator={true} />
                     <Mapbox.Camera
                         ref={cameraRef}
                         centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [exhibitors[0].longitude, exhibitors[0].latitude]}
