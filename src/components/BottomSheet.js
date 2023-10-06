@@ -3,39 +3,44 @@ import { View, Text, TouchableOpacity, Animated, Image, ScrollView, ActivityIndi
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import Exhibitors from './Exhibitors';
 
-const Distance = React.memo(({ getFormattedDistance, followUserMode }) => {
+const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) => {
+    const { value, unit } = getFormattedDistance();
+    
     return (
         <>
-            {followUserMode ? (
-        <>
-            <View style={{ flexDirection: 'row', paddingTop: 5, paddingLeft: 10, alignItems: 'baseline', justifyContent: 'flex-start', width: '25%' }}>
-                <View style={{ alignItems: 'flex-start' }}>
-                    <Text style={{ fontSize: 26, fontWeight: '700', color: 'darkgreen' }}>
-                        {`${getFormattedDistance()}`}
-                    </Text>
-                    <Text style={{ fontSize: 20, fontWeight: '300', color: 'gray' }}>
-                        Metros
-                    </Text>
-                </View>
-            </View>
-        </>
-            
-            
+            {loading ? (
+                <ActivityIndicator size="medium" color="darkgreen" />
             ) : (
-                <Text style={{ fontSize:16, fontWeight: '500', color: 'darkgreen', paddingVertical: 20 }}>
-                    {`A ${getFormattedDistance()} metros de distancia`}
-                </Text>
+                followUserMode ? (
+                    <>
+                        <View style={{ flexDirection: 'row', paddingTop: 5, paddingLeft: 10, alignItems: 'baseline', justifyContent: 'flex-start', width: '25%' }}>
+                            <View style={{ alignItems: 'flex-start' }}>
+                                <Text style={{ fontSize: 26, fontWeight: '700', color: 'darkgreen' }}>
+                                    {value}
+                                </Text>
+                                <Text style={{ fontSize: 20, fontWeight: '300', color: 'gray' }}>
+                                    {unit}
+                                </Text>
+                            </View>
+                        </View>
+                    </>
+                ) : (
+                    <Text style={{ fontSize:16, fontWeight: '500', color: 'darkgreen', paddingVertical: 20 }}>
+                        {`A ${value} ${unit} de distancia`}
+                    </Text>
+                )
             )}
         </>
     );
 });
+
+
 
 const BottomSheet = ({
     slideAnim,
     heightAnim,
     selectedExhibitor,
     distance,
-    formatDistance,
     onMapPress,
     navigationMode,
     toggleNavigationMode,
@@ -43,21 +48,33 @@ const BottomSheet = ({
     selectExhibitor,
     followUserMode,
     toggleFollowUserMode,
-    adjustCamera
+    adjustCamera,
+    loading
 }) => {
 
     const [isImageLoading, setImageLoading] = React.useState(false);
 
     const getFormattedDistance = React.useCallback(() => {
-        return formatDistance(distance);
-    }, [distance, formatDistance]);
+        const rawDistance = distance;
+    
+        if (typeof rawDistance !== 'undefined' && rawDistance !== null) {
+            if (rawDistance >= 1000) {
+                return { value: (rawDistance / 1000).toFixed(1), unit: 'Km' }; // para kilómetros
+            } else {
+                return { value: rawDistance.toString(), unit: 'Metros' }; // para metros
+            }
+        } else {
+            return { value: '0', unit: 'Metros' }; // Ejemplo de valor por defecto
+        }
+        
+    }, [distance]);
 
     const renderSearchMode = React.useCallback(() => (
         <Animated.View
             style={{
                 height: heightAnim.interpolate({
                     inputRange: [0, 0],
-                    outputRange: ['0%', '92%']
+                    outputRange: ['0%', '95%']
                 }),
                 position: 'absolute',
                 bottom: slideAnim, 
@@ -112,11 +129,11 @@ const BottomSheet = ({
                     <ScrollView
                         style={{ maxHeight: selectedExhibitor.image ? 70 : 180, width: '100%', marginTop: navigationMode ? 5 : 0 }}>
                         {!navigationMode || !selectedExhibitor.image ? (
-                            <Text style={{ fontSize:16 }}>{selectedExhibitor.description}</Text>
+                            <Text style={{ fontSize:17 }}>{selectedExhibitor.description}</Text>
                         ) : null}
                     </ScrollView>
                         {selectedExhibitor.image ? (
-                            <View style={{ width: '100%', height: Dimensions.get("screen").height*0.15, justifyContent: 'center', alignItems: 'center', borderRadius: 15, overflow: 'hidden', borderWidth: 0.15, borderColor: 'darkgreen' }}>
+                            <View style={{ width: '100%', height: Dimensions.get("screen").height*0.12, justifyContent: 'center', alignItems: 'center', borderRadius: 15, overflow: 'hidden', borderWidth: 0.15, borderColor: 'darkgreen' }}>
                                 {isImageLoading && 
                                     <ActivityIndicator size="large" color="darkgreen" style={{ position: 'absolute' }}/>
                                 }
@@ -214,7 +231,7 @@ const BottomSheet = ({
                             </TouchableOpacity>
                         </View>
                         <View style={{ flexDirection:'row', justifyContent: 'flex-start', alignItems:'center'}}>
-                            <Distance getFormattedDistance={getFormattedDistance} followUserMode={followUserMode} />
+                            <Distance getFormattedDistance={getFormattedDistance} followUserMode={followUserMode} loading={loading} />
                             <TouchableOpacity onPress={adjustCamera} style={{borderWidth:1, padding: 10, borderRadius:50, borderColor:'gray'}}>
                                 <MaterialCommunityIcons name="navigation-variant" size={30} color="darkgreen" />
                             </TouchableOpacity>

@@ -12,14 +12,9 @@ import styles from './MapStyles';
 const MAPBOX_ACCESS_TOKEN = 'sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A';
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
-const formatDistance = (distance) => {
-    const roundedDistance = Math.round(distance);
-    return `${roundedDistance}`;
-};
-
 const iconImages = {
-    'selected-icon': require('./Icons/markerSelected.png'),
-    'unselected-icon': require('./Icons/marker.png')
+    'selected-icon': require('./Icons/flag.png'),
+    'unselected-icon': require('./Icons/flag2.png')
   };
  
   const ExhibitorMarker = React.memo(({ exhibitor, selectedExhibitor, selectExhibitor, navigationMode, zoomLevel }) => {
@@ -46,7 +41,7 @@ const iconImages = {
         }]
     };
   
-    const shouldAllowOverlap = zoomLevel > 16
+    const shouldAllowOverlap = zoomLevel > 16.5;
 
     return (
         <Mapbox.ShapeSource
@@ -59,13 +54,13 @@ const iconImages = {
                 style={{
                     iconImage: ['get', 'icon'],
                     iconAllowOverlap: isSelected || shouldAllowOverlap ? true : false,
-                    iconSize: isSelected ? 0.6 : 0.5,
+                    iconSize: isSelected ? 0.35 : 0.25,
                     iconOpacity: selectedExhibitor ? (isSelected ? 1 : 0.5) : 1,
                     textField: ['get', 'title'],
                     textAllowOverlap: isSelected || shouldAllowOverlap ? true : false,
                     textAnchor: 'top',
                     textOffset: [0, 1.5],
-                    textSize: isSelected ? 17 : 16,
+                    textSize: isSelected ? 15 : 14,
                     textOpacity: selectedExhibitor ? (isSelected ? 1 : 0.5) : 1,
                 }}
             />
@@ -129,7 +124,8 @@ const Map = () => {
 
     const getZoomLevel = async () => {
         try {
-            const zoom = await mapRef.current.getZoom(); 
+            const zoom = await mapRef.current.getZoom();
+            setZoomLevel(zoom);
         } catch (error) {
             console.log("Error getting zoom level: ", error);
         }
@@ -163,7 +159,7 @@ const Map = () => {
             cameraRef.current.setCamera({
                 centerCoordinate: deviceCoordinates,
                 zoomLevel: 18,
-                duration: 1500,
+                duration: 1000,
                 pitch: 25,
             });
         }
@@ -189,7 +185,7 @@ const Map = () => {
             const midLatitude = (deviceCoordinates[1] + selectedExhibitor.latitude) / 2;
             const midLongitude = (deviceCoordinates[0] + selectedExhibitor.longitude) / 2;
     
-            let zoomLevel = 17;
+            let zoomLevel = 16;
     
             // Ajusta la cámara a la nueva posición
             cameraRef.current.setCamera({
@@ -204,7 +200,7 @@ const Map = () => {
             // Si la cámara ya fue ajustada, vuelva a la posición original
             cameraRef.current.setCamera({
                 centerCoordinate: deviceCoordinates,
-                zoomLevel: 19,
+                zoomLevel: 18,
                 duration: 500,
                 pitch: 25,
             });
@@ -247,7 +243,7 @@ const Map = () => {
         const animationDuration = followUserMode ? 400 : 250
 
         const toValueSlide = isSearchMode ? -500 : -800;  // Valor a animar basado en isSearchMode
-        const toValueHeight = isSearchMode ? 0 : 60;  // Valor a animar basado en isSearchMode
+        const toValueHeight = isSearchMode ? 20 : 60;  // Valor a animar basado en isSearchMode
     
         if (Platform.OS === 'android') {
             slideAnim.setValue(toValueSlide);
@@ -362,10 +358,10 @@ const Map = () => {
         <View style={{ flex: 1 }}>
             <Animated.View style={{ flex: heightAnim.interpolate({
                 inputRange: selectedExhibitor ? [60,110] : [100, 200],
-                outputRange: followUserMode ? [1, 0.95] : [1, 0.45]
+                outputRange: followUserMode || isSearchMode ? [1, 1] : [1, 0.43]
             }) }}>
                 <Mapbox.MapView ref={mapRef} style={{ flex: 1 }} onPress={onMapPress} styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' onCameraChanged={handleRegionChange} scaleBarEnabled={false}>
-                    <Mapbox.UserLocation minDisplacement={2} visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} showsUserHeadingIndicator={true} />
+                    <Mapbox.UserLocation minDisplacement={3} visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} showsUserHeadingIndicator={true}  />
                     <Mapbox.Camera
                         ref={cameraRef}
                         centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [exhibitors[0].longitude, exhibitors[0].latitude]}
@@ -417,7 +413,6 @@ const Map = () => {
                 heightAnim={heightAnim}
                 selectedExhibitor={selectedExhibitor}
                 distance={distance}
-                formatDistance={formatDistance}
                 onMapPress={onMapPress}
                 navigationMode={navigationMode}
                 toggleNavigationMode={toggleNavigationMode}
@@ -426,6 +421,7 @@ const Map = () => {
                 followUserMode={followUserMode}
                 toggleFollowUserMode={toggleFollowUserMode}
                 adjustCamera={adjustCamera}
+                loading={loading}
             />
         </View>
     );
