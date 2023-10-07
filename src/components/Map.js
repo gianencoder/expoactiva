@@ -49,6 +49,7 @@ const iconImages = {
             id={`source_${exhibitor.id}`}
             shape={featureCollection}
             onPress={() => selectExhibitor(exhibitor)}
+            hitbox={{ width: 20, height: 20 }}
         >
             <Mapbox.SymbolLayer
                 id={`layer_${exhibitor.id}`}
@@ -274,7 +275,7 @@ const Map = () => {
     }, [slideAnim, heightAnim, navigationMode, toggleNavigationMode, isSearchMode]);
     
     const startNavigation = useCallback(() => {
-
+ 
         const toValueSlide = -200;
         const toValueHeight = Dimensions.get('window').height * 0.155;
         if (Platform.OS === 'android') {
@@ -425,6 +426,7 @@ const Map = () => {
                 toggleFollowUserMode={toggleFollowUserMode}
                 adjustCamera={adjustCamera}
                 loading={loading}
+                cameraAdjusted={cameraAdjusted}
             />
         </View>
     );
