@@ -9,12 +9,12 @@ import { MyColors } from './src/theme/ColorsTheme';
 import { ThemeContext, ThemeProvider } from './src/context/themeContext/ThemeContext';
 import { useContext } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AuthScreen } from './src/screens/AuthScreen';
 
 export default function App() {
   LogBox.ignoreLogs(['Sending']);
   LogBox.ignoreLogs(['new NativeEventEmitter']);
 
-  const { theme } = useContext(ThemeContext)
   return (
     <ThemeProvider>
       <NavigationContainer>
@@ -27,5 +27,7 @@ export default function App() {
         </SafeAreaView>
       </NavigationContainer >
     </ThemeProvider >
+
+    // <AuthScreen></AuthScreen>
   );
 }

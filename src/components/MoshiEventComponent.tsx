@@ -42,18 +42,15 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
 
 
         if (endEventTime <= 0) {
-            console.log(moshiEvent.eventName + ' ' + 'finalizado')
             setFinished(true)
             setInProgress(false)
         } else if (endEventTime >= 0 && startEventTime <= 0) {
             setInProgress(true)
             setFinished(false)
             setLeftTime(endEventTime)
-            console.log(moshiEvent.eventName + ' ' + 'En progreso')
 
         } else {
             setInProgress(false)
-            console.log(moshiEvent.eventName + ' ' + 'Por Empezar')
         }
 
 
@@ -87,7 +84,7 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
     //Renderiza el tiempo
     useEffect(() => {
         calculateTimeLeft(); // Establece el valor inicial al montar el componente
-        const interval = setInterval(calculateTimeLeft, 30000);
+        const interval = setInterval(calculateTimeLeft, 100);
         return () => clearInterval(interval);
     }, []);
 

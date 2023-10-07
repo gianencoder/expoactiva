@@ -11,6 +11,7 @@ import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { ConfigurationScreen } from '../screens/ConfigurationScreen';
 
 
+
 const Tab = createBottomTabNavigator();
 
 export const BottomTabNavigator = () => {
@@ -25,8 +26,7 @@ export const BottomTabNavigator = () => {
 
                     tabBarStyle: {
                         backgroundColor: theme.customColors.transparent,
-                        // position: 'absolute',
-                        borderTopColor: 'transparent'
+                        borderTopColor: 'transparent',
                     },
                     tabBarHideOnKeyboard: true,
                 })}

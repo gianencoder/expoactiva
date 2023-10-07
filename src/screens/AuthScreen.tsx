@@ -1,31 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { authStyle } from '../theme/AuthTheme';
+import { styles } from '../theme/GlobalTheme';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 export const AuthScreen = () => {
 
+    const { theme } = useContext(ThemeContext)
     return (
+        <View style={{ ...authStyle.authCard, backgroundColor: theme.colors.background }}>
+            <View>
+                <Text style={{ ...authStyle.title, color: theme.colors.text }}>Iniciar Sesión</Text>
+            </View>
+        </View>
 
-        <View></View>
-        // <View style={authStyles.container}>
 
-        //     <View style={authStyles.buttonsContainer}>
-        //         <Text style={authStyles.titleTxt}>Abrir con</Text>
-        //         <TouchableOpacity style={authStyles.googleBtn}
-        //         >
-        //             <Image style={{ width: 24, height: 24 }} source={require('../assets/googleIcon.png')} />
-        //             <Text style={authStyles.googleTxt}>Continuar con Google</Text>
-        //         </TouchableOpacity>
-
-        //         <TouchableOpacity style={authStyles.appleBtn}>
-        //             <Image style={{ width: 30, height: 30 }} source={require('../assets/appleIcon.png')} />
-        //             <Text style={authStyles.txtBtn}>Continuar con Apple</Text>
-        //         </TouchableOpacity>
-
-        //         <TouchableOpacity style={authStyles.facebookBtn}>
-        //             <Image style={{ width: 30, height: 30 }} source={require('../assets/facebookIcon.png')} />
-        //             <Text style={authStyles.txtBtn}>Continuar con Facebook</Text>
-        //         </TouchableOpacity>
-        //     </View>
-        // </View>
     )
 }
