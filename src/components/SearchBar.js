@@ -27,6 +27,8 @@ export default function SearchBar({ placeholder, onSearchTextChange }) {
           placeholder={placeholder}
           value={searchText}
           onChangeText={handleChangeText}
+          autoCorrect={false}
+          autoComplete='off'
         />
         {searchText ? (
           <TouchableOpacity onPress={() => handleChangeText('')}>

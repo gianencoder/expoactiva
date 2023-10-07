@@ -8,13 +8,14 @@ import BottomSheet from './BottomSheet.js';
 import { exhibitors } from '../assets/expositores.js';
 import * as Location from 'expo-location';
 import styles from './MapStyles';
+import { useNavigation } from '@react-navigation/native';
 
 const MAPBOX_ACCESS_TOKEN = 'sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A';
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
 const iconImages = {
-    'selected-icon': require('./Icons/flag.png'),
-    'unselected-icon': require('./Icons/flag2.png')
+    'selected-icon': require('./Icons/markerSelected.png'),
+    'unselected-icon': require('./Icons/marker.png')
   };
  
   const ExhibitorMarker = React.memo(({ exhibitor, selectedExhibitor, selectExhibitor, navigationMode, zoomLevel }) => {
@@ -54,13 +55,13 @@ const iconImages = {
                 style={{
                     iconImage: ['get', 'icon'],
                     iconAllowOverlap: isSelected || shouldAllowOverlap ? true : false,
-                    iconSize: isSelected ? 0.35 : 0.25,
+                    iconSize: isSelected ? 0.35 : 0.30,
                     iconOpacity: selectedExhibitor ? (isSelected ? 1 : 0.5) : 1,
                     textField: ['get', 'title'],
                     textAllowOverlap: isSelected || shouldAllowOverlap ? true : false,
                     textAnchor: 'top',
-                    textOffset: [0, 1.5],
-                    textSize: isSelected ? 15 : 14,
+                    textOffset: [0, 1.7],
+                    textSize: isSelected ? 14 : 13,
                     textOpacity: selectedExhibitor ? (isSelected ? 1 : 0.5) : 1,
                 }}
             />
@@ -84,6 +85,7 @@ const Map = () => {
     const [deviceCoordinates, setDeviceCoordinates] = useState(null);
     const [followUserMode, setFollowUserMode] = useState(false);
     const [zoomLevel, setZoomLevel] = useState(16);
+    const navigation = useNavigation();
 
     useEffect(() => {
         (async () => {
@@ -118,6 +120,7 @@ const Map = () => {
                 if (locationSubscription) {
                     locationSubscription.remove();
                 }
+                navigation.goBack();
             };
         })();
     }, []);
@@ -361,7 +364,7 @@ const Map = () => {
                 outputRange: followUserMode || isSearchMode ? [1, 1] : [1, 0.43]
             }) }}>
                 <Mapbox.MapView ref={mapRef} style={{ flex: 1 }} onPress={onMapPress} styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' onCameraChanged={handleRegionChange} scaleBarEnabled={false}>
-                    <Mapbox.UserLocation minDisplacement={3} visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} showsUserHeadingIndicator={true}  />
+                    <Mapbox.UserLocation minDisplacement={3} visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} renderMode={Platform.OS==='android' && followUserMode ? 'native': 'normal'} showsUserHeadingIndicator={true}  />
                     <Mapbox.Camera
                         ref={cameraRef}
                         centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [exhibitors[0].longitude, exhibitors[0].latitude]}

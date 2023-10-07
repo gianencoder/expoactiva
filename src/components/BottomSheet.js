@@ -8,25 +8,33 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
     
     return (
         <>
-            {loading ? (
-                <ActivityIndicator size="medium" color="darkgreen" />
+            {loading && !followUserMode ? (
+                <ActivityIndicator size="small" color="darkgreen" style={{paddingHorizontal: 10}} />
             ) : (
                 followUserMode ? (
                     <>
-                        <View style={{ flexDirection: 'row', paddingTop: 5, paddingLeft: 10, alignItems: 'baseline', justifyContent: 'flex-start', width: '25%' }}>
+                        <View style={{ flexDirection: 'row', paddingTop: 5, alignItems: 'baseline', justifyContent: 'flex-start', width: '30%', paddingLeft:10 }}>
                             <View style={{ alignItems: 'flex-start' }}>
-                                <Text style={{ fontSize: 26, fontWeight: '700', color: 'darkgreen' }}>
-                                    {value}
-                                </Text>
-                                <Text style={{ fontSize: 20, fontWeight: '300', color: 'gray' }}>
-                                    {unit}
-                                </Text>
+                                {value > 10 ? (
+                                    <>
+                                    <Text style={{ fontSize: 24, fontWeight: '700', color: 'darkgreen' }}>
+                                        {value}
+                                    </Text>
+                                    <Text style={{ fontSize: 20, fontWeight: '300', color: 'gray' }}>
+                                        {unit}
+                                    </Text>
+                                    </>
+                                ) : (
+                                    <Text style={{ fontSize: 20, fontWeight: '600', color: 'darkgreen' }}>
+                                        Ha llegado a su destino
+                                    </Text>
+                                )}
                             </View>
                         </View>
                     </>
                 ) : (
                     <Text style={{ fontSize:16, fontWeight: '500', color: 'darkgreen', paddingVertical: 20 }}>
-                        {`A ${value} ${unit} de distancia`}
+                        {value <= 10 ? 'Usted se encuentra en el sitio' : `A ${value} ${unit} de distancia`}
                     </Text>
                 )
             )}
@@ -55,7 +63,7 @@ const BottomSheet = ({
     const [isImageLoading, setImageLoading] = React.useState(false);
 
     const getFormattedDistance = React.useCallback(() => {
-        const rawDistance = distance;
+        const rawDistance = Math.round(distance);
     
         if (typeof rawDistance !== 'undefined' && rawDistance !== null) {
             if (rawDistance >= 1000) {
@@ -133,9 +141,9 @@ const BottomSheet = ({
                         ) : null}
                     </ScrollView>
                         {selectedExhibitor.image ? (
-                            <View style={{ width: '100%', height: Dimensions.get("screen").height*0.12, justifyContent: 'center', alignItems: 'center', borderRadius: 15, overflow: 'hidden', borderWidth: 0.15, borderColor: 'darkgreen' }}>
+                            <View style={{ width: '100%', height: !navigationMode || !selectedExhibitor.image ? Dimensions.get("screen").height*0.125 : Dimensions.get("screen").height*0.16, justifyContent: 'center', alignItems: 'center', borderRadius: 15, overflow: 'hidden', borderWidth: 0.15, borderColor: 'darkgreen' }}>
                                 {isImageLoading && 
-                                    <ActivityIndicator size="large" color="darkgreen" style={{ position: 'absolute' }}/>
+                                    <ActivityIndicator size="auto" color="darkgreen" style={{ position: 'absolute' }}/>
                                 }
                                 <Image 
                                     source={{ uri: selectedExhibitor.image }} 
@@ -225,12 +233,12 @@ const BottomSheet = ({
                 }}>
                     <View style={{flex:1,padding: 10}}>
                         <View style={{ flexDirection: 'row', alignItems:'flex-start', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5}}>
-                            <Text style={{ color: 'gray', fontSize: 20, fontWeight: '500', textAlign: 'left', paddingLeft:10 }}>En camino a {selectedExhibitor.name}</Text>                         
+                            <Text style={{ color: 'gray', fontSize: 18, fontWeight: '500', textAlign: 'left', paddingLeft:10 }}>En camino a {selectedExhibitor.name}</Text>                         
                             <TouchableOpacity style={{paddingRight:5}} onPress={onMapPress}>
                                 <AntDesign name="close" size={24} color="darkgreen" />
                             </TouchableOpacity>
                         </View>
-                        <View style={{ flexDirection:'row', justifyContent: 'flex-start', alignItems:'center'}}>
+                        <View style={{ flexDirection:'row', justifyContent: 'space-between', alignItems:'center', marginTop: 2}}>
                             <Distance getFormattedDistance={getFormattedDistance} followUserMode={followUserMode} loading={loading} />
                             <TouchableOpacity onPress={adjustCamera} style={{borderWidth:1, padding: 10, borderRadius:50, borderColor:'gray'}}>
                                 <MaterialCommunityIcons name="navigation-variant" size={30} color="darkgreen" />
