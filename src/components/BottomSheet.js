@@ -43,7 +43,6 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
 });
 
 
-
 const BottomSheet = ({
     slideAnim,
     heightAnim,

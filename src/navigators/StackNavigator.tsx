@@ -27,7 +27,7 @@ export const MyStack = () => {
                     headerShown: false
                 }}
             >
-                <Stack.Screen name="HomeScreen" component={HomeScreen} />
+                <Stack.Screen name="HomeScreen" component={AuthScreen} />
                 <Stack.Screen name="MenuScreen" component={MenuScreen} />
                 <Stack.Screen name="EventScreen" component={TopTabNavigator} />
                 <Stack.Screen name="TicketsScreen" component={TicketsScreen} />

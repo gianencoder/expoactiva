@@ -20,7 +20,8 @@ export interface ThemeState extends Theme {
         iconColor: string,
         shadow: string,
         activeColor: string,
-        headerColor: string
+        headerColor: string,
+        subtitles: string,
 
     }
 }
@@ -47,7 +48,8 @@ export const lightTheme: ThemeState = {
         iconColor: 'black',
         shadow: 'black',
         activeColor: MyColors.primary,
-        headerColor: MyColors.primary
+        headerColor: MyColors.primary,
+        subtitles: MyColors.textGrey
     }
 }
 
@@ -71,7 +73,8 @@ export const darkTheme: ThemeState = {
         iconColor: '#03ffbb',
         shadow: 'white',
         activeColor: '#03ffbb',
-        headerColor: '#1b1b1b'
+        headerColor: '#1b1b1b',
+        subtitles: MyColors.textGrey
 
     }
 }

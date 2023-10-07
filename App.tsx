@@ -28,6 +28,6 @@ export default function App() {
       </NavigationContainer >
     </ThemeProvider >
 
-    // <AuthScreen></AuthScreen>
+
   );
 }
