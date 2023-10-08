@@ -31,7 +31,7 @@ export default function SearchBar({ placeholder, onSearchTextChange }) {
           autoComplete='off'
         />
         {searchText ? (
-          <TouchableOpacity onPress={() => handleChangeText('')}>
+          <TouchableOpacity hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }} onPress={() => handleChangeText('')}>
             <AntDesign name="close" size={20} color="darkgreen" style={styles.closeIcon} />
           </TouchableOpacity>
         ) : null}

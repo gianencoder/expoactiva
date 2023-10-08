@@ -29,7 +29,7 @@ import { FlashList } from '@shopify/flash-list';
       <View style={styles.container}>
         <View style={styles.header}>
           <SearchBar placeholder="Buscar expositores" onSearchTextChange={setSearchText} />
-          <TouchableOpacity style={styles.closeButton} onPress={onMapPress}>
+          <TouchableOpacity style={styles.closeButton} onPress={onMapPress} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
             <AntDesign name="close" size={22} color="darkgreen" />
           </TouchableOpacity>
         </View>
