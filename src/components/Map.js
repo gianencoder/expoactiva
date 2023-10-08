@@ -394,7 +394,7 @@ const Map = () => {
                         style={[
                             styles.searchButton,
                             {
-                                bottom: selectedExhibitor ? 55 : 50,
+                                bottom: selectedExhibitor ? 75 : 50,
                                 left: '50%',
                                 transform: [{translateX: selectedExhibitor ? -50 : -100}],
                                 padding: selectedExhibitor ? 5 : 15,

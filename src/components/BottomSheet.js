@@ -13,7 +13,7 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
             ) : (
                 followUserMode ? (
                     <>
-                        <View style={{ flexDirection: 'row', paddingTop: 5, alignItems: 'baseline', justifyContent: 'flex-start', width: Dimensions.get("screen").width * 0.6, paddingLeft: 10 }}>
+                        <View style={{ flexDirection: 'row', paddingTop: 5, alignItems: 'baseline', justifyContent: 'flex-start', width: Dimensions.get("screen").width * 0.696, paddingLeft: 10 }}>
                             <View style={{ alignItems: 'flex-start' }}>
                                 {value > 10 ? (
                                     <>
@@ -25,7 +25,7 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                                         </Text>
                                     </>
                                 ) : (
-                                    <Text style={{ fontSize: 20, fontWeight: '600', color: 'darkgreen' }}>
+                                    <Text style={{ fontSize: 24, fontWeight: '600', color: 'darkgreen' }}>
                                         Ha llegado a su destino
                                     </Text>
                                 )}
@@ -106,7 +106,7 @@ const BottomSheet = ({
                 style={{
                     height: heightAnim.interpolate({
                         inputRange: [60, 100],
-                        outputRange: ['0%', '50%']
+                        outputRange: ['0%', Dimensions.get("screen").height < 800 ? '55.5%' : '52%']
                     }),
                     position: 'absolute',
                     bottom: slideAnim,
@@ -142,7 +142,7 @@ const BottomSheet = ({
                     {selectedExhibitor.image ? (
                         <View style={{
                             width: Dimensions.get("screen").width * 0.51,
-                            height: Dimensions.get("screen").height * (navigationMode ? 0.149 : 0.2), // Ajusta la altura aquí
+                            height: Dimensions.get("screen").height * (navigationMode && Dimensions.get("screen").height < 840 ? 0.16 : 0.185), // Ajusta la altura aquí
                             justifyContent: 'center',
                             alignItems: 'center',
                             borderRadius: 15,
@@ -168,7 +168,7 @@ const BottomSheet = ({
                         <ScrollView
                             style={{ 
                                 flex: 1, 
-                                maxHeight: Dimensions.get("screen").height * (navigationMode ? 0.15 : 0.5),
+                                maxHeight: Dimensions.get("screen").height * (navigationMode && Dimensions.get("screen").height < 840 ? 0.16 : 0.5),
                             }}
                         >
                                 <Text style={{ fontSize: 17 }}>{selectedExhibitor.description}</Text>
@@ -231,7 +231,7 @@ const BottomSheet = ({
                     style={{
                         height: heightAnim.interpolate({
                             inputRange: [0, 100],
-                            outputRange: ['100%', '60%']
+                            outputRange: ['100%', '58%']
                         }),
                         position: 'absolute',
                         bottom: slideAnim,
