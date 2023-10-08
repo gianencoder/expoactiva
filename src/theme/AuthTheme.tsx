@@ -10,7 +10,7 @@ export const authStyle = StyleSheet.create({
         flex: 1,
         padding: 25,
         justifyContent: 'space-between',
-        gap: 20
+        gap: 20,
     },
     title: {
         fontSize: 30,
@@ -61,11 +61,37 @@ export const authStyle = StyleSheet.create({
         flex: 1,
         gap: 15,
         padding: 15,
+        alignItems: 'center'
 
     },
     loginButton: {
-        width: '100%',
-        height: SCREEN_HEIGHT / 13,
+        width: '90%',
+        height: SCREEN_HEIGHT / 15,
         borderRadius: 10
-    }
+    },
+    authComponentForm: {
+        flex: 1,
+        borderRadius: 10,
+        flexDirection: 'row',
+        borderWidth: 1,
+        alignItems: 'center',
+        padding: 15,
+        gap: 50
+
+    },
+    img: {
+        width: 25,
+        height: 25
+    },
+    btnTxt: {
+
+    },
+    formContainer: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 15,
+        flexDirection: 'row',
+        gap: 15
+    },
 })

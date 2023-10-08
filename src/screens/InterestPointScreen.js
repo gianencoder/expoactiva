@@ -56,7 +56,7 @@ export const InterestPointScreen = () => {
             style={{
               position: "absolute",
               zIndex: 1,
-              height: "50%",
+              height: height / 15,
               justifyContent: "center",
               width: "10%",
             }}

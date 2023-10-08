@@ -12,7 +12,7 @@ import { TicketIconComponent } from '../components/Icons/TicketIconComponent';
 import { EventIconComponent } from '../components/Icons/EventIconComponent';
 import { GoToPlaceIconComponent } from '../components/Icons/GoToPlaceIconComponent';
 import { WhereIsMyCarIconComponent } from '../components/Icons/WhereIsMyCarIconComponent';
-import { MyProfileIconComponent } from '../components/Icons/MyProfileIconComponent';
+import { ExhibitorsComponent } from '../components/Icons/MyProfileIconComponent';
 
 interface Props extends StackScreenProps<any, any> { }
 export const HomeScreen = ({ navigation }: Props) => {
@@ -40,7 +40,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                         <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<EventIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<GoToPlaceIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<WhereIsMyCarIconComponent />} />
-                        <HomeLittleComponent action={() => navigation.navigate('Configuration')} page={'Configuración'} icon={<MyProfileIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('Configuration')} page={'Expositores'} icon={<ExhibitorsComponent />} />
                     </View>
                 </View >
             </ScrollView>
