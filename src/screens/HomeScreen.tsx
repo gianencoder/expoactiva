@@ -32,6 +32,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                         <View style={{ ...styles.bigComponent, backgroundColor: theme.customColors.littleComponentBg }}>
                             <CarouselComponent data={data} />
                         </View>
+
                     </View>
                     <View style={{ ...styles.littleComponentContainer, backgroundColor: theme.colors.background }}>
                         <HomeLittleComponent action={() => navigation.navigate('TicketsScreen')} page={'Entradas'} icon={<TicketIconComponent />} />
