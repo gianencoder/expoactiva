@@ -1,5 +1,5 @@
 
-import React, { useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { View, Text, Image, useWindowDimensions, TouchableOpacity } from 'react-native'
 import { themeConfig } from '../theme/ConfigurationTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
@@ -9,7 +9,8 @@ import { MyColors } from '../theme/ColorsTheme'
 interface Props {
     title: string,
     image: any
-    method: () => void
+    method?: () => void,
+    modal?: ReactElement<any, any>
 }
 
 export const ConfigurationItemComponent = ({ title, image, method }: Props) => {

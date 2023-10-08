@@ -1,9 +1,10 @@
-import { StyleSheet, useWindowDimensions } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { MyColors } from "./ColorsTheme";
 
 
-export const authStyle = StyleSheet.create({
+const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
+export const authStyle = StyleSheet.create({
 
     authCard: {
         flex: 1,
@@ -31,5 +32,40 @@ export const authStyle = StyleSheet.create({
         justifyContent: 'center',
         gap: 25,
 
+    },
+
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        // alignItems: 'center'
+    },
+    modalCard: {
+        height: SCREEN_HEIGHT,
+        width: '100%',
+        position: 'absolute',
+        top: SCREEN_HEIGHT,
+        borderRadius: 30,
+        zIndex: 1,
+        // borderWidth: .5,
+
+    },
+    line: {
+        width: 90,
+        height: 4,
+        alignSelf: 'center',
+        marginVertical: 15,
+        borderRadius: 50
+    },
+
+    buttonContainer: {
+        flex: 1,
+        gap: 15,
+        padding: 15,
+
+    },
+    loginButton: {
+        width: '100%',
+        height: SCREEN_HEIGHT / 13,
+        borderRadius: 10
     }
 })

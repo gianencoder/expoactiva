@@ -5,13 +5,15 @@ import { InterestPointScreen } from '../screens/InterestPointScreen';
 import { AuthScreen } from '../screens/AuthScreen';
 import { GoToPlaceScreen } from '../screens/GoToPlaceScreen';
 import { WhereIsMyCarScreen } from '../screens/WhereIsMyCarScreen';
-import { ProfileScreen } from '../screens/ProfileScreen';
+import { VisibilityScreen } from '../screens/VisibilityScreen';
 import { FavouriteEventScreen } from '../screens/FavouriteEventScreen';
 import { TopTabNavigator } from './TopTabNavigator';
 import { ConfigurationScreen } from '../screens/ConfigurationScreen';
 import { View } from 'react-native';
 import { HomeScreen } from '../screens/HomeScreen';
 import { MyColors } from '../theme/ColorsTheme';
+import { ModalComponent } from '../components/ModalComponent';
+// import { ModalComponent } from '../components/ModalComponent';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +29,7 @@ export const MyStack = () => {
                     headerShown: false
                 }}
             >
-                <Stack.Screen name="HomeScreen" component={AuthScreen} />
+                <Stack.Screen name="HomeScreen" component={ConfigurationScreen} />
                 <Stack.Screen name="MenuScreen" component={MenuScreen} />
                 <Stack.Screen name="EventScreen" component={TopTabNavigator} />
                 <Stack.Screen name="TicketsScreen" component={TicketsScreen} />
@@ -35,7 +37,7 @@ export const MyStack = () => {
                 <Stack.Screen name="AuthScreen" component={AuthScreen} />
                 <Stack.Screen name="GoToPlaceScreen" component={GoToPlaceScreen} />
                 <Stack.Screen name="WhereIsMyCarScreen" component={WhereIsMyCarScreen} />
-                <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+                <Stack.Screen name="VisibilityScreen" component={VisibilityScreen} />
                 <Stack.Screen name="FavouriteEvent" component={FavouriteEventScreen} />
                 <Stack.Screen name="Configuration" component={ConfigurationScreen} />
             </Stack.Navigator >

@@ -24,7 +24,7 @@ export const AuthScreen = () => {
                 }}>
                     <Text style={{ color: 'white', fontSize: 15, fontWeight: '600' }}>Inicar sesión</Text>
                 </TouchableOpacity>
-                <View style={{ flexDirection: 'row', gap: 5 }}>
+                <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center' }}>
                     <Text style={{ color: 'grey', fontSize: 12, fontWeight: '500' }}>No tienes cuenta?</Text>
                     <TouchableOpacity>
                         <Text style={{ ...authStyle.createAccount, color: theme.colors.text, }}>Create una</Text>
