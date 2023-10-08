@@ -60,6 +60,7 @@ export const InterestPointScreen = () => {
               justifyContent: "center",
               width: "10%",
             }}
+            hitSlop={{ top: 20, bottom: 20, left: 20, right: 50 }}
           >
             <Image
               style={{
