@@ -57,7 +57,7 @@ const BottomSheet = ({
     toggleFollowUserMode,
     adjustCamera,
     loading,
-    cameraAdjusted
+    cameraAdjusted,
 }) => {
 
     const [isImageLoading, setImageLoading] = React.useState(false);

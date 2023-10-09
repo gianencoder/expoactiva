@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Animated, Easing, Platform, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Animated, Easing, Platform, Dimensions, Alert } from 'react-native';
 import Mapbox from '@rnmapbox/maps';
 import useNavigationApi from '../hooks/useNavigationApi.js';
 import MapNavigation from './MapNavigation.js';
@@ -8,9 +8,13 @@ import BottomSheet from './BottomSheet.js';
 import { exhibitors } from '../assets/expositores.js';
 import * as Location from 'expo-location';
 import styles from './MapStyles';
+import * as turf from '@turf/turf';
 
 const MAPBOX_ACCESS_TOKEN = 'sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A';
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
+
+const EXPOACTIVA_MARKER_LONGITUD = -57.8942;
+const EXPOACTIVA_MARKER_LATITUD = -33.45128;
 
 const iconImages = {
     'selected-icon': require('./Icons/markerSelected.png'),
@@ -69,6 +73,45 @@ const iconImages = {
     );
 });
 
+const ExpoactivaMarker = React.memo(({goToExpoactiva}) => {
+    const featureCollection = {
+        type: 'FeatureCollection',
+        features: [{
+            type: 'Feature',
+            id: 'expoactiva',
+            properties: {
+                icon: 'selected-icon',
+                title: 'Expoactiva',
+            },
+            geometry: {
+                type: 'Point',
+                coordinates: [EXPOACTIVA_MARKER_LONGITUD, EXPOACTIVA_MARKER_LATITUD],
+            },
+        }]
+    };
+    
+    return (
+        <Mapbox.ShapeSource
+            id={`source_expoactiva`}
+            shape={featureCollection}
+            onPress={() => goToExpoactiva()}
+            hitbox={{ width: 20, height: 20 }}
+        >
+            <Mapbox.SymbolLayer
+                id={`layer_expoactiva`}
+                style={{
+                    iconImage: ['get', 'icon'],
+                    iconSize: 0.35,
+                    textField: ['get', 'title'],
+                    textAnchor: 'top',
+                    textOffset: [0, 1.7],
+                    textSize: 14,
+                }}
+            />
+        </Mapbox.ShapeSource>
+    );
+});
+
 const Map = () => {
 
     const mapRef = useRef();
@@ -106,25 +149,32 @@ const Map = () => {
                         distanceInterval: 5,
                     },
                     (location) => {
+
+                        setDeviceCoordinates([
+                            location.coords.longitude,
+                            location.coords.latitude,
+                        ]);
+
                         const currentCoordinates = [
                             location.coords.latitude,
                             location.coords.longitude,
                         ];
-                        setDeviceCoordinates(currentCoordinates);
     
                         const expoactivaCoordinates = [
                             [-33.44597, -57.89884],
                             [-33.44745, -57.88872],
                             [-33.45350, -57.88924],
                             [-33.45335, -57.89820],
+                            [-33.44597, -57.89884],
                         ];
+                        
     
                         if (!isUserInExpoactiva(currentCoordinates, expoactivaCoordinates)) {
                             setDisableNavigation(true);
-                            console.log('User is outside the area - Navigation is Disabled');
+                            console.log('Estoy fuera de la expo, no puedo navegar');
                         } else {
                             setDisableNavigation(false);
-                            console.log('User is inside the area - Navigation is Enabled');
+                            console.log('Estoy dentro de la expo, puedo navegar');
                         }
                     }
                 );
@@ -139,24 +189,21 @@ const Map = () => {
             };
         })();
     }, []);
-    
+
+    const goToExpoactiva = () => {
+        cameraRef.current.setCamera({
+            centerCoordinate: [EXPOACTIVA_MARKER_LONGITUD, EXPOACTIVA_MARKER_LATITUD],
+            zoomLevel: 15.5,
+            animationDuration: 500,
+        });
+    };
 
     const isUserInExpoactiva = (deviceCoordinates, expoactivaCoordinates) => {
-
-        console.log(deviceCoordinates);
-        console.log(expoactivaCoordinates);
-
-        let [userLon, userLat] = deviceCoordinates;
-        console.log(userLon, userLat);
-        let [[lat1, lon1], [lat2, lon2], [lat3, lon3], [lat4, lon4]] = expoactivaCoordinates;
-    
-        let lonMin = Math.min(lon1, lon2, lon3, lon4);
-        let lonMax = Math.max(lon1, lon2, lon3, lon4);
-        let latMin = Math.min(lat1, lat2, lat3, lat4);
-        let latMax = Math.max(lat1, lat2, lat3, lat4);
-    
-        return userLat >= latMin && userLat <= latMax && userLon >= lonMin && userLon <= lonMax;
-    }
+        const point = turf.point(deviceCoordinates);
+        const polygon = turf.polygon([expoactivaCoordinates]);
+      
+        return turf.booleanPointInPolygon(point, polygon);
+    };
 
     const getZoomLevel = async () => {
         try {
@@ -201,12 +248,30 @@ const Map = () => {
         }
     }, [followUserMode, deviceCoordinates]);
     
+    useEffect(() => {
+        let timerId;
+      
+        if (navigationMode) {
+          timerId = setTimeout(() => {
+            setNavigationMode(false);
+            Alert.alert("Navegación desactivada", "La navegación se ha desactivado automáticamente después de 30 minutos.");
+          }, 60 * 60 * 1000);  // 60 minutos
+        }
+      
+        return () => {
+          if (timerId) {
+            clearTimeout(timerId);
+          }
+        };
+    }, [navigationMode]);
+
     const navigationConfig = useMemo(() => ({
         origin: deviceCoordinates ? {latitude: deviceCoordinates[1], longitude: deviceCoordinates[0]} : null,
         destination: selectedExhibitor ? {latitude: selectedExhibitor.latitude, longitude: selectedExhibitor.longitude} : null,
         token: MAPBOX_ACCESS_TOKEN,
         deviceCoordinates: deviceCoordinates,
-        navigationMode: navigationMode
+        navigationMode: navigationMode,
+        disableNavigation: disableNavigation,
     }), [deviceCoordinates, selectedExhibitor, navigationMode]);
     
     const { route, distance, loading, error, origin, destination } = useNavigationApi(navigationConfig);
@@ -369,8 +434,14 @@ const Map = () => {
     }, []);
 
     const toggleNavigationMode = useCallback(() => {
+        console.log(disableNavigation)
+         if (disableNavigation) {
+             Alert.alert("Navegación no disponible","Para recibir indicaciones, tiene que estar cerca del predio de Expoactiva.");
+             setNavigationMode(false);
+             return;
+         }
         setNavigationMode(prevMode => !prevMode);
-    }, []);
+    }, [disableNavigation]);
 
     const toggleFollowUserMode = useCallback(() => {
         setFollowUserMode(prevMode => !prevMode);
@@ -405,18 +476,21 @@ const Map = () => {
                         animationDuration={2000}
                     />
                     <Mapbox.Images images={iconImages}/>
-                    {exhibitors.map((exhibitor) => (
+                    {zoomLevel <= 14 ? (
+                        <ExpoactivaMarker goToExpoactiva={goToExpoactiva} />
+                    ) : (
+                        exhibitors.map((exhibitor) => (
                         <ExhibitorMarker 
                             key={exhibitor.id}
                             exhibitor={exhibitor}
                             selectedExhibitor={selectedExhibitor}
                             selectExhibitor={selectExhibitor}
-                            distance={distance}
                             navigationMode={navigationMode}
                             zoomLevel={zoomLevel}
                         />
-                    ))}
-                    {navigationMode && (
+                        ))
+                    )}
+                    {navigationMode && !disableNavigation && (
                         <MapNavigation route={route} cameraRef={cameraRef} origin={origin} destination={destination} />
                     )}
                 </Mapbox.MapView>
