@@ -45,7 +45,7 @@ const iconImages = {
         }]
     };
   
-    const shouldAllowOverlap = zoomLevel > 16.5;
+    const shouldAllowOverlap = zoomLevel > 16;
 
     return (
         <Mapbox.ShapeSource
