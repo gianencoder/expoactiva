@@ -182,7 +182,7 @@ const BottomSheet = ({
                         <ScrollView
                             style={{ 
                                 flex: 1, 
-                                maxHeight: Dimensions.get("screen").height * (navigationMode && Dimensions.get("screen").height < 840 ? 0.16 : 0.24),
+                                maxHeight: Dimensions.get("screen").height * (navigationMode && Dimensions.get("screen").height < 840 ? 0.16 : 0.22),
                             }}
                         >
                                 <Text style={{ fontSize: 17 }}>{selectedExhibitor.description}</Text>
@@ -245,7 +245,7 @@ const BottomSheet = ({
                     style={{
                         height: heightAnim.interpolate({
                             inputRange: [0, 100],
-                            outputRange: ['100%', '58%']
+                            outputRange: ['100%', '59%']
                         }),
                         position: 'absolute',
                         bottom: slideAnim,

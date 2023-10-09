@@ -227,8 +227,9 @@ const Map = () => {
     useEffect(() => {
         if (!followUserMode && cameraRef.current) {
             cameraRef.current.setCamera({
+                zoomLevel: 17,
                 pitch: 0,  
-                animationDuration: 300  
+                animationDuration: 500  
             });
         } 
         
@@ -241,7 +242,7 @@ const Map = () => {
         if (followUserMode && cameraRef.current) {
             cameraRef.current.setCamera({
                 centerCoordinate: deviceCoordinates,
-                zoomLevel: 19,
+                zoomLevel: 19.5,
                 duration: 1000,
                 pitch: 0,
             });
@@ -286,7 +287,7 @@ const Map = () => {
             const midLatitude = (deviceCoordinates[1] + selectedExhibitor.latitude) / 2;
             const midLongitude = (deviceCoordinates[0] + selectedExhibitor.longitude) / 2;
     
-            let zoomLevel = 16;
+            let zoomLevel = 18;
     
             // Ajusta la cámara a la nueva posición
             cameraRef.current.setCamera({
@@ -301,9 +302,9 @@ const Map = () => {
             // Si la cámara ya fue ajustada, vuelva a la posición original
             cameraRef.current.setCamera({
                 centerCoordinate: deviceCoordinates,
-                zoomLevel: 18,
+                zoomLevel: 19,
                 duration: 500,
-                pitch: 25,
+                pitch: 0,
             });
     
             // Marcar que la cámara fue desajustada
