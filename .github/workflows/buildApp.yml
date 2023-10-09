@@ -5,7 +5,7 @@ on:
     branches:
       - dev
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
@@ -22,6 +22,9 @@ jobs:
         with:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
+    
+      - name: Instalar Expo Dev Client
+        run: npm install expo-dev-client
 
       - name: 🏗 Build
         run: eas build --platform all --profile development --non-interactive
