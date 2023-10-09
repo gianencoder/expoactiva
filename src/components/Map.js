@@ -241,9 +241,9 @@ const Map = () => {
         if (followUserMode && cameraRef.current) {
             cameraRef.current.setCamera({
                 centerCoordinate: deviceCoordinates,
-                zoomLevel: 18,
+                zoomLevel: 19,
                 duration: 1000,
-                pitch: 25,
+                pitch: 0,
             });
         }
     }, [followUserMode, deviceCoordinates]);
@@ -254,7 +254,7 @@ const Map = () => {
         if (navigationMode) {
           timerId = setTimeout(() => {
             setNavigationMode(false);
-            Alert.alert("Navegación desactivada", "La navegación se ha desactivado automáticamente después de 30 minutos.");
+            Alert.alert("Navegación desactivada", "La navegación se ha desactivado automáticamente después de 1 hora.");
           }, 60 * 60 * 1000);  // 60 minutos
         }
       
@@ -411,7 +411,7 @@ const Map = () => {
             setTimeout(() => {
                 setIsSearchMode(false);
                 openBottomSheet();
-            }, 80); 
+            }, 100); 
         } else {
             selectedExhibitor ?? openBottomSheet();
 

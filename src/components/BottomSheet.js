@@ -15,7 +15,7 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                     <>
                         <View style={{ flexDirection: 'row', paddingTop: 5, alignItems: 'baseline', justifyContent: 'flex-start', width: Dimensions.get("screen").width * 0.696, paddingLeft: 10 }}>
                             <View style={{ alignItems: 'flex-start' }}>
-                                {value > 10 ? (
+                                {value > 5 ? (
                                     <>
                                         <Text style={{ fontSize: 24, fontWeight: '700', color: 'darkgreen' }}>
                                             {value}
@@ -34,7 +34,7 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                     </>
                 ) : (
                     <Text style={{ fontSize: 18, fontWeight: '500', color: 'darkgreen', paddingVertical: 20, textAlign: 'center' }}>
-                        {value <= 10 ? 'Usted se encuentra en el sitio' : `A ${value} ${unit} de distancia`}
+                        {value <= 5 ? 'Usted se encuentra en el sitio' : `A ${value} ${unit} de distancia`}
                     </Text>
                 )
             )}
@@ -59,6 +59,21 @@ const BottomSheet = ({
     loading,
     cameraAdjusted,
 }) => {
+
+    const timeoutRef = React.useRef();
+
+    React.useEffect(() => {
+        const { value } = getFormattedDistance();
+        if (followUserMode && navigationMode && value < 5) {
+            timeoutRef.current = setTimeout(() => {
+                onMapPress();
+            }, 10000);
+        }
+    
+        return () => {
+            clearTimeout(timeoutRef.current);
+        };
+    }, [followUserMode, navigationMode, distance, getFormattedDistance,onMapPress]);
 
     const [isImageLoading, setImageLoading] = React.useState(false);
    
@@ -129,7 +144,7 @@ const BottomSheet = ({
             {selectedExhibitor && (
                 <>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10 }}>
-                        <Text style={{ fontSize: 25, fontWeight: 'bold', textAlign: 'left', paddingLeft: 20 }}>{selectedExhibitor.name}</Text>
+                        <Text style={{ fontSize: 25, fontWeight: 'bold', textAlign: 'left', paddingLeft: 20 }}>{selectedExhibitor && selectedExhibitor.name}</Text>
                         <TouchableOpacity style={{ paddingRight: 20 }} onPress={onMapPress} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
                             <AntDesign name="close" size={22} color="darkgreen" />
                         </TouchableOpacity>
@@ -245,7 +260,7 @@ const BottomSheet = ({
                     }}>
                     <View style={{ flex: 1, padding: 10 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                            <Text style={{ color: 'gray', fontSize: 18, fontWeight: '500', textAlign: 'left', paddingLeft: 10 }}>En camino a {selectedExhibitor.name}</Text>
+                            <Text style={{ color: 'gray', fontSize: 18, fontWeight: '500', textAlign: 'left', paddingLeft: 10 }}>En camino a {selectedExhibitor && selectedExhibitor.name}</Text>
                             <TouchableOpacity style={{ paddingRight: 5 }} onPress={onMapPress} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
                                 <AntDesign name="close" size={24} color="darkgreen" />
                             </TouchableOpacity>
