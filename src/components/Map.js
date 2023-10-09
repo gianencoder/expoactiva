@@ -8,7 +8,6 @@ import BottomSheet from './BottomSheet.js';
 import { exhibitors } from '../assets/expositores.js';
 import * as Location from 'expo-location';
 import styles from './MapStyles';
-import { useNavigation } from '@react-navigation/native';
 
 const MAPBOX_ACCESS_TOKEN = 'sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A';
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
@@ -86,20 +85,20 @@ const Map = () => {
     const [deviceCoordinates, setDeviceCoordinates] = useState(null);
     const [followUserMode, setFollowUserMode] = useState(false);
     const [zoomLevel, setZoomLevel] = useState(16);
-    const navigation = useNavigation();
+    const [disableNavigation, setDisableNavigation] = useState(false);
 
     useEffect(() => {
         (async () => {
             let locationSubscription;
-            
+    
             try {
                 const { status } = await Location.requestForegroundPermissionsAsync();
-                
+    
                 if (status !== 'granted') {
                     console.error('Permission to access location was denied');
                     return;
                 }
-                
+    
                 locationSubscription = await Location.watchPositionAsync(
                     {
                         accuracy: Location.Accuracy.BestForNavigation,
@@ -107,24 +106,57 @@ const Map = () => {
                         distanceInterval: 5,
                     },
                     (location) => {
-                        setDeviceCoordinates([
-                            location.coords.longitude,
+                        const currentCoordinates = [
                             location.coords.latitude,
-                        ]);
+                            location.coords.longitude,
+                        ];
+                        setDeviceCoordinates(currentCoordinates);
+    
+                        const expoactivaCoordinates = [
+                            [-33.44597, -57.89884],
+                            [-33.44745, -57.88872],
+                            [-33.45350, -57.88924],
+                            [-33.45335, -57.89820],
+                        ];
+    
+                        if (!isUserInExpoactiva(currentCoordinates, expoactivaCoordinates)) {
+                            setDisableNavigation(true);
+                            console.log('User is outside the area - Navigation is Disabled');
+                        } else {
+                            setDisableNavigation(false);
+                            console.log('User is inside the area - Navigation is Enabled');
+                        }
                     }
                 );
             } catch (error) {
                 console.error("An error occurred:", error);
             }
-            
+    
             return () => {
                 if (locationSubscription) {
                     locationSubscription.remove();
                 }
-                navigation.goBack();
             };
         })();
     }, []);
+    
+
+    const isUserInExpoactiva = (deviceCoordinates, expoactivaCoordinates) => {
+
+        console.log(deviceCoordinates);
+        console.log(expoactivaCoordinates);
+
+        let [userLon, userLat] = deviceCoordinates;
+        console.log(userLon, userLat);
+        let [[lat1, lon1], [lat2, lon2], [lat3, lon3], [lat4, lon4]] = expoactivaCoordinates;
+    
+        let lonMin = Math.min(lon1, lon2, lon3, lon4);
+        let lonMax = Math.max(lon1, lon2, lon3, lon4);
+        let latMin = Math.min(lat1, lat2, lat3, lat4);
+        let latMax = Math.max(lat1, lat2, lat3, lat4);
+    
+        return userLat >= latMin && userLat <= latMax && userLon >= lonMin && userLon <= lonMax;
+    }
 
     const getZoomLevel = async () => {
         try {
@@ -394,7 +426,7 @@ const Map = () => {
                         style={[
                             styles.searchButton,
                             {
-                                bottom: selectedExhibitor ? 75 : 50,
+                                bottom: selectedExhibitor ? 75 : 70,
                                 left: '50%',
                                 transform: [{translateX: selectedExhibitor ? -50 : -100}],
                                 padding: selectedExhibitor ? 5 : 15,

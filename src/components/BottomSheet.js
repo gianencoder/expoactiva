@@ -167,7 +167,7 @@ const BottomSheet = ({
                         <ScrollView
                             style={{ 
                                 flex: 1, 
-                                maxHeight: Dimensions.get("screen").height * (navigationMode && Dimensions.get("screen").height < 840 ? 0.16 : 0.5),
+                                maxHeight: Dimensions.get("screen").height * (navigationMode && Dimensions.get("screen").height < 840 ? 0.16 : 0.24),
                             }}
                         >
                                 <Text style={{ fontSize: 17 }}>{selectedExhibitor.description}</Text>
