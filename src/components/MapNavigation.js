@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Mapbox from '@rnmapbox/maps';
 
 const lineStyle = {
-  lineWidth: 7,
+  lineWidth: 8,
   lineColor: '#09f',
   lineOpacity: 0.85,
   lineCap: 'round',

@@ -3,13 +3,14 @@ import axios from 'axios';
 import { lineString as makeLineString } from '@turf/helpers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const useNavigationApi = ({ origin, destination, token, navigationMode }) => {
+const useNavigationApi = ({ origin, destination, token, navigationMode, disableNavigation  }) => {
   const [route, setRoute] = useState(null);
   const [distance, setDistance] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchRoute = useCallback(async () => {
+    if (disableNavigation) return;
     if (!origin || !destination || !token || !navigationMode) return;
 
     setLoading(true);
@@ -50,6 +51,8 @@ const useNavigationApi = ({ origin, destination, token, navigationMode }) => {
         const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${origin.longitude},${origin.latitude};${destination.longitude},${destination.latitude}?access_token=${token}&geometries=geojson`;
         const response = await axios.get(url, { cancelToken: cancelTokenSource.token });
 
+        console.log("Fetching new route from Mapbox API");
+
         const newRoute = makeLineString(response.data.routes[0].geometry.coordinates);
         const newDistance = response.data.routes[0].distance;
         setRoute(newRoute);
@@ -73,7 +76,7 @@ const useNavigationApi = ({ origin, destination, token, navigationMode }) => {
     } finally {
       setLoading(false);
     }
-  }, [origin, destination, token, navigationMode]);
+  }, [disableNavigation, origin, destination, token, navigationMode]);
 
   useEffect(() => {
     fetchRoute();
