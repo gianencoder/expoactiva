@@ -1,7 +1,7 @@
 name: Build Expoactiva App Android Manual
 
 on:
-  workflow_dispatch: # permite ejecuciones manuales
+  workflow_dispatch:
   
 jobs:
   build:

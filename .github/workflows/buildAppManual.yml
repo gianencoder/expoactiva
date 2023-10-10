@@ -1,8 +1,8 @@
 name: Build Expoactiva App Manual
 
 on:
-  workflow_dispatch: # permite ejecuciones manuales
-  
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
