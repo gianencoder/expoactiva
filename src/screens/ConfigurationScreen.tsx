@@ -1,5 +1,5 @@
-import { View, Image, useWindowDimensions, Text, ActivityIndicator, Modal } from 'react-native'
-import React, { useCallback, useContext, useRef, useState } from 'react'
+import { View, Image, useWindowDimensions, Text } from 'react-native'
+import React, { useCallback, useContext, useRef, } from 'react'
 import { themeConfig } from '../theme/ConfigurationTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { ConfigurationItemComponent } from '../components/ConfigurationItemComponent'
@@ -7,12 +7,11 @@ import { useNavigation } from '@react-navigation/native';
 import { VisibilityScreen } from './VisibilityScreen'
 import { ModalComponent, ModalRefProps } from '../components/ModalComponent'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { HomeFunction } from '../functions/HomeFunction'
-import { HomeScreen } from './HomeScreen'
+import { StackScreenProps } from '@react-navigation/stack'
 
-export const ConfigurationScreen = () => {
+interface Props extends StackScreenProps<any, any> { }
+export const ConfigurationScreen = ({ navigation }: Props) => {
     const { theme } = useContext(ThemeContext)
-    const navigation = useNavigation()
     const { width, height } = useWindowDimensions()
     const ref = useRef<ModalRefProps>(null)
 
@@ -29,27 +28,30 @@ export const ConfigurationScreen = () => {
 
 
     return (
+
+
         <GestureHandlerRootView style={{ flex: 1 }}>
             <View style={{ ...themeConfig.container, backgroundColor: theme.colors.background }}>
+
                 <ModalComponent ref={ref} children={<VisibilityScreen />} />
-                <View style={{ alignSelf: 'center', flex: 5, width: '100%' }}>
-                    <Text>Configuración</Text>
+                <View style={{ flex: 1, padding: 15 }}><Text style={{ fontSize: 30, fontWeight: '400' }}>Configuración</Text></View>
+                <View style={{ flex: 10 }}>
                     <ConfigurationItemComponent title={'Mi cuenta'} image={<Image source={require('../assets/icons/perfil.png')}
-                        style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('AuthScreen')} />
+                        style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('AuthScreen')} />
                     <ConfigurationItemComponent title={'Notificaciones'} image={<Image source={require('../assets/icons/campana.png')}
-                        style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Notificaciones')} />
+                        style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Notificaciones')} />
                     <ConfigurationItemComponent title={'Apariencia'} image={<Image source={require('../assets/icons/apariencia.png')}
-                        style={{ width: width / 22, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={toggleModal} />
+                        style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={toggleModal} />
                     <ConfigurationItemComponent title={'Privacidad y Seguridad'} image={<Image source={require('../assets/icons/cerrar.png')}
-                        style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
+                        style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
                     <ConfigurationItemComponent title={'Ayuda y soporte'} image={<Image source={require('../assets/icons/ayuda-soporte.png')}
-                        style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
+                        style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
                     <ConfigurationItemComponent title={'Sobre Expoactiva Nacional App'} image={<Image source={require('../assets/icons/pregunta.png')}
-                        style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Sobre expoactiva')} />
+                        style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Sobre expoactiva')} />
                 </View>
-            </View>
+            </View >
         </GestureHandlerRootView>
+
     )
 }
-
 

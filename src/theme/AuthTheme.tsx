@@ -40,18 +40,26 @@ export const authStyle = StyleSheet.create({
         // alignItems: 'center'
     },
     modalCard: {
+        zIndex: 1,
         height: SCREEN_HEIGHT,
         width: '100%',
         position: 'absolute',
         top: SCREEN_HEIGHT,
         borderRadius: 30,
-        zIndex: 1,
-        // borderWidth: .5,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 10,
+        },
+        shadowOpacity: 0.53,
+        shadowRadius: 13.97,
+
+        elevation: 21,
 
     },
     line: {
-        width: 90,
-        height: 4,
+        width: 60,
+        height: 5,
         alignSelf: 'center',
         marginVertical: 15,
         borderRadius: 50

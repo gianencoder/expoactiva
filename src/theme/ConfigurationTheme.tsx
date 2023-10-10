@@ -4,11 +4,11 @@ export const themeConfig = StyleSheet.create
     ({
         container: {
             flex: 1,
+            gap: 10,
         },
         configScreen: {
             height: 50,
             marginHorizontal: 20,
-            padding: 10,
         },
         itemContainer: {
             justifyContent: 'space-between',

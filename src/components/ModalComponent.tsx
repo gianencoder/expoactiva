@@ -1,8 +1,8 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useImperativeHandle } from 'react'
-import { Dimensions, View, Text, ScrollView, TouchableOpacity } from 'react-native'
-import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler'
+import React, { useCallback, useContext, useImperativeHandle } from 'react'
+import { Dimensions, View } from 'react-native'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import { authStyle } from '../theme/AuthTheme'
-import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated'
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
@@ -65,11 +65,13 @@ export const ModalComponent = React.forwardRef<ModalRefProps, ModalProps>(({ chi
         }
     })
     return (
+
         <GestureDetector gesture={gesture}>
-            <Animated.View style={[{ ...authStyle.modalCard, backgroundColor: theme.currentTheme === 'light' ? '#EEEEEE' : '#343434', borderColor: theme.customColors.subtitles }, modalSheetStyle]}>
+            <Animated.View style={[{ ...authStyle.modalCard, backgroundColor: theme.colors.background, shadowColor: theme.colors.text, borderColor: theme.customColors.subtitles }, modalSheetStyle]}>
                 <View style={{ ...authStyle.line, backgroundColor: theme.customColors.activeColor }} />
                 {children}
             </Animated.View>
         </GestureDetector>
+
     )
 })

@@ -4,7 +4,6 @@ import {
   View,
   StyleSheet,
   useWindowDimensions,
-  BackHandler,
   Image,
   TouchableOpacity,
 } from "react-native";
@@ -59,13 +58,14 @@ export const InterestPointScreen = () => {
               height: height / 15,
               justifyContent: "center",
               width: "10%",
+              marginLeft: 5,
             }}
+            hitSlop={{ right: 50, left: 50, top: 50, bottom: 50 }}
           >
             <Image
               style={{
-                marginLeft: 5,
-                width: width / 15,
-                height: height / 35,
+                width: width / 16,
+                height: height / 30,
                 tintColor: "white",
               }}
               source={require("../assets/icons/leftarrow.png")}

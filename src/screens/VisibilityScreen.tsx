@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Switch, Text, TouchableOpacity, View } from 'react-native'
-// import { AntDesign } from '@expo/vector-icons';
+import React, { useContext, useEffect, useState } from 'react'
+import { Switch, Text, View } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { visibilityTheme } from '../theme/VisibilityTheme';
 import { SeparatorComponent } from '../components/SeparatorComponent';
-import { ModalComponent } from '../components/ModalComponent';
 
 
 
@@ -26,9 +24,6 @@ export const VisibilityScreen = () => {
             setText('Activar modo oscuro')
         }
     }, [enabled])
-
-
-
 
     return (
 

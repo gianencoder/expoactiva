@@ -16,7 +16,7 @@ export const AuthScreen = () => {
         if (isActive) {
             ref?.current?.scrollTo(0)
         } else {
-            ref?.current?.scrollTo(-height / 2.5)
+            ref?.current?.scrollTo(-height / 2)
         }
 
     }, [])
