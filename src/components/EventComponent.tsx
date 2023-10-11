@@ -8,10 +8,9 @@ import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 interface Props {
     event: Event
-    moshiEvent: EventoMoshi
 }
 
-export const EventComponent = ({ event, moshiEvent }: Props) => {
+export const EventComponent = ({ event }: Props) => {
 
     const { theme } = useContext(ThemeContext)
     const correctDate = format(new Date(event.date), 'p dd/MM/yyyy');

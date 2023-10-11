@@ -24,7 +24,7 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
     const [inProgress, setInProgress] = useState(false)
 
 
-    const { handleFavourite, favourite } = EventFunction()
+    const { handleFavourite, isFavorite } = EventFunction()
 
 
     const calculateTimeLeft = () => {
@@ -97,7 +97,8 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
             >
                 <View style={eventStyle.event}>
                     <View style={eventStyle.eventListImg}>
-                        <Image style={eventStyle.img} source={{ uri: `https://picsum.photos/id/${250}/500/500` }} />
+                        {moshiEvent.picture.toString() === '' ? <Image style={{ ...eventStyle.img, height: 120, width: 105 }} source={require('../assets/images/predio.expoactiva.jpg')} /> : <Image style={eventStyle.img} source={{ uri: moshiEvent.picture.toString() }} />}
+
                     </View>
                     <View style={eventStyle.eventListTitle}>
                         <Text style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{moshiEvent.eventName}</Text>
@@ -110,9 +111,9 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
 
                     </View>
                     <View style={eventStyle.eventListFavourite}>
-                        <TouchableOpacity onPress={() => handleFavourite(moshiEvent)}>
+                        <TouchableOpacity onPress={() => handleFavourite(moshiEvent.idEvent)}>
                             <View style={{ height: 60, width: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 40 }}>
-                                <Ionicons style={{ position: 'absolute' }} name={favourite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={23} color={favourite ? 'red' : theme.customColors.activeColor} />
+                                <Ionicons style={{ position: 'absolute' }} name={isFavorite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={23} color={isFavorite ? 'red' : theme.customColors.activeColor} />
                             </View>
                         </TouchableOpacity>
                         <View>

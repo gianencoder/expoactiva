@@ -27,4 +27,5 @@ interface EventoMoshi {
     picture: string;
     idPerson: number;
     person: number;
+    isFavorite: boolean
 }

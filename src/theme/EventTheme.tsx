@@ -27,7 +27,7 @@ export const eventStyle = StyleSheet.create({
     img: {
         flex: 1,
         height: 80,
-        resizeMode: 'stretch',
+        resizeMode: 'cover',
         borderRadius: 10,
     },
     eventListTitle: {

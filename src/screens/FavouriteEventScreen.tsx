@@ -8,52 +8,39 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export const FavouriteEventScreen = () => {
-    const { favoritos } = EventFunction()
-    const { theme } = useContext(ThemeContext)
-    const [favorite, setFavorite] = useState()
-    const [name, setName] = useState<string>()
 
-    const save = async () => {
-
+    const [eventos, setEventos] = useState({})
+    const obtenerEventosGuardados = async () => {
         try {
-            await AsyncStorage.setItem("Myname", name!)
-            console.log(AsyncStorage.getItem("Myname"))
-        } catch (err) {
-        }
-
-    }
-
-    const load = async () => {
-        try {
-            let name = await AsyncStorage.getItem("Myname")
-
-            if (name !== null) {
-                setName(name)
+            const eventosGuardados = await AsyncStorage.getItem('eventos');
+            if (eventosGuardados) {
+                const eventos = JSON.parse(eventosGuardados);
+                console.log(JSON.stringify(eventos)); // Esto mostrará los eventos guardados en la consola
+                setEventos([eventos])
             }
-        } catch (err) {
-            alert(err)
+        } catch (error) {
+            console.error('Error al obtener los eventos guardados', error);
         }
     }
+
+    const clearAllData = async () => {
+        try {
+            await AsyncStorage.clear();
+            console.log('Se han eliminado todos los datos de AsyncStorage.');
+        } catch (error) {
+            console.error('Error al eliminar los datos de AsyncStorage:', error);
+        }
+    };
 
     useEffect(() => {
-        load()
+        obtenerEventosGuardados()
     }, [])
-
-    const remove = async () => {
-        try {
-            await AsyncStorage.removeItem("Myname")
-        } catch (err) {
-            alert(err)
-        } finally {
-            setName("")
-        }
-    }
 
     return (
         <View style={{ ...eventStyle.container, justifyContent: 'flex-start', alignItems: 'center' }} >
-            <Text style={{ marginVertical: 50, fontSize: 20 }}>{name}</Text>
-            <TextInput onChangeText={text => setName(text)} style={{ width: 250, height: 50, borderRadius: 10, borderColor: 'black', borderWidth: 1, marginVertical: 10 }} />
-            <Button title='Guardar' onPress={save} ></Button>
+            <Text style={{ marginVertical: 50, fontSize: 20 }}>{JSON.stringify(eventos)}</Text>
+            {/* <TextInput onChangeText={text => setName(text)} style={{ width: 250, height: 50, borderRadius: 10, borderColor: 'black', borderWidth: 1, marginVertical: 10 }} /> */}
+            <Button title='Eliminar todo' color={'red'} onPress={obtenerEventosGuardados} ></Button>
             {/* <Button title='Eliminar' onPress={remove} color={'red'} ></Button> */}
         </View >
 
