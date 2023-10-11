@@ -18,7 +18,7 @@ interface Props extends StackScreenProps<any, any> { }
 export const HomeScreen = ({ navigation }: Props) => {
 
     const { theme } = useContext(ThemeContext)
-
+    
     const { scrollViewRef } = HomeFunction();
     return (
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>

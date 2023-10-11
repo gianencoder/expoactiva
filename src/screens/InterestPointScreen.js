@@ -74,7 +74,7 @@ export const InterestPointScreen = () => {
         </View>
 
         <View style={styles.page}>
-          <Map />
+          <Map showModal={showModal} />
         </View>
       </Modal>
     )
