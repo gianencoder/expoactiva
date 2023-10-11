@@ -60,11 +60,7 @@ export const InterestPointScreen = () => {
               width: "10%",
               marginLeft: 5,
             }}
-<<<<<<< HEAD
-            hitSlop={{ right: 50, left: 50, top: 50, bottom: 50 }}
-=======
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 50 }}
->>>>>>> 1b3580da5c686b1c39e8c9791e94ae4e6b90d776
           >
             <Image
               style={{
