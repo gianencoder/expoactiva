@@ -111,7 +111,7 @@ const BottomSheet = ({
                 shadowOpacity: 0.2,
                 elevation: 3,
             }}>
-            <Exhibitors onMapPress={onMapPress} selectExhibitor={selectExhibitor} />
+            <Exhibitors onMapPress={onMapPress} selectExhibitor={selectExhibitor} toggleFollowUserMode={toggleFollowUserMode} toggleNavigationMode={toggleNavigationMode} navigationMode={navigationMode} />
         </Animated.View>
     ), [heightAnim, slideAnim, onMapPress, selectExhibitor]);
 
