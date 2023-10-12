@@ -4,15 +4,15 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import Exhibitors from './Exhibitors';
 
 const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) => {
-    const [localLoading, setLocalLoading] = React.useState(true);  // Nuevo estado para el loading local
-    const [distanceData, setDistanceData] = React.useState({ value: '0', unit: 'Metros' }); // Nuevo estado para los datos de distancia
+    const [localLoading, setLocalLoading] = React.useState(true);
+    const [distanceData, setDistanceData] = React.useState({ value: 0, unit: 'Metros' });
 
     React.useEffect(() => {
-        setLocalLoading(true);  // Establecer el loading local a true cuando cambie loading o followUserMode
+        setLocalLoading(true);
         if (!loading) {
-            const newDistanceData = getFormattedDistance();  // Obtener los nuevos datos de distancia
-            setDistanceData(newDistanceData);  // Establecer los nuevos datos de distancia
-            setLocalLoading(false);  // Desactivar el loading local
+            const newDistanceData = getFormattedDistance();
+            setDistanceData(newDistanceData);
+            setLocalLoading(false);
         }
     }, [loading, getFormattedDistance, followUserMode]);
 
@@ -25,13 +25,13 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                     <>
                         <View style={{ flexDirection: 'row', paddingTop: 5, alignItems: 'baseline', justifyContent: 'flex-start', width: Dimensions.get("screen").width * 0.696, paddingLeft: 10 }}>
                             <View style={{ alignItems: 'flex-start' }}>
-                                {value > 5 ? (
+                                {distanceData.value > 5 ? (   // Aquí se compara como número y no como string
                                     <>
                                         <Text style={{ fontSize: 24, fontWeight: '700', color: 'darkgreen' }}>
-                                            {value}
+                                            {distanceData.value}
                                         </Text>
                                         <Text style={{ fontSize: 20, fontWeight: '300', color: 'gray' }}>
-                                            {unit}
+                                            {distanceData.unit}
                                         </Text>
                                     </>
                                 ) : (
@@ -43,11 +43,11 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                         </View>
                     </>
                 ) : (
-                    distanceData.value != 0 && !localLoading && (
+                    distanceData.value > -1 && !localLoading && (
                         <Text style={{ fontSize: 18, fontWeight: '500', color: 'darkgreen', paddingVertical: 20, textAlign: 'center' }}>
-                            {distanceData.value <= 5
-                                ? 'Usted se encuentra en el sitio'
-                                : `A ${distanceData.value} ${distanceData.unit} de distancia`}
+                            {distanceData.value <= 5 
+                                ? ( 'Usted se encuentra en el sitio' )
+                                : ( `A ${distanceData.value} ${distanceData.unit} de distancia`)}
                         </Text>
                     )
                 )
@@ -99,10 +99,10 @@ const BottomSheet = ({
             if (rawDistance >= 1000) {
                 return { value: (rawDistance / 1000).toFixed(1), unit: 'Km' }; // para kilómetros
             } else {
-                return { value: rawDistance.toString(), unit: 'Metros' }; // para metros
+                return { value: rawDistance, unit: 'Metros' }; // para metros
             }
         } else {
-            return { value: '0', unit: 'Metros' }; // Ejemplo de valor por defecto
+            return { value: 0, unit: 'Metros' }; // Ejemplo de valor por defecto
         }
 
     }, [distance]);
