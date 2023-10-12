@@ -81,7 +81,7 @@ const ExpoactivaMarker = React.memo(({goToExpoactiva}) => {
             id: 'expoactiva',
             properties: {
                 icon: 'selected-icon',
-                title: 'Expoactiva',
+                title: 'Expoactiva Nacional',
             },
             geometry: {
                 type: 'Point',
@@ -513,12 +513,12 @@ const Map = ({showModal}) => {
                     <Mapbox.UserLocation minDisplacement={3} visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} renderMode={Platform.OS==='android' && followUserMode ? 'native': 'normal'} showsUserHeadingIndicator={true}  />
                     <Mapbox.Camera
                         ref={cameraRef}
-                        centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [exhibitors[0].longitude, exhibitors[0].latitude]}
-                        zoomLevel={16}
+                        centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [EXPOACTIVA_MARKER_LONGITUD, EXPOACTIVA_MARKER_LATITUD]}
+                        zoomLevel={15.6}
                         animationDuration={1000}
                     />
                     <Mapbox.Images images={iconImages}/>
-                    {zoomLevel <= 14 ? (
+                    {zoomLevel <= 15 ? (
                         <ExpoactivaMarker goToExpoactiva={goToExpoactiva} />
                     ) : (
                         exhibitors.map((exhibitor) => (

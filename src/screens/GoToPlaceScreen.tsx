@@ -40,7 +40,7 @@ export const GoToPlaceScreen = () => {
   }, [modal]);
 
   return (
-    <Modal visible={modal} animationType='slide' transparent={true} onRequestClose={showModal}>
+    <Modal visible={modal} animationType='fade' transparent={true} onRequestClose={showModal}>
       <HeaderComponent></HeaderComponent>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
         {/* <Image source={require('../assets/icons/mainIcon.png')} style={{ width: 140, height: 60, marginTop: -40, marginBottom: 40 }} /> */}
