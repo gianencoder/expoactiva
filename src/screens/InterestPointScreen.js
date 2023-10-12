@@ -18,25 +18,10 @@ export const InterestPointScreen = () => {
 
   const showModal = () => {
     navigation.goBack();
-    // setVisible((prevState) => !prevState);
   };
-
-  //   const handleBackButton = () => {
-  //     if (visible) {
-  //       showModal();
-  //       return true;
-  //     }
-  //     return false;
-  //   };
 
   useEffect(() => {
     setVisible(true);
-
-    // BackHandler.addEventListener("hardwareBackPress", handleBackButton);
-
-    // return () => {
-    //   BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
-    // };
   }, []);
 
   return (
@@ -55,17 +40,17 @@ export const InterestPointScreen = () => {
             style={{
               position: "absolute",
               zIndex: 1,
-              height: height / 15,
+              height: height / 16,
               justifyContent: "center",
-              width: "10%",
+              width: 45,
               marginLeft: 5,
             }}
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 50 }}
           >
             <Image
               style={{
-                width: width / 16,
-                height: height / 30,
+                width: 35,
+                height: 15,
                 tintColor: "white",
               }}
               source={require("../assets/icons/leftarrow.png")}

@@ -34,7 +34,7 @@ export const ConfigurationScreen = ({ navigation }: Props) => {
             <View style={{ ...themeConfig.container, backgroundColor: theme.colors.background }}>
 
                 <ModalComponent ref={ref} children={<VisibilityScreen />} />
-                <View style={{ flex: 1, padding: 15 }}><Text style={{ fontSize: 30, fontWeight: '400' }}>Configuración</Text></View>
+                <View style={{ flex: 1, padding: 15 }}><Text style={{ fontSize: 30, fontWeight: '400', color: theme.colors.text }}>Configuración</Text></View>
                 <View style={{ flex: 10 }}>
                     <ConfigurationItemComponent title={'Mi cuenta'} image={<Image source={require('../assets/icons/perfil.png')}
                         style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('AuthScreen')} />

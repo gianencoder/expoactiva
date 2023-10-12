@@ -64,12 +64,15 @@ export const ticketStyles = StyleSheet.create({
 
     inputText: {
         borderStyle: 'solid',
-        borderColor: 'rgba(0,0,0,0.30)',
+        // borderColor: ,
         height: 50,
         width: 300,
-        borderRadius: 10,
+        // borderRadius: 10,
         borderWidth: 1.5,
         padding: 10,
-        fontSize: 14
+        fontSize: 14,
+        borderTopColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderLeftColor: 'transparent'
     }
 });

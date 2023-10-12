@@ -12,10 +12,14 @@ export const EventFunction = () => {
     const navigation = useNavigation();
     let iconName = ''
     let colour = ''
+    const currentDay = format(Date.now(), 'dd-MM-yyyy HH:mm')
 
 
     const [fetching, setFetching] = useState(false)
     const [isFavorite, setIsFavorite] = useState(false);
+    const [favorites, setFavorites] = useState<EventoMoshi[]>([]);
+
+
 
 
     //Cyb3rsoft backend
@@ -25,7 +29,7 @@ export const EventFunction = () => {
 
     //MoshiMoshiBackend
     const [events, setEvents] = useState<EventoMoshi[]>([]);
-    const [favorites, setFavorites] = useState<EventoMoshi[]>([]);
+
 
 
     const [loading, setLoading] = useState(true);
@@ -40,7 +44,7 @@ export const EventFunction = () => {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
-                'Authorization': `Bearer ${properties.token}`, // notice the Bearer before your token
+                'Authorization': `Bearer ${properties.token}`,
             }
         })
             .then(async res => await res.json())
@@ -61,47 +65,41 @@ export const EventFunction = () => {
         getEvents()
     }, [fetching])
 
-
-
     const handleSetFetching = () => {
         setFetching(true)
     }
-    const handleFavourite = async (eventId: number) => {
-        try {
-            const eventosGuardados = await AsyncStorage.getItem('eventos');
-            let eventos = eventosGuardados ? JSON.parse(eventosGuardados) : [];
 
-            const eventoFavorito = events.find((e) => e.idEvent === eventId);
-            if (eventoFavorito) {
-                if (!Array.isArray(eventos)) {
-                    eventos = []; // Si no es un arreglo válido, inicialízalo como un arreglo vacío.
-                }
-                eventos.push(eventoFavorito);
-                await AsyncStorage.setItem('eventos', JSON.stringify(eventos));
-            }
-        } catch (error) {
-            console.error('Error al agregar el evento', error);
+    const handleFavourite = async (evento: EventoMoshi) => {
+        cargarFavoritos()
+
+        const currentList = await AsyncStorage.getItem('eventosFavoritos')
+        let updatedList = []
+
+        if (currentList) {
+            updatedList = JSON.parse(currentList)
         }
-        setIsFavorite(previousState => !previousState)
+        updatedList.push(evento)
+
+        await AsyncStorage.setItem('eventosFavoritos', JSON.stringify(updatedList))
+            .then(data => console.log("Data saved"))
+            .catch(err => console.error(err))
     }
 
-
-    // Para recuperar los eventos guardados:
-    const obtenerEventosGuardados = async () => {
+    const cargarFavoritos = async () => {
+        console.log('carga de favoritos')
         try {
-            const eventosGuardados = await AsyncStorage.getItem('eventos');
-            if (eventosGuardados) {
-                const eventos = JSON.parse(eventosGuardados);
-                console.log(JSON.stringify(eventos)); // Esto mostrará los eventos guardados en la consola
+            const favoritosGuardados = await AsyncStorage.getItem('eventosFavoritos');
+            if (favoritosGuardados) {
+                setFavorites(JSON.parse(favoritosGuardados));
             }
         } catch (error) {
-            console.error('Error al obtener los eventos guardados', error);
+            console.log(error);
         }
-    }
+    };
+    useEffect(() => {
+        cargarFavoritos()
+    }, [])
 
-    const eventosGuardados = AsyncStorage.getItem('eventos')
-    console.log(JSON.stringify(eventosGuardados))
-    const currentDay = format(Date.now(), 'dd-MM-yyyy HH:mm')
     return ({
         loading,
         events,
@@ -115,8 +113,8 @@ export const EventFunction = () => {
         fetching,
         handleSetFetching,
         getEvents,
-        favoritos: favorites,
-        obtenerEventosGuardados,
-
+        favorites,
     })
 }
+
+
