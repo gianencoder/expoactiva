@@ -36,9 +36,9 @@ export const HomeScreen = ({ navigation }: Props) => {
                     </View>
                     <View style={{ ...styles.littleComponentContainer, backgroundColor: theme.colors.background }}>
                         <HomeLittleComponent action={() => navigation.navigate('TicketsScreen')} page={'Entradas'} icon={<TicketIconComponent />} />
-                        <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Sitios de interés'} icon={<InteresPointIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Sitios de interés'} icon={<GoToPlaceIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<EventIconComponent />} />
-                        <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<GoToPlaceIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<InteresPointIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<WhereIsMyCarIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('Configuration')} page={'Expositores'} icon={<ExhibitorsComponent />} />
                     </View>

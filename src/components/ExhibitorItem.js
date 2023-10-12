@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: '500',
-    fontSize: 18,
+    fontSize: 17.5,
     paddingBottom: 2
   },
   iconContainer: {
