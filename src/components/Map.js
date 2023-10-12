@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Animated, Easing, Platform, Dimensions, Alert, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, Animated, Easing, Platform, Dimensions, Alert, Linking, AppState } from 'react-native';
 import Mapbox from '@rnmapbox/maps';
 import useNavigationApi from '../hooks/useNavigationApi.js';
 import MapNavigation from './MapNavigation.js';
@@ -206,6 +206,27 @@ const Map = ({showModal}) => {
             };
         })();
     }, []);
+
+    const checkLocationPermission = async () => {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        return status;
+    };
+    
+    useEffect(() => {
+        const handleAppStateChange = async () => {
+            const status = await checkLocationPermission();
+            if (status !== 'granted') {
+                showModal();
+            }
+        };
+    
+        const subscription = AppState.addEventListener("change", handleAppStateChange);
+        
+        return () => {
+            subscription.remove();
+        };
+    }, []);
+    
 
     const goToExpoactiva = () => {
         cameraRef.current.setCamera({
@@ -520,16 +541,16 @@ const Map = ({showModal}) => {
                             {
                                 bottom: selectedExhibitor ? 75 : 70,
                                 left: '50%',
-                                transform: [{translateX: selectedExhibitor ? -50 : -100}],
+                                transform: [{translateX: selectedExhibitor ? -50 : -75}],
                                 padding: selectedExhibitor ? 5 : 15,
-                                width: selectedExhibitor ? 100 : 200,
+                                width: selectedExhibitor ? 100 : 150,
                                 opacity: selectedExhibitor ? 0.60 : 0.85,
                             }
                         ]}
                     >
                         <AntDesign name="search1" size={15} style={styles.searchIcon} />
                         <Text style={[styles.searchText, {fontSize: selectedExhibitor ? 14 : 16}]}>
-                            {selectedExhibitor ? 'Buscar' : 'Buscar expositores'}
+                            Buscar
                         </Text>
                     </TouchableOpacity>
                 )}
