@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Modal, View, TouchableOpacity, Text, BackHandler, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import { GoToPlaceFunction } from '../functions/GoToPlaceFunction';
 import { mapsTheme } from '../theme/MapsTheme';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
+import { HeaderComponent } from '../components/HeaderComponent';
 
 export const GoToPlaceScreen = () => {
   const { androidNavigate, iosNavigate, wazeNavigate } = GoToPlaceFunction();
   const [modal, setModal] = useState(true);
   const navigation = useNavigation();
+  const { theme } = useContext(ThemeContext)
 
   const showModal = () => {
     setModal(prevState => !prevState);
@@ -19,17 +22,17 @@ export const GoToPlaceScreen = () => {
 
   useEffect(() => {
     const backAction = () => {
-        console.log('Back button pressed');
-        if (modal) {
-          console.log('Modal is visible, closing modal.');
-          setModal(false);
-          navigation.goBack();
-          return true;
-        }
-        console.log('Modal is not visible, default behavior.');
-        return false;
-      };
-      
+      console.log('Back button pressed');
+      if (modal) {
+        console.log('Modal is visible, closing modal.');
+        setModal(false);
+        navigation.goBack();
+        return true;
+      }
+      console.log('Modal is not visible, default behavior.');
+      return false;
+    };
+
 
     const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
 
@@ -38,17 +41,18 @@ export const GoToPlaceScreen = () => {
 
   return (
     <Modal visible={modal} animationType='slide' transparent={true} onRequestClose={showModal}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
-        <Image source={require('../assets/icons/mainIcon.png')} style={{ width: 140, height: 60, marginTop: -40, marginBottom: 40 }} />
+      <HeaderComponent></HeaderComponent>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
+        {/* <Image source={require('../assets/icons/mainIcon.png')} style={{ width: 140, height: 60, marginTop: -40, marginBottom: 40 }} /> */}
         <View style={{
-          width: '80%', backgroundColor: 'white', height: 400, borderRadius: 20, shadowColor: "#000",
+          width: '80%', backgroundColor: theme.colors.background, height: 400, borderRadius: 20, shadowColor: theme.colors.text,
           shadowOffset: { width: 0, height: 12 },
           shadowOpacity: 0.2,
           shadowRadius: 16.00,
           elevation: 24,
         }}>
           <TouchableOpacity style={{ alignItems: 'center', alignSelf: 'flex-end', padding: 25 }} onPress={showModal}>
-            <Ionicons name="ios-close-outline" size={24} color="black" />
+            <Ionicons name="ios-close-outline" size={24} color={theme.colors.text} />
           </TouchableOpacity>
           <View style={{ alignItems: 'center', justifyContent: 'space-between' }}>
             <TouchableOpacity style={mapsTheme.googleBtn}

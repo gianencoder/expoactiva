@@ -98,31 +98,22 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
                 <View style={eventStyle.event}>
                     <View style={eventStyle.eventListImg}>
                         {moshiEvent.picture.toString() === '' ? <Image style={{ ...eventStyle.img, height: 120, width: 105 }} source={require('../assets/images/predio.expoactiva.jpg')} /> : <Image style={eventStyle.img} source={{ uri: moshiEvent.picture.toString() }} />}
-
                     </View>
                     <View style={eventStyle.eventListTitle}>
                         <Text style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{moshiEvent.eventName}</Text>
                         <Text style={{ ...eventStyle.titleMinutes }}> {moshiEvent.type}</Text>
-
                         <Text style={eventStyle.titleMinutes}>{correctDate.toString()}</Text>
-
-
-
-
                     </View>
                     <View style={eventStyle.eventListFavourite}>
-                        <TouchableOpacity onPress={() => handleFavourite(moshiEvent.idEvent)}>
+                        <TouchableOpacity onPress={() => handleFavourite(moshiEvent)}>
                             <View style={{ height: 60, width: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 40 }}>
-                                <Ionicons style={{ position: 'absolute' }} name={isFavorite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={23} color={isFavorite ? 'red' : theme.customColors.activeColor} />
+                                <Ionicons style={{ position: 'absolute' }} name={moshiEvent.isFavorite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={23} color={moshiEvent.isFavorite ? 'red' : theme.customColors.activeColor} />
                             </View>
                         </TouchableOpacity>
                         <View>
                             {inProgress && (<Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>En curso</Text>)}
-
                             {initTime > 0 && (<Text style={{ ...eventStyle.titleMinutes, textAlign: 'justify' }}>{`Inicia en ${initTime} ${timeLeftTxt}`}</Text>)}
-
                             {finished && (<Text style={{ ...eventStyle.titleMinutes }}> Finalizado</Text>)}
-
                         </View>
                     </View>
                 </View>
