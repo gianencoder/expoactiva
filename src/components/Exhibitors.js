@@ -20,10 +20,17 @@ import { FlashList } from '@shopify/flash-list';
       Keyboard.dismiss();
     }, []);
     
+    const removeAccents = (str) => {
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+    
     const filteredExpositores = React.useMemo(() => 
-      exhibitors.filter(exp => exp.name.toLowerCase().includes(searchText.toLowerCase())),
+      exhibitors.filter(exp => 
+        removeAccents(exp.name.toLowerCase()).includes(removeAccents(searchText.toLowerCase()))
+      ),
       [searchText]
     );
+    
 
     return (
       <View style={styles.container}>
