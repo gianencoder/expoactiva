@@ -207,24 +207,27 @@ const Map = ({showModal}) => {
         })();
     }, []);
 
+
     const checkLocationPermission = async () => {
         const { status } = await Location.requestForegroundPermissionsAsync();
         return status;
     };
     
     useEffect(() => {
-        const handleAppStateChange = async () => {
-            const status = await checkLocationPermission();
-            if (status !== 'granted') {
-                showModal();
-            }
-        };
-    
-        const subscription = AppState.addEventListener("change", handleAppStateChange);
+        if (Platform.OS !== 'android') {
+            const handleAppStateChange = async () => {
+                const status = await checkLocationPermission();
+                if (status !== 'granted') {
+                    showModal();
+                }
+            };
         
-        return () => {
-            subscription.remove();
-        };
+            const subscription = AppState.addEventListener("change", handleAppStateChange);
+            
+            return () => {
+                subscription.remove();
+            };
+        }
     }, []);
     
 
@@ -293,7 +296,7 @@ const Map = ({showModal}) => {
         if (navigationMode) {
           timerId = setTimeout(() => {
             setNavigationMode(false);
-            Alert.alert("Navegación desactivada", "La navegación se ha desactivado automáticamente después de 1 hora.");
+            Alert.alert("Navegación cancelada", "La navegación se ha cancelado automáticamente después de 1 hora.");
           }, 60 * 60 * 1000);  // 60 minutos
         }
       
@@ -325,13 +328,13 @@ const Map = ({showModal}) => {
             const midLatitude = (deviceCoordinates[1] + selectedExhibitor.latitude) / 2;
             const midLongitude = (deviceCoordinates[0] + selectedExhibitor.longitude) / 2;
     
-            let zoomLevel = 18;
+            let zoomLevel = 17;
     
             // Ajusta la cámara a la nueva posición
             cameraRef.current.setCamera({
                 centerCoordinate: [midLongitude, midLatitude],
                 zoomLevel: zoomLevel,
-                animationDuration: 500,
+                animationDuration: 200,
             });
     
             // Marcar que la cámara gue ajustada
@@ -341,7 +344,7 @@ const Map = ({showModal}) => {
             cameraRef.current.setCamera({
                 centerCoordinate: deviceCoordinates,
                 zoomLevel: 19,
-                duration: 500,
+                duration: 200,
                 pitch: 0,
             });
     
@@ -512,7 +515,7 @@ const Map = ({showModal}) => {
                         ref={cameraRef}
                         centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [exhibitors[0].longitude, exhibitors[0].latitude]}
                         zoomLevel={16}
-                        animationDuration={2000}
+                        animationDuration={1000}
                     />
                     <Mapbox.Images images={iconImages}/>
                     {zoomLevel <= 14 ? (
@@ -530,7 +533,7 @@ const Map = ({showModal}) => {
                         ))
                     )}
                     {navigationMode && !disableNavigation && (
-                        <MapNavigation route={route} cameraRef={cameraRef} origin={origin} destination={destination} />
+                        <MapNavigation route={route} cameraRef={cameraRef} origin={origin} destination={destination} loading={loading} />
                     )}
                 </Mapbox.MapView>
                 {!followUserMode && (

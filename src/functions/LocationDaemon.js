@@ -41,7 +41,7 @@ const LocationDaemon = () => {
           postLocation(location);
         }
       }
-    }, 10000);
+    }, 300000); // 5 min
 
     return () => clearInterval(intervalId);
   }, []);

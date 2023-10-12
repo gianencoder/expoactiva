@@ -7,9 +7,10 @@ const lineStyle = {
   lineOpacity: 0.85,
   lineCap: 'round',
   lineJoin: 'round',
+  lineBlur: 0.2,
 };
 
-const MapNavigation = ({ route, cameraRef, origin, destination }) => {
+const MapNavigation = ({ route, cameraRef, origin, destination, loading }) => {
   const [hasSetCamera, setHasSetCamera] = useState(false);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const MapNavigation = ({ route, cameraRef, origin, destination }) => {
   }, [route, origin, destination, hasSetCamera]);
 
   return (
-    route && (
+    route && !loading && (
       <Mapbox.ShapeSource id="routeSource" shape={route}>
         <Mapbox.LineLayer id="routeLine" style={lineStyle}/>
       </Mapbox.ShapeSource>

@@ -4,11 +4,21 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import Exhibitors from './Exhibitors';
 
 const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) => {
-    const { value, unit } = getFormattedDistance();
+    const [localLoading, setLocalLoading] = React.useState(true);  // Nuevo estado para el loading local
+    const [distanceData, setDistanceData] = React.useState({ value: '0', unit: 'Metros' }); // Nuevo estado para los datos de distancia
+
+    React.useEffect(() => {
+        setLocalLoading(true);  // Establecer el loading local a true cuando cambie loading o followUserMode
+        if (!loading) {
+            const newDistanceData = getFormattedDistance();  // Obtener los nuevos datos de distancia
+            setDistanceData(newDistanceData);  // Establecer los nuevos datos de distancia
+            setLocalLoading(false);  // Desactivar el loading local
+        }
+    }, [loading, getFormattedDistance, followUserMode]);
 
     return (
         <>
-            {loading && !followUserMode ? (
+            {localLoading && !followUserMode ? (
                 <ActivityIndicator size="small" color="darkgreen" style={{ paddingHorizontal: 10 }} />
             ) : (
                 followUserMode ? (
@@ -33,9 +43,13 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                         </View>
                     </>
                 ) : (
-                    <Text style={{ fontSize: 18, fontWeight: '500', color: 'darkgreen', paddingVertical: 20, textAlign: 'center' }}>
-                        {value <= 5 ? 'Usted se encuentra en el sitio' : `A ${value} ${unit} de distancia`}
-                    </Text>
+                    distanceData.value != 0 && !localLoading && (
+                        <Text style={{ fontSize: 18, fontWeight: '500', color: 'darkgreen', paddingVertical: 20, textAlign: 'center' }}>
+                            {distanceData.value <= 5
+                                ? 'Usted se encuentra en el sitio'
+                                : `A ${distanceData.value} ${distanceData.unit} de distancia`}
+                        </Text>
+                    )
                 )
             )}
         </>
@@ -194,9 +208,14 @@ const BottomSheet = ({
             {selectedExhibitor ? (
                 navigationMode ? (
                     <>
+                        {loading ? 
+                        <View style={{ justifyContent: 'center', alignItems: 'center'}}>
+                            <ActivityIndicator size="small" color="darkgreen" />
+                        </View> :    
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             <Distance getFormattedDistance={getFormattedDistance} />
                         </View>
+                        }
                         <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row', paddingBottom: 10, gap: 15 }}>
                             <TouchableOpacity onPress={toggleFollowUserMode} style={buttonStyle}>
                                 <MaterialCommunityIcons name="navigation" size={24} color="darkgreen" />
@@ -218,7 +237,7 @@ const BottomSheet = ({
                 )
             ) : null}
         </Animated.View>
-    ), [heightAnim, slideAnim, selectedExhibitor, onMapPress, navigationMode, toggleNavigationMode, isImageLoading, distance]);
+    ), [heightAnim, slideAnim, selectedExhibitor, onMapPress, navigationMode, toggleNavigationMode, isImageLoading, distance, loading]);
     
     const buttonStyle = {
         flexDirection: 'row',
