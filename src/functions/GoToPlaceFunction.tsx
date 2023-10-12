@@ -1,43 +1,11 @@
-import React, { useState } from 'react'
+
 import { Linking } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+
 
 export const GoToPlaceFunction = () => {
 
-    const [modal, setModal] = useState(false)
-    const navigation = useNavigation()
-
-    const showModal = () => {
-        setModal(prevState => !prevState)
-        navigation.goBack()
-    }
-
     const endLatitude = -33.44658027584278
     const endLongitude = -57.897090129037736
-
-    // //  GUARDA LONGITUD Y LATITUD DEL USUARIO
-    // useEffect(() => {
-    //     const getPermissions = async () => {
-    //         let { status } = await Location.requestForegroundPermissionsAsync()
-    //         if (status !== 'granted') {
-    //             console.log('Grant permission before')
-    //             return;
-    //         }
-    //         let currentLocation = await Location.getCurrentPositionAsync({});
-    //         setLocation(currentLocation);
-    //     }
-    //     getPermissions()
-    // }, [])
-
-    // console.log(location?.coords.longitude)
-    // console.log(location?.coords.latitude)
-
-    // useEffect(() => {
-    //     if (location?.coords.latitude && location?.coords.longitude != undefined) {
-    //         setIsloading(false)
-    //     }
-    // }, [location])
-
 
     const wazeNavigate = () => {
         const wazeUrl = `waze://?ll=${endLatitude},${endLongitude}&navigate=yes`;
@@ -70,8 +38,5 @@ export const GoToPlaceFunction = () => {
         androidNavigate,
         iosNavigate,
         wazeNavigate,
-        showModal,
-        modal,
-        setModal
     })
 }

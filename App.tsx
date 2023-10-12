@@ -10,6 +10,7 @@ import { ThemeContext, ThemeProvider } from './src/context/themeContext/ThemeCon
 import { useContext } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthScreen } from './src/screens/AuthScreen';
+import LocationDaemon from './src/functions/LocationDaemon';
 
 export default function App() {
   LogBox.ignoreLogs(['Sending']);
@@ -26,6 +27,7 @@ export default function App() {
           <BottomTabNavigator />
         </SafeAreaView>
       </NavigationContainer >
+      <LocationDaemon />
     </ThemeProvider >
 
 

@@ -20,15 +20,22 @@ import { FlashList } from '@shopify/flash-list';
       Keyboard.dismiss();
     }, []);
     
+    const removeAccents = (str) => {
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+    
     const filteredExpositores = React.useMemo(() => 
-      exhibitors.filter(exp => exp.name.toLowerCase().includes(searchText.toLowerCase())),
+      exhibitors.filter(exp => 
+        removeAccents(exp.name.toLowerCase()).includes(removeAccents(searchText.toLowerCase()))
+      ),
       [searchText]
     );
+    
 
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <SearchBar placeholder="Buscar expositores" onSearchTextChange={setSearchText} />
+          <SearchBar placeholder="Expositor, Comidas, Baños..." onSearchTextChange={setSearchText} />
           <TouchableOpacity style={styles.closeButton} onPress={onMapPress} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
             <AntDesign name="close" size={22} color="darkgreen" />
           </TouchableOpacity>

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Animated, Easing, Platform, Dimensions, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Animated, Easing, Platform, Dimensions, Alert, Linking, AppState } from 'react-native';
 import Mapbox from '@rnmapbox/maps';
 import useNavigationApi from '../hooks/useNavigationApi.js';
 import MapNavigation from './MapNavigation.js';
@@ -45,7 +45,7 @@ const iconImages = {
         }]
     };
   
-    const shouldAllowOverlap = zoomLevel > 16;
+    const shouldAllowOverlap = zoomLevel > 15;
 
     return (
         <Mapbox.ShapeSource
@@ -112,7 +112,7 @@ const ExpoactivaMarker = React.memo(({goToExpoactiva}) => {
     );
 });
 
-const Map = () => {
+const Map = ({showModal}) => {
 
     const mapRef = useRef();
     const [navigationMode, setNavigationMode] = useState(false);
@@ -138,7 +138,24 @@ const Map = () => {
                 const { status } = await Location.requestForegroundPermissionsAsync();
     
                 if (status !== 'granted') {
-                    console.error('Permission to access location was denied');
+                    console.log('Permission to access location was denied');
+                    Alert.alert(
+                        "Mapa no disponible",
+                        "Para ver el mapa, tiene que permitir el acceso a su ubicación.",
+                        [
+                            { 
+                                text: "Ir a Configuración", 
+                                onPress: () => Linking.openSettings(), 
+                                style: "cancel" 
+                            },
+                            { 
+                                text: "Cancelar", 
+                                onPress: () => console.log("Cancel Pressed"), 
+                                style: "destructive" 
+                            }
+                        ]
+                    );
+                    showModal();
                     return;
                 }
     
@@ -189,6 +206,27 @@ const Map = () => {
             };
         })();
     }, []);
+
+    const checkLocationPermission = async () => {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        return status;
+    };
+    
+    useEffect(() => {
+        const handleAppStateChange = async () => {
+            const status = await checkLocationPermission();
+            if (status !== 'granted') {
+                showModal();
+            }
+        };
+    
+        const subscription = AppState.addEventListener("change", handleAppStateChange);
+        
+        return () => {
+            subscription.remove();
+        };
+    }, []);
+    
 
     const goToExpoactiva = () => {
         cameraRef.current.setCamera({
@@ -503,16 +541,16 @@ const Map = () => {
                             {
                                 bottom: selectedExhibitor ? 75 : 70,
                                 left: '50%',
-                                transform: [{translateX: selectedExhibitor ? -50 : -100}],
+                                transform: [{translateX: selectedExhibitor ? -50 : -75}],
                                 padding: selectedExhibitor ? 5 : 15,
-                                width: selectedExhibitor ? 100 : 200,
+                                width: selectedExhibitor ? 100 : 150,
                                 opacity: selectedExhibitor ? 0.60 : 0.85,
                             }
                         ]}
                     >
                         <AntDesign name="search1" size={15} style={styles.searchIcon} />
                         <Text style={[styles.searchText, {fontSize: selectedExhibitor ? 14 : 16}]}>
-                            {selectedExhibitor ? 'Buscar' : 'Buscar expositores'}
+                            Buscar
                         </Text>
                     </TouchableOpacity>
                 )}
