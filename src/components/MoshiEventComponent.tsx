@@ -8,10 +8,12 @@ import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 interface Props {
     event?: Event
-    moshiEvent: EventoMoshi
+    moshiEvent: EventoMoshi,
+    method: (id: number) => void,
+    isFavorite: boolean
 }
 
-export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
+export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite }: Props) => {
 
     const { theme } = useContext(ThemeContext)
     const correctDate = format(new Date(moshiEvent.dateHourStart), 'p dd/MM/yyy');
@@ -23,8 +25,6 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
     const [finished, setFinished] = useState(false)
     const [inProgress, setInProgress] = useState(false)
 
-
-    const { handleFavourite, isFavorite } = EventFunction()
 
 
     const calculateTimeLeft = () => {
@@ -105,9 +105,9 @@ export const MoshiEventComponent = ({ event, moshiEvent }: Props) => {
                         <Text style={eventStyle.titleMinutes}>{correctDate.toString()}</Text>
                     </View>
                     <View style={eventStyle.eventListFavourite}>
-                        <TouchableOpacity onPress={() => handleFavourite(moshiEvent)}>
+                        <TouchableOpacity activeOpacity={.5} onPress={() => method(moshiEvent.idEvent)}>
                             <View style={{ height: 60, width: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 40 }}>
-                                <Ionicons style={{ position: 'absolute' }} name={moshiEvent.isFavorite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={23} color={moshiEvent.isFavorite ? 'red' : theme.customColors.activeColor} />
+                                <Ionicons style={{ position: 'absolute' }} name={isFavorite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={23} color={isFavorite ? '#A50000' : theme.customColors.activeColor} />
                             </View>
                         </TouchableOpacity>
                         <View>
