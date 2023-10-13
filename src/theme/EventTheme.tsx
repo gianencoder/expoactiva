@@ -46,12 +46,10 @@ export const eventStyle = StyleSheet.create({
 
     },
     titleMinutes: {
-        width: 70,
         textTransform: 'uppercase',
         fontWeight: '400',
-        fontSize: 12,
-        color: MyColors.textGrey
-
+        fontSize: 13,
+        color: MyColors.textGrey,
     },
 
     eventListFavourite: {
@@ -59,7 +57,6 @@ export const eventStyle = StyleSheet.create({
         alignItems: 'flex-end',
         padding: 10,
         justifyContent: 'space-between',
-
     },
 
 });
