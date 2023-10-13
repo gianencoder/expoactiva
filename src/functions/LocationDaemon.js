@@ -5,13 +5,13 @@ import * as turf from '@turf/turf';
 
 const LocationDaemon = () => {
   
-    const expoactivaCoordinates = [
-        [-33.44981, -57.89672],
-        [-33.44973, -57.89065],
-        [-33.45261, -57.89052],
-        [-33.45306, -57.89715],
-        [-33.44981, -57.89672],
-      ];
+  const expoactivaCoordinates = [
+    [-33.44981, -57.89672],
+    [-33.44973, -57.89065],
+    [-33.45261, -57.89052],
+    [-33.45306, -57.89715],
+    [-33.44981, -57.89672],
+  ];
 
   const isUserInExpoactiva = (deviceCoordinates, expoactivaCoordinates) => {
     const point = turf.point(deviceCoordinates);
@@ -21,13 +21,14 @@ const LocationDaemon = () => {
     console.log("Is user in Expoactiva: ", isInPolygon);
     
     return isInPolygon;
-};
-
+  };
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
+      const { status } = await Location.getForegroundPermissionsAsync();
       
+      console.log(status)
+
       if (status === 'granted') {
         const location = await Location.getCurrentPositionAsync({});
         const deviceCoordinates = [

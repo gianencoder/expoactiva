@@ -34,7 +34,7 @@ function ExhibitorItem({ item, fairStand, selectExhibitor, toggleNavigationMode,
       </View>
       <View style={styles.itemContainer}>
         <Text style={styles.title}>{name}</Text>
-        <Text style={{color:'gray'}}>{description}</Text>
+        <Text style={{color:'gray', fontSize: 15}}>{description}</Text>
       </View>
       <View style={styles.iconContainer}>
         <Pressable onPress={onIconPressed} style={iconPressedStyle} hitSlop={{top:20,right:20,bottom:20,left:20}}>
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontWeight: '500',
-    fontSize: 17.5,
+    fontWeight: '600',
+    fontSize: 18,
     paddingBottom: 2
   },
   iconContainer: {
