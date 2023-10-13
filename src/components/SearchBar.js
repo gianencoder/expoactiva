@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, View, TouchableOpacity, TextInput } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function SearchBar({ placeholder, onSearchTextChange }) {
+export default function SearchBar({ placeholder, onSearchTextChange, setKeyboardVisible }) {
   const [searchText, setSearchText] = useState('');
   const inputRef = useRef(null);
 
@@ -29,6 +29,8 @@ export default function SearchBar({ placeholder, onSearchTextChange }) {
           onChangeText={handleChangeText}
           autoCorrect={false}
           autoComplete='off'
+          onFocus={() => setKeyboardVisible(true)}
+          onBlur={() => setKeyboardVisible(false)}
         />
         {searchText ? (
           <TouchableOpacity hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }} onPress={() => handleChangeText('')}>
