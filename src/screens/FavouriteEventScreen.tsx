@@ -9,23 +9,26 @@ import { FlashList } from '@shopify/flash-list';
 import { SeparatorComponent } from '../components/SeparatorComponent';
 import { MyColors } from '../theme/ColorsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
+import { FavoritesProvider, useFavorites } from '../context/FavouriteContext/FavouritesContext';
 
 
 
 export const FavouriteEventScreen = () => {
 
-    const { loading, filterEvent, setSearchText, fetching, handleSetFetching } = EventFunction()
+    const { loading, setSearchText, fetching, handleSetFetching } = EventFunction()
     const { theme } = useContext(ThemeContext)
-    const { favorites } = EventFunction()
-
-    const clearAllData = async () => {
-        AsyncStorage.clear().then(data => {
-        }).catch((error) => console.log(error))
-    };
+    const { favorites, removeFavorite } = useFavorites()
 
 
-    const getFavorites = async () => {
-        await AsyncStorage.getItem('eventosFavoritos')
+    const removeEvent = (id: number) => {
+        const canRemove = favorites.find(e => e.idEvent === id);
+
+        if (!canRemove) {
+            console.error
+        } else {
+            removeFavorite(id)
+        }
+
     }
 
     return (
@@ -41,26 +44,25 @@ export const FavouriteEventScreen = () => {
                     </View>
                     <FlashList
                         data={favorites}
-                        keyExtractor={(event) => event.idEvent.toString()}
-                        renderItem={({ item }) => <MoshiEventComponent moshiEvent={item} />}
+                        keyExtractor={(event: EventoMoshi) => event.idEvent.toString()}
+                        renderItem={({ item }) => <MoshiEventComponent moshiEvent={item} method={() => removeEvent(item.idEvent)} isFavorite={favorites.some(favorite => favorite.idEvent === item.idEvent)} />}
+                        // onRefresh={() => handleSetFetching}
+                        // refreshing={fetching}
                         refreshControl={
                             <RefreshControl
                                 refreshing={fetching}
                                 progressBackgroundColor={theme.colors.background}
                                 onRefresh={handleSetFetching}
-                                colors={[theme.customColors.activeColor]}
-                                tintColor={theme.customColors.activeColor}
+                                colors={[theme.customColors.activeColor]} // for android
+                                tintColor={theme.customColors.activeColor} // for ios
                             />
                         }
                         ItemSeparatorComponent={() => <SeparatorComponent />}
                         estimatedItemSize={100}
                     />
-                    <Button title='Eliminar todo' onPress={clearAllData} ></Button>
                 </View>
             }
         </View >
-
-
     );
 
 }

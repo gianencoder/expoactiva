@@ -11,24 +11,27 @@ import { useContext } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthScreen } from './src/screens/AuthScreen';
 import LocationDaemon from './src/functions/LocationDaemon';
+import { FavoritesProvider } from './src/context/FavouriteContext/FavouritesContext';
 
 export default function App() {
   LogBox.ignoreLogs(['Sending']);
   LogBox.ignoreLogs(['new NativeEventEmitter']);
 
   return (
-    <ThemeProvider>
-      <NavigationContainer>
-        <SafeAreaView style={{ ...styles.container }}>
-          <StatusBar
-            barStyle={'light-content'}
-            backgroundColor={MyColors.primary}
-          />
-          <BottomTabNavigator />
-        </SafeAreaView>
-      </NavigationContainer >
-      <LocationDaemon />
-    </ThemeProvider >
+    <FavoritesProvider>
+      <ThemeProvider>
+        <NavigationContainer>
+          <SafeAreaView style={{ ...styles.container }}>
+            <StatusBar
+              barStyle={'light-content'}
+              backgroundColor={MyColors.primary}
+            />
+            <BottomTabNavigator />
+          </SafeAreaView>
+        </NavigationContainer >
+        <LocationDaemon />
+      </ThemeProvider >
+    </FavoritesProvider>
 
 
   );

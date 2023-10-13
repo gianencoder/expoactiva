@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { eventStyle } from '../theme/EventTheme'
 import { EventFunction } from '../functions/EventFunction';
@@ -9,6 +9,8 @@ import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { FlashList } from "@shopify/flash-list";
 import { MoshiEventComponent } from '../components/MoshiEventComponent';
 import { RefreshControl } from 'react-native-gesture-handler';
+import { FavoritesProvider, useFavorites } from '../context/FavouriteContext/FavouritesContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -16,6 +18,23 @@ export const EventScreen = () => {
 
     const { loading, filterEvent, setSearchText, fetching, handleSetFetching } = EventFunction()
     const { theme } = useContext(ThemeContext)
+    const { favorites, addFavorite, removeFavorite } = useFavorites()
+
+    const handleAddFav = (id: number) => {
+        const selectedEvent = filterEvent.find((event) => event.idEvent === id)
+        const isFavorite = favorites.find(event => event.idEvent === id)
+
+        if (!selectedEvent && isFavorite) {
+
+        }
+        if (selectedEvent && !isFavorite) {
+            addFavorite(selectedEvent)
+            console.log("Evento con el id ", id, "agregado")
+        } else {
+            removeFavorite(id)
+        }
+
+    }
 
     return (
         <View style={eventStyle.container} >
@@ -31,7 +50,7 @@ export const EventScreen = () => {
                     <FlashList
                         data={filterEvent}
                         keyExtractor={(event) => event.idEvent.toString()}
-                        renderItem={({ item }) => <MoshiEventComponent moshiEvent={item} />}
+                        renderItem={({ item }) => <MoshiEventComponent moshiEvent={item} method={() => handleAddFav(item.idEvent)} isFavorite={favorites.some(favorite => favorite.idEvent === item.idEvent)} />}
                         // onRefresh={() => handleSetFetching}
                         // refreshing={fetching}
                         refreshControl={
@@ -50,7 +69,6 @@ export const EventScreen = () => {
             }
 
         </View >
-
     )
 }
 
