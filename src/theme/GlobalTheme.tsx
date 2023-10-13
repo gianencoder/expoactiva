@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     },
 
     littleComponentTxt: {
-        fontSize: 16,
+        fontSize: 17.5,
         fontWeight: '400',
     },
 
