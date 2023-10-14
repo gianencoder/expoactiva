@@ -21,7 +21,7 @@ export const EventFunction = () => {
 
 
     const getEvents = async () => {
-        await fetch(properties.moshiURL + 'event/', {
+        await fetch(properties.moshiURL + 'open/events', {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',

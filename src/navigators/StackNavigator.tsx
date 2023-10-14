@@ -6,10 +6,10 @@ import { InterestPointScreen } from '../screens/InterestPointScreen';
 import { AuthScreen } from '../screens/AuthScreen';
 import { GoToPlaceScreen } from '../screens/GoToPlaceScreen';
 import { WhereIsMyCarScreen } from '../screens/WhereIsMyCarScreen';
-import { VisibilityScreen } from '../screens/VisibilityScreen';
 import { FavouriteEventScreen } from '../screens/FavouriteEventScreen';
 import { TopTabNavigator } from './TopTabNavigator';
 import { ConfigurationScreen } from '../screens/ConfigurationScreen';
+import { ExhibitorScreen } from '../screens/ExhibitorScreen';
 
 const Stack = createStackNavigator();
 
@@ -33,7 +33,7 @@ export const MyStack = () => {
             <Stack.Screen name="GoToPlaceScreen" component={GoToPlaceScreen} />
             <Stack.Screen name="WhereIsMyCarScreen" component={WhereIsMyCarScreen} />
             <Stack.Screen name="FavouriteEvent" component={FavouriteEventScreen} />
-            <Stack.Screen name="Configuration" component={ConfigurationScreen} />
+            <Stack.Screen name="Exhibitors" component={ExhibitorScreen} />
 
         </Stack.Navigator >
     );

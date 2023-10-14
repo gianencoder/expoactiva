@@ -18,7 +18,7 @@ interface Props extends StackScreenProps<any, any> { }
 export const HomeScreen = ({ navigation }: Props) => {
 
     const { theme } = useContext(ThemeContext)
-    
+
     const { scrollViewRef } = HomeFunction();
     return (
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
@@ -40,7 +40,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                         <HomeLittleComponent action={() => navigation.navigate('EventScreen')} page={'Eventos'} icon={<EventIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<InteresPointIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<WhereIsMyCarIconComponent />} />
-                        <HomeLittleComponent action={() => navigation.navigate('Configuration')} page={'Expositores'} icon={<ExhibitorsComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('Exhibitors')} page={'Expositores'} icon={<ExhibitorsComponent />} />
                     </View>
                 </View >
             </ScrollView>
