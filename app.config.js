@@ -16,6 +16,13 @@ export default {
     ios: {
       supportsTablet: true,
       bundleIdentifier: IS_DEV ? 'com.cyb3rsoft.expoactivaapp.dev' : 'com.cyb3rsoft.expoactivaapp',
+      infoPlist: {
+      CFBundleURLTypes: [
+          {
+            CFBundleURLSchemes: ["com.googleusercontent.apps.808320141330-gnmt0lf7aqh6d5kns4hb2b69eerkm9qp"]
+          }
+        ]
+      }
     },
     android: {
       package: IS_DEV ? 'com.cyb3rsoft.expoactivaapp.dev' : 'com.cyb3rsoft.expoactivaapp',
@@ -39,6 +46,7 @@ export default {
           locationWhenInUsePermission: "Show current location on map.",
         },
       ],
+      "@react-native-google-signin/google-signin"
     ],
     runtimeVersion: {
       policy: "sdkVersion",
