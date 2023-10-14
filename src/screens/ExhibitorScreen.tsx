@@ -4,6 +4,11 @@ import { styles } from '../theme/GlobalTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { FlashList } from '@shopify/flash-list'
 
+interface Props {
+    id: number,
+    nombre: String,
+    apellido: String
+}
 export const ExhibitorScreen = () => {
     const { theme } = useContext(ThemeContext)
 
@@ -25,12 +30,12 @@ export const ExhibitorScreen = () => {
 
                 <FlashList
                     data={expositor}
-                    key={exp => exp.id}
+                    key={(exp: any) => exp.id}
                     estimatedItemSize={150}
                     renderItem={({ item }) =>
                         <View style={{ width: '100%', height: 80, backgroundColor: 'blue', flexDirection: 'row' }}>
                             <View style={{ backgroundColor: 'green', flex: 1 }}>
-                                <View style={{ flex: 1, backgroundColor: 'black', padding: 10, borderRadius: 40 }}></View>
+                                <View style={{ height: 150, backgroundColor: 'black', padding: 10, borderRadius: 15 }}></View>
                             </View>
                             <View style={{ backgroundColor: 'yellow', flex: 1 }}></View>
                         </View>
