@@ -13,7 +13,7 @@ export const ExhibitorFunction = () => {
         exp.name.toLowerCase().includes(searchText.toLowerCase())
     );
     const getExhibitor = async () => {
-        await fetch('http://192.168.1.6:3000/exhibitors/', {
+        await fetch(`${properties.cyberSoftURL}exhibitors/`, {
             method: 'GET',
             headers: {
 
