@@ -7,10 +7,6 @@ interface Event {
     v: number
 }
 
-interface CustomColor {
-    transparent: string,
-}
-
 interface BottomTabIcons {
     iconSize: number,
     txtSize: number,
@@ -28,4 +24,18 @@ interface EventoMoshi {
     idPerson: number;
     person: number;
     isFavorite: boolean
+}
+
+interface Exhibitors {
+    _id: number
+    name: string
+    tel: string
+    image: string
+    logo: string
+    description: string
+    type: string
+    standId: number
+    webPage: string
+    longitude: number,
+    latitude: number
 }

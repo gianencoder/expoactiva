@@ -1,49 +1,59 @@
-import React, { useContext } from 'react'
-import { Image, Text, View } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { Image, Text, View, ScrollView } from 'react-native'
 import { styles } from '../theme/GlobalTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
-import { FlashList } from '@shopify/flash-list'
+import { AnimatedFlashList, FlashList } from '@shopify/flash-list'
+import { ExhibitorComponent } from '../components/ExhibitorComponent'
+import { SeparatorComponent } from '../components/SeparatorComponent'
+import { ExhibitorFunction } from '../functions/ExhibitorFunction'
+import SearchBar from '../components/SearchBarComponent';
 
-interface Props {
-    id: number,
-    nombre: String,
-    apellido: String
-}
 export const ExhibitorScreen = () => {
     const { theme } = useContext(ThemeContext)
+    const { exhibitor, setSearchText, filter } = ExhibitorFunction()
 
-    const expositor = [{
-        id: 1,
-        nombre: 'Gian',
-        apellido: 'Mendoza'
-    },
-    {
-        id: 2,
-        nombre: 'Stefan',
-        apellido: 'Techera'
-    }
-    ]
+
     return (
         <View style={{ ...styles.container, backgroundColor: theme.colors.background }}>
-            <View style={{ flex: 1, backgroundColor: 'red', flexDirection: 'row' }}></View >
-            <View style={{ flex: 3, gap: 2 }}>
-
+            <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+                <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center', marginHorizontal: 5 }}>
+                    <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar expositores por nombre..." />
+                </View>
+                <View style={{ flex: 1, marginHorizontal: 5, flexDirection: 'row', gap: 10, flexWrap: 'wrap' }}>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                    <Text>Filtros</Text>
+                </View>
+            </View >
+            <View style={{ flex: 3, backgroundColor: theme.colors.background, padding: 5 }}>
                 <FlashList
-                    data={expositor}
-                    key={(exp: any) => exp.id}
-                    estimatedItemSize={150}
-                    renderItem={({ item }) =>
-                        <View style={{ width: '100%', height: 80, backgroundColor: 'blue', flexDirection: 'row' }}>
-                            <View style={{ backgroundColor: 'green', flex: 1 }}>
-                                <View style={{ height: 150, backgroundColor: 'black', padding: 10, borderRadius: 15 }}></View>
-                            </View>
-                            <View style={{ backgroundColor: 'yellow', flex: 1 }}></View>
-                        </View>
-                    }
-
-
+                    data={filter}
+                    keyExtractor={(ex: Exhibitors) => ex._id.toString()}
+                    estimatedItemSize={250}
+                    renderItem={({ item }) => <ExhibitorComponent ex={item} />}
+                    ItemSeparatorComponent={SeparatorComponent}
                 />
-
             </View >
         </View >
 

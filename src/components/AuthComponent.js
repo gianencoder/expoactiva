@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import React, { useContext, useState, useEffect, useCallback } from 'react'
 import { ScrollView, TouchableOpacity, View, Text, Image, Platform } from 'react-native'
 import { authStyle } from '../theme/AuthTheme'

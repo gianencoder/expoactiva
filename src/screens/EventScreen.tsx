@@ -33,9 +33,7 @@ export const EventScreen = () => {
         } else {
             removeFavorite(id)
         }
-
     }
-
     return (
         <View style={eventStyle.container} >
             {loading ? <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -51,8 +49,6 @@ export const EventScreen = () => {
                         data={filterEvent}
                         keyExtractor={(event) => event.idEvent.toString()}
                         renderItem={({ item }) => <MoshiEventComponent moshiEvent={item} method={() => handleAddFav(item.idEvent)} isFavorite={favorites.some(favorite => favorite.idEvent === item.idEvent)} />}
-                        // onRefresh={() => handleSetFetching}
-                        // refreshing={fetching}
                         refreshControl={
                             <RefreshControl
                                 refreshing={fetching}
