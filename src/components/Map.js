@@ -532,7 +532,7 @@ const Map = ({showModal}) => {
                         />
                         ))
                     )}
-                    {navigationMode && !disableNavigation && (
+                    {navigationMode && !disableNavigation && distance > 5 && (
                         <MapNavigation route={route} cameraRef={cameraRef} origin={origin} destination={destination} loading={loading} />
                     )}
                 </Mapbox.MapView>
