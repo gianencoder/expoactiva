@@ -1,35 +1,28 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, RefreshControl, ActivityIndicator, Button } from 'react-native'
 import { EventFunction } from '../functions/EventFunction'
 import { eventStyle } from '../theme/EventTheme'
 import SearchBar from '../components/SearchBarComponent';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MoshiEventComponent } from '../components/MoshiEventComponent';
 import { FlashList } from '@shopify/flash-list';
 import { SeparatorComponent } from '../components/SeparatorComponent';
 import { MyColors } from '../theme/ColorsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
-import { FavoritesProvider, useFavorites } from '../context/FavouriteContext/FavouritesContext';
+import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
 
 
 
 export const FavouriteEventScreen = () => {
 
-    const { loading, setSearchText, fetching, handleSetFetching } = EventFunction()
+    const { loading, fetching, handleSetFetching } = EventFunction()
     const { theme } = useContext(ThemeContext)
-    const { favorites, removeFavorite } = useFavorites()
+    const { favorites } = useFavorites()
+    const { removeEvent, handleSelectItem } = EventFunction()
+    const [searchText, setSearchText] = useState('');
 
-
-    const removeEvent = (id: number) => {
-        const canRemove = favorites.find(e => e.idEvent === id);
-
-        if (!canRemove) {
-            console.error
-        } else {
-            removeFavorite(id)
-        }
-
-    }
+    const filterEvent = favorites.filter((exp: EventoMoshi) =>
+        exp.eventName.toLowerCase().includes(searchText.toLowerCase())
+    );
 
     return (
         <View style={eventStyle.container} >
@@ -43,11 +36,15 @@ export const FavouriteEventScreen = () => {
                         <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar eventos" />
                     </View>
                     <FlashList
-                        data={favorites}
+                        data={filterEvent}
                         keyExtractor={(event: EventoMoshi) => event.idEvent.toString()}
-                        renderItem={({ item }) => <MoshiEventComponent moshiEvent={item} method={() => removeEvent(item.idEvent)} isFavorite={favorites.some(favorite => favorite.idEvent === item.idEvent)} />}
-                        // onRefresh={() => handleSetFetching}
-                        // refreshing={fetching}
+                        renderItem={({ item }) => <MoshiEventComponent
+                            moshiEvent={item} method={() => removeEvent(item.idEvent)}
+                            isFavorite={favorites.some(favorite => favorite.idEvent === item.idEvent)}
+                            selectEvent={() => handleSelectItem(item.idEvent)} />
+
+                        }
+
                         refreshControl={
                             <RefreshControl
                                 refreshing={fetching}

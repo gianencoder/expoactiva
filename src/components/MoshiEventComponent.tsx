@@ -3,17 +3,18 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { eventStyle } from '../theme/EventTheme';
 import { Ionicons } from '@expo/vector-icons';
 import { differenceInDays, differenceInHours, differenceInMinutes, format } from 'date-fns';
-import { EventFunction } from '../functions/EventFunction';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
+import { EventFunction } from '../functions/EventFunction';
 
 interface Props {
     event?: Event
     moshiEvent: EventoMoshi,
     method: (id: number) => void,
+    selectEvent: (id: number) => void,
     isFavorite: boolean
 }
 
-export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite }: Props) => {
+export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, selectEvent }: Props) => {
 
     const { theme } = useContext(ThemeContext)
     const correctDate = format(new Date(moshiEvent.dateHourStart), 'p dd/MM/yyy');
@@ -24,6 +25,8 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite }: P
 
     const [finished, setFinished] = useState(false)
     const [inProgress, setInProgress] = useState(false)
+
+    const { formatDateTime } = EventFunction()
 
 
 
@@ -39,6 +42,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite }: P
 
         //Hora de fin del evento - hora actual
         const endEventTime = differenceInMinutes(new Date(moshiEvent.dateHourEnd), new Date(Date.now()))
+
 
 
         if (endEventTime <= 0) {
@@ -92,8 +96,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite }: P
         <View style={{ backgroundColor: 'transparent', flex: 1 }}>
             <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => console.log('Estoy presionando')}
-                onLongPress={() => console.log('Presione largo')}
+                onPress={() => selectEvent(moshiEvent.idEvent)}
             >
                 <View style={eventStyle.event}>
                     <View style={eventStyle.eventListImg}>
@@ -101,8 +104,8 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite }: P
                     </View>
                     <View style={eventStyle.eventListTitle}>
                         <Text numberOfLines={2} style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{moshiEvent.eventName}</Text>
-                        <Text numberOfLines={1} style={{ ...eventStyle.titleMinutes, }}> {moshiEvent.type}</Text>
-                        <Text style={{ ...eventStyle.titleMinutes, width: 100 }}>{correctDate.toString()}</Text>
+                        <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{moshiEvent.type}</Text>
+                        <Text style={{ ...eventStyle.titleMinutes, width: '50%' }}>{formatDateTime(moshiEvent.dateHourStart).day} {formatDateTime(moshiEvent.dateHourStart).dayNumber}    {formatDateTime(moshiEvent.dateHourStart).time}</Text>
                     </View>
                     <View style={eventStyle.eventListFavourite}>
                         <TouchableOpacity activeOpacity={.5} onPress={() => method(moshiEvent.idEvent)}>

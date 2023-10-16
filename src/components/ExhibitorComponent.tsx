@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Image, Text, Linking, TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
-import { ScrollView } from 'react-native-gesture-handler'
+
 
 interface Props {
   ex: Exhibitors
@@ -17,9 +17,11 @@ export const ExhibitorComponent = ({ ex }: Props) => {
 
   return (
     <TouchableOpacity>
-      <View style={{ height: 120, width: '95%', paddingHorizontal: 5, backgroundColor: theme.colors.background, flexDirection: 'row', borderRadius: 30, marginHorizontal: 10 }}>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end', padding: 5 }}>
-          <Image style={{ height: 90, width: 110, resizeMode: 'cover', borderRadius: 15 }} source={urlEncodedBase64 !== '' ? { uri: base64Data } : require('../assets/images/noPhoto.jpg')} />
+      <View style={{ height: 120, width: '95%', paddingHorizontal: 5, backgroundColor: theme.colors.background, flexDirection: 'row', borderRadius: 30,  }}>
+        <View style={{ flex: 1.2,justifyContent:'center'}}>
+          <View style={{height:90, width:110, backgroundColor:'blue', borderRadius:15, overflow:'hidden'}}>
+          <Image style={{ flex:1 }} source={urlEncodedBase64 !== '' ? { uri: base64Data } : require('../assets/images/noPhoto.jpg')} />
+          </View>
         </View>
         <View style={{ flex: 2.5, flexDirection: 'row' }}>
           <View style={{ flex: 3, justifyContent: 'center', paddingHorizontal: 10, gap: 15 }}>
@@ -27,7 +29,7 @@ export const ExhibitorComponent = ({ ex }: Props) => {
             <TouchableOpacity style={{ zIndex: 1 }} onPress={() => Linking.openURL(`${ex.webPage}`)}>
               <View style={{ flexDirection: 'row', gap: 5, height: 25, width: '80%', alignItems: 'center' }}>
                 <Image style={{ height: 15, width: 15, tintColor: theme.customColors.activeColor }} source={require('../assets/icons/web-page.png')} />
-                <Text numberOfLines={2} style={{ textDecorationLine: 'underline', textDecorationStyle: 'solid', fontWeight: '400', fontSize: 16, color: theme.colors.text }}>{ex.webPage}</Text>
+                <Text numberOfLines={2} style={{ textDecorationLine: 'underline', textDecorationStyle: 'solid', fontWeight: '400', fontSize: 16, color: theme.colors.text }}>Sitio web</Text>
               </View>
             </TouchableOpacity>
             <View style={{ flexDirection: 'row', gap: 5 }}>

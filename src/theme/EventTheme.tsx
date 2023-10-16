@@ -31,19 +31,14 @@ export const eventStyle = StyleSheet.create({
         borderRadius: 10,
     },
     eventListTitle: {
-        flex: 3,
+        flex: 3.5,
         alignItems: 'flex-start',
         justifyContent: 'space-between',
         padding: 10,
-
     },
     titleTxt: {
-        // textTransform: 'uppercase',
         fontWeight: '400',
         fontSize: 18,
-
-        // color: 'white',
-
     },
     titleMinutes: {
         textTransform: 'uppercase',
