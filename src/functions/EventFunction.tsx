@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { format } from 'date-fns';
+import { differenceInDays, differenceInHours, differenceInMinutes, format } from 'date-fns';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import properties from '../../properties.json'
@@ -14,9 +14,9 @@ export const EventFunction = () => {
     const [fetching, setFetching] = useState(false)
     const [events, setEvents] = useState<EventoMoshi[]>([]);
     const { favorites, addFavorite, removeFavorite } = useFavorites()
-
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState('');
+
 
     const filterEvent = events.filter((exp: EventoMoshi) =>
         exp.eventName.toLowerCase().includes(searchText.toLowerCase())
@@ -79,9 +79,7 @@ export const EventFunction = () => {
             description: selectedEvent?.description,
             id: selectedEvent?.idEvent
         })
-
     }
-
 
     function formatDateTime(dateTimeString) {
         const date = new Date(dateTimeString);
@@ -109,6 +107,9 @@ export const EventFunction = () => {
         }
     }
 
+
+
+
     return ({
         loading,
         events,
@@ -124,7 +125,8 @@ export const EventFunction = () => {
         handleSelectItem,
         formatDateTime,
         removeEvent,
-        searchText
+        searchText,
+
     })
 }
 

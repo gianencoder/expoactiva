@@ -30,19 +30,32 @@ export const EventScreen = () => {
     const { favorites } = useFavorites()
 
 
+    filterEvent.sort((a, b) => {
+        const dateA = new Date(a.dateHourStart).getDate();
+        const dateB = new Date(b.dateHourStart).getDate();
+
+        return dateA - dateB;
+    });
+
+
     return (
 
-        filterEvent ?
-            <View style={eventStyle.container} >
-                {loading ? <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <ActivityIndicator size={'large'} color={MyColors.primary} style={{ backgroundColor: theme.colors.background, height: '100%', width: '100%' }}
-                    />
+        <View style={eventStyle.container} >
+            <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+                <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 45, backgroundColor: 'transparent' }}>
+                    <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar eventos" />
+                </View>
 
-                </View> :
-                    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-                        <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 45, backgroundColor: 'transparent' }}>
-                            <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar eventos" />
-                        </View>
+                {loading
+                    ?
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <ActivityIndicator size={'large'} color={MyColors.primary} style={{ backgroundColor: theme.colors.background, height: '100%', width: '100%' }} />
+                    </View>
+                    :
+
+
+                    filterEvent.length > 0
+                        ?
                         <FlashList
                             data={filterEvent}
                             keyExtractor={(event) => event.idEvent.toString()}
@@ -65,10 +78,11 @@ export const EventScreen = () => {
                             ItemSeparatorComponent={() => <SeparatorComponent />}
                             estimatedItemSize={100}
                         />
-                    </View>
+                        :
+                        <NotEventScreen text={'No hay eventos para mostrar'} extraoption={''} />
                 }
-
-            </View > : <NotEventScreen />
+            </View>
+        </View >
     )
 }
 

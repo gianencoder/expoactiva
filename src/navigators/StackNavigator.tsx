@@ -11,6 +11,7 @@ import { TopTabNavigator } from './TopTabNavigator';
 import { ConfigurationScreen } from '../screens/ConfigurationScreen';
 import { ExhibitorScreen } from '../screens/ExhibitorScreen';
 import { EventDetails } from '../screens/EventDetails';
+import { EventScreen } from '../screens/EventScreen';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +28,7 @@ export const MyStack = () => {
         >
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="MenuScreen" component={MenuScreen} />
-            <Stack.Screen name="EventScreen" component={TopTabNavigator} />
+            <Stack.Screen name="TopTabNavigtorEvent" component={TopTabNavigator} />
             <Stack.Screen name="TicketsScreen" component={TicketsScreen} />
             <Stack.Screen name="InterestPointScreen" component={InterestPointScreen} />
             <Stack.Screen name="AuthScreen" component={AuthScreen} />
@@ -36,6 +37,7 @@ export const MyStack = () => {
             <Stack.Screen name="FavouriteEvent" component={FavouriteEventScreen} />
             <Stack.Screen name="Exhibitors" component={ExhibitorScreen} />
             <Stack.Screen name="EventDetail" component={EventDetails} />
+            <Stack.Screen name="EventScreen" component={EventScreen} />
 
         </Stack.Navigator >
     );

@@ -22,13 +22,13 @@ export const eDetailTheme = StyleSheet.create({
     favouriteButton: {
         borderRadius: 10,
         justifyContent: 'center',
-        alignItems: 'center',
-        width: 30,
+        alignItems: 'flex-end',
+        width: 50,
         height: 30,
-
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     date: {
+        textAlign: 'left',
         textTransform: 'capitalize',
         fontSize: 18,
     }

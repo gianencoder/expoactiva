@@ -132,9 +132,8 @@ export const EventDetails = () => {
                         </View>
                     </Animatable.View>
                     <AnimatedDivider style={contentStyle} />
-                    <SectionHeader title={'Descripcion'} containerStyle={styles.sectionHeader} titleStyle={{ ...styles.sectionTitle, color: theme.colors.text }} onPress={undefined} />
-
-                    <Text style={{ paddingHorizontal: 30, fontSize: 20, color: theme.colors.text }}> {description}</Text>
+                    <SectionHeader title={'Descripción'} containerStyle={styles.sectionHeader} titleStyle={{ ...styles.sectionTitle, color: theme.colors.text }} onPress={undefined} />
+                    <Text style={{ paddingHorizontal: 27.5, fontSize: 20, color: theme.colors.text, textAlign: 'justify' }}>{description}</Text>
                 </BottomSheetScrollView>
             </BottomSheet>
 
@@ -149,6 +148,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     sectionTitle: {
-        fontWeight: 'normal'
+        // fontWeight: 'normal'
     }
 })

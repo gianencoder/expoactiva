@@ -1,17 +1,15 @@
 import React from 'react'
-import { View, StyleSheet, Text, Button } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 
 export const SectionHeader = ({
     title,
     containerStyle,
     titleStyle,
-    onPress,
-    buttonTitle = 'Button'
+
 }) => {
     return (
         <View style={[styles.container, containerStyle]}>
             <Text style={[styles.title, titleStyle]}>{title}</Text>
-            {onPress && <Button title={buttonTitle} onPress={onPress}></Button>}
         </View>
     )
 }
