@@ -18,6 +18,7 @@ export const EventScreen = () => {
     const { favorites } = useFavorites();
     const [selectedFilters, setSelectedFilters] = useState([]);
 
+
     const toggleFilter = (filter) => {
         if (selectedFilters.includes(filter)) {
             setSelectedFilters(selectedFilters.filter(item => item !== filter));
@@ -40,31 +41,43 @@ export const EventScreen = () => {
                     <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar eventos" />
                 </View>
 
-                <View style={{ height: 20, paddingHorizontal: 10, flexDirection: 'row', gap: 10, justifyContent: 'space-between' }}>
-                    <Text>Lunes 17</Text>
-                    <Text>Martes 18</Text>
-                    <Text>Miercoles 19</Text>
-                    <Text>Jueves 20</Text>
+                <View style={{ height: 25, paddingHorizontal: 10, flexDirection: 'row', gap: 10, justifyContent: 'space-between' }}>
+                    <TouchableOpacity style={{ backgroundColor: 'black', justifyContent: 'center', width: 70, borderRadius: 5, alignItems: 'center' }}>
+                        <Text style={{ color: 'white' }}>Lunes 17</Text>
+                    </TouchableOpacity>
+
                 </View>
 
                 <View style={{ height: 40, paddingHorizontal: 10, justifyContent: 'center' }}>
                     <View>
                         <ScrollView
                             horizontal
-                            showsHorizontalScrollIndicator={false}
-
-                        >
-                            <TouchableOpacity onPress={() => toggleFilter('ganadera')} >
-                                <View style={{ gap: 10, paddingHorizontal: 10, height: 30, alignItems: 'center', backgroundColor: selectedFilters.includes('ganadera') ? '#87C776' : 'lightgray', borderRadius: 10, flexDirection: 'row' }}>
-                                    <Text style={{ textAlign: 'center', color: selectedFilters.includes('ganadera') ? 'white' : '#4C4C4C', fontWeight: 'bold' }}>GANADERA</Text>
-                                    {selectedFilters.includes('ganadera') && <Image style={{ height: 15, width: 15, tintColor: 'white' }} source={require('../assets/icons/x.png')} />}
+                            showsHorizontalScrollIndicator={false}>
+                            <TouchableOpacity onPress={() => toggleFilter('activa')} >
+                                <View style={{ ...eventStyle.typeFilterView, borderColor: !selectedFilters.includes('activa') && '#BCDFB5', backgroundColor: selectedFilters.includes('activa') ? '#659B5A' : 'transparent' }}>
+                                    <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('activa') ? 'white' : theme.colors.text, }}>ACTIVA</Text>
+                                    {selectedFilters.includes('activa') && <Image style={{ height: 15, width: 15, tintColor: 'white' }} source={require('../assets/icons/x.png')} />}
                                 </View>
                             </TouchableOpacity>
                             <View style={{ width: 15 }}></View>
                             <TouchableOpacity onPress={() => toggleFilter('conferencia')} >
-                                <View style={{ gap: 10, paddingHorizontal: 10, height: 30, alignItems: 'center', backgroundColor: selectedFilters.includes('conferencia') ? '#D8AEAA' : 'lightgray', borderRadius: 10, flexDirection: 'row' }}>
-                                    <Text style={{ textAlign: 'center', color: selectedFilters.includes('conferencia') ? 'white' : '#4C4C4C', fontWeight: 'bold' }}>CONFERENCIA</Text>
+                                <View style={{ ...eventStyle.typeFilterView, borderColor: !selectedFilters.includes('conferencia') && '#D8AEAA', backgroundColor: selectedFilters.includes('conferencia') ? '#D8AEAA' : 'transparent' }}>
+                                    <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('conferencia') ? 'white' : theme.colors.text }}>CONFERENCIA</Text>
                                     {selectedFilters.includes('conferencia') && <Image style={{ height: 15, width: 15, tintColor: 'white' }} source={require('../assets/icons/x.png')} />}
+                                </View>
+                            </TouchableOpacity>
+                            <View style={{ width: 15 }}></View>
+                            <TouchableOpacity onPress={() => toggleFilter('exhibitor')} >
+                                <View style={{ ...eventStyle.typeFilterView, borderColor: !selectedFilters.includes('exhibitor') && '#9FC1F3', backgroundColor: selectedFilters.includes('exhibitor') ? '#9FC1F3' : 'transparent' }}>
+                                    <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('exhibitor') ? 'white' : theme.colors.text }}>EXPOSITOR</Text>
+                                    {selectedFilters.includes('exhibitor') && <Image style={{ height: 15, width: 15, tintColor: 'white' }} source={require('../assets/icons/x.png')} />}
+                                </View>
+                            </TouchableOpacity>
+                            <View style={{ width: 15 }}></View>
+                            <TouchableOpacity onPress={() => toggleFilter('ganadera')} >
+                                <View style={{ ...eventStyle.typeFilterView, borderColor: !selectedFilters.includes('ganadera') && '#F7CF51', backgroundColor: selectedFilters.includes('ganadera') ? '#F7CF51' : 'transparent' }}>
+                                    <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('ganadera') ? 'white' : theme.colors.text }}>GANADERA</Text>
+                                    {selectedFilters.includes('ganadera') && <Image style={{ height: 15, width: 15, tintColor: 'white' }} source={require('../assets/icons/x.png')} />}
                                 </View>
                             </TouchableOpacity>
                         </ScrollView>

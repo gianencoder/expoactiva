@@ -88,7 +88,7 @@ export const EventFunction = () => {
         };
         const optionsTime = {
             hour: 'numeric',  // Obtener la hora en formato de 24 horas
-            minute: 'numeric' // Obtener los minutos
+            minute: 'numeric', // Obtener los minutos
         };
         const dayNumber = date.getDate(); // Obtener el número del día del mes
         const formattedDay = new Intl.DateTimeFormat('es-ES', optionsDay).format(date);
@@ -111,22 +111,21 @@ export const EventFunction = () => {
 
 
     return ({
-        loading,
-        events,
-        iconName,
-        currentDay,
-        colour,
-        filterEvent,
-        setSearchText,
-        fetching,
-        handleSetFetching,
-        getEvents,
-        handleAddFav,
-        handleSelectItem,
-        formatDateTime,
-        removeEvent,
-        searchText,
-
+        loading
+        , events
+        , iconName
+        , currentDay
+        , colour
+        , filterEvent
+        , setSearchText
+        , fetching
+        , handleSetFetching
+        , getEvents
+        , handleAddFav
+        , handleSelectItem
+        , formatDateTime
+        , removeEvent
+        , searchText
     })
 }
 

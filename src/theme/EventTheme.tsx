@@ -54,4 +54,19 @@ export const eventStyle = StyleSheet.create({
         justifyContent: 'space-between',
     },
 
+    typeFilterView: {
+        gap: 10
+        , paddingHorizontal: 10
+        , height: 25
+        , alignItems: 'center'
+        , borderRadius: 5
+        , flexDirection: 'row'
+        , borderWidth: 1
+
+    },
+
+    typeFilterText: {
+        textAlign: 'center'
+        , color: 'gray'
+    }
 });

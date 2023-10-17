@@ -102,7 +102,8 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
                     <View style={eventStyle.eventListTitle}>
                         <Text numberOfLines={2} style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{moshiEvent.eventName}</Text>
                         <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{moshiEvent.type}</Text>
-                        <Text style={{ ...eventStyle.titleMinutes, width: '50%' }}>{formatDateTime(moshiEvent.dateHourStart).day} {formatDateTime(moshiEvent.dateHourStart).dayNumber}    {formatDateTime(moshiEvent.dateHourStart).time}</Text>
+                        <Text style={{ ...eventStyle.titleMinutes, width: '70%' }}>{formatDateTime(moshiEvent.dateHourStart).day} {formatDateTime(moshiEvent.dateHourStart).dayNumber}</Text>
+                        <Text style={{ ...eventStyle.titleMinutes, textTransform: 'capitalize', width: '70%' }}>{formatDateTime(moshiEvent.dateHourStart).time} hs</Text>
                     </View>
                     <View style={eventStyle.eventListFavourite}>
                         <TouchableOpacity activeOpacity={.5} onPress={() => method(moshiEvent.idEvent)}>
