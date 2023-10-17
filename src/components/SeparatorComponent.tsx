@@ -4,6 +4,6 @@ import { MyColors } from '../theme/ColorsTheme'
 
 export const SeparatorComponent = () => {
     return (
-        <View style={{ backgroundColor: MyColors.sparator, height: 1, borderRadius: 150 }} />
+        <View style={{ backgroundColor: MyColors.sparator, height: 0.45, borderRadius: 150 }} />
     )
 }

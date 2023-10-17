@@ -18,6 +18,8 @@ export default function SearchBar({ placeholder, onSearchTextChange }: any) {
                 style={styles.searchInput}
                 placeholder={placeholder}
                 value={searchText}
+                autoCorrect={false}
+                autoComplete='off'
                 onChangeText={handleChangeText}
             />
             {searchText ? (
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#e8e8e8',
-        borderRadius: 15,
+        borderRadius: 25,
         width: '100%',
     },
     searchIcon: {
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#e8e8e8',
         height: 40,
-        borderRadius: 10,
+        borderRadius: 25,
         fontSize: 18,
     },
 });

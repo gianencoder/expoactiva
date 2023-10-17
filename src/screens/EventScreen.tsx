@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, ActivityIndicator, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, ActivityIndicator, Text, ScrollView, Image, TouchableOpacity, Keyboard } from 'react-native';
 import { eventStyle } from '../theme/EventTheme'
 import { EventFunction } from '../functions/EventFunction';
 import SearchBar from '../components/SearchBarComponent';
@@ -25,6 +25,10 @@ export const EventScreen = () => {
             setSelectedFilters([...selectedFilters, filter]);
         }
     };
+
+    const handleScroll = React.useCallback(() => {
+        Keyboard.dismiss();
+    }, []);
 
     const filteredEvents = filterEvent.filter(event => {
         if (selectedFilters.length === 0 || selectedFilters.includes(event.type.toLowerCase())) {
@@ -80,6 +84,8 @@ export const EventScreen = () => {
                     filterEvent.length > 0
                         ?
                         <FlashList
+                            onScrollBeginDrag={handleScroll}
+                            keyboardShouldPersistTaps="always"
                             data={filteredEvents}
                             keyExtractor={(event) => event.idEvent.toString()}
                             renderItem={({ item }) => <MoshiEventComponent
