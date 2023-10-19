@@ -1,9 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { MyColors } from './ColorsTheme';
-export const headerStyles = StyleSheet.create({
-    icon: {
-        alignItems: 'center',
-        backgroundColor: MyColors.white,
+import Constants from 'expo-constants'
 
+export const headerStyles = StyleSheet.create({
+
+    icon: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: Constants.statusBarHeight,
+        paddingHorizontal: 5,
+        alignItems: 'center',
     }
 });

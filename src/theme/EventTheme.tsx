@@ -4,66 +4,47 @@ import { MyColors } from "./ColorsTheme";
 export const eventStyle = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: 'green'
+        backgroundColor: 'white'
     },
-    filters: {
-        flex: 1,
-        // backgroundColor: 'red',
-        flexDirection: 'row',
-        padding: 10
 
-    },
-    days: {
-        flex: 1,
-        // backgroundColor: 'grey',
 
-    },
     eventListContainer: {
-        flex: 8,
-        // backgroundColor: 'orange',
-
-
+        flex: 1,
     },
-    eventList: {
-        height: 120,
-        // backgroundColor: 'green',
-        flexDirection: 'row',
-        padding: 10
 
+    event: {
+        height: 120,
+        flexDirection: 'row',
+        paddingVertical: 5
     },
 
     eventListImg: {
         flex: 2.5,
-        padding: 2
-
+        padding: 10,
+        borderRadius: 10,
     },
 
     img: {
         flex: 1,
-        width: undefined,
-        height: undefined,
-        resizeMode: 'stretch',
-        borderRadius: 15,
+        height: 80,
+        resizeMode: 'cover',
+        borderRadius: 10,
     },
     eventListTitle: {
-        flex: 3,
+        flex: 3.5,
         alignItems: 'flex-start',
         justifyContent: 'space-between',
         padding: 10,
-        left: 5
     },
     titleTxt: {
-        textTransform: 'uppercase',
-        fontWeight: '600',
-        fontSize: 15,
-
+        fontWeight: '400',
+        fontSize: 18,
     },
     titleMinutes: {
         textTransform: 'uppercase',
         fontWeight: '400',
-        fontSize: 12,
-        color: MyColors.textGrey
-
+        fontSize: 13,
+        color: MyColors.textGrey,
     },
 
     eventListFavourite: {
@@ -73,34 +54,26 @@ export const eventStyle = StyleSheet.create({
         justifyContent: 'space-between',
     },
 
-    optionTxt: {
-        fontSize: 15,
-        textTransform: "uppercase",
-        marginBottom: 40,
-        fontWeight: '800',
-    },
-    searcher: {
-        flex: 2.5,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: MyColors.primary,
-        borderWidth: 1,
-        borderRadius: 30,
-        height: 40
+    typeFilterView: {
+        gap: 10
+        , paddingHorizontal: 10
+        , height: 25
+        , alignItems: 'center'
+        , borderRadius: 5
+        , flexDirection: 'row'
+        , borderWidth: 1
+        , justifyContent: 'center'
 
     },
-    inputText: {
-        flex: 1,
-        padding: 2,
 
+    typeFilterText: {
+        textAlign: 'center'
+        , color: 'gray'
     },
-    iconSearch: {
-        padding: 10
-    },
-
-    comboBox: {
-        flex: 1,
+    cleanFilters: {
+        height: 25
+        , borderRadius: 5
+        , justifyContent: 'center'
+        , paddingHorizontal: 5
     }
-
 });

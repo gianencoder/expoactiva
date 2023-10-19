@@ -1,39 +1,34 @@
 import { StyleSheet } from 'react-native'
 import { MyColors } from './ColorsTheme'
 
-// const android = Platform.OS === 'android'
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: MyColors.primary,
-        paddingTop: '5%',
     },
 
     homeContainer: {
         flex: 1,
-        backgroundColor: 'white',
     },
 
     bigComponentContainer: {
         height: 100,
         marginHorizontal: 10,
-        marginVertical: 15,
-        backgroundColor: 'white',
-        alignItems: 'center',
-    },
-    bigComponent: {
-        backgroundColor: MyColors.white,
+        marginVertical: 10,
         borderRadius: 10,
-        width: '100%',
-        shadowColor: MyColors.primary,
         shadowOffset: {
-            width: 0,
-            height: 0,
+            width: 6,
+            height: 6,
         },
         shadowOpacity: 0.3,
-        shadowRadius: 8,
+        shadowRadius: 16.00,
 
-        elevation: 15,
+        elevation: 24,
+    },
+    bigComponent: {
+        borderRadius: 10,
+        width: '100%',
+
     },
 
     littleComponentContainer: {
@@ -48,15 +43,13 @@ export const styles = StyleSheet.create({
     },
 
     scrollView: {
-    },
-    littleComponentTxt: {
-        color: MyColors.primary,
-        fontSize: 16,
-        fontWeight: '600',
-        //textTransform: 'uppercase',
-        top: 8
+        // marginTop: -10
     },
 
+    littleComponentTxt: {
+        fontSize: 17.5,
+        fontWeight: '400',
+    },
 
     homeComponents: {
         height: 110,
@@ -65,8 +58,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 20,
         marginVertical: 8,
-        backgroundColor: MyColors.white,
-        shadowColor: MyColors.primary,
+        shadowColor: 'black',
         shadowOffset: {
             width: 5,
             height: 5,
@@ -84,7 +76,6 @@ export const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         borderRadius: 30,
-        backgroundColor: MyColors.white,
 
     }
 })

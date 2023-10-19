@@ -7,7 +7,8 @@ export const MyColors = {
     borderGrey: '##E0E0E0',
     textGrey: '#A7A7A7',
     sparator: '#DFDFDF',
-    hearth: '#D32424'
+    hearth: '#D32424',
+    inactiveText: '#d5d5d5'
 }
 
 
