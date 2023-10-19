@@ -28,7 +28,6 @@ export const FavouriteEventScreen = () => {
     filterEvent.sort((a, b) => {
         const dateA = new Date(a.dateHourStart).getDate();
         const dateB = new Date(b.dateHourStart).getDate();
-
         return dateA - dateB;
     });
 
@@ -73,7 +72,7 @@ export const FavouriteEventScreen = () => {
                 </View>
             </View >
             :
-            <NotEventScreen text={'Aun no tienes eventos favoritos'} extraoption={'Presiona para agregar...'}></NotEventScreen>
+            <NotEventScreen text={''} extraoption={'No tienes favoritos, presiona para agregar...'}></NotEventScreen>
 
 
     );

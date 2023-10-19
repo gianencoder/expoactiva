@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { differenceInDays, differenceInHours, differenceInMinutes, format } from 'date-fns';
+import { format } from 'date-fns';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import properties from '../../properties.json'
@@ -17,11 +17,9 @@ export const EventFunction = () => {
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState('');
 
-
     const filterEvent = events.filter((exp: EventoMoshi) =>
         exp.eventName.toLowerCase().includes(searchText.toLowerCase())
     );
-
 
     const getEvents = async () => {
         await fetch(properties.moshiURL + 'open/events', {
@@ -37,10 +35,10 @@ export const EventFunction = () => {
                 setLoading(false)
             })
             .catch(err => {
+                console.log(err)
                 Alert.alert("Hubo un problema obteniendo la información",
                     "Intenta nuevamente en unos minutos",
-                    [{ text: "OK", onPress: () => navigation.goBack() }])
-                console.error(err)
+                    [{ text: "Volver", onPress: () => navigation.goBack() }])
             }).finally(() => setFetching(false))
     }
 
@@ -83,6 +81,14 @@ export const EventFunction = () => {
 
     function formatDateTime(dateTimeString) {
         const date = new Date(dateTimeString);
+
+        // Formatear la fecha en 'YYYY-MM-DD'
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // El mes comienza desde 0
+        const day = String(date.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+
+        // Resto del formateo como antes
         const optionsDay = {
             weekday: 'long', // Obtener el nombre del día de la semana
         };
@@ -93,22 +99,25 @@ export const EventFunction = () => {
         const dayNumber = date.getDate(); // Obtener el número del día del mes
         const formattedDay = new Intl.DateTimeFormat('es-ES', optionsDay).format(date);
         const formattedTime = new Intl.DateTimeFormat('es-ES', optionsTime).format(date);
-        return { day: formattedDay, time: formattedTime, dayNumber: dayNumber };
+
+        return {
+            day: formattedDay,
+            time: formattedTime,
+            dayNumber: dayNumber,
+            formattedDate: formattedDate,
+        };
     }
+
 
 
     const removeEvent = (id: number) => {
         const canRemove = favorites.find(e => e.idEvent === id);
-
         if (!canRemove) {
-            console.error
+
         } else {
             removeFavorite(id)
         }
     }
-
-
-
 
     return ({
         loading

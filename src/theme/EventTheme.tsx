@@ -62,11 +62,18 @@ export const eventStyle = StyleSheet.create({
         , borderRadius: 5
         , flexDirection: 'row'
         , borderWidth: 1
+        , justifyContent: 'center'
 
     },
 
     typeFilterText: {
         textAlign: 'center'
         , color: 'gray'
+    },
+    cleanFilters: {
+        height: 25
+        , borderRadius: 5
+        , justifyContent: 'center'
+        , paddingHorizontal: 5
     }
 });

@@ -1,10 +1,6 @@
-import React, { useContext, useRef, useState } from "react";
-
-
+import React, { useContext} from "react";
 import { EventScreen } from "../screens/EventScreen";
 import { FavouriteEventScreen } from "../screens/FavouriteEventScreen";
-
-
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { ThemeContext } from "../context/themeContext/ThemeContext";
 const Tab = createMaterialTopTabNavigator();

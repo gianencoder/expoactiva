@@ -9,7 +9,7 @@ export const CustomHandleComponent = () => {
 
     return (
 
-        <View style={{ height: 4, backgroundColor: theme.colors.text, width: 60, alignSelf: 'center', borderRadius: 50, marginTop: 5 }} />
+        <View style={{ height: 5, backgroundColor: theme.customColors.activeColor, width: 60, alignSelf: 'center', borderRadius: 50, marginTop: 10, marginBottom: -15 }} />
 
 
     )

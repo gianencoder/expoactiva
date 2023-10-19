@@ -6,7 +6,6 @@ export default {
     slug: "expoactiva-nacional-app",
     version: "1.0.1",
     orientation: "portrait",
-    userInterfaceStyle: "light",
     splash: {
       image: "./assets/mainIcon.png",
       resizeMode: "contain",
@@ -17,11 +16,11 @@ export default {
       supportsTablet: true,
       bundleIdentifier: IS_DEV ? 'com.cyb3rsoft.expoactivaapp.dev' : 'com.cyb3rsoft.expoactivaapp',
       infoPlist: {
-      CFBundleURLTypes: [
+        CFBundleURLTypes: [
           {
             CFBundleURLSchemes: ["com.googleusercontent.apps.808320141330-gnmt0lf7aqh6d5kns4hb2b69eerkm9qp"]
           }
-        ]
+        ],
       }
     },
     android: {
@@ -57,5 +56,6 @@ export default {
         projectId: "d0ec153d-92dc-4975-8499-3e7f0fa38b98",
       },
     },
+    userInterfaceStyle: 'automatic', // Configuración para admitir temas claros y oscuros
   },
 };

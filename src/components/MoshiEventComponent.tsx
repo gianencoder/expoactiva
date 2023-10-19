@@ -97,7 +97,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
             >
                 <View style={eventStyle.event}>
                     <View style={eventStyle.eventListImg}>
-                        {moshiEvent.picture.toString() === '' ? <Image style={{ ...eventStyle.img, height: 120, width: 105 }} source={require('../assets/images/predio.expoactiva.jpg')} /> : <Image style={eventStyle.img} source={{ uri: moshiEvent.picture.toString() }} />}
+                        {moshiEvent.picture === null ? <Image style={{ ...eventStyle.img, height: 120, width: 105 }} source={require('../assets/images/noPhoto.jpg')} /> : <Image style={eventStyle.img} source={{ uri: moshiEvent.picture.toString() }} />}
                     </View>
                     <View style={eventStyle.eventListTitle}>
                         <Text numberOfLines={2} style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{moshiEvent.eventName}</Text>
@@ -106,9 +106,9 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
                         <Text style={{ ...eventStyle.titleMinutes, textTransform: 'capitalize', width: '70%' }}>{formatDateTime(moshiEvent.dateHourStart).time} hs</Text>
                     </View>
                     <View style={eventStyle.eventListFavourite}>
-                        <TouchableOpacity activeOpacity={.5} onPress={() => method(moshiEvent.idEvent)}>
+                        <TouchableOpacity hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }} activeOpacity={.5} onPress={() => method(moshiEvent.idEvent)}>
                             <View style={{ height: 60, width: 60, justifyContent: 'flex-start', alignItems: 'center', borderRadius: 40 }}>
-                                <Ionicons style={{ position: 'absolute' }} name={isFavorite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={23} color={isFavorite ? '#A50000' : theme.customColors.activeColor} />
+                                <Ionicons style={{ position: 'absolute' }} name={isFavorite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={24} color={isFavorite ? '#A50000' : theme.customColors.activeColor} />
                             </View>
                         </TouchableOpacity>
                         <View>

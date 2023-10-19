@@ -148,6 +148,5 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     sectionTitle: {
-        // fontWeight: 'normal'
     }
 })
