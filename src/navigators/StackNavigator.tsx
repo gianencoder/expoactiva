@@ -12,6 +12,7 @@ import { ConfigurationScreen } from '../screens/ConfigurationScreen';
 import { ExhibitorScreen } from '../screens/ExhibitorScreen';
 import { EventDetails } from '../screens/EventDetails';
 import { EventScreen } from '../screens/EventScreen';
+import { ExhibitorDetails } from '../screens/ExhibitorDetails';
 
 const Stack = createStackNavigator();
 
@@ -20,11 +21,10 @@ export const MyStack = () => {
         <Stack.Navigator
             screenOptions={{
                 gestureEnabled: true,
-                gestureDirection: 'horizontal',
-                gestureVelocityImpact: 15,
+                // gestureDirection: 'horizontal',
+                gestureVelocityImpact: 1500,
                 headerShown: false
             }}
-
         >
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="MenuScreen" component={MenuScreen} />
@@ -38,7 +38,7 @@ export const MyStack = () => {
             <Stack.Screen name="Exhibitors" component={ExhibitorScreen} />
             <Stack.Screen name="EventDetail" component={EventDetails} />
             <Stack.Screen name="EventScreen" component={EventScreen} />
-
+            <Stack.Screen name="ExhibitorDetail" component={ExhibitorDetails} />
         </Stack.Navigator >
     );
 }

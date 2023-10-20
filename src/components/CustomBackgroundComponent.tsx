@@ -11,6 +11,15 @@ export const CustomBackgroundComponent = ({ animatedIndex, style }: any) => {
         backgroundColor: theme.colors.background,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
+        shadowColor: theme.colors.text,
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
         opacity: interpolate(
             animatedIndex.value,
             [1, 0], [1, 0.7],
@@ -21,6 +30,10 @@ export const CustomBackgroundComponent = ({ animatedIndex, style }: any) => {
 
 
     return (
-        <Animated.View style={containerStyle} />
+        <Animated.View style={{
+            ...containerStyle,
+
+
+        }} />
     )
 }

@@ -11,9 +11,7 @@ export const eDetailTheme = StyleSheet.create({
         textTransform: 'capitalize'
     },
     header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'flex-start'
     },
     marker: {
         height: 15,
@@ -30,6 +28,7 @@ export const eDetailTheme = StyleSheet.create({
     date: {
         textAlign: 'left',
         textTransform: 'capitalize',
-        fontSize: 18,
-    }
+        fontSize: 15,
+    },
+
 })

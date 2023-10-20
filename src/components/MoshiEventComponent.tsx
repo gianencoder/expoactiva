@@ -29,58 +29,59 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
 
     const calculateTimeLeft = () => {
 
-        const minutes = differenceInMinutes(new Date(moshiEvent.dateHourStart), new Date(Date.now()));
-        const days = differenceInDays(new Date(moshiEvent.dateHourStart), new Date(Date.now()));
-        const hours = differenceInHours(new Date(moshiEvent.dateHourStart), new Date(Date.now()));
 
-        //Hora de comenzado el evento - hora actual
-        const startEventTime = differenceInMinutes(new Date(moshiEvent.dateHourStart), new Date(Date.now()))
+        try {
+            const minutes = differenceInMinutes(new Date(moshiEvent.dateHourStart), new Date(Date.now()));
+            const days = differenceInDays(new Date(moshiEvent.dateHourStart), new Date(Date.now()));
+            const hours = differenceInHours(new Date(moshiEvent.dateHourStart), new Date(Date.now()));
+            //Hora de comenzado el evento - hora actual
+            const startEventTime = differenceInMinutes(new Date(moshiEvent.dateHourStart), new Date(Date.now()))
+            //Hora de fin del evento - hora actual
+            const endEventTime = differenceInMinutes(new Date(moshiEvent.dateHourEnd), new Date(Date.now()))
+            if (endEventTime <= 0) {
+                setFinished(true)
+                setInProgress(false)
+            } else if (endEventTime >= 0 && startEventTime <= 0) {
+                setInProgress(true)
+                setFinished(false)
+                setLeftTime(endEventTime)
 
-        //Hora de fin del evento - hora actual
-        const endEventTime = differenceInMinutes(new Date(moshiEvent.dateHourEnd), new Date(Date.now()))
+            } else {
+                setInProgress(false)
+            }
+
+
+            if (minutes > 60 && minutes < 120) {
+                setInitTime(hours);
+                settimeLeftTxt('hora');
 
 
 
-        if (endEventTime <= 0) {
-            setFinished(true)
-            setInProgress(false)
-        } else if (endEventTime >= 0 && startEventTime <= 0) {
-            setInProgress(true)
-            setFinished(false)
-            setLeftTime(endEventTime)
+            } else if (minutes >= 120 && minutes < 1440) {
+                setInitTime(hours);
+                settimeLeftTxt('horas');
+            }
 
-        } else {
-            setInProgress(false)
+            else if (minutes > 1440) {
+                setInitTime(days);
+                settimeLeftTxt('días');
+
+            }
+            else if (minutes < 2 && minutes > 0) {
+                setInitTime(minutes);
+                settimeLeftTxt('minuto');
+
+            }
+            else {
+                setInitTime(minutes);
+                settimeLeftTxt('minutos');
+            }
+
+        } catch (error) {
+            throw error
         }
 
-
-        if (minutes > 60 && minutes < 120) {
-            setInitTime(hours);
-            settimeLeftTxt('hora');
-
-
-
-        } else if (minutes >= 120 && minutes < 1440) {
-            setInitTime(hours);
-            settimeLeftTxt('horas');
-        }
-
-        else if (minutes > 1440) {
-            setInitTime(days);
-            settimeLeftTxt('días');
-
-        }
-        else if (minutes < 2 && minutes > 0) {
-            setInitTime(minutes);
-            settimeLeftTxt('minuto');
-
-        }
-        else {
-            setInitTime(minutes);
-            settimeLeftTxt('minutos');
-        }
     }
-
 
     //Renderiza el tiempo
     useEffect(() => {
@@ -101,9 +102,9 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
                     </View>
                     <View style={eventStyle.eventListTitle}>
                         <Text numberOfLines={2} style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{moshiEvent.eventName}</Text>
-                        <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{moshiEvent.type}</Text>
+                        <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{moshiEvent.type !== null && moshiEvent.type === 'EXHIBITOR' ? 'Expositor' : moshiEvent.type}</Text>
                         <Text style={{ ...eventStyle.titleMinutes, width: '70%' }}>{formatDateTime(moshiEvent.dateHourStart).day} {formatDateTime(moshiEvent.dateHourStart).dayNumber}</Text>
-                        <Text style={{ ...eventStyle.titleMinutes, textTransform: 'capitalize', width: '70%' }}>{formatDateTime(moshiEvent.dateHourStart).time} hs</Text>
+                        <Text style={{ ...eventStyle.titleMinutes, textTransform: 'capitalize', width: '70%' }}>{formatDateTime(moshiEvent.dateHourStart).time} - {formatDateTime(moshiEvent.dateHourEnd).time} </Text>
                     </View>
                     <View style={eventStyle.eventListFavourite}>
                         <TouchableOpacity hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }} activeOpacity={.5} onPress={() => method(moshiEvent.idEvent)}>

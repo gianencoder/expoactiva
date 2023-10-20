@@ -37,8 +37,9 @@ export const eventStyle = StyleSheet.create({
         padding: 10,
     },
     titleTxt: {
-        fontWeight: '400',
-        fontSize: 18,
+        fontWeight: '400'
+        , fontSize: 16
+        , textTransform: 'uppercase'
     },
     titleMinutes: {
         textTransform: 'uppercase',
