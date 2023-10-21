@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput, useWindowDimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Image, TextInput, useWindowDimensions, DatePickerIOS } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
 import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
@@ -6,7 +6,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FlashList } from '@shopify/flash-list';
 import { TicketComponent } from '../components/TicketComponent';
 import { SeparatorComponent } from '../components/SeparatorComponent';
-import QRCodeStyled from 'react-native-qrcode-styled';
+import { useNavigation } from '@react-navigation/native'
+import DateTimePicker from '@react-native-community/datetimepicker';
+// import QRCode from 'react-native-qrcode-svg';
 
 
 
@@ -15,6 +17,9 @@ import QRCodeStyled from 'react-native-qrcode-styled';
 export const TicketsScreen = () => {
     const { height } = useWindowDimensions()
     const { theme } = useContext(ThemeContext)
+    const [number, setNumber] = useState(0)
+    const navigation = useNavigation()
+    const [chosenDate, setChosenDate] = useState(new Date());
 
 
     const ticket: Ticket[] = [
@@ -168,27 +173,39 @@ export const TicketsScreen = () => {
 
 
     return (
-        <View style={{ ...ticketStyles.container }}>
+        <View style={{ ...ticketStyles.container, backgroundColor: theme.colors.background }}>
+            <View style={{ ...ticketStyles.topSide }}>
 
-            <View style={{ flex: 1, backgroundColor: 'white' }}>
+                <View style={ticketStyles.topSideComplements}>
+                    <DatePickerIOS date={chosenDate} onDateChange={setChosenDate} />
+                </View>
+                <View style={ticketStyles.topSideComplements}>
+                    <Text>Cantidad</Text>
+                    <View style={{ flexDirection: 'row', gap: 15 }}>
+                        <Text>-</Text><Text>{number}</Text><Text>+</Text>
+                    </View>
+                </View>
+                <View style={ticketStyles.topSideComplements}>
+                    <TouchableOpacity style={{
+                        backgroundColor: 'green'
+                        , height: '50%'
+                        , width: '90%'
+                        , borderRadius: 10
+                        , justifyContent: 'center'
+                        , alignItems: 'center'
+                    }}>
+                        <Text style={{ fontWeight: 'bold', color: 'white' }}>Comprar</Text>
+                    </TouchableOpacity>
+                </View>
+
 
             </View>
-
-
             <View style={ticketStyles.bottomSide}>
-                {/* <FlashList
+                <FlashList
                     estimatedItemSize={10}
                     data={ticket}
-                    renderItem={({ item }: any) => <TicketComponent ticket={item} qrCode={'123'} />}
+                    renderItem={({ item }: any) => <TicketComponent ticket={item} qrCode={'123'} method={() => navigation.navigate('TicketDetail')} />}
                     ItemSeparatorComponent={() => <SeparatorComponent />}
-
-                /> */}
-
-                <QRCodeStyled
-                    data={'Simple QR Code'}
-                    style={{ backgroundColor: 'white' }}
-                    padding={20}
-                    pieceSize={8}
                 />
             </View>
         </View >

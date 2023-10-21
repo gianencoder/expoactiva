@@ -126,8 +126,7 @@ export const ExhibitorDetails = () => {
     return (
 
         <View style={{ flex: 1 }}>
-            <Image style={{ flex: 1, resizeMode: 'stretch' }} source={{ uri: logo }} />
-
+            {logo && <Image style={{ flex: 1, resizeMode: 'stretch' }} source={{ uri: logo }} />}
             <BottomSheet
                 animatedIndex={animatedIndex}
                 snapPoints={snapPoints}

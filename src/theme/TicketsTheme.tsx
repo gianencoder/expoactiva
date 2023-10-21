@@ -5,12 +5,21 @@ export const ticketStyles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: 'white'
+
     },
 
     topSide: {
+        flex: 1
+        , backgroundColor: 'red'
+        , gap: 5
+    },
+
+    topSideComplements: {
         flex: 1,
         backgroundColor: 'white'
+        , alignItems: 'center'
+        , flexDirection: 'row'
+        , justifyContent: 'space-evenly'
     },
 
     listTicketContainer: {
@@ -35,8 +44,7 @@ export const ticketStyles = StyleSheet.create({
     },
 
     bottomSide: {
-        flex: 2,
-        // backgroundColor: 'blue'
+        flex: 1,
     },
 
     qrCode: {

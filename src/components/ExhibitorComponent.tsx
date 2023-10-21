@@ -27,7 +27,7 @@ export const ExhibitorComponent = ({ ex, selectEx }: Props) => {
       >
         <View style={eventStyle.event}>
           <View style={eventStyle.eventListImg}>
-            {ex.logo === null ? <Image style={{ ...eventStyle.img, height: 120, width: 105 }} source={require('../assets/images/noPhoto.jpg')} /> : <Image style={eventStyle.img} source={{ uri: ex.logo.toString() }} />}
+            {ex.logo === null || !ex.logo ? <Image style={{ ...eventStyle.img, height: 120, width: 105 }} source={require('../assets/images/noPhoto.jpg')} /> : <Image style={eventStyle.img} source={{ uri: ex.logo.toString() }} />}
           </View>
           <View style={{ ...eventStyle.eventListTitle, marginVertical: 5 }}>
             <Text numberOfLines={1} style={{ ...eventStyle.titleTxt, color: theme.colors.text, textTransform: 'uppercase' }}>{ex.name}</Text>

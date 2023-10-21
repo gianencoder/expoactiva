@@ -59,7 +59,7 @@ export const ExhibitorScreen = () => {
         <View style={eventStyle.container} >
             <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
                 <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 45, backgroundColor: 'transparent' }}>
-                    <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar nombre del evento..." />
+                    <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar nombre o número stand..." />
                 </View>
                 <View style={{ height: 40, alignItems: 'center' }}>
                     <ScrollView
