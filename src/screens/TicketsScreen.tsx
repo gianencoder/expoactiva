@@ -3,6 +3,11 @@ import { ticketStyles } from '../theme/TicketsTheme';
 import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FlashList } from '@shopify/flash-list';
+import { TicketComponent } from '../components/TicketComponent';
+import { SeparatorComponent } from '../components/SeparatorComponent';
+import QRCodeStyled from 'react-native-qrcode-styled';
+
 
 
 
@@ -11,52 +16,180 @@ export const TicketsScreen = () => {
     const { height } = useWindowDimensions()
     const { theme } = useContext(ThemeContext)
 
-    const [name, setName] = useState("")
 
-    const handleChargeName = async () => {
+    const ticket: Ticket[] = [
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
 
-        await AsyncStorage.setItem('name', JSON.stringify(name)).then(name => {
-            console.log("Saved")
-        }).catch(err => console.error(err))
-    }
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
 
-    useEffect(() => {
-        const getName = async () => {
-            const getName = await AsyncStorage.getItem('name');
-            if (getName) {
-                setName(JSON.stringify(getName))
-            } else {
-                setName(" ")
-            }
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
 
-        }
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
 
-        getName()
-    }, [])
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
+
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
+
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
+
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
+
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
+
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
+
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
+
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
+
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
+
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+        {
+            _id: 1,
+            code: '123',
+            deviceId: 1254,
+            expireDate: new Date(Date.now()),
+            in: true,
+
+            qrCode: '12365',
+            shared: false,
+            state: true
+        },
+
+    ]
 
 
 
     return (
-        <View style={{ ...ticketStyles.container, backgroundColor: theme.colors.background }}>
-            <View style={{ ...ticketStyles.qrCode, backgroundColor: theme.colors.background }}>
+        <View style={{ ...ticketStyles.container }}>
 
-                <View style={{ ...ticketStyles.qrCard, backgroundColor: theme.colors.background }}>
-                    <Image
-                        source={require('../assets/images/codigo-qr.png')}
-                        style={{ width: 150, height: 150, tintColor: theme.colors.text }}
-                    />
+            <View style={{ flex: 1, backgroundColor: 'white' }}>
 
-                    <TouchableOpacity onPress={handleChargeName} style={ticketStyles.button}>
-                        <Text style={ticketStyles.buttonTxt}>{name}</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
 
-            <View style={{ ...ticketStyles.buttonsContainer }}>
-                <TextInput value={name} onChangeText={name => setName(name)} style={{ ...ticketStyles.inputText, borderBottomColor: theme.customColors.activeColor, color: theme.colors.text }} placeholderTextColor={theme.colors.text} placeholder='Ingresa tu código para canjear tu entrada'></TextInput>
-                <TouchableOpacity style={ticketStyles.button}>
-                    <Text style={ticketStyles.buttonTxt}>Canjear</Text>
-                </TouchableOpacity>
+
+            <View style={ticketStyles.bottomSide}>
+                {/* <FlashList
+                    estimatedItemSize={10}
+                    data={ticket}
+                    renderItem={({ item }: any) => <TicketComponent ticket={item} qrCode={'123'} />}
+                    ItemSeparatorComponent={() => <SeparatorComponent />}
+
+                /> */}
+
+                <QRCodeStyled
+                    data={'Simple QR Code'}
+                    style={{ backgroundColor: 'white' }}
+                    padding={20}
+                    pieceSize={8}
+                />
             </View>
         </View >
     )

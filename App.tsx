@@ -8,6 +8,7 @@ import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 import { MyColors } from './src/theme/ColorsTheme';
 import { ThemeProvider } from './src/context/themeContext/ThemeContext';
 
+
 import LocationDaemon from './src/functions/LocationDaemon';
 import { FavoritesProvider } from './src/context/FavouriteContext/FavouritesContext';
 

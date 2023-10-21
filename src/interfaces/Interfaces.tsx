@@ -39,3 +39,15 @@ interface Exhibitors {
     longitude: number,
     latitude: number
 }
+
+interface Ticket {
+
+    _id: number,
+    code: string,
+    qrCode: string,
+    in: boolean,
+    state: boolean,
+    deviceId: number,
+    expireDate: Date,
+    shared: boolean
+}

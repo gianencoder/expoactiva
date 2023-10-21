@@ -76,25 +76,24 @@ export const AuthComponent = () => {
                 <Text style={{ color: theme.colors.text }}>Inicia sesión o registrate</Text>
                 <View style={{ height: 1, width: '10%', backgroundColor: theme.customColors.activeColor, borderRadius: 40 }} />
             </View>
-            <ScrollView style={{ backgroundColor: theme.colors.background }}
-            >
+          
                 <View style={{ ...authStyle.buttonContainer }}>
                     <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
-                        <TouchableOpacity style={{ ...authStyle.authComponentForm, borderColor: theme.colors.border }}>
+                        <TouchableOpacity style={{ ...authStyle.authComponentForm, borderColor: 'lightgray' }}>
                             <Image style={authStyle.img} source={require('../assets/icons/email.png')} />
                             <Text style={{ ...authStyle.btnTxt, color: theme.colors.text }}>Continuar con correo</Text>
                         </TouchableOpacity>
                     </View>
 
                     <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
-                        <TouchableOpacity onPress={signIn} style={{ ...authStyle.authComponentForm, borderColor: theme.colors.border }}>
+                        <TouchableOpacity onPress={signIn} style={{ ...authStyle.authComponentForm,  borderColor: 'lightgray'  }}>
                             <Image style={authStyle.img} source={require('../assets/icons/googleIcon.png')} />
                             <Text style={{ ...authStyle.btnTxt, color: theme.colors.text }}>Continuar con google</Text>
                         </TouchableOpacity>
                     </View>
 
                 </View>
-            </ScrollView>
+        
         </View>
     )
 }

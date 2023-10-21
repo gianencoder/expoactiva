@@ -8,6 +8,37 @@ export const ticketStyles = StyleSheet.create({
         backgroundColor: 'white'
     },
 
+    topSide: {
+        flex: 1,
+        backgroundColor: 'white'
+    },
+
+    listTicketContainer: {
+        width: '100%'
+        , height: 120
+        , flexDirection: 'row'
+        , gap: 5
+    },
+
+    imgContainer: {
+        flex: 1
+        , padding: 5
+        , justifyContent: 'center'
+        // , alignItems: 'center'
+    },
+
+    infoContainer: {
+        flex: 2
+        , padding: 5
+        , justifyContent: 'center'
+        , gap: 5
+    },
+
+    bottomSide: {
+        flex: 2,
+        // backgroundColor: 'blue'
+    },
+
     qrCode: {
         flex: 1.5,
         alignItems: 'center',
