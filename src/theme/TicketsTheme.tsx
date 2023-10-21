@@ -5,7 +5,46 @@ export const ticketStyles = StyleSheet.create({
 
     container: {
         flex: 1,
+
+    },
+
+    topSide: {
+        flex: 1
+        , backgroundColor: 'red'
+        , gap: 5
+    },
+
+    topSideComplements: {
+        flex: 1,
         backgroundColor: 'white'
+        , alignItems: 'center'
+        , flexDirection: 'row'
+        , justifyContent: 'space-evenly'
+    },
+
+    listTicketContainer: {
+        width: '100%'
+        , height: 120
+        , flexDirection: 'row'
+        , gap: 5
+    },
+
+    imgContainer: {
+        flex: 1
+        , padding: 5
+        , justifyContent: 'center'
+        // , alignItems: 'center'
+    },
+
+    infoContainer: {
+        flex: 2
+        , padding: 5
+        , justifyContent: 'center'
+        , gap: 5
+    },
+
+    bottomSide: {
+        flex: 1,
     },
 
     qrCode: {

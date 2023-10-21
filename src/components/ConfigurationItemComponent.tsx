@@ -17,7 +17,7 @@ export const ConfigurationItemComponent = ({ title, image, method }: Props) => {
     const { width, height } = useWindowDimensions()
     const { theme } = useContext(ThemeContext)
     return (
-        <View style={{ ...themeConfig.configScreen, backgroundColor: theme.colors.background }}>
+        <View style={{ ...themeConfig.configScreen, backgroundColor: 'transparent' }}>
             <TouchableOpacity onPress={method}>
                 <View >
                     <View style={{ ...themeConfig.itemContainer }}>

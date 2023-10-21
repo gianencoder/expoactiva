@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, RefreshControl, ActivityIndicator, Button } from 'react-native'
+import { View, RefreshControl, ActivityIndicator, Button, Text } from 'react-native'
 import { EventFunction } from '../functions/EventFunction'
 import { eventStyle } from '../theme/EventTheme'
 import SearchBar from '../components/SearchBarComponent';
@@ -21,8 +21,8 @@ export const FavouriteEventScreen = () => {
     const { removeEvent, handleSelectItem } = EventFunction()
     const [searchText, setSearchText] = useState('');
 
-    const filterEvent = favorites.filter((exp: EventoMoshi) =>
-        exp.eventName.toLowerCase().includes(searchText.toLowerCase())
+    const filterEvent = favorites.filter((ev: EventoMoshi) =>
+        ev.eventName.toLowerCase().includes(searchText.toLowerCase())
     );
 
     filterEvent.sort((a, b) => {
@@ -38,7 +38,7 @@ export const FavouriteEventScreen = () => {
             <View style={eventStyle.container} >
                 <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
                     <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 45, backgroundColor: 'transparent' }}>
-                        <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar eventos" />
+                        <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar nombre del evento..." />
                     </View>
                     {loading
                         ?
@@ -46,33 +46,39 @@ export const FavouriteEventScreen = () => {
                             <ActivityIndicator size={'large'} color={MyColors.primary} style={{ backgroundColor: theme.colors.background, height: '100%', width: '100%' }} />
                         </View>
                         :
-                        <FlashList
-                            data={filterEvent}
-                            keyExtractor={(event: EventoMoshi) => event.idEvent.toString()}
-                            renderItem={({ item }) => <MoshiEventComponent
-                                moshiEvent={item} method={() => removeEvent(item.idEvent)}
-                                isFavorite={favorites.some(favorite => favorite.idEvent === item.idEvent)}
-                                selectEvent={() => handleSelectItem(item.idEvent)} />
+                        filterEvent.length > 0 ?
+                            <FlashList
+                                data={filterEvent}
+                                keyExtractor={(event: EventoMoshi) => event.idEvent.toString()}
+                                renderItem={({ item }) => <MoshiEventComponent
+                                    moshiEvent={item} method={() => removeEvent(item.idEvent)}
+                                    isFavorite={favorites.some(favorite => favorite.idEvent === item.idEvent)}
+                                    selectEvent={() => handleSelectItem(item.idEvent)} />
 
-                            }
+                                }
 
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={fetching}
-                                    progressBackgroundColor={theme.colors.background}
-                                    onRefresh={handleSetFetching}
-                                    colors={[theme.customColors.activeColor]} // for android
-                                    tintColor={theme.customColors.activeColor} // for ios
-                                />
-                            }
-                            ItemSeparatorComponent={() => <SeparatorComponent />}
-                            estimatedItemSize={100}
-                        />
+                                refreshControl={
+                                    <RefreshControl
+                                        refreshing={fetching}
+                                        progressBackgroundColor={theme.colors.background}
+                                        onRefresh={handleSetFetching}
+                                        colors={[theme.customColors.activeColor]} // for android
+                                        tintColor={theme.customColors.activeColor} // for ios
+                                    />
+                                }
+                                ItemSeparatorComponent={() => <SeparatorComponent />}
+                                estimatedItemSize={100}
+                            />
+                            :
+                            <View style={{ height: 120, width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{ color: 'gray', fontWeight: 'bold', alignSelf: 'center', fontSize: 16 }}>No hay eventos para mostrar</Text>
+                            </View>
+
                     }
                 </View>
             </View >
             :
-            <NotEventScreen text={''} extraoption={'No tienes favoritos, presiona para agregar...'}></NotEventScreen>
+            <NotEventScreen text={'No has agregado ningún favorito'} extraoption={'Presiona aquí para agregar...'}></NotEventScreen>
 
 
     );

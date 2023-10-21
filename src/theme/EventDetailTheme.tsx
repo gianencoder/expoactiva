@@ -11,7 +11,8 @@ export const eDetailTheme = StyleSheet.create({
         textTransform: 'capitalize'
     },
     header: {
-        alignItems: 'flex-start'
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     marker: {
         height: 15,

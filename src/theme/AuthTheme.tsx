@@ -11,6 +11,7 @@ export const authStyle = StyleSheet.create({
         padding: 25,
         justifyContent: 'space-between',
         gap: 20,
+
     },
     title: {
         fontSize: 30,
@@ -74,7 +75,7 @@ export const authStyle = StyleSheet.create({
     },
     loginButton: {
         width: '90%',
-        height: SCREEN_HEIGHT / 15,
+        height: SCREEN_HEIGHT / 12,
         borderRadius: 10
     },
     authComponentForm: {

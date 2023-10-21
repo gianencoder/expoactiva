@@ -122,7 +122,7 @@ export const EventDetails = () => {
                             <View style={{ width: 220 }}>
                                 <Animated.Text style={[eDetailTheme.title, nameStyle]}>{eventName}</Animated.Text>
                             </View>
-                            <TouchableOpacity onPress={() => handleAddFav(id)} style={{ ...eDetailTheme.favouriteButton, alignSelf: 'flex-start' }} ><Ionicons name={isFavorite ? 'ios-heart' : 'heart-outline'} size={24} color={isFavorite ? '#A50000' : theme.customColors.activeColor} /></TouchableOpacity>
+                            <TouchableOpacity hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }} onPress={() => handleAddFav(id)} style={{ ...eDetailTheme.favouriteButton, alignSelf: 'flex-start' }} ><Ionicons name={isFavorite ? 'ios-heart' : 'heart-outline'} size={24} color={isFavorite ? '#A50000' : theme.customColors.activeColor} /></TouchableOpacity>
                         </View>
                         <View style={eDetailTheme.header}>
                             <Animated.Text style={[eDetailTheme.type, typeStyle]}>{type}</Animated.Text>

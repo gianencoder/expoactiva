@@ -10,9 +10,11 @@ export const ExhibitorFunction = () => {
     const navigation = useNavigation()
     const [searchText, setSearchText] = useState('');
     const [selected, setSelected] = useState({});
+    const [fetching, setFetching] = useState(false)
+    const [loading, setLoading] = useState(true);
 
     const filter = exhibitor.filter((exp: Exhibitors) =>
-        exp.name.toLowerCase().includes(searchText.toLowerCase())
+        exp.name.toLowerCase().includes(searchText.toLowerCase()) || exp.standId.toString().includes(searchText)
     );
 
     const getExhibitor = async () => {
@@ -25,17 +27,24 @@ export const ExhibitorFunction = () => {
             .then(async res => await res.json())
             .then(res => {
                 setExhibitor(res)
+                setLoading(false)
             })
             .catch(err => {
                 Alert.alert("Hubo un problema obteniendo la información",
                     "Intenta nuevamente en unos minutos",
                     [{ text: "OK", onPress: () => navigation.goBack() }])
-                console.error(err)
-            }).finally
+                throw new Error(err)
+            }).finally(() => setFetching(false))
     }
+
+
     useEffect(() => {
         getExhibitor()
-    }, [])
+    }, [fetching])
+
+    const handleSetFetching = () => {
+        setFetching(true)
+    }
 
 
     const selectExhibitor = (id: number) => {
@@ -69,7 +78,20 @@ export const ExhibitorFunction = () => {
 
     function goSite(url: string) {
 
-        return Linking.openURL(url)
+        return Linking.openURL(url).catch(err => {
+            Alert.alert('No se ha podido visitar el sitio',
+                "Si el problema persiste ponte en contacto con los administradores",
+                [{ text: "Ok" }])
+        })
+    }
+
+    function callPhone(url: string) {
+        return Linking.openURL(`tel:${url}`).catch(err => {
+
+            Alert.alert('No se ha podido realizar la llamda',
+                "Si el problema persiste ponte en contacto con los administradores",
+                [{ text: "Ok" }])
+        })
     }
 
 
@@ -110,6 +132,10 @@ export const ExhibitorFunction = () => {
         , formatearURL
         , goSite
         , showInMap
+        , callPhone
+        , fetching
+        , loading
+        , handleSetFetching
     })
 
 }

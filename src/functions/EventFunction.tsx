@@ -37,7 +37,7 @@ export const EventFunction = () => {
                 setLoading(false)
             })
             .catch(err => {
-                console.log(err)
+
                 Alert.alert("Hubo un problema obteniendo la información",
                     "Intenta nuevamente en unos minutos",
                     [{ text: "Volver", onPress: () => navigation.goBack() }])
@@ -63,8 +63,6 @@ export const EventFunction = () => {
         if (selectedEvent && !isFavorite) {
             addFavorite(selectedEvent)
             await sendFavouriteAPI(id, selectedEvent.dateHourStart)
-            console.log("Evento con el id ", id, "agregado")
-            console.log(selectedEvent.dateHourStart)
         } else {
             removeFavorite(id)
         }

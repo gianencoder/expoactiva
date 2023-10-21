@@ -13,6 +13,7 @@ import { ExhibitorScreen } from '../screens/ExhibitorScreen';
 import { EventDetails } from '../screens/EventDetails';
 import { EventScreen } from '../screens/EventScreen';
 import { ExhibitorDetails } from '../screens/ExhibitorDetails';
+import { TicketDetail } from '../screens/TicketDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,7 @@ export const MyStack = () => {
             <Stack.Screen name="EventDetail" component={EventDetails} />
             <Stack.Screen name="EventScreen" component={EventScreen} />
             <Stack.Screen name="ExhibitorDetail" component={ExhibitorDetails} />
+            <Stack.Screen name="TicketDetail" component={TicketDetail} />
         </Stack.Navigator >
     );
 }
