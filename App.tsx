@@ -7,7 +7,7 @@ import { LogBox, StatusBar } from 'react-native';
 import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 import { MyColors } from './src/theme/ColorsTheme';
 import { ThemeProvider } from './src/context/themeContext/ThemeContext';
-
+import { usePushNotifications } from './src/hooks/usePushNotifications';
 import LocationDaemon from './src/functions/LocationDaemon';
 import { FavoritesProvider } from './src/context/FavouriteContext/FavouritesContext';
 
@@ -15,6 +15,9 @@ export default function App() {
   LogBox.ignoreLogs(['Sending']);
   LogBox.ignoreLogs(['new NativeEventEmitter']);
 
+  const { expoPushToken } = usePushNotifications();
+
+  console.log('expoPushToken', expoPushToken);
 
   return (
     <FavoritesProvider>

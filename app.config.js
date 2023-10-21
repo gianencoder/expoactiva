@@ -30,6 +30,7 @@ export default {
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.FOREGROUND_SERVICE",
       ],
+      googleServicesFile: "./google-services.json",
     },
     plugins: [
       [

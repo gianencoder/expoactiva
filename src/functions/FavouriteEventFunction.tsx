@@ -7,8 +7,8 @@ import { EventFunction } from './EventFunction';
 export const FavouriteEventFunction = () => {
     const { favoritos, setFavoritos } = EventFunction()
 
-
     const agregarFavorito = async (item: Event) => {
+        console.log('item',item)
         try {
             // Recupera la lista de favoritos actual desde AsyncStorage
             const favoritosGuardados = await AsyncStorage.getItem('favoritosUsuario');
@@ -24,6 +24,7 @@ export const FavouriteEventFunction = () => {
             if (!nuevaListaFavoritos.some((favorito: Event) => favorito._id === item._id)) {
                 nuevaListaFavoritos.push(item);
 
+                
                 // Almacena la lista actualizada de favoritos en AsyncStorage
                 await AsyncStorage.setItem('favoritosUsuario', JSON.stringify(nuevaListaFavoritos));
 

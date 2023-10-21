@@ -4,6 +4,8 @@ import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import properties from '../../properties.json'
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const EventFunction = () => {
 
@@ -51,7 +53,7 @@ export const EventFunction = () => {
         setFetching(true)
     }
 
-    const handleAddFav = (id: number) => {
+    const handleAddFav = async (id: number) => {
         const selectedEvent = filterEvent.find((event) => event.idEvent === id)
         const isFavorite = favorites.find(event => event.idEvent === id)
 
@@ -60,7 +62,9 @@ export const EventFunction = () => {
         }
         if (selectedEvent && !isFavorite) {
             addFavorite(selectedEvent)
+            await sendFavouriteAPI(id, selectedEvent.dateHourStart)
             console.log("Evento con el id ", id, "agregado")
+            console.log(selectedEvent.dateHourStart)
         } else {
             removeFavorite(id)
         }
@@ -108,13 +112,62 @@ export const EventFunction = () => {
         };
     }
 
+    // Función para enviar favorito a la API
+    async function sendFavouriteAPI(eventId: Number, eventStartTime: Date) {
+        
+        // Obtener el token de Expo
+        const expoPushToken = await AsyncStorage.getItem('expoPushToken');
+        
+        const url = 'https://expoactiva-nacional-395522.rj.r.appspot.com/favourites/create';
+
+        const body = {
+            expoPushToken,
+            eventId,
+            eventStartTime
+        };
+
+        try {
+            const response = await axios.post(url, body);
 
 
-    const removeEvent = (id: number) => {
+            console.log(response)
+            if (response.status === 201) {
+                console.log('Favorito agregado en el backend con éxito');
+            }
+        } catch (error) {
+            console.error('Error al enviar favorito a la API:', error);
+        }
+    }
+
+    async function removeFavouriteAPI(eventId: number) {
+            
+        const expoPushToken = await AsyncStorage.getItem('expoPushToken');
+
+        const url = 'https://expoactiva-nacional-395522.rj.r.appspot.com/favourites/';
+
+        const body = {
+            expoPushToken,
+            eventId,
+        };
+
+        try {
+            const response = await axios.delete(url, { data: body });
+
+            console.log(response)
+            if (response.status === 200) {
+                console.log('Favorito eliminado en el backend con éxito');
+            }
+        } catch (error) {
+            console.error('Error al eliminar favorito en la API:', error);
+        }
+    }
+
+    const removeEvent = async (id: number) => {
         const canRemove = favorites.find(e => e.idEvent === id);
         if (!canRemove) {
 
         } else {
+            await removeFavouriteAPI(id)
             removeFavorite(id)
         }
     }
