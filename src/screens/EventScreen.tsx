@@ -117,7 +117,7 @@ export const EventScreen = () => {
                 {loading
                     ?
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <ActivityIndicator size={'large'} color={MyColors.primary} style={{ backgroundColor: theme.colors.background, height: '100%', width: '100%' }} />
+                        <ActivityIndicator size={'large'} color={theme.customColors.activeColor} style={{ backgroundColor: theme.colors.background, height: '100%', width: '100%' }} />
                     </View>
                     :
                     filterEvent.length > 0

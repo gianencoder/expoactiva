@@ -35,7 +35,7 @@ export const EventFunction = () => {
                 setLoading(false)
             })
             .catch(err => {
-                console.log(err)
+
                 Alert.alert("Hubo un problema obteniendo la información",
                     "Intenta nuevamente en unos minutos",
                     [{ text: "Volver", onPress: () => navigation.goBack() }])
@@ -60,7 +60,6 @@ export const EventFunction = () => {
         }
         if (selectedEvent && !isFavorite) {
             addFavorite(selectedEvent)
-            console.log("Evento con el id ", id, "agregado")
         } else {
             removeFavorite(id)
         }
