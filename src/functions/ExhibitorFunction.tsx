@@ -12,7 +12,7 @@ export const ExhibitorFunction = () => {
     const [selected, setSelected] = useState({});
 
     const filter = exhibitor.filter((exp: Exhibitors) =>
-        exp.name.toLowerCase().includes(searchText.toLowerCase())
+        exp.name.toLowerCase().includes(searchText.toLowerCase()) || exp.standId.toString().includes(searchText)
     );
 
     const getExhibitor = async () => {
@@ -30,7 +30,7 @@ export const ExhibitorFunction = () => {
                 Alert.alert("Hubo un problema obteniendo la información",
                     "Intenta nuevamente en unos minutos",
                     [{ text: "OK", onPress: () => navigation.goBack() }])
-                console.error(err)
+                throw new Error(err)
             }).finally
     }
     useEffect(() => {
@@ -69,7 +69,20 @@ export const ExhibitorFunction = () => {
 
     function goSite(url: string) {
 
-        return Linking.openURL(url)
+        return Linking.openURL(url).catch(err => {
+            Alert.alert('No se ha podido visitar el sitio',
+                "Si el problema persiste ponte en contacto con los administradores",
+                [{ text: "Ok" }])
+        })
+    }
+
+    function callPhone(url: string) {
+        return Linking.openURL(`tel:${url}`).catch(err => {
+
+            Alert.alert('No se ha podido realizar la llamda',
+                "Si el problema persiste ponte en contacto con los administradores",
+                [{ text: "Ok" }])
+        })
     }
 
 
@@ -110,6 +123,7 @@ export const ExhibitorFunction = () => {
         , formatearURL
         , goSite
         , showInMap
+        , callPhone
     })
 
 }

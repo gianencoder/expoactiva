@@ -5,6 +5,7 @@ import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { eventStyle } from '../theme/EventTheme'
 import { Ionicons } from '@expo/vector-icons'
 import { exhibitorTheme } from '../theme/ExhibitorTheme'
+import { ExhibitorFunction } from '../functions/ExhibitorFunction'
 
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
 export const ExhibitorComponent = ({ ex, selectEx }: Props) => {
   const { theme } = useContext(ThemeContext)
   const [isFavorite, setIsFavorite] = useState(true)
+  const { goSite, callPhone } = ExhibitorFunction()
   var formattedNumber = ex.tel.replace(/^0*0*5*9*8*(\d{2})(\d{3})(\d{3})$/, '0$1 $2 $3');
 
   return (
@@ -30,19 +32,21 @@ export const ExhibitorComponent = ({ ex, selectEx }: Props) => {
           <View style={{ ...eventStyle.eventListTitle, marginVertical: 5 }}>
             <Text numberOfLines={1} style={{ ...eventStyle.titleTxt, color: theme.colors.text, textTransform: 'uppercase' }}>{ex.name}</Text>
             <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{ex.type}</Text>
-            <View style={exhibitorTheme.linksView}>
+            {ex.webPage && <View style={exhibitorTheme.linksView}>
               <Image style={{ ...exhibitorTheme.linksImg, tintColor: theme.customColors.activeColor }} source={require('../assets/icons/web-page.png')} />
-              <Text onPress={() => { Linking.openURL(ex.webPage) }} numberOfLines={1} style={{ ...exhibitorTheme.wbeSiteTxt, color: theme.colors.text }}>Sitio web</Text>
+              <Text onPress={() => goSite(ex.webPage)} numberOfLines={1} style={{ ...exhibitorTheme.wbeSiteTxt, color: theme.colors.text }}>Sitio web</Text>
             </View>
-            <View style={exhibitorTheme.linksView}>
+            }
+            {ex.tel && <View style={exhibitorTheme.linksView}>
               <Image style={{ ...exhibitorTheme.linksImg, tintColor: theme.customColors.activeColor }} source={require('../assets/icons/tel.png')} />
-              <Text style={{ ...exhibitorTheme.phoneTxt, color: theme.colors.text }} onPress={() => { Linking.openURL(`tel:${ex.tel}`) }}>{formattedNumber}</Text>
+              <Text style={{ ...exhibitorTheme.phoneTxt, color: theme.colors.text }} onPress={() => callPhone(ex.tel)}>{formattedNumber}</Text>
             </View>
+            }
           </View>
           <View style={eventStyle.eventListFavourite}>
             <TouchableOpacity hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }} activeOpacity={.5} >
               <View style={{ height: 60, width: 60, justifyContent: 'flex-start', alignItems: 'center', borderRadius: 40 }}>
-                <Ionicons style={{ position: 'absolute' }} name={isFavorite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={24} color={isFavorite ? '#A50000' : theme.customColors.activeColor} />
+                {/* <Ionicons style={{ position: 'absolute' }} name={isFavorite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={24} color={isFavorite ? '#A50000' : theme.customColors.activeColor} /> */}
               </View>
             </TouchableOpacity>
             <View>

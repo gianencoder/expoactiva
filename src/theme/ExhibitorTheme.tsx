@@ -52,7 +52,7 @@ export const exhibitorTheme = StyleSheet.create({
     },
 
     buttonView: {
-        height: 60
+        height: 150
         , width: '100%'
         , marginVertical: 15
         , justifyContent: 'center'
@@ -60,7 +60,7 @@ export const exhibitorTheme = StyleSheet.create({
     },
     buttonMap: {
         width: '90%'
-        , height: '55%'
+        , height: '20%'
         , backgroundColor: '#025D5A'
         , justifyContent: 'center'
         , alignItems: 'center'

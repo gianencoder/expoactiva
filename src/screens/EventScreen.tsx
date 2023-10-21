@@ -20,6 +20,7 @@ export const EventScreen = () => {
     const [selectedFilters, setSelectedFilters] = useState([]);
     const [selectedDates, setSelectedDates] = useState([]);
     const eventDates = ['2024-03-12', '2024-03-13', '2024-03-14', '2024-03-15', '2024-03-16'];
+
     const formatDate = (date) => {
         return moment(date).format('YYYY-MM-DD');
     };
@@ -59,7 +60,7 @@ export const EventScreen = () => {
         <View style={eventStyle.container} >
             <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
                 <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 45, backgroundColor: 'transparent' }}>
-                    <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar eventos por nombre..." />
+                    <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar nombre del evento..." />
                 </View>
                 <View style={{ height: 40, alignItems: 'center' }}>
                     <ScrollView
@@ -147,9 +148,15 @@ export const EventScreen = () => {
                                 estimatedItemSize={100}
                             />
                             :
-                            <NotEventScreen text={'No hay eventos para mostrar'} extraoption={''} />
+                            <View style={{ height: 120, width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{ color: 'gray', fontWeight: 'bold', alignSelf: 'center', fontSize: 16 }}>No hay eventos para mostrar</Text>
+                            </View>
+
                         :
-                        <NotEventScreen text={'No hay eventos para mostrar'} extraoption={''} />
+                        <View style={{ height: 120, width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ color: 'gray', fontWeight: 'bold', alignSelf: 'center', fontSize: 16 }}>No hay eventos para mostrar</Text>
+                        </View>
+
                 }
             </View>
         </View >

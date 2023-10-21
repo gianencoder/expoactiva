@@ -25,7 +25,7 @@ export const ExhibitorDetails = () => {
     const { theme } = useContext(ThemeContext)
     const animatedIndex = useSharedValue(0)
     const snapPoints = useMemo(() => ['32%', '80%'], [])
-    const { formatearURL, goSite, showInMap } = ExhibitorFunction()
+    const { goSite, showInMap, callPhone } = ExhibitorFunction()
     const route = useRoute()
     const {
         id
@@ -81,7 +81,6 @@ export const ExhibitorDetails = () => {
             [0, 0.08],
             [25, 25]
         ),
-        fontWeight: 'bold',
     }))
 
     const telStyle = useAnimatedStyle(() => ({
@@ -152,30 +151,39 @@ export const ExhibitorDetails = () => {
                             <View style={{ width: 220 }}>
                                 <Animated.Text style={[eDetailTheme.title, nameStyle]}>{name}</Animated.Text>
                             </View>
-                            <TouchableOpacity onPress={() => console.log('')} style={{ ...eDetailTheme.favouriteButton, alignSelf: 'flex-start' }} ><Ionicons name={'ios-heart'} size={24} color={'#A50000'} /></TouchableOpacity>
+                            {/* <TouchableOpacity onPress={() => console.log('')} style={{ ...eDetailTheme.favouriteButton, alignSelf: 'flex-start' }} ><Ionicons name={'ios-heart'} size={24} color={'#A50000'} /></TouchableOpacity> */}
                         </View>
                         <View style={eDetailTheme.header}>
                             <Animated.Text style={[eDetailTheme.type, typeStyle]}>{type}</Animated.Text>
-                            <Animated.Text style={[eDetailTheme.type, standStyle]}>stand {standId}</Animated.Text>
+                            <Animated.Text style={[eDetailTheme.type, standStyle]}>stand: {standId}</Animated.Text>
                         </View>
 
                     </Animatable.View>
                     <AnimatedDivider style={contentStyle} />
                     <View style={exhibitorTheme.links}>
-                        <View style={exhibitorTheme.iconView}>
-                            <Animated.Image style={[imageStyle, { ...exhibitorTheme.icons, tintColor: theme.customColors.activeColor }]} source={require('../assets/icons/tel.png')} />
-                            <Animated.Text style={[eDetailTheme.date, telStyle]}> {tel} </Animated.Text>
-                        </View>
-                        <View style={exhibitorTheme.iconView}>
-                            <Animated.Image style={[imageStyle, { ...exhibitorTheme.icons, tintColor: theme.customColors.activeColor }]} source={require('../assets/icons/web-page.png')} />
-                            <Animated.Text onPress={() => goSite(webPage)} style={[{ ...eDetailTheme.date, textTransform: 'none', textDecorationLine: 'underline' }, telStyle]}> Sitio web </Animated.Text>
-                        </View>
+
+
+                        {webPage &&
+                            <View style={exhibitorTheme.iconView}>
+                                <Animated.Image style={[imageStyle, { ...exhibitorTheme.icons, tintColor: theme.customColors.activeColor }]} source={require('../assets/icons/web-page.png')} />
+                                <Animated.Text onPress={() => goSite(webPage)} style={[{ ...eDetailTheme.date, textTransform: 'none', textDecorationLine: 'underline' }, telStyle]}> Sitio web </Animated.Text>
+                            </View>
+                        }
+                        {tel &&
+                            <View style={exhibitorTheme.iconView}>
+                                <Animated.Image style={[imageStyle, { ...exhibitorTheme.icons, tintColor: theme.customColors.activeColor }]} source={require('../assets/icons/tel.png')} />
+                                <Animated.Text onPress={() => callPhone(tel)} style={[eDetailTheme.date, telStyle]}> {tel} </Animated.Text>
+                            </View>
+                        }
+
                     </View>
 
                     <View style={exhibitorTheme.buttonView}>
-                        <TouchableOpacity onPress={() => showInMap(id)} activeOpacity={0.1} style={exhibitorTheme.buttonMap}>
+
+                        <Image source={{ uri: image }} style={{ height: '90%', width: '90%', borderRadius: 10, resizeMode: 'stretch' }} />
+                        {/* <TouchableOpacity onPress={() => showInMap(id)} activeOpacity={0.1} style={exhibitorTheme.buttonMap}>
                             <Text style={exhibitorTheme.textMap}>Ver en mapa</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                     <SectionHeader title={'Descripción'} containerStyle={styles.sectionHeader} titleStyle={{ ...styles.sectionTitle, color: theme.colors.text }} onPress={undefined} />
                     <Text style={{ paddingHorizontal: 30, fontSize: 20, color: 'gray', textAlign: 'justify' }}>{description !== '' ? description : 'No tiene descripción'}</Text>
