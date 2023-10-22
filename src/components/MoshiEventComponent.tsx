@@ -16,6 +16,7 @@ interface Props {
 
 export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, selectEvent }: Props) => {
 
+    const { fetching, getEvents } = EventFunction()
     const { theme } = useContext(ThemeContext)
     // const correctDate = format(new Date(moshiEvent.dateHourStart), 'p dd/MM/yyy');
     const { formatDateTime } = EventFunction()
@@ -28,7 +29,6 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
     const [inProgress, setInProgress] = useState(false)
 
     const calculateTimeLeft = () => {
-
 
         try {
             const minutes = differenceInMinutes(new Date(moshiEvent.dateHourStart), new Date(Date.now()));
@@ -85,10 +85,11 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
 
     //Renderiza el tiempo
     useEffect(() => {
+        console.log('Ejecutando actualizacion del tiempo')
         calculateTimeLeft(); // Establece el valor inicial al montar el componente
         const interval = setInterval(calculateTimeLeft, 100);
         return () => clearInterval(interval);
-    }, []);
+    }, [getEvents]);
 
     return (
         <View style={{ backgroundColor: 'transparent', flex: 1 }}>

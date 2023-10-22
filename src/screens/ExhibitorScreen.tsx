@@ -85,24 +85,30 @@ export const ExhibitorScreen = () => {
                     </View>
 
                     :
-                    <FlashList
-                        onScrollBeginDrag={handleScroll}
-                        keyboardShouldPersistTaps="always"
-                        data={filterExhibitor}
-                        keyExtractor={(ex: Exhibitors) => ex._id.toString()}
-                        estimatedItemSize={250}
-                        renderItem={({ item }) => <ExhibitorComponent ex={item} selectEx={() => selectExhibitor(item._id)} />}
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={fetching}
-                                progressBackgroundColor={theme.colors.background}
-                                onRefresh={handleSetFetching}
-                                colors={[theme.customColors.activeColor]}
-                                tintColor={theme.customColors.activeColor}
-                            />
-                        }
-                        ItemSeparatorComponent={() => <SeparatorComponent />}
-                    />
+
+                    filterExhibitor.length > 0 ?
+                        <FlashList
+                            onScrollBeginDrag={handleScroll}
+                            keyboardShouldPersistTaps="always"
+                            data={filterExhibitor}
+                            keyExtractor={(ex: Exhibitors) => ex._id.toString()}
+                            estimatedItemSize={250}
+                            renderItem={({ item }) => <ExhibitorComponent ex={item} selectEx={() => selectExhibitor(item._id)} />}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={fetching}
+                                    progressBackgroundColor={theme.colors.background}
+                                    onRefresh={handleSetFetching}
+                                    colors={[theme.customColors.activeColor]}
+                                    tintColor={theme.customColors.activeColor}
+                                />
+                            }
+                            ItemSeparatorComponent={() => <SeparatorComponent />}
+                        />
+                        :
+                        <View style={{ flex: 1, alignItems: 'center', }}>
+                            <Text style={{ color: 'gray', fontWeight: 'bold', alignSelf: 'center', fontSize: 16 }}>No hay expositores para mostrar</Text>
+                        </View>
 
                 }
 
