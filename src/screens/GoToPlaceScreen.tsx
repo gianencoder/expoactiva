@@ -31,12 +31,10 @@ export const GoToPlaceScreen = () => {
     const backAction = () => {
       console.log('Back button pressed');
       if (modal) {
-        console.log('Modal is visible, closing modal.');
         setModal(false);
         navigation.goBack();
         return true;
       }
-      console.log('Modal is not visible, default behavior.');
       return false;
     };
 

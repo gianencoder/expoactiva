@@ -51,7 +51,8 @@
     "expo-constants": "~14.4.2",
     "react-native-svg": "^13.14.0",
     "react-native-tab-view": "^3.5.2",
-    "@react-native-community/datetimepicker": "7.2.0"
+    "@react-native-community/datetimepicker": "7.2.0",
+    "expo-sharing": "~11.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

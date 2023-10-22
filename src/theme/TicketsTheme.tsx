@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 import { MyColors } from "./ColorsTheme";
 
 export const ticketStyles = StyleSheet.create({
@@ -111,5 +111,26 @@ export const ticketStyles = StyleSheet.create({
         borderTopColor: 'transparent',
         borderRightColor: 'transparent',
         borderLeftColor: 'transparent'
+    },
+
+    btv: {
+        flex: 1
+        , alignItems: 'center'
+        , gap: 5
+
+    },
+    btt: {
+        fontSize: 18
+    },
+    btnActions: {
+        fontSize: 25
+        , color: 'white'
+    },
+    tbtn: {
+        width: 60
+        , height: 25
+        , borderRadius: 5
+        , justifyContent: 'center'
+        , alignItems: 'center'
     }
 });

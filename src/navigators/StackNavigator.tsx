@@ -14,6 +14,8 @@ import { EventDetails } from '../screens/EventDetails';
 import { EventScreen } from '../screens/EventScreen';
 import { ExhibitorDetails } from '../screens/ExhibitorDetails';
 import { TicketDetail } from '../screens/TicketDetailScreen';
+import { GuestScreen } from '../screens/GuestScreen';
+import { BuyTicketScreen } from '../screens/BuyTicketScreen';
 
 const Stack = createStackNavigator();
 
@@ -41,6 +43,8 @@ export const MyStack = () => {
             <Stack.Screen name="EventScreen" component={EventScreen} />
             <Stack.Screen name="ExhibitorDetail" component={ExhibitorDetails} />
             <Stack.Screen name="TicketDetail" component={TicketDetail} />
+            <Stack.Screen name="EmailLogin" component={GuestScreen} />
+            <Stack.Screen name="BuyTicket" component={BuyTicketScreen} />
         </Stack.Navigator >
     );
 }

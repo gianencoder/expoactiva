@@ -6,7 +6,6 @@ import { dateFormmater } from '../util/utils';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 
-
 interface Props {
     ticket: Ticket,
     qrCode: string,
@@ -26,16 +25,14 @@ export const TicketComponent = ({ ticket, qrCode, method, props }: Props) => {
             <View style={ticketStyles.listTicketContainer}>
                 <View style={ticketStyles.imgContainer}>
                     <View style={{ flex: 1, borderRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
-                        {/* <QRCode
-                        value={qrCode}
-                        size={200}
-                    // You can customize the appearance of the QR code using props like color, backgroundColor, etc.
-                    // Example:
-                    // color="black"
-                    // backgroundColor="white"
-                    /> */}
-                        <Image style={{ width: 100, height: 100, tintColor: theme.colors.text }} source={require('../assets/images/codigo-qr.png')} />
-                        {/* <Text>{ticket.code}</Text> */}
+                        <QRCode
+                            value={qrCode}
+                            size={80}
+                            // You can customize the appearance of the QR code using props like color, backgroundColor, etc.
+                            // Example:
+                            color={theme.colors.text}
+                            backgroundColor="transparent"
+                        />
                     </View>
                 </View>
 

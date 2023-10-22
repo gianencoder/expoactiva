@@ -1,10 +1,11 @@
 /* eslint-disable*/
 import React, { useContext, useState, useEffect, useCallback } from 'react'
-import { ScrollView, TouchableOpacity, View, Text, Image, Platform } from 'react-native'
+import { TouchableOpacity, View, Text, Image, Platform } from 'react-native'
 import { authStyle } from '../theme/AuthTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native"
 
 const googleSignInConfigAndroid = {
     scopes: ["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"],
@@ -44,7 +45,7 @@ export const AuthComponent = () => {
 
     const exchangeGoogleTokenForJWT = useCallback(async (googleToken) => {
         try {
-            console.log('googleToken',googleToken);
+            console.log('googleToken', googleToken);
             const response = await fetch("https://expoactiva-nacional-395522.rj.r.appspot.com/auth/google", {
                 method: "POST",
                 headers: {
@@ -59,8 +60,8 @@ export const AuthComponent = () => {
             await AsyncStorage.setItem("@token", data.token);
             await AsyncStorage.setItem("@user", JSON.stringify(data.user));
 
-            console.log('user',data.user);
-            console.log('tokenJWT',data.token);
+            console.log('user', data.user);
+            console.log('tokenJWT', data.token);
 
             setUserInfo(data.user);
         } catch (error) {
@@ -69,6 +70,7 @@ export const AuthComponent = () => {
     }, []);
 
     const { theme } = useContext(ThemeContext)
+    const navigation = useNavigation()
     return (
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <View style={{ ...authStyle.formContainer }}>
@@ -76,24 +78,24 @@ export const AuthComponent = () => {
                 <Text style={{ color: theme.colors.text }}>Inicia sesión o registrate</Text>
                 <View style={{ height: 1, width: '10%', backgroundColor: theme.customColors.activeColor, borderRadius: 40 }} />
             </View>
-          
-                <View style={{ ...authStyle.buttonContainer }}>
-                    <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
-                        <TouchableOpacity style={{ ...authStyle.authComponentForm, borderColor: 'lightgray' }}>
-                            <Image style={authStyle.img} source={require('../assets/icons/email.png')} />
-                            <Text style={{ ...authStyle.btnTxt, color: theme.colors.text }}>Continuar con correo</Text>
-                        </TouchableOpacity>
-                    </View>
 
-                    <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
-                        <TouchableOpacity onPress={signIn} style={{ ...authStyle.authComponentForm,  borderColor: 'lightgray'  }}>
-                            <Image style={authStyle.img} source={require('../assets/icons/googleIcon.png')} />
-                            <Text style={{ ...authStyle.btnTxt, color: theme.colors.text }}>Continuar con google</Text>
-                        </TouchableOpacity>
-                    </View>
-
+            <View style={{ ...authStyle.buttonContainer }}>
+                <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('EmailLogin')} style={{ ...authStyle.authComponentForm, borderColor: 'lightgray' }}>
+                        <Image style={authStyle.img} source={require('../assets/icons/email.png')} />
+                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text }}>Continuar con correo</Text>
+                    </TouchableOpacity>
                 </View>
-        
+
+                <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
+                    <TouchableOpacity onPress={signIn} style={{ ...authStyle.authComponentForm, borderColor: 'lightgray' }}>
+                        <Image style={authStyle.img} source={require('../assets/icons/googleIcon.png')} />
+                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text }}>Continuar con google</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+
         </View>
     )
 }
