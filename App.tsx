@@ -14,7 +14,8 @@ export default function App() {
   LogBox.ignoreLogs(['Sending']);
   LogBox.ignoreLogs(['new NativeEventEmitter']);
   LogBox.ignoreLogs(['bug in React']);
-
+  LogBox.ignoreLogs(['Warning']);
+  LogBox.ignoreLogs(['BACK']);
 
   return (
     <FavoritesProvider>

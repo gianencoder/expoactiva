@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { format } from 'date-fns';
-import { Alert } from 'react-native';
+import { Alert, AppState, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import properties from '../../properties.json'
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
@@ -46,7 +46,6 @@ export const EventFunction = () => {
             }).finally(() => setFetching(false))
     }
 
-
     useEffect(() => {
         getEvents()
     }, [fetching])
@@ -57,6 +56,27 @@ export const EventFunction = () => {
 
     const { expoPushToken, verifyAndRequestPermissions } = usePushNotifications();
     const notificationToken = expoPushToken?.data;
+
+    const checkNotificationPermissions = useCallback(async () => {
+        const hasPermissions = await verifyAndRequestPermissions();
+        if (!hasPermissions) {
+          navigation.goBack();
+        }
+      }, [navigation, verifyAndRequestPermissions]);
+    
+    useEffect(() => {
+        if (Platform.OS !== 'android') {
+            const handleAppStateChange = async () => {
+                checkNotificationPermissions();
+            };
+        
+            const subscription = AppState.addEventListener("change", handleAppStateChange);
+            
+            return () => {
+                subscription.remove();
+            };
+        }
+    }, [checkNotificationPermissions]);
 
     const handleAddFav = async (id: number) => {
         const selectedEvent = filterEvent.find((event) => event.idEvent === id)
@@ -74,7 +94,7 @@ export const EventFunction = () => {
                 const eventTokenMapping = JSON.parse(await AsyncStorage.getItem('eventTokenMapping')) || {};
                 eventTokenMapping[id] = notificationToken;
                 await AsyncStorage.setItem('eventTokenMapping', JSON.stringify(eventTokenMapping));
-                !showNotificationAlert && Alert.alert('¡Listo!', 'Te notificaremos 15 minutos antes de que comience el evento', [{ text: 'Ok', onPress: () => setShowNotificationAlert(true) }], { cancelable: false });
+                !showNotificationAlert && Alert.alert('!Has marcado un favorito!', 'Te avisaremos 15 minutos antes de que comience el evento.', [{ text: 'Ok', onPress: () => setShowNotificationAlert(true) }], { cancelable: false });
                 await sendFavouriteAPI(selectedEvent.idEvent, selectedEvent.dateHourStart);
             }
         } else {
