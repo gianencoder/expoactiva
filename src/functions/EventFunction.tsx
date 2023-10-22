@@ -19,6 +19,7 @@ export const EventFunction = () => {
     const { favorites, addFavorite, removeFavorite } = useFavorites()
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState('');
+    const [showNotificationAlert, setShowNotificationAlert] = useState(false);
 
     const filterEvent = events.filter((exp: EventoMoshi) =>
         exp.eventName.toLowerCase().includes(searchText.toLowerCase())
@@ -69,6 +70,7 @@ export const EventFunction = () => {
 
             addFavorite(selectedEvent);
             if (hasPermissions) {
+                !showNotificationAlert && Alert.alert('¡Listo!', 'Te notificaremos 15 minutos antes de que comience el evento', [{ text: 'Ok', onPress: () => setShowNotificationAlert(true) }], { cancelable: false });
                 await sendFavouriteAPI(selectedEvent.idEvent, selectedEvent.dateHourStart);
             }
         } else {
