@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export interface PushNotification {
     expoPushToken: Notifications.ExpoPushToken | undefined | null;
     notification: Notifications.Notification | undefined | null;
+    verifyAndRequestPermissions: () => Promise<boolean>;
 }
 
 export const  usePushNotifications = (): PushNotification => {
@@ -24,6 +25,21 @@ export const  usePushNotifications = (): PushNotification => {
     const notificationListener = useRef<Notifications.Subscription>();
     const responseListener = useRef<Notifications.Subscription>();
 
+    const verifyAndRequestPermissions = async (): Promise<boolean> => {
+        if (!Device.isDevice) {
+            console.log("Must use physical device for Push Notifications");
+            return false;
+        }
+        
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+        if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+        }
+        return finalStatus === 'granted';
+    };
+
     async function registerForPushNotificationsAsync() {
         let token;
         if (Device.isDevice) {
@@ -39,6 +55,8 @@ export const  usePushNotifications = (): PushNotification => {
             }
             if (finalStatus !== "granted") {
                 console.log("Failed to get push token for push notification!");
+                const storedToken = await AsyncStorage.getItem('expoPushToken');
+                storedToken && await AsyncStorage.removeItem('expoPushToken');
                 return;
             }
             token = await Notifications.getExpoPushTokenAsync({
@@ -63,7 +81,7 @@ export const  usePushNotifications = (): PushNotification => {
 
         return token;
     }
-
+    
     useEffect(() => {
         registerForPushNotificationsAsync().then((token) => {
             setExpoPushToken(token);
@@ -74,7 +92,6 @@ export const  usePushNotifications = (): PushNotification => {
         });
 
         notificationListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
-            console.log(response);
         });
 
         return () => {
@@ -84,5 +101,5 @@ export const  usePushNotifications = (): PushNotification => {
 
     }, []);
 
-    return { expoPushToken, notification }
+    return { expoPushToken, notification, verifyAndRequestPermissions }
 }

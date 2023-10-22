@@ -85,7 +85,6 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
 
     //Renderiza el tiempo
     useEffect(() => {
-        console.log('Ejecutando actualizacion del tiempo')
         calculateTimeLeft(); // Establece el valor inicial al montar el componente
         const interval = setInterval(calculateTimeLeft, 100);
         return () => clearInterval(interval);

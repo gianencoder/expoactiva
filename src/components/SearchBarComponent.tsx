@@ -17,9 +17,9 @@ export default function SearchBar({ placeholder, onSearchTextChange }: any) {
         <View style={{ ...styles.searchWrapper, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}>
             <AntDesign name="search1" size={20} color={theme.customColors.activeColor} style={styles.searchIcon} />
             <TextInput
-                style={{ ...styles.searchInput, color: theme.currentTheme === 'light' ? 'gray' : 'white', backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
+                style={{ ...styles.searchInput, color: theme.currentTheme === 'light' ? 'black' : 'white', backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
                 placeholder={placeholder}
-                placeholderTextColor={theme.currentTheme === 'light' ? 'gray' : 'white'}
+                placeholderTextColor={theme.currentTheme === 'light' ? 'gray' : 'darkgray'}
                 value={searchText}
                 autoCorrect={false}
                 autoComplete='off'

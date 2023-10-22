@@ -9,7 +9,6 @@ import {
   Dimensions
 } from 'react-native';
 import { exhibitors } from '../assets/expositores.js';
-import fairStand from '../assets/fair-stand.png';
 import ExhibitorItem from './ExhibitorItem.js';
 import SearchBar from './SearchBar.js';
 import { AntDesign } from '@expo/vector-icons';
@@ -24,13 +23,12 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
       <ExhibitorItem 
         item={item} 
         selectExhibitor={selectExhibitor} 
-        fairStand={fairStand} 
         toggleNavigationMode={toggleNavigationMode} 
         toggleFollowUserMode={toggleFollowUserMode} 
         navigationMode={navigationMode} 
       />
     ),
-    [selectExhibitor, fairStand, toggleNavigationMode, toggleFollowUserMode, navigationMode]
+    [selectExhibitor, toggleNavigationMode, toggleFollowUserMode, navigationMode]
   );
 
   const handleScroll = React.useCallback(() => {
@@ -116,8 +114,6 @@ const styles = StyleSheet.create({
   separator: {
     height: 1,
     backgroundColor: '#E0E0E0',
-    marginLeft: 20,
-    marginRight: 20,
   },
   listContainer: {
     minHeight: 2,

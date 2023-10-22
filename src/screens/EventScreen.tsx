@@ -1,21 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, ActivityIndicator, Text, ScrollView, TouchableOpacity, Keyboard } from 'react-native';
 import { eventStyle } from '../theme/EventTheme'
 import { EventFunction } from '../functions/EventFunction';
 import SearchBar from '../components/SearchBarComponent';
 import { SeparatorComponent } from '../components/SeparatorComponent';
-import { MyColors } from '../theme/ColorsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { FlashList } from "@shopify/flash-list";
 import { MoshiEventComponent } from '../components/MoshiEventComponent';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
-import { NotEventScreen } from './NotEventScreen';
-import NotificationHandler from '../functions/NotificationHandler';
 import moment from 'moment';
 
 export const EventScreen = () => {
-    const { loading, filterEvent, setSearchText, fetching, handleSetFetching, handleAddFav, handleSelectItem, requestNotification } = EventFunction()
+    const { loading, filterEvent, setSearchText, fetching, handleSetFetching, handleAddFav, handleSelectItem } = EventFunction()
     const { theme } = useContext(ThemeContext);
     const { favorites } = useFavorites();
     const [selectedFilters, setSelectedFilters] = useState([]);
@@ -160,7 +157,6 @@ export const EventScreen = () => {
 
                 }
             </View>
-            {requestNotification && <NotificationHandler />}
         </View >
     );
 };

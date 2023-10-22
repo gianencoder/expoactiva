@@ -13,6 +13,7 @@ import { FavoritesProvider } from './src/context/FavouriteContext/FavouritesCont
 export default function App() {
   LogBox.ignoreLogs(['Sending']);
   LogBox.ignoreLogs(['new NativeEventEmitter']);
+  LogBox.ignoreLogs(['bug in React']);
 
 
   return (
