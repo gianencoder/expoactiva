@@ -8,19 +8,19 @@ import { TicketComponent } from '../components/TicketComponent';
 import { SeparatorComponent } from '../components/SeparatorComponent';
 import { useNavigation } from '@react-navigation/native'
 import DateTimePicker from '@react-native-community/datetimepicker';
-// import QRCode from 'react-native-qrcode-svg';
+import QRCode from 'react-native-qrcode-svg';
+import { MyColors } from '../theme/ColorsTheme';
 
 
 
 
 
 export const TicketsScreen = () => {
-    const { height } = useWindowDimensions()
     const { theme } = useContext(ThemeContext)
     const [number, setNumber] = useState(0)
     const navigation = useNavigation()
     const [chosenDate, setChosenDate] = useState(new Date());
-
+    const { height, width } = useWindowDimensions()
 
     const ticket: Ticket[] = [
         {
@@ -67,7 +67,8 @@ export const TicketsScreen = () => {
             qrCode: '12365',
             shared: false,
             state: true
-        },
+        }
+        ,
         {
             _id: 1,
             code: '123',
@@ -78,116 +79,31 @@ export const TicketsScreen = () => {
             qrCode: '12365',
             shared: false,
             state: true
-        },
-        {
-            _id: 1,
-            code: '123',
-            deviceId: 1254,
-            expireDate: new Date(Date.now()),
-            in: true,
-
-            qrCode: '12365',
-            shared: false,
-            state: true
-        },
-        {
-            _id: 1,
-            code: '123',
-            deviceId: 1254,
-            expireDate: new Date(Date.now()),
-            in: true,
-
-            qrCode: '12365',
-            shared: false,
-            state: true
-        },
-        {
-            _id: 1,
-            code: '123',
-            deviceId: 1254,
-            expireDate: new Date(Date.now()),
-            in: true,
-
-            qrCode: '12365',
-            shared: false,
-            state: true
-        },
-        {
-            _id: 1,
-            code: '123',
-            deviceId: 1254,
-            expireDate: new Date(Date.now()),
-            in: true,
-
-            qrCode: '12365',
-            shared: false,
-            state: true
-        },
-        {
-            _id: 1,
-            code: '123',
-            deviceId: 1254,
-            expireDate: new Date(Date.now()),
-            in: true,
-
-            qrCode: '12365',
-            shared: false,
-            state: true
-        },
-        {
-            _id: 1,
-            code: '123',
-            deviceId: 1254,
-            expireDate: new Date(Date.now()),
-            in: true,
-
-            qrCode: '12365',
-            shared: false,
-            state: true
-        },
-        {
-            _id: 1,
-            code: '123',
-            deviceId: 1254,
-            expireDate: new Date(Date.now()),
-            in: true,
-
-            qrCode: '12365',
-            shared: false,
-            state: true
-        },
-        {
-            _id: 1,
-            code: '123',
-            deviceId: 1254,
-            expireDate: new Date(Date.now()),
-            in: true,
-
-            qrCode: '12365',
-            shared: false,
-            state: true
-        },
-
+        }
     ]
-
 
 
     return (
         <View style={{ ...ticketStyles.container, backgroundColor: theme.colors.background }}>
-            <View style={{ ...ticketStyles.topSide }}>
 
-                <View style={ticketStyles.topSideComplements}>
-                    <DatePickerIOS date={chosenDate} onDateChange={setChosenDate} />
+            <View style={ticketStyles.topSide}>
+                <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: height / 40, fontFamily: 'helvetica', fontWeight: 'bold', color: theme.colors.text }}>MIS ENTRADAS</Text>
                 </View>
-                <View style={ticketStyles.topSideComplements}>
-                    <Text>Cantidad</Text>
-                    <View style={{ flexDirection: 'row', gap: 15 }}>
-                        <Text>-</Text><Text>{number}</Text><Text>+</Text>
-                    </View>
-                </View>
-                <View style={ticketStyles.topSideComplements}>
+
+                <FlashList
+                    estimatedItemSize={10}
+                    data={ticket}
+                    renderItem={({ item }: any) => <TicketComponent ticket={item} qrCode={'123'} method={() => navigation.navigate('TicketDetail')} />}
+                    ItemSeparatorComponent={() => <SeparatorComponent />}
+                />
+            </View>
+
+            <View style={{ ...ticketStyles.bottomSide }}>
+
+                <View style={{ ...ticketStyles.topSideComplements, backgroundColor: theme.colors.background }}>
                     <TouchableOpacity style={{
-                        backgroundColor: 'green'
+                        backgroundColor: '#608EDE'
                         , height: '50%'
                         , width: '90%'
                         , borderRadius: 10
@@ -197,16 +113,6 @@ export const TicketsScreen = () => {
                         <Text style={{ fontWeight: 'bold', color: 'white' }}>Comprar</Text>
                     </TouchableOpacity>
                 </View>
-
-
-            </View>
-            <View style={ticketStyles.bottomSide}>
-                <FlashList
-                    estimatedItemSize={10}
-                    data={ticket}
-                    renderItem={({ item }: any) => <TicketComponent ticket={item} qrCode={'123'} method={() => navigation.navigate('TicketDetail')} />}
-                    ItemSeparatorComponent={() => <SeparatorComponent />}
-                />
             </View>
         </View >
     )

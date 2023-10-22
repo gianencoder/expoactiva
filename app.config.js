@@ -6,6 +6,7 @@ export default {
     slug: "expoactiva-nacional-app",
     version: "1.0.1",
     orientation: "portrait",
+    icon : "./assets/icon.png",
     splash: {
       image: "./assets/mainIcon.png",
       resizeMode: "contain",

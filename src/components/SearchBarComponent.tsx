@@ -15,9 +15,9 @@ export default function SearchBar({ placeholder, onSearchTextChange }: any) {
 
     return (
         <View style={{ ...styles.searchWrapper, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}>
-            <AntDesign name="search1" size={20} color="darkgreen" style={styles.searchIcon} />
+            <AntDesign name="search1" size={20} color={theme.customColors.activeColor} style={styles.searchIcon} />
             <TextInput
-                style={{ ...styles.searchInput, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
+                style={{ ...styles.searchInput, color: theme.currentTheme === 'light' ? 'gray' : 'white', backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
                 placeholder={placeholder}
                 placeholderTextColor={theme.currentTheme === 'light' ? 'gray' : 'white'}
                 value={searchText}
@@ -27,7 +27,7 @@ export default function SearchBar({ placeholder, onSearchTextChange }: any) {
             />
             {searchText ? (
                 <TouchableOpacity onPress={() => handleChangeText('')}>
-                    <AntDesign name="close" size={20} color="darkgreen" style={styles.closeIcon} />
+                    <AntDesign name="close" size={20} color={theme.customColors.activeColor} style={styles.closeIcon} />
                 </TouchableOpacity>
             ) : null}
         </View>

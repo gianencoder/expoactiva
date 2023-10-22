@@ -74,7 +74,7 @@ export const EventScreen = () => {
                                     key={date}
                                     onPress={() => toggleDateFilter(date)}
                                     style={{ justifyContent: 'center', borderRadius: 5, alignItems: 'center' }}>
-                                    <View style={{ ...eventStyle.typeFilterView, borderColor: theme.currentTheme === 'dark' ? 'lightgray' : 'black', backgroundColor: selectedDates.includes(date) ? theme.currentTheme === 'dark' ? 'white' : 'black' : 'transparent' }}>
+                                    <View style={{ ...eventStyle.typeFilterView, borderWidth: 0, /*borderBottomColor: theme.currentTheme === 'dark' ? 'lightgray' : 'black',*/ backgroundColor: selectedDates.includes(date) ? theme.currentTheme === 'dark' ? 'white' : 'black' : 'transparent' }}>
                                         <Text style={{ textTransform: 'uppercase', color: selectedDates.includes(date) ? theme.currentTheme === 'dark' ? 'black' : 'white' : theme.currentTheme === 'dark' ? 'white' : 'black' }}>{moment(date).format('DD / MM')}</Text>
                                     </View>
                                 </TouchableOpacity>

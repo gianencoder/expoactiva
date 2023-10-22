@@ -5,18 +5,17 @@ export const ticketStyles = StyleSheet.create({
 
     container: {
         flex: 1,
-
+        padding: 10
     },
 
     topSide: {
-        flex: 1
-        , backgroundColor: 'red'
+        flex: 5
         , gap: 5
+        , justifyContent: 'center'
     },
 
     topSideComplements: {
-        flex: 1,
-        backgroundColor: 'white'
+        flex: 1
         , alignItems: 'center'
         , flexDirection: 'row'
         , justifyContent: 'space-evenly'
@@ -33,7 +32,6 @@ export const ticketStyles = StyleSheet.create({
         flex: 1
         , padding: 5
         , justifyContent: 'center'
-        // , alignItems: 'center'
     },
 
     infoContainer: {
