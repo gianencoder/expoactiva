@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { format } from 'date-fns';
-import { Alert } from 'react-native';
+import { Alert, LogBox } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import properties from '../../properties.json'
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { checkNotificationPermissions } from '../util/checkNotificationPermission';
 
 export const EventFunction = () => {
 
+    LogBox.ignoreLogs(['bug in React']);
     const navigation = useNavigation();
     let iconName = ''
     let colour = ''
@@ -18,6 +20,25 @@ export const EventFunction = () => {
     const { favorites, addFavorite, removeFavorite } = useFavorites()
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState('');
+    const [requestNotification, setRequestNotification] = useState(false);
+    const [isNotificationEnabled, setIsNotificationEnabled] = useState(false);
+    const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
+
+    useEffect(() => {
+        const sendFavourite = async () => {
+            console.log('isNotificationEnabled', isNotificationEnabled);
+            console.log('selectedEventId', selectedEventId);
+            if (isNotificationEnabled && selectedEventId !== null) {
+                const selectedEvent = filterEvent.find((event) => event.idEvent === selectedEventId);
+                if (selectedEvent) {
+                    await sendFavouriteAPI(selectedEventId, selectedEvent.dateHourStart);
+                }
+                setSelectedEventId(null);
+            }
+        };
+
+        sendFavourite();
+    }, [isNotificationEnabled, selectedEventId]);
 
     const filterEvent = events.filter((exp: EventoMoshi) =>
         exp.eventName.toLowerCase().includes(searchText.toLowerCase())
@@ -49,6 +70,19 @@ export const EventFunction = () => {
         getEvents()
     }, [fetching])
 
+    useEffect(() => {
+        const requestPermissions = async () => {
+            if (requestNotification) {
+                const status = await checkNotificationPermissions();
+                console.log('status', status);
+                setIsNotificationEnabled(status === 'granted');
+                setRequestNotification(false); 
+            }
+        };
+
+        requestPermissions();
+    }, [requestNotification]);
+
     const handleSetFetching = () => {
         setFetching(true)
     }
@@ -61,10 +95,12 @@ export const EventFunction = () => {
 
         }
         if (selectedEvent && !isFavorite) {
-            addFavorite(selectedEvent)
-            await sendFavouriteAPI(id, selectedEvent.dateHourStart)
+            setRequestNotification(true);
+            addFavorite(selectedEvent);
+            console.log('selectedEventId',)
+            setSelectedEventId(id);
         } else {
-            removeFavorite(id)
+            removeFavorite(id);
         }
     }
 
@@ -115,7 +151,10 @@ export const EventFunction = () => {
         
         // Obtener el token de Expo
         const expoPushToken = await AsyncStorage.getItem('expoPushToken');
-        
+        if (!expoPushToken) {
+            return
+        }
+
         const url = 'https://expoactiva-nacional-395522.rj.r.appspot.com/favourites/create';
 
         const body = {
@@ -138,8 +177,13 @@ export const EventFunction = () => {
     }
 
     async function removeFavouriteAPI(eventId: number) {
-            
+        console.log('removeFavouriteAPI', eventId)
         const expoPushToken = await AsyncStorage.getItem('expoPushToken');
+        console.log('expoPushToken on remove', expoPushToken)
+        if (!expoPushToken) {
+            return
+        }
+
 
         const url = 'https://expoactiva-nacional-395522.rj.r.appspot.com/favourites/';
 
@@ -186,6 +230,7 @@ export const EventFunction = () => {
         , formatDateTime
         , removeEvent
         , searchText
+        , requestNotification
     })
 }
 

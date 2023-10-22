@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import * as turf from '@turf/turf';
-// import { getUniqueId } from 'react-native-device-info';
+import { getUniqueId } from 'react-native-device-info';
 
 const LocationDaemon = () => {
   
@@ -53,7 +53,7 @@ const LocationDaemon = () => {
         const now = new Date();
         const date = now.toISOString().split('T')[0];
         const time = now.toTimeString().split(' ')[0];
-        const deviceId = 'ID'; //getUniqueId();
+        const deviceId = await getUniqueId();
         const interests = ["Ganaderia", "Maquinas"];
 
         await axios.post('https://expoactiva-nacional-395522.rj.r.appspot.com/locations', {

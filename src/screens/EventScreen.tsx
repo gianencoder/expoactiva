@@ -11,10 +11,11 @@ import { MoshiEventComponent } from '../components/MoshiEventComponent';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
 import { NotEventScreen } from './NotEventScreen';
+import NotificationHandler from '../functions/NotificationHandler';
 import moment from 'moment';
 
 export const EventScreen = () => {
-    const { loading, filterEvent, setSearchText, fetching, handleSetFetching, handleAddFav, handleSelectItem } = EventFunction()
+    const { loading, filterEvent, setSearchText, fetching, handleSetFetching, handleAddFav, handleSelectItem, requestNotification } = EventFunction()
     const { theme } = useContext(ThemeContext);
     const { favorites } = useFavorites();
     const [selectedFilters, setSelectedFilters] = useState([]);
@@ -159,6 +160,7 @@ export const EventScreen = () => {
 
                 }
             </View>
+            {requestNotification && <NotificationHandler />}
         </View >
     );
 };
