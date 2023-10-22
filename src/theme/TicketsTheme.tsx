@@ -11,7 +11,7 @@ export const ticketStyles = StyleSheet.create({
     topSide: {
         flex: 5
         , gap: 5
-        , justifyContent: 'center'
+
     },
 
     topSideComplements: {

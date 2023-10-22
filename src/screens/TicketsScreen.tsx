@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput, useWindowDimensions, DatePickerIOS } from 'react-native';
+import { View, Text, TouchableOpacity, Image, TextInput, useWindowDimensions } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
 import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
@@ -9,10 +9,6 @@ import { SeparatorComponent } from '../components/SeparatorComponent';
 import { useNavigation } from '@react-navigation/native'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import QRCode from 'react-native-qrcode-svg';
-import { MyColors } from '../theme/ColorsTheme';
-
-
-
 
 
 export const TicketsScreen = () => {
