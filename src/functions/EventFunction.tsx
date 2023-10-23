@@ -92,7 +92,7 @@ export const EventFunction = () => {
                 const eventTokenMapping = JSON.parse(await AsyncStorage.getItem('eventTokenMapping')) || {};
                 eventTokenMapping[id] = notificationToken;
                 await AsyncStorage.setItem('eventTokenMapping', JSON.stringify(eventTokenMapping));
-                !showNotificationAlert && Alert.alert('!Has marcado un favorito!', 'Te avisaremos 15 minutos antes de que comience el evento.', [{ text: 'Ok', onPress: () => setShowNotificationAlert(true) }], { cancelable: false });
+                !showNotificationAlert && Alert.alert('¡Has marcado un favorito!', 'Te avisaremos 15 minutos antes de que comience el evento.', [{ text: 'Ok', onPress: () => setShowNotificationAlert(true) }], { cancelable: false });
                 await sendFavouriteAPI(selectedEvent.idEvent, selectedEvent.dateHourStart);
             }
         } else {

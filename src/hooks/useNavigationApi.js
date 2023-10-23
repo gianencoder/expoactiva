@@ -10,6 +10,7 @@ const useNavigationApi = ({ origin, destination, token, navigationMode, disableN
   const [error, setError] = useState(null);
 
   const fetchRoute = useCallback(async () => {
+
     if (disableNavigation) return;
     if (!origin || !destination || !token || !navigationMode) return;
 

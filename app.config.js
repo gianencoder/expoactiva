@@ -2,7 +2,7 @@ const IS_DEV = process.env.APP_VARIANT === 'development';
 
 export default {
   expo: {
-    name: IS_DEV ? 'Expo activa (dev)' : 'Expo activa Nacional',
+    name: IS_DEV ? 'Expoactiva (dev)' : 'Expoactiva Nacional',
     slug: "expoactiva-nacional-app",
     version: "1.0.1",
     orientation: "portrait",
@@ -31,7 +31,7 @@ export default {
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.FOREGROUND_SERVICE",
       ],
-      googleServicesFile: "./google-services.json",
+      googleServicesFile: IS_DEV ? "./google-services-dev.json" : "./google-services.json",
     },
     plugins: [
       [

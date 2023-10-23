@@ -50,11 +50,10 @@ const LocationDaemon = () => {
 
   const postLocation = async (location) => {
     try {
-<<<<<<< HEAD
       const now = new Date();
       const date = now.toISOString().split('T')[0];
       const time = now.toTimeString().split(' ')[0];
-      const deviceId = 'ID'; //getUniqueId();
+      const deviceId = getUniqueId();
       const interests = ["Ganaderia", "Maquinas"];
 
       await axios.post('https://expoactiva-nacional-395522.rj.r.appspot.com/locations', {
@@ -65,13 +64,6 @@ const LocationDaemon = () => {
         deviceId: deviceId,
         interests: interests
       });
-=======
-        const now = new Date();
-        const date = now.toISOString().split('T')[0];
-        const time = now.toTimeString().split(' ')[0];
-        const deviceId = await getUniqueId();
-        const interests = ["Ganaderia", "Maquinas"];
->>>>>>> e97025de5eff2c037b551bc1f9168793b7a40b0a
 
 
     } catch (error) {

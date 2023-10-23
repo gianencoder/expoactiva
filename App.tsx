@@ -14,12 +14,9 @@ import { AuthProvider } from './src/context/AuthContext/AuthContext';
 export default function App() {
   LogBox.ignoreLogs(['Sending']);
   LogBox.ignoreLogs(['new NativeEventEmitter']);
-<<<<<<< HEAD
-=======
   LogBox.ignoreLogs(['bug in React']);
   LogBox.ignoreLogs(['Warning']);
   LogBox.ignoreLogs(['BACK']);
->>>>>>> e97025de5eff2c037b551bc1f9168793b7a40b0a
 
   return (
     <AuthProvider>
