@@ -10,31 +10,28 @@ import { ThemeProvider } from './src/context/themeContext/ThemeContext';
 import { usePushNotifications } from './src/hooks/usePushNotifications';
 import LocationDaemon from './src/functions/LocationDaemon';
 import { FavoritesProvider } from './src/context/FavouriteContext/FavouritesContext';
+import { AuthProvider } from './src/context/AuthContext/AuthContext';
 
 export default function App() {
   LogBox.ignoreLogs(['Sending']);
   LogBox.ignoreLogs(['new NativeEventEmitter']);
 
-  const { expoPushToken } = usePushNotifications();
-
-  console.log('expoPushToken', expoPushToken);
-
   return (
-    <FavoritesProvider>
-      <ThemeProvider>
-        <NavigationContainer>
-          <SafeAreaView style={{ ...styles.container }}>
-            <StatusBar
-              barStyle={'light-content'}
-              backgroundColor={MyColors.primary}
-            />
-            <BottomTabNavigator />
-          </SafeAreaView>
-        </NavigationContainer >
-        <LocationDaemon />
-      </ThemeProvider >
-    </FavoritesProvider>
-
-
+    <AuthProvider>
+      <FavoritesProvider>
+        <ThemeProvider>
+          <NavigationContainer>
+            <SafeAreaView style={{ ...styles.container }}>
+              <StatusBar
+                barStyle={'light-content'}
+                backgroundColor={MyColors.primary}
+              />
+              <BottomTabNavigator />
+            </SafeAreaView>
+          </NavigationContainer >
+          <LocationDaemon />
+        </ThemeProvider >
+      </FavoritesProvider>
+    </AuthProvider>
   );
 }

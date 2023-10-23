@@ -51,3 +51,11 @@ interface Ticket {
     expireDate: Date,
     shared: boolean
 }
+
+interface User {
+    name: string,
+    email: string,
+    picture: string,
+    password: string,
+    birthDay: Date,
+}

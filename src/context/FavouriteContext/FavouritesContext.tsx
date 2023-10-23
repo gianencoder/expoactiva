@@ -28,8 +28,8 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
   const [favorites, setFavorites] = useState<EventoMoshi[]>([]);
 
   const persist = async () => await AsyncStorage.setItem('favorites', JSON.stringify(favorites))
-    .then((e) => console.log("Guardando...", favorites.forEach(element => console.log(element.idEvent))))
-    .catch(err => console.error(err))
+    .then()
+    .catch(err => new Error(err))
 
 
 
@@ -50,7 +50,7 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
           setFavorites(JSON.parse(data));
         }
       } catch (error) {
-        console.error('Error al cargar favoritos desde AsyncStorage:', error);
+        throw new Error('Error')
       }
     };
     getPersistEvent();
