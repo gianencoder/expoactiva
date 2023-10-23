@@ -16,17 +16,15 @@ interface Props {
 
 export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, selectEvent }: Props) => {
 
-    const { fetching, getEvents } = EventFunction()
+    const { getEvents } = EventFunction()
     const { theme } = useContext(ThemeContext)
-    // const correctDate = format(new Date(moshiEvent.dateHourStart), 'p dd/MM/yyy');
     const { formatDateTime } = EventFunction()
     const [timeLeftTxt, settimeLeftTxt] = useState('');
-
     const [initTime, setInitTime] = useState(0)
     const [leftTime, setLeftTime] = useState(0)
-
     const [finished, setFinished] = useState(false)
     const [inProgress, setInProgress] = useState(false)
+
 
     const calculateTimeLeft = () => {
 
@@ -76,11 +74,9 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
                 setInitTime(minutes);
                 settimeLeftTxt('minutos');
             }
-
         } catch (error) {
             throw error
         }
-
     }
 
     //Renderiza el tiempo
