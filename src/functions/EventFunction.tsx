@@ -82,15 +82,13 @@ export const EventFunction = () => {
         const selectedEvent = filterEvent.find((event) => event.idEvent === id)
         const isFavorite = favorites.find(event => event.idEvent === id)
 
-        if (!selectedEvent && isFavorite) {
-
-        }
         if (selectedEvent && !isFavorite) {
 
             const hasPermissions = await verifyAndRequestPermissions();
 
             addFavorite(selectedEvent);
-            if (hasPermissions && notificationToken) {
+            console.log('selectedEvent.dateHourStart', selectedEvent.dateHourStart)
+            if (hasPermissions && notificationToken && (new Date(selectedEvent.dateHourStart) > new Date() && (new Date(selectedEvent.dateHourStart).getTime() - new Date().getTime()) > 900000)) {
                 const eventTokenMapping = JSON.parse(await AsyncStorage.getItem('eventTokenMapping')) || {};
                 eventTokenMapping[id] = notificationToken;
                 await AsyncStorage.setItem('eventTokenMapping', JSON.stringify(eventTokenMapping));
@@ -147,11 +145,6 @@ export const EventFunction = () => {
 
     // Función para enviar favorito a la API
     async function sendFavouriteAPI(eventId: Number, eventStartTime: Date) {
-        
-        // Obtener el token de Expo
-        if (!notificationToken) {
-            return
-        }
 
         const url = 'https://expoactiva-nacional-395522.rj.r.appspot.com/favourites/create';
         
@@ -185,7 +178,16 @@ export const EventFunction = () => {
         if (!expoPushTokenForId) {
             return;
         }
-    
+        
+        delete eventTokenMapping[eventId];
+        await AsyncStorage.setItem('eventTokenMapping', JSON.stringify(eventTokenMapping));
+
+        // Si faltan menos de 15 minutos para que comience el evento, no se elimina el favorito
+        const event = events.find(event => event.idEvent === eventId);
+        if (event && (new Date(event.dateHourStart).getTime() - new Date().getTime()) < 900000) {
+            return;
+        }
+
         const url = 'https://expoactiva-nacional-395522.rj.r.appspot.com/favourites/';
     
         let expoPushToken = expoPushTokenForId;
@@ -201,8 +203,7 @@ export const EventFunction = () => {
             if (response.status === 200) {
                 console.log('Favorito eliminado en el backend con éxito');
     
-                delete eventTokenMapping[eventId];
-                await AsyncStorage.setItem('eventTokenMapping', JSON.stringify(eventTokenMapping));
+                
             }
         } catch (error) {
             console.error('Error al eliminar favorito en la API:', error);
