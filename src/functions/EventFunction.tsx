@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { format } from 'date-fns';
-import { Alert } from 'react-native';
+import { Alert, AppState, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import properties from '../../properties.json'
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { usePushNotifications } from '../hooks/usePushNotifications';
 
 export const EventFunction = () => {
 
@@ -18,6 +19,7 @@ export const EventFunction = () => {
     const { favorites, addFavorite, removeFavorite } = useFavorites()
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState('');
+    const [showNotificationAlert, setShowNotificationAlert] = useState(false);
 
     const filterEvent = events.filter((exp: EventoMoshi) =>
         exp.eventName.toLowerCase().includes(searchText.toLowerCase())
@@ -44,7 +46,6 @@ export const EventFunction = () => {
             }).finally(() => setFetching(false))
     }
 
-
     useEffect(() => {
         getEvents()
     }, [fetching])
@@ -52,6 +53,30 @@ export const EventFunction = () => {
     const handleSetFetching = () => {
         setFetching(true)
     }
+
+    const { expoPushToken, verifyAndRequestPermissions } = usePushNotifications();
+    const notificationToken = expoPushToken?.data;
+
+    const checkNotificationPermissions = useCallback(async () => {
+        const hasPermissions = await verifyAndRequestPermissions();
+        if (!hasPermissions) {
+          navigation.goBack();
+        }
+      }, [navigation, verifyAndRequestPermissions]);
+    
+    useEffect(() => {
+        if (Platform.OS !== 'android') {
+            const handleAppStateChange = async () => {
+                checkNotificationPermissions();
+            };
+        
+            const subscription = AppState.addEventListener("change", handleAppStateChange);
+            
+            return () => {
+                subscription.remove();
+            };
+        }
+    }, [checkNotificationPermissions]);
 
     const handleAddFav = async (id: number) => {
         const selectedEvent = filterEvent.find((event) => event.idEvent === id)
@@ -61,10 +86,20 @@ export const EventFunction = () => {
 
         }
         if (selectedEvent && !isFavorite) {
-            addFavorite(selectedEvent)
-            await sendFavouriteAPI(id, selectedEvent.dateHourStart)
+
+            const hasPermissions = await verifyAndRequestPermissions();
+
+            addFavorite(selectedEvent);
+            if (hasPermissions && notificationToken) {
+                const eventTokenMapping = JSON.parse(await AsyncStorage.getItem('eventTokenMapping')) || {};
+                eventTokenMapping[id] = notificationToken;
+                await AsyncStorage.setItem('eventTokenMapping', JSON.stringify(eventTokenMapping));
+                !showNotificationAlert && Alert.alert('!Has marcado un favorito!', 'Te avisaremos 15 minutos antes de que comience el evento.', [{ text: 'Ok', onPress: () => setShowNotificationAlert(true) }], { cancelable: false });
+                await sendFavouriteAPI(selectedEvent.idEvent, selectedEvent.dateHourStart);
+            }
         } else {
-            removeFavorite(id)
+            await removeFavouriteAPI(id)
+            removeFavorite(id);
         }
     }
 
@@ -114,15 +149,20 @@ export const EventFunction = () => {
     async function sendFavouriteAPI(eventId: Number, eventStartTime: Date) {
         
         // Obtener el token de Expo
-        const expoPushToken = await AsyncStorage.getItem('expoPushToken');
-        
-        const url = 'https://expoactiva-nacional-395522.rj.r.appspot.com/favourites/create';
+        if (!notificationToken) {
+            return
+        }
 
+        const url = 'https://expoactiva-nacional-395522.rj.r.appspot.com/favourites/create';
+        
+        let expoPushToken = notificationToken;
         const body = {
             expoPushToken,
             eventId,
             eventStartTime
         };
+
+        console.log('Enviando favorito a la API:', body)
 
         try {
             const response = await axios.post(url, body);
@@ -138,27 +178,37 @@ export const EventFunction = () => {
     }
 
     async function removeFavouriteAPI(eventId: number) {
-            
-        const expoPushToken = await AsyncStorage.getItem('expoPushToken');
-
+        const eventTokenMapping = JSON.parse(await AsyncStorage.getItem('eventTokenMapping')) || {};
+        const expoPushTokenForId = eventTokenMapping[eventId];
+        
+        console.log('Eliminando favorito de la API:', eventId, expoPushTokenForId)
+        if (!expoPushTokenForId) {
+            return;
+        }
+    
         const url = 'https://expoactiva-nacional-395522.rj.r.appspot.com/favourites/';
-
+    
+        let expoPushToken = expoPushTokenForId;
         const body = {
             expoPushToken,
             eventId,
         };
-
+    
         try {
             const response = await axios.delete(url, { data: body });
-
-            console.log(response)
+    
+            console.log(response);
             if (response.status === 200) {
                 console.log('Favorito eliminado en el backend con éxito');
+    
+                delete eventTokenMapping[eventId];
+                await AsyncStorage.setItem('eventTokenMapping', JSON.stringify(eventTokenMapping));
             }
         } catch (error) {
             console.error('Error al eliminar favorito en la API:', error);
         }
     }
+    
 
     const removeEvent = async (id: number) => {
         const canRemove = favorites.find(e => e.idEvent === id);

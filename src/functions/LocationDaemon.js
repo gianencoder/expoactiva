@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import * as turf from '@turf/turf';
-// import { getUniqueId } from 'react-native-device-info';
+import { getUniqueId } from 'react-native-device-info';
 
 const LocationDaemon = () => {
 
@@ -50,6 +50,7 @@ const LocationDaemon = () => {
 
   const postLocation = async (location) => {
     try {
+<<<<<<< HEAD
       const now = new Date();
       const date = now.toISOString().split('T')[0];
       const time = now.toTimeString().split(' ')[0];
@@ -64,6 +65,13 @@ const LocationDaemon = () => {
         deviceId: deviceId,
         interests: interests
       });
+=======
+        const now = new Date();
+        const date = now.toISOString().split('T')[0];
+        const time = now.toTimeString().split(' ')[0];
+        const deviceId = await getUniqueId();
+        const interests = ["Ganaderia", "Maquinas"];
+>>>>>>> e97025de5eff2c037b551bc1f9168793b7a40b0a
 
 
     } catch (error) {

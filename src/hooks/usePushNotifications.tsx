@@ -6,8 +6,9 @@ import { Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export interface PushNotification {
-    expoPushToken?: Notifications.ExpoPushToken;
-    notification?: Notifications.Notification;
+    expoPushToken: Notifications.ExpoPushToken | undefined | null;
+    notification: Notifications.Notification | undefined | null;
+    verifyAndRequestPermissions: () => Promise<boolean>;
 }
 
 export const  usePushNotifications = (): PushNotification => {
@@ -24,6 +25,21 @@ export const  usePushNotifications = (): PushNotification => {
     const notificationListener = useRef<Notifications.Subscription>();
     const responseListener = useRef<Notifications.Subscription>();
 
+    const verifyAndRequestPermissions = async (): Promise<boolean> => {
+        if (!Device.isDevice) {
+            console.log("Must use physical device for Push Notifications");
+            return false;
+        }
+        
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+        if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+        }
+        return finalStatus === 'granted';
+    };
+
     async function registerForPushNotificationsAsync() {
         let token;
         if (Device.isDevice) {
@@ -38,14 +54,16 @@ export const  usePushNotifications = (): PushNotification => {
                 finalStatus = status;
             }
             if (finalStatus !== "granted") {
-                alert("Failed to get push token for push notification!");
+                console.log("Failed to get push token for push notification!");
+                const storedToken = await AsyncStorage.getItem('expoPushToken');
+                storedToken && await AsyncStorage.removeItem('expoPushToken');
                 return;
             }
             token = await Notifications.getExpoPushTokenAsync({
                 projectId: Constants.expoConfig?.extra?.eas?.projectId,
             });
         } else {
-            alert("Must use physical device for Push Notifications");
+            console.log("Must use physical device for Push Notifications");
         }
 
         if (Platform.OS === 'android') {
@@ -63,7 +81,7 @@ export const  usePushNotifications = (): PushNotification => {
 
         return token;
     }
-
+    
     useEffect(() => {
         registerForPushNotificationsAsync().then((token) => {
             setExpoPushToken(token);
@@ -74,7 +92,6 @@ export const  usePushNotifications = (): PushNotification => {
         });
 
         notificationListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
-            console.log(response);
         });
 
         return () => {
@@ -84,5 +101,5 @@ export const  usePushNotifications = (): PushNotification => {
 
     }, []);
 
-    return { expoPushToken, notification }
+    return { expoPushToken, notification, verifyAndRequestPermissions }
 }
