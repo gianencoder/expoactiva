@@ -17,6 +17,7 @@ export default function App() {
   LogBox.ignoreLogs(['bug in React']);
   LogBox.ignoreLogs(['Warning']);
   LogBox.ignoreLogs(['BACK']);
+  LogBox.ignoreLogs(['Possible']);
 
   return (
     <AuthProvider>

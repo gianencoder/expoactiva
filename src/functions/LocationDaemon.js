@@ -3,6 +3,7 @@ import * as Location from 'expo-location';
 import axios from 'axios';
 import * as turf from '@turf/turf';
 import { getUniqueId } from 'react-native-device-info';
+import properties from '../../properties.json';
 
 const LocationDaemon = () => {
 
@@ -56,7 +57,7 @@ const LocationDaemon = () => {
       const deviceId = getUniqueId();
       const interests = ["Ganaderia", "Maquinas"];
 
-      await axios.post('https://expoactiva-nacional-395522.rj.r.appspot.com/locations', {
+      await axios.post(`${properties.cyberSoftURL}locations`, {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
         date: date,
