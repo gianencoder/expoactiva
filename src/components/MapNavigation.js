@@ -34,7 +34,7 @@ const MapNavigation = ({ route, cameraRef, origin, destination, loading }) => {
   }, [route, origin, destination, hasSetCamera]);
 
   return (
-    route && !loading && (
+    route && (
       <Mapbox.ShapeSource id="routeSource" shape={route}>
         <Mapbox.LineLayer id="routeLine" style={lineStyle}/>
       </Mapbox.ShapeSource>

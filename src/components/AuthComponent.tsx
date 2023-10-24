@@ -6,6 +6,7 @@ import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native"
+import properties from '../../properties.json'
 
 const googleSignInConfigAndroid = {
     scopes: ["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"],
@@ -46,7 +47,7 @@ export const AuthComponent = () => {
     const exchangeGoogleTokenForJWT = useCallback(async (googleToken) => {
         try {
             console.log('googleToken', googleToken);
-            const response = await fetch("https://expoactiva-nacional-395522.rj.r.appspot.com/auth/google", {
+            const response = await fetch(`${properties.cyberSoftURL}/auth/google`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
