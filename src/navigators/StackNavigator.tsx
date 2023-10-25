@@ -16,6 +16,7 @@ import { ExhibitorDetails } from '../screens/ExhibitorDetails';
 import { TicketDetail } from '../screens/TicketDetailScreen';
 import { EmailLoginScreen } from '../screens/EmailLoginScreen';
 import { BuyTicketScreen } from '../screens/BuyTicketScreen';
+import { ToastMessageComponent } from '../components/ToastMessageComponent';
 
 const Stack = createStackNavigator();
 
