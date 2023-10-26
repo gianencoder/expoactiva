@@ -101,7 +101,7 @@ export const EmailLoginScreen = () => {
                                     !response &&
                                     <View style={{ alignItems: 'center', height: 'auto', width: '100%', gap: 15, padding: 10 }}>
                                         <Text style={{ alignSelf: 'flex-start', padding: 20, fontWeight: 'bold', fontSize: 15, color: theme.colors.text }}>Contraseña</Text>
-                                        <TextInput secureTextEntry keyboardType='email-address' value={password} onChangeText={text => setPassword(text)} style={{ ...emailTheme.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }} placeholder='Contraseña' placeholderTextColor={'gray'} />
+                                        <TextInput secureTextEntry value={password} onChangeText={text => setPassword(text)} style={{ ...emailTheme.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }} placeholder='Contraseña' placeholderTextColor={'gray'} />
                                         <Text style={{ fontWeight: '400', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 16, padding: 10, textDecorationLine: 'underline' }}>Olvide mi contraseña</Text>
 
                                         <TouchableOpacity
@@ -130,7 +130,7 @@ export const EmailLoginScreen = () => {
                                 <Text style={{ alignSelf: 'flex-start', paddingHorizontal: 20, fontSize: 15, color: theme.colors.text }}>Crear cuenta</Text>
                                 <TextInput keyboardType='default' value={name} onChangeText={text => setName(text)} style={{ ...emailTheme.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }} placeholder='Nombre y apellido' placeholderTextColor={'gray'} />
                                 <TextInput keyboardType='email-address' value={email} onChangeText={text => setEmail(text)} style={{ ...emailTheme.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }} placeholder='Email' placeholderTextColor={'gray'} />
-                                <TextInput secureTextEntry keyboardType='email-address' value={password} onChangeText={text => setPassword(text)} style={{ ...emailTheme.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }} placeholder='Contraseña' placeholderTextColor={'gray'} />
+                                <TextInput secureTextEntry value={password} onChangeText={text => setPassword(text)} style={{ ...emailTheme.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }} placeholder='Contraseña' placeholderTextColor={'gray'} />
                                 <TouchableOpacity
                                     onPress={() => getUserByEmail(email.toLowerCase())}
                                     style={{

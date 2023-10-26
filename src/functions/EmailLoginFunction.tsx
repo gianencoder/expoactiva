@@ -17,7 +17,7 @@ export const EmailLoginFunction = () => {
 
     const getUserByEmail = async (email: string) => {
         try {
-            const response = await fetch(`http://192.168.1.6:3000/user/${email}`, {
+            const response = await fetch(`${properties.cyberSoftURL}user/${email}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -41,7 +41,7 @@ export const EmailLoginFunction = () => {
 
     const signIn = async (email: string, pswd: string) => {
         setLoading(true)
-        fetch('http://192.168.1.6:3000/auth/login', {
+        fetch(`${properties.cyberSoftURL}auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -59,10 +59,10 @@ export const EmailLoginFunction = () => {
                         await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user))
                         await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token))
                         const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-                        await delay(3000)
+                        await delay(1000)
                         setLoading(false)
                         setVisible(true)
-                        await delay(1500)
+                        await delay(1000)
                         setVisible(false)
                         await delay(300)
                         navigation.navigate('HomeScreen')
