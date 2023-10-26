@@ -146,7 +146,7 @@ export const EventFunction = () => {
     // Función para enviar favorito a la API
     async function sendFavouriteAPI(eventId: Number, eventStartTime: Date) {
 
-        const url = 'https://expoactiva-nacional-395522.rj.r.appspot.com/favourites/create';
+        const url = `${properties.cyberSoftURL}/favourites/create`;
         
         let expoPushToken = notificationToken;
         const body = {
@@ -188,7 +188,7 @@ export const EventFunction = () => {
             return;
         }
 
-        const url = 'https://expoactiva-nacional-395522.rj.r.appspot.com/favourites/';
+        const url = `${properties.cyberSoftURL}/favourites/`;
     
         let expoPushToken = expoPushTokenForId;
         const body = {
