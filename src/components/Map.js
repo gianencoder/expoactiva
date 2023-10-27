@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Animated, Easing, Platform, Dimensions, A
 import Mapbox from '@rnmapbox/maps';
 import useNavigationApi from '../hooks/useNavigationApi.js';
 import MapNavigation from './MapNavigation.js';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import BottomSheet from './BottomSheet.js';
 import { exhibitors } from '../assets/expositores.js';
 import * as Location from 'expo-location';
@@ -280,7 +280,7 @@ const Map = ({showModal}) => {
     }, [followUserMode]);  
     
     useEffect(() => {
-        if (followUserMode && cameraRef.current) {
+        if (followUserMode && cameraRef.current && !cameraAdjusted) {
             cameraRef.current.setCamera({
                 centerCoordinate: deviceCoordinates,
                 zoomLevel: 17.5,
@@ -318,6 +318,16 @@ const Map = ({showModal}) => {
     
     const { route, distance, loading, error, origin, destination } = useNavigationApi(navigationConfig);
     
+    const centerCamera = () => {
+        if (!deviceCoordinates) return;
+        cameraRef.current.setCamera({
+            centerCoordinate: deviceCoordinates,
+            zoomLevel: 16,
+            duration: 500,
+            pitch: 0,
+        });
+    };
+
     const adjustCamera = () => {
         // Si deviceCoordinates o selectedExhibitor son null, no ajusta la cámara
         if (!deviceCoordinates || !selectedExhibitor) return;
@@ -516,6 +526,7 @@ const Map = ({showModal}) => {
                         centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [EXPOACTIVA_MARKER_LONGITUD, EXPOACTIVA_MARKER_LATITUD]}
                         zoomLevel={15.6}
                         animationDuration={1000}
+                        maxZoomLevel={17}
                     />
                     <Mapbox.Images images={iconImages}/>
                     {zoomLevel <= 15 ? (
@@ -537,6 +548,7 @@ const Map = ({showModal}) => {
                     )}
                 </Mapbox.MapView>
                 {!followUserMode && (
+                    <>
                     <TouchableOpacity 
                         onPress={initiateSearch} 
                         style={[
@@ -556,8 +568,29 @@ const Map = ({showModal}) => {
                             Buscar
                         </Text>
                     </TouchableOpacity>
+                    {!selectedExhibitor && (
+                        <TouchableOpacity 
+                        onPress={centerCamera} 
+                        style={[
+                            styles.searchButton,
+                            {
+                                bottom: 70,
+                                left: '75%',
+                                transform: [{translateX: 10}],
+                                padding: 15,
+                                width: 'auto',
+                                borderRadius: 50,
+                                opacity:  0.85,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }
+                        ]}
+                    >
+                        <MaterialCommunityIcons name="crosshairs-gps" color="darkgreen" size={24} />
+                    </TouchableOpacity>
+                    )}
+                </>
                 )}
-
 
             </Animated.View>
             <BottomSheet

@@ -25,6 +25,7 @@ export default function SearchBar({ placeholder, onSearchTextChange, setKeyboard
           ref={inputRef}
           style={styles.searchInput}
           placeholder={placeholder}
+          placeholderTextColor={'gray'}
           value={searchText}
           onChangeText={handleChangeText}
           autoCorrect={false}
