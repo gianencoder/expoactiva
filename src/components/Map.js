@@ -162,8 +162,8 @@ const Map = ({showModal}) => {
                 locationSubscription = await Location.watchPositionAsync(
                     {
                         accuracy: Location.Accuracy.BestForNavigation,
-                        timeInterval: 2500,
-                        distanceInterval: 5,
+                        timeInterval: 2000,
+                        distanceInterval: 1,
                     },
                     (location) => {
 
@@ -283,7 +283,7 @@ const Map = ({showModal}) => {
         if (followUserMode && cameraRef.current) {
             cameraRef.current.setCamera({
                 centerCoordinate: deviceCoordinates,
-                zoomLevel: 19.5,
+                zoomLevel: 17.5,
                 duration: 1000,
                 pitch: 0,
             });
@@ -328,7 +328,7 @@ const Map = ({showModal}) => {
             const midLatitude = (deviceCoordinates[1] + selectedExhibitor.latitude) / 2;
             const midLongitude = (deviceCoordinates[0] + selectedExhibitor.longitude) / 2;
     
-            let zoomLevel = 17;
+            let zoomLevel = 16;
     
             // Ajusta la cámara a la nueva posición
             cameraRef.current.setCamera({
@@ -343,7 +343,7 @@ const Map = ({showModal}) => {
             // Si la cámara ya fue ajustada, vuelva a la posición original
             cameraRef.current.setCamera({
                 centerCoordinate: deviceCoordinates,
-                zoomLevel: 19,
+                zoomLevel: 16,
                 duration: 200,
                 pitch: 0,
             });
@@ -509,8 +509,8 @@ const Map = ({showModal}) => {
                 inputRange: selectedExhibitor ? [60,110] : [100, 200],
                 outputRange: followUserMode || isSearchMode ? [1, 1] : [1, 0.43]
             }) }}>
-                <Mapbox.MapView pitchEnabled={false} attributionEnabled={false} logoEnabled={false} ref={mapRef} style={{ flex: 1 }} onPress={onMapPress} styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' onCameraChanged={handleRegionChange} scaleBarEnabled={false}>
-                    <Mapbox.UserLocation minDisplacement={3} visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} renderMode={Platform.OS==='android' && followUserMode ? 'native': 'normal'} showsUserHeadingIndicator={true}  />
+                <Mapbox.MapView pitchEnabled={false} attributionEnabled={false} logoEnabled={false} ref={mapRef} style={{ flex: 1 }} onPress={!followUserMode && onMapPress} styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' onCameraChanged={handleRegionChange} scaleBarEnabled={false}>
+                    <Mapbox.UserLocation minDisplacement={0.5} visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} renderMode={Platform.OS==='android' && followUserMode ? 'native': 'normal'} showsUserHeadingIndicator={true}  />
                     <Mapbox.Camera
                         ref={cameraRef}
                         centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [EXPOACTIVA_MARKER_LONGITUD, EXPOACTIVA_MARKER_LATITUD]}
