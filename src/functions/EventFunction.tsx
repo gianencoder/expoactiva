@@ -96,10 +96,27 @@ export const EventFunction = () => {
                 await sendFavouriteAPI(selectedEvent.idEvent, selectedEvent.dateHourStart);
             }
         } else {
-            await removeFavouriteAPI(id)
-            removeFavorite(id);
+            const userDecision = await presentRemoveFavoriteAlert();
+            console.log('removeFavoriteAlert', userDecision);
+            if (userDecision) {
+                await removeFavouriteAPI(id);
+                removeFavorite(id,true);
+            }
         }
     }
+
+    const presentRemoveFavoriteAlert = () => {
+        return new Promise(resolve => {
+            Alert.alert(
+                '¿Desea eliminar el favorito?',
+                '',
+                [
+                    { text: 'Cancelar', onPress: () => resolve(false), style: 'cancel' },
+                    { text: 'Eliminar', onPress: () => resolve(true), style: 'destructive' }
+                ]
+            );
+        });
+    };
 
     const handleSelectItem = (id: number) => {
         const selectedEvent = filterEvent.find((event) => event.idEvent === id)

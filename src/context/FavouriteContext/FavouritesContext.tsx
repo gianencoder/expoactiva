@@ -1,11 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { Alert } from "react-native";
 
 // Define el tipo para el contexto
 type FavoritesContextType = {
   favorites: EventoMoshi[];
   addFavorite: (event: EventoMoshi) => void;
-  removeFavorite: (id: number) => void;
+  removeFavorite: (id: number, eventFunction: boolean) => void;
 };
 
 // Crear un contexto
@@ -37,8 +38,13 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
     setFavorites((prevFavorites) => [...prevFavorites, event]);
   };
 
-  const removeFavorite = (id: number) => {
-    setFavorites((prevFavorites) => prevFavorites.filter(event => event.idEvent !== id));
+  const removeFavorite = async (id: number, eventFunction: boolean) => {
+    if (eventFunction) {
+      setFavorites((prevFavorites) => prevFavorites.filter(event => event.idEvent !== id));
+      return
+    }
+    const userDecision = await presentRemoveFavoriteAlert();
+    userDecision && setFavorites((prevFavorites) => prevFavorites.filter(event => event.idEvent !== id));
   };
 
 
@@ -62,7 +68,18 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
   }, [favorites])
 
 
-
+  const presentRemoveFavoriteAlert = () => {
+    return new Promise(resolve => {
+        Alert.alert(
+            '¿Desea eliminar el favorito?',
+            '',
+            [
+                { text: 'Cancelar', onPress: () => resolve(false), style: 'cancel' },
+                { text: 'Eliminar', onPress: () => resolve(true), style: 'destructive' }
+            ]
+        );
+    });
+};
 
   return (
     <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite }}>
