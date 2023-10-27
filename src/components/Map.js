@@ -525,7 +525,7 @@ const Map = ({showModal}) => {
                         ref={cameraRef}
                         centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [EXPOACTIVA_MARKER_LONGITUD, EXPOACTIVA_MARKER_LATITUD]}
                         zoomLevel={15.6}
-                        animationDuration={1000}
+                        animationDuration={500}
                         maxZoomLevel={17}
                     />
                     <Mapbox.Images images={iconImages}/>

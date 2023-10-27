@@ -40,7 +40,7 @@ export const AuthComponent = () => {
             const userInfo = await GoogleSignin.signIn();
             exchangeGoogleTokenForJWT(userInfo.idToken);
         } catch (error) {
-            console.error("Error al iniciar sesión:", error);
+            console.log("Error al iniciar sesión:", error);
         }
     }, []);
 
