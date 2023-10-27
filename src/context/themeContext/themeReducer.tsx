@@ -68,17 +68,16 @@ export const darkTheme: ThemeState = {
     customColors: {
         transparent: Platform.OS === 'android' ? 'rgba(27,27,27,0.95)' : 'rgba(27,27,27,0.95)',
         littleComponentBg: '#1d1d1d',
-        littleComponentIcon: '#03ffbb',
+        littleComponentIcon: '#A0E4CB',
         bottomTabIcon: 'white',
-        iconColor: '#03ffbb',
+        iconColor: '#A0E4CB',
         shadow: 'white',
-        activeColor: '#03ffbb',
+        activeColor: '#A0E4CB',
         headerColor: '#1b1b1b',
         subtitles: MyColors.textGrey
 
     }
 }
-
 
 
 export const themeReducer = (state: ThemeState, action: ThemeAction): ThemeState => {
