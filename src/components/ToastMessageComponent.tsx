@@ -1,24 +1,23 @@
-import React, { useContext, useState, forwardRef, useImperativeHandle } from 'react'
+import React, { useContext, useState, forwardRef, useImperativeHandle, useEffect } from 'react'
 import { View, Text, useWindowDimensions } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
-import Animated, { BounceIn, FadeIn, FadeInLeft, FadeOutRight, LightSpeedInLeft } from 'react-native-reanimated';
+import Animated, { SlideInLeft, SlideOutRight, withSpring } from 'react-native-reanimated';
 import { MyColors } from '../theme/ColorsTheme';
 
 
-export const ToastMessageComponent = ({ type, title, message, color, icon, timeout, visible }: any) => {
+
+export const ToastMessageComponent = ({ type, title, message, color, icon, visible }: any) => {
 
     const { theme } = useContext(ThemeContext)
 
-
     return (
         visible &&
-
         <Animated.View style={{
             position: 'absolute'
             , top: 10
             , width: '90%'
-            , height: 75
+            , height: 80
             , backgroundColor: '#93B1A6'
             , borderRadius: 10
             , padding: 10
@@ -26,14 +25,13 @@ export const ToastMessageComponent = ({ type, title, message, color, icon, timeo
             , alignItems: 'center'
             , gap: 15
             , overflow: 'hidden'
+            , zIndex: 1
+            , alignSelf: 'center'
 
         }}
-            entering={FadeInLeft}
-            exiting={FadeOutRight}
-
-
+            entering={SlideInLeft}
+            exiting={SlideOutRight}
         >
-
             <View style={{ flex: 1, padding: 10, justifyContent: 'center' }}>
                 <AntDesign name="checkcircleo" size={32} color={MyColors.primary} />
             </View>

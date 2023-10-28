@@ -50,7 +50,7 @@ export const BuyTicketScreen = () => {
                         width: '90%'
                         , height: '100%'
                         , justifyContent: 'center'
-                        , backgroundColor: '#2A2071'
+                        , backgroundColor: theme.customColors.buttonColor
                         , alignItems: 'center'
                         , borderRadius: 10
                     }}>

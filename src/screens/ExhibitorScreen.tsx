@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Image, Text, View, ScrollView, TouchableOpacity, ActivityIndicator, Keyboard, RefreshControl } from 'react-native'
+import { Image, Text, View, ScrollView, TouchableOpacity, ActivityIndicator, Keyboard, RefreshControl, TouchableWithoutFeedback } from 'react-native'
 import { styles } from '../theme/GlobalTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { AnimatedFlashList, FlashList } from '@shopify/flash-list'
@@ -55,65 +55,71 @@ export const ExhibitorScreen = () => {
     })
 
     return (
-        <View style={eventStyle.container} >
-            <View style={{ flex: 1, backgroundColor: theme.colors.background, justifyContent: 'center' }}>
-                <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 45, backgroundColor: 'transparent' }}>
-                    <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar nombre o número stand..." />
-                </View>
-                <View style={{ height: 40, alignItems: 'center' }}>
-                    <ScrollView
-                        horizontal
-                        showsHorizontalScrollIndicator={false}>
-                        <View style={{ height: 25, paddingHorizontal: 10, flexDirection: 'row', gap: 10 }}>
-                            {listType.map(t => (
-                                <TouchableOpacity
-                                    key={t}
-                                    onPress={() => toggleFilter(t)}
-                                    style={{ justifyContent: 'center', borderRadius: 5, alignItems: 'center' }}>
-                                    <View style={{ ...eventStyle.typeFilterView, borderColor: theme.currentTheme === 'dark' ? 'lightgray' : 'black', backgroundColor: types.includes(t) ? theme.currentTheme === 'dark' ? 'white' : 'black' : 'transparent' }}>
-                                        <Text style={{ textTransform: 'uppercase', color: types.includes(t) ? theme.currentTheme === 'dark' ? 'black' : 'white' : theme.currentTheme === 'dark' ? 'white' : 'black' }}>{t}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            ))}
-                        </View>
-                    </ScrollView>
-                </View>
-                {loading
-                    ?
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <ActivityIndicator size={'large'} color={theme.customColors.activeColor} style={{ backgroundColor: theme.colors.background, height: '100%', width: '100%' }} />
+        <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
+            <View style={eventStyle.container} >
+
+
+                <View style={{ flex: 1, backgroundColor: theme.colors.background, justifyContent: 'center' }}>
+                    <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 45, backgroundColor: 'transparent' }}>
+                        <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar nombre o número stand..." />
                     </View>
-
-                    :
-
-                    filterExhibitor.length > 0 ?
-                        <FlashList
-                            onScrollBeginDrag={handleScroll}
-                            keyboardShouldPersistTaps="always"
-                            data={filterExhibitor}
-                            keyExtractor={(ex: Exhibitors) => ex._id.toString()}
-                            estimatedItemSize={250}
-                            renderItem={({ item }) => <ExhibitorComponent ex={item} selectEx={() => selectExhibitor(item._id)} />}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={fetching}
-                                    progressBackgroundColor={theme.colors.background}
-                                    onRefresh={handleSetFetching}
-                                    colors={[theme.customColors.activeColor]}
-                                    tintColor={theme.customColors.activeColor}
-                                />
-                            }
-                            ItemSeparatorComponent={() => <SeparatorComponent />}
-                        />
-                        :
-                        <View style={{ flex: 1, alignItems: 'center', }}>
-                            <Text style={{ color: 'gray', fontWeight: 'bold', alignSelf: 'center', fontSize: 16 }}>No hay expositores para mostrar</Text>
+                    <View style={{ height: 40, alignItems: 'center' }}>
+                        <ScrollView
+                            horizontal
+                            showsHorizontalScrollIndicator={false}>
+                            <View style={{ height: 25, paddingHorizontal: 10, flexDirection: 'row', gap: 10 }}>
+                                {listType.map(t => (
+                                    <TouchableOpacity
+                                        key={t}
+                                        onPress={() => toggleFilter(t)}
+                                        style={{ justifyContent: 'center', borderRadius: 5, alignItems: 'center' }}>
+                                        <View style={{ ...eventStyle.typeFilterView, borderColor: theme.currentTheme === 'dark' ? 'lightgray' : 'black', backgroundColor: types.includes(t) ? theme.currentTheme === 'dark' ? 'white' : 'black' : 'transparent' }}>
+                                            <Text style={{ textTransform: 'uppercase', color: types.includes(t) ? theme.currentTheme === 'dark' ? 'black' : 'white' : theme.currentTheme === 'dark' ? 'white' : 'black' }}>{t}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        </ScrollView>
+                    </View>
+                    {loading
+                        ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <ActivityIndicator size={'large'} color={theme.customColors.activeColor} style={{ backgroundColor: theme.colors.background, height: '100%', width: '100%' }} />
                         </View>
 
-                }
+                        :
 
-            </View >
-        </View>
+                        filterExhibitor.length > 0 ?
+                            <FlashList
+                                onScrollBeginDrag={handleScroll}
+                                keyboardShouldPersistTaps="always"
+                                data={filterExhibitor}
+                                keyExtractor={(ex: Exhibitors) => ex._id.toString()}
+                                estimatedItemSize={250}
+                                renderItem={({ item }) => <ExhibitorComponent ex={item} selectEx={() => selectExhibitor(item._id)} />}
+                                refreshControl={
+                                    <RefreshControl
+                                        refreshing={fetching}
+                                        progressBackgroundColor={theme.colors.background}
+                                        onRefresh={handleSetFetching}
+                                        colors={[theme.customColors.activeColor]}
+                                        tintColor={theme.customColors.activeColor}
+                                    />
+                                }
+                                ItemSeparatorComponent={() => <SeparatorComponent />}
+                            />
+                            :
+                            <View style={{ flex: 1, alignItems: 'center', }}>
+                                <Text style={{ color: 'gray', fontWeight: 'bold', alignSelf: 'center', fontSize: 16 }}>No hay expositores para mostrar</Text>
+                            </View>
+
+                    }
+
+                </View >
+
+            </View>
+        </TouchableWithoutFeedback>
+
     )
 }
 

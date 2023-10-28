@@ -8,7 +8,6 @@ import { GoToPlaceScreen } from '../screens/GoToPlaceScreen';
 import { WhereIsMyCarScreen } from '../screens/WhereIsMyCarScreen';
 import { FavouriteEventScreen } from '../screens/FavouriteEventScreen';
 import { TopTabNavigator } from './TopTabNavigator';
-import { ConfigurationScreen } from '../screens/ConfigurationScreen';
 import { ExhibitorScreen } from '../screens/ExhibitorScreen';
 import { EventDetails } from '../screens/EventDetails';
 import { EventScreen } from '../screens/EventScreen';
@@ -16,7 +15,8 @@ import { ExhibitorDetails } from '../screens/ExhibitorDetails';
 import { TicketDetail } from '../screens/TicketDetailScreen';
 import { EmailLoginScreen } from '../screens/EmailLoginScreen';
 import { BuyTicketScreen } from '../screens/BuyTicketScreen';
-import { ToastMessageComponent } from '../components/ToastMessageComponent';
+import { ValidateCodeComponent } from '../components/ValidateCodeComponent';
+
 
 const Stack = createStackNavigator();
 
@@ -25,7 +25,6 @@ export const MyStack = () => {
         <Stack.Navigator
             screenOptions={{
                 gestureEnabled: true,
-                // gestureDirection: 'horizontal',
                 gestureVelocityImpact: 1500,
                 headerShown: false
             }}

@@ -10,9 +10,9 @@ export const EmailLoginFunction = () => {
     const [isChecking, setIsChecking] = useState(true)
     const navigation = useNavigation()
     const { login } = useAuthContext();
-    const [visible, setVisible] = useState(false)
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState(false)
+    const [created, setCreated] = useState(true)
 
 
     const getUserByEmail = async (email: string) => {
@@ -39,6 +39,35 @@ export const EmailLoginFunction = () => {
         }
     };
 
+
+    const signup = async (name: string, email: string, pswd: string) => {
+        setLoading(true)
+        fetch('http://192.168.1.6:3000/user/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: pswd,
+            }),
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    setLoading(false)
+                    setCreated(true)
+                } else {
+                    setLoading(false)
+                    setCreated(false)
+                    throw new Error('No se pudo crear el usuario')
+                }
+            })
+            .catch(err => {
+                throw new Error(err)
+            })
+    }
+
     const signIn = async (email: string, pswd: string) => {
         setLoading(true)
         fetch(`${properties.cyberSoftURL}auth/login`, {
@@ -58,16 +87,8 @@ export const EmailLoginFunction = () => {
                         login(data.user, data.token);
                         await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user))
                         await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token))
-                        const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-                        await delay(1000)
                         setLoading(false)
-                        setVisible(true)
-                        await delay(1000)
-                        setVisible(false)
-                        await delay(300)
                         navigation.navigate('HomeScreen')
-
-
 
                     });
                 } else if (response.status === 401) {
@@ -92,9 +113,10 @@ export const EmailLoginFunction = () => {
             , exist
             , isChecking
             , signIn
-            , visible
+            , signup
             , loading
             , response
+            , created
 
         }
     )

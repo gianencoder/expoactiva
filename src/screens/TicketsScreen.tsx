@@ -48,7 +48,7 @@ export const TicketsScreen = () => {
                         <TouchableOpacity
                             onPress={() => navigation.navigate('BuyTicket')}
                             style={{
-                                backgroundColor: '#2A2071'
+                                backgroundColor: theme.customColors.buttonColor
                                 , height: 50
                                 , width: '90%'
                                 , borderRadius: 10
@@ -71,14 +71,14 @@ export const TicketsScreen = () => {
                     <TouchableOpacity
                         onPress={() => navigation.navigate('BuyTicket')}
                         style={{
-                            backgroundColor: '#2A2071'
+                            backgroundColor: theme.customColors.buttonColor
                             , height: 40
                             , width: '90%'
                             , borderRadius: 10
                             , justifyContent: 'center'
                             , alignItems: 'center'
                         }}>
-                        <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>PRESIONE AQUÍ PARA COMPRAR</Text>
+                        <Text style={{ ...ticketStyles.btt, color: 'white', letterSpacing: 1 }}>PRESIONE AQUÍ PARA COMPRAR</Text>
                     </TouchableOpacity>
                 </View>
 

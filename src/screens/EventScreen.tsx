@@ -16,13 +16,13 @@ export const EventScreen = () => {
     const { theme } = useContext(ThemeContext);
     const { favorites } = useFavorites();
     const [selectedFilters, setSelectedFilters] = useState([]);
+    const [cargoWhile, setCargoWhile] = useState(false);
     const [selectedDates, setSelectedDates] = useState([]);
     const eventDates = ['2024-03-12', '2024-03-13', '2024-03-14', '2024-03-15', '2024-03-16'];
 
     const formatDate = (date) => {
         return moment(date).format('YYYY-MM-DD');
     };
-
 
     const toggleFilter = (filter) => {
         if (selectedFilters.includes(filter)) {

@@ -22,6 +22,7 @@ export interface ThemeState extends Theme {
         activeColor: string,
         headerColor: string,
         subtitles: string,
+        buttonColor: string,
 
     }
 }
@@ -49,7 +50,8 @@ export const lightTheme: ThemeState = {
         shadow: 'black',
         activeColor: MyColors.primary,
         headerColor: MyColors.primary,
-        subtitles: MyColors.textGrey
+        subtitles: MyColors.textGrey,
+        buttonColor: '#5C8374'
     }
 }
 
@@ -74,7 +76,8 @@ export const darkTheme: ThemeState = {
         shadow: 'white',
         activeColor: '#A0E4CB',
         headerColor: '#1b1b1b',
-        subtitles: MyColors.textGrey
+        subtitles: MyColors.textGrey,
+        buttonColor: '#5C8374'
 
     }
 }

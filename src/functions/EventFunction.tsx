@@ -39,10 +39,9 @@ export const EventFunction = () => {
                 setLoading(false)
             })
             .catch(err => {
-
                 Alert.alert("Hubo un problema obteniendo la información",
-                    "Intenta nuevamente en unos minutos",
-                    [{ text: "Volver", onPress: () => navigation.goBack() }])
+                    'Intenta nuevamente en unos minutos',
+                    [{ text: "Aceptar", onPress: () => navigation.goBack() }])
             }).finally(() => setFetching(false))
     }
 
@@ -60,18 +59,18 @@ export const EventFunction = () => {
     const checkNotificationPermissions = useCallback(async () => {
         const hasPermissions = await verifyAndRequestPermissions();
         if (!hasPermissions) {
-          navigation.goBack();
+            navigation.goBack();
         }
-      }, [navigation, verifyAndRequestPermissions]);
-    
+    }, [navigation, verifyAndRequestPermissions]);
+
     useEffect(() => {
         if (Platform.OS !== 'android') {
             const handleAppStateChange = async () => {
                 checkNotificationPermissions();
             };
-        
+
             const subscription = AppState.addEventListener("change", handleAppStateChange);
-            
+
             return () => {
                 subscription.remove();
             };
@@ -147,7 +146,7 @@ export const EventFunction = () => {
     async function sendFavouriteAPI(eventId: Number, eventStartTime: Date) {
 
         const url = `${properties.cyberSoftURL}/favourites/create`;
-        
+
         let expoPushToken = notificationToken;
         const body = {
             expoPushToken,
@@ -173,12 +172,12 @@ export const EventFunction = () => {
     async function removeFavouriteAPI(eventId: number) {
         const eventTokenMapping = JSON.parse(await AsyncStorage.getItem('eventTokenMapping')) || {};
         const expoPushTokenForId = eventTokenMapping[eventId];
-        
+
         console.log('Eliminando favorito de la API:', eventId, expoPushTokenForId)
         if (!expoPushTokenForId) {
             return;
         }
-        
+
         delete eventTokenMapping[eventId];
         await AsyncStorage.setItem('eventTokenMapping', JSON.stringify(eventTokenMapping));
 
@@ -189,27 +188,27 @@ export const EventFunction = () => {
         }
 
         const url = `${properties.cyberSoftURL}/favourites/`;
-    
+
         let expoPushToken = expoPushTokenForId;
         const body = {
             expoPushToken,
             eventId,
         };
-    
+
         try {
             const response = await axios.delete(url, { data: body });
-    
+
             console.log(response);
             if (response.status === 200) {
                 console.log('Favorito eliminado en el backend con éxito');
-    
-                
+
+
             }
         } catch (error) {
             console.error('Error al eliminar favorito en la API:', error);
         }
     }
-    
+
 
     const removeEvent = async (id: number) => {
         const canRemove = favorites.find(e => e.idEvent === id);

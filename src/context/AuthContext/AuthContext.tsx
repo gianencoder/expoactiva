@@ -4,11 +4,10 @@ import { ReactNode, createContext, useContext, useEffect, useState } from "react
 
 type AuthStateContext = {
     isLoggedIn: boolean;
-    user: User[]
-    logout: () => void
+    visible: boolean;
+    user: User[];
+    logout: () => void;
     login: (user: User[], token: string) => void;
-
-
 };
 
 const AuthContext = createContext<AuthStateContext | undefined>(undefined);
@@ -29,11 +28,12 @@ type AuthProviderProps = {
 export function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<User[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+    const [visible, setVisible] = useState(false);
 
     const login = (userData: User[], token: string) => {
         setUser(userData);
         setIsLoggedIn(true);
+        setVisible(true)
     };
 
     useEffect(() => {
@@ -60,17 +60,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
             // Restablecer los valores del estado del contexto
             setUser([]);
             setIsLoggedIn(false);
+            setVisible(false)
         } catch (error) {
             console.error('Error al cerrar la sesión:', error);
             throw new Error('Error al cerrar la sesión');
         }
     }
 
-
-
-
     return (
-        <AuthContext.Provider value={{ isLoggedIn, user, logout, login }}>
+        <AuthContext.Provider value={{ isLoggedIn, visible, user, logout, login }}>
             {children}
         </AuthContext.Provider>
     );
