@@ -5,6 +5,22 @@ import { MyColors } from "./ColorsTheme";
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 export const authStyle = StyleSheet.create({
+    mainView: {
+        width: '90%'
+        , height: 'auto'
+        , borderRadius: 15
+        , justifyContent: "center"
+        , alignItems: "center"
+        , shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
+    },
 
     authCard: {
         flex: 1,
@@ -103,4 +119,33 @@ export const authStyle = StyleSheet.create({
         flexDirection: 'row',
         gap: 15
     },
+
+    formView: {
+        width: '90%'
+    },
+
+    formLabel: {
+        paddingHorizontal: 3
+        , paddingVertical: 3
+        , fontSize: 16,
+    },
+
+    ef: {
+        width: '100%'
+        , height: 40
+        , borderRadius: 5
+        , padding: 10
+        , textAlignVertical: 'bottom'
+        , fontSize: 20
+
+    },
+
+    createAccountForm: {
+        borderRadius: 10
+        , alignItems: 'center'
+        , height: 'auto'
+        , width: '100%'
+        , gap: 15
+        , padding: 10,
+    }
 })

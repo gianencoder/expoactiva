@@ -45,6 +45,7 @@ export const MyStack = () => {
             <Stack.Screen name="TicketDetail" component={TicketDetail} />
             <Stack.Screen name="EmailLogin" component={EmailLoginScreen} />
             <Stack.Screen name="BuyTicket" component={BuyTicketScreen} />
+            <Stack.Screen name="CodeValidation" component={ValidateCodeComponent} />
         </Stack.Navigator >
     );
 }

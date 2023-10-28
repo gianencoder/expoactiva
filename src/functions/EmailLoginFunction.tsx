@@ -11,6 +11,7 @@ export const EmailLoginFunction = () => {
     const navigation = useNavigation()
     const { login } = useAuthContext();
     const [loading, setLoading] = useState(false);
+    const [adding, setAdding] = useState(false);
     const [response, setResponse] = useState(false)
     const [created, setCreated] = useState(true)
 
@@ -26,12 +27,12 @@ export const EmailLoginFunction = () => {
             if (!response.ok) {
                 setIsChecking(false)
                 setExist(false)
-                console.log('ya chequee y no existe')
+
             } else {
                 const data = await response.json();
                 setIsChecking(false)
                 setExist(true)
-                console.log('ya chequee y existe')
+
             }
 
         } catch (error) {
@@ -40,9 +41,9 @@ export const EmailLoginFunction = () => {
     };
 
 
-    const signup = async (name: string, email: string, pswd: string) => {
-        setLoading(true)
-        fetch('http://192.168.1.6:3000/user/signup', {
+    const signUp = async (name: string, email: string, pswd: string) => {
+        setAdding(true)
+        fetch(`${properties.cyberSoftURL}user/signup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,15 +56,18 @@ export const EmailLoginFunction = () => {
         })
             .then(response => {
                 if (response.status === 200) {
-                    setLoading(false)
                     setCreated(true)
+                    setAdding(false)
+                    navigation.navigate('CodeValidation')
+
                 } else {
-                    setLoading(false)
                     setCreated(false)
+                    setAdding(false)
                     throw new Error('No se pudo crear el usuario')
                 }
             })
             .catch(err => {
+                setAdding(false)
                 throw new Error(err)
             })
     }
@@ -113,10 +117,11 @@ export const EmailLoginFunction = () => {
             , exist
             , isChecking
             , signIn
-            , signup
+            , signUp
             , loading
             , response
             , created
+            , adding
 
         }
     )
