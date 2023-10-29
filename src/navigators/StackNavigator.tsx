@@ -17,7 +17,6 @@ import { EmailLoginScreen } from '../screens/EmailLoginScreen';
 import { BuyTicketScreen } from '../screens/BuyTicketScreen';
 import { ValidateCodeComponent } from '../components/ValidateCodeComponent';
 
-
 const Stack = createStackNavigator();
 
 export const MyStack = () => {

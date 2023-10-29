@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useAuthContext } from '../context/AuthContext/AuthContext';
 import properties from '../../properties.json'
 
+
 export const EmailLoginFunction = () => {
     const [exist, setExist] = useState(false)
     const [isChecking, setIsChecking] = useState(true)
@@ -13,7 +14,7 @@ export const EmailLoginFunction = () => {
     const [loading, setLoading] = useState(false);
     const [adding, setAdding] = useState(false);
     const [response, setResponse] = useState(false)
-    const [created, setCreated] = useState(true)
+    const [checkit, setCheckit] = useState(false)
 
 
     const getUserByEmail = async (email: string) => {
@@ -27,14 +28,11 @@ export const EmailLoginFunction = () => {
             if (!response.ok) {
                 setIsChecking(false)
                 setExist(false)
-
             } else {
                 const data = await response.json();
                 setIsChecking(false)
                 setExist(true)
-
             }
-
         } catch (error) {
             console.log(error);
         }
@@ -42,7 +40,7 @@ export const EmailLoginFunction = () => {
 
 
     const signUp = async (name: string, email: string, pswd: string) => {
-        setAdding(true)
+        setLoading(true)
         fetch(`${properties.cyberSoftURL}user/signup`, {
             method: 'POST',
             headers: {
@@ -54,20 +52,24 @@ export const EmailLoginFunction = () => {
                 password: pswd,
             }),
         })
-            .then(response => {
+            .then(async response => {
                 if (response.status === 200) {
-                    setCreated(true)
-                    setAdding(false)
+                    setLoading(false)
                     navigation.navigate('CodeValidation')
 
-                } else {
-                    setCreated(false)
-                    setAdding(false)
-                    throw new Error('No se pudo crear el usuario')
                 }
+
+                if (response.status === 400) {
+                    setLoading(false);
+                    setCheckit(true);
+                    await new Promise(resolve => setTimeout(resolve, 3500));
+                    setIsChecking(true);
+
+                }
+
+
             })
             .catch(err => {
-                setAdding(false)
                 throw new Error(err)
             })
     }
@@ -123,7 +125,7 @@ export const EmailLoginFunction = () => {
             , signUp
             , loading
             , response
-            , created
+            , checkit
             , adding
             , handleFormCancel
             , setIsChecking

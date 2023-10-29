@@ -4,10 +4,9 @@ export const themeConfig = StyleSheet.create
     ({
         container: {
             flex: 1,
-            gap: 10,
         },
         configScreen: {
-            height: 50,
+            height: 60,
             marginHorizontal: 20,
         },
         itemContainer: {

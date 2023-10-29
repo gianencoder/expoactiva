@@ -46,12 +46,12 @@ export const AuthScreen = () => {
                             borderRadius: 10
 
                         }}>
-                            <Text style={{ color: 'white', fontSize: 15, fontWeight: '600' }}>Inicar sesión</Text>
+                            <Text style={{ color: 'white', fontSize: 15, fontWeight: '600' }}>Iniciar sesión</Text>
                         </TouchableOpacity>
-                        <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center' }}>
-                            <Text style={{ color: 'grey', fontSize: 12, fontWeight: '500' }}>No tienes cuenta?</Text>
-                            <TouchableOpacity onPress={toggleModal} >
-                                <Text style={{ ...authStyle.createAccount, color: theme.colors.text, }}>Create una</Text>
+                        <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center', height: 50 }}>
+                            <Text style={{ color: 'gray', fontSize: 13, fontWeight: '500' }}>¿No tienes cuenta?</Text>
+                            <TouchableOpacity onPress={toggleModal} hitSlop={{ top: 30, bottom: 50, right: 30, left: 30 }} >
+                                <Text style={{ ...authStyle.createAccount, color: 'gray', }}>Presiona aquí</Text>
                             </TouchableOpacity>
                         </View>
 

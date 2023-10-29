@@ -26,9 +26,8 @@ export const VisibilityScreen = () => {
     }, [enabled])
 
     return (
-
-        <View style={{ ...visibilityTheme.container, backgroundColor: theme.colors.background }}>
-            <View style={{ ...visibilityTheme.options }}>
+        <View style={{ flex: 1, justifyContent: 'center', }}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around', alignItems: 'center' }}>
                 <Text style={{ ...visibilityTheme.text, color: theme.colors.text }}>
                     {text}
                 </Text>
@@ -40,8 +39,7 @@ export const VisibilityScreen = () => {
                     value={enabled}
                 />
             </View>
-            <SeparatorComponent />
-            <View style={{ flex: 8 }}></View>
         </View>
+
     )
 }

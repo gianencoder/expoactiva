@@ -4,7 +4,6 @@ import { View, Text, Image, useWindowDimensions, TouchableOpacity } from 'react-
 import { themeConfig } from '../theme/ConfigurationTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { SeparatorComponent } from './SeparatorComponent'
-import { MyColors } from '../theme/ColorsTheme'
 
 interface Props {
     title: string,
@@ -17,26 +16,21 @@ export const ConfigurationItemComponent = ({ title, image, method }: Props) => {
     const { width, height } = useWindowDimensions()
     const { theme } = useContext(ThemeContext)
     return (
-        <View style={{ ...themeConfig.configScreen, backgroundColor: 'transparent' }}>
-            <TouchableOpacity onPress={method}>
-                <View >
-                    <View style={{ ...themeConfig.itemContainer }}>
-                        <View style={themeConfig.item}>
-                            {image}
-                            <Text style={{ color: theme.colors.text }}>
-                                {title}
-                            </Text>
-                        </View>
-                        <View>
-                            <Image style={{ width: width / 30, height: height / 45, tintColor: theme.customColors.iconColor }}
-                                source={require('../assets/icons/right.arrow.png')} />
-                        </View>
+        <TouchableOpacity onPress={method}>
+            <View >
+                <View style={{ ...themeConfig.itemContainer }}>
+                    <View style={themeConfig.item}>
+                        {image}
+                        <Text style={{ color: theme.colors.text }}>
+                            {title}
+                        </Text>
+                    </View>
+                    <View>
+                        <Image style={{ width: width / 30, height: height / 45, tintColor: theme.customColors.iconColor }}
+                            source={require('../assets/icons/right.arrow.png')} />
                     </View>
                 </View>
-            </TouchableOpacity>
-            <SeparatorComponent />
-        </View>
-
-
+            </View>
+        </TouchableOpacity>
     )
 }

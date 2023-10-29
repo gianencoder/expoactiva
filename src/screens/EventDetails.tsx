@@ -26,7 +26,6 @@ export const EventDetails = () => {
     const snapPoints = useMemo(() => ['32%', '80%'], [])
     const { favorites } = useFavorites()
     const { handleAddFav } = EventFunction()
-
     const route = useRoute()
     const { eventName, type, dateHourStart, dateHourEnd, image, description, id }: any = route.params
     const [sTimeLeft, setsTimeLeft] = useState(formatDistanceToNow(new Date(dateHourStart), { addSuffix: true, locale: esLocale }));

@@ -18,7 +18,10 @@ export const HeaderComponent = () => {
             </View>
 
             <View style={{ flexDirection: 'row' }}>
-                <Image style={{ height: 50, width: 120 }} source={require('../assets/icons/expoactivaNacional.png')} />
+                <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('HomeScreen')}>
+                    <Image style={{ height: 50, width: 120 }} source={require('../assets/icons/expoactivaNacional.png')} />
+                </TouchableOpacity>
+
             </View>
         </View >
     )

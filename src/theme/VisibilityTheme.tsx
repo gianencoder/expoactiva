@@ -15,8 +15,8 @@ export const visibilityTheme = StyleSheet.create({
         // gap: 15,
     },
     text: {
-        // textAlign: 'center',
-        fontSize: 16
+        textAlign: 'center',
+        fontSize: 19
     },
 
 })

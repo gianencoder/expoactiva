@@ -40,7 +40,7 @@ export const authStyle = StyleSheet.create({
     },
     createAccount: {
         fontSize: 12,
-        fontWeight: 'bold',
+        fontWeight: '600',
         textDecorationLine: 'underline'
     },
 
