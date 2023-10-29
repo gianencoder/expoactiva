@@ -13,6 +13,7 @@ import moment from 'moment';
 import { formatDate } from '../util/utils';
 
 
+
 export const EventScreen = () => {
 
     const { loading, filterEvent, setSearchText, fetching, handleSetFetching, handleAddFav, handleSelectItem } = EventFunction()

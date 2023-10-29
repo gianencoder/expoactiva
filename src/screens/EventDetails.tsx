@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { View } from '@motify/components'
 import { Image, ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
@@ -15,10 +15,8 @@ import { useRoute } from '@react-navigation/native';
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext'
 import { EventFunction } from '../functions/EventFunction'
 import { dateFormmater } from '../util/utils'
-
-interface Props {
-    Event: EventoMoshi
-}
+import { formatDistanceToNow } from 'date-fns'
+import esLocale from 'date-fns/locale/es';
 
 const AnimatedDivider = Animated.createAnimatedComponent(DividerComponent)
 export const EventDetails = () => {
@@ -29,12 +27,22 @@ export const EventDetails = () => {
     const { favorites } = useFavorites()
     const { handleAddFav } = EventFunction()
 
-
     const route = useRoute()
     const { eventName, type, dateHourStart, dateHourEnd, image, description, id }: any = route.params
+    const [sTimeLeft, setsTimeLeft] = useState(formatDistanceToNow(new Date(dateHourStart), { addSuffix: true, locale: esLocale }));
+    const [fTimeLeft, setfTimeLeft] = useState(formatDistanceToNow(new Date(dateHourEnd), { addSuffix: true, locale: esLocale }));
 
-    let isFavorite = favorites.find(event => event.idEvent === id)
+    let isFavorite = favorites.find(event => event === id)
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setsTimeLeft(formatDistanceToNow(new Date(dateHourStart), { addSuffix: true, locale: esLocale }));
+            setfTimeLeft(formatDistanceToNow(new Date(dateHourEnd), { addSuffix: true, locale: esLocale }));
+        }, 1000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, [dateHourStart, dateHourEnd]);
 
 
     const nameStyle = useAnimatedStyle(() => ({
@@ -124,8 +132,19 @@ export const EventDetails = () => {
                         <View style={eDetailTheme.header}>
                             <Animated.Text style={[eDetailTheme.type, typeStyle]}>{type}</Animated.Text>
                         </View>
-                        <View style={{ marginTop: 10, marginBottom: -15 }}>
-                            <Animated.Text style={[eDetailTheme.date, hourStyle]}> {formattedStartTime.day} {formattedStartTime.time} - {formattedEndTime.time}</Animated.Text>
+                        <View style={{ marginTop: 10, marginBottom: -15, flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <Animated.Text style={[eDetailTheme.date, hourStyle]}>{formattedStartTime.day} {formattedStartTime.dayNumber}</Animated.Text>
+                            <Animated.Text style={[eDetailTheme.date, hourStyle]}>
+                                {sTimeLeft.includes('hace'.toLowerCase().trim()) && !fTimeLeft.includes('hace'.toLowerCase().trim())
+                                    ? 'EN CURSO'
+                                    : fTimeLeft.includes('hace'.toLowerCase().trim()) && sTimeLeft.includes('hace'.toLowerCase().trim())
+                                        ? 'FINALIZADO'
+                                        : sTimeLeft
+                                }
+                            </Animated.Text>
+                        </View>
+                        <View style={{ marginTop: 20, marginBottom: -20 }}>
+                            <Animated.Text style={[eDetailTheme.date, hourStyle]}>{formattedStartTime.time} - {formattedEndTime.time}</Animated.Text>
                         </View>
                     </Animatable.View>
                     <AnimatedDivider style={contentStyle} />

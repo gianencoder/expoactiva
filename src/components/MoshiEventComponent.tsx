@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { eventStyle } from '../theme/EventTheme';
 import { Ionicons } from '@expo/vector-icons';
-import { formatDistanceToNow, format } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
-import { EventFunction } from '../functions/EventFunction';
+
 import esLocale from 'date-fns/locale/es';
 import { dateFormmater } from '../util/utils';
 
