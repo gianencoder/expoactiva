@@ -27,8 +27,8 @@ export const TicketsScreen = () => {
             <View style={{ ...ticketStyles.container, backgroundColor: theme.colors.background }}>
 
                 <View style={ticketStyles.topSide}>
-                    <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ fontSize: height / 40, fontFamily: 'helvetica', fontWeight: 'bold', color: theme.colors.text }}>MIS ENTRADAS</Text>
+                    <View style={{ width: '100%' }}>
+                        <Text style={{ fontSize: 30, fontFamily: 'verdana', color: theme.colors.text }}>Mis entradas</Text>
                     </View>
 
                     <FlashList

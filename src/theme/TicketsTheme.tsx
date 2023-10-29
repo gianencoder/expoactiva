@@ -5,12 +5,12 @@ export const ticketStyles = StyleSheet.create({
 
     container: {
         flex: 1,
-        padding: 10
+        padding: 20
     },
 
     topSide: {
         flex: 5
-        , gap: 5
+        , gap: 10
 
     },
 
@@ -25,18 +25,18 @@ export const ticketStyles = StyleSheet.create({
         width: '100%'
         , height: 120
         , flexDirection: 'row'
-        , gap: 5
+
     },
 
     imgContainer: {
         flex: 1
         , padding: 5
         , justifyContent: 'center'
+
     },
 
     infoContainer: {
-        flex: 2
-        , padding: 5
+        flex: 2.5
         , justifyContent: 'center'
         , gap: 5
     },

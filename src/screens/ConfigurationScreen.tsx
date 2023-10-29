@@ -31,9 +31,9 @@ export const ConfigurationScreen = () => {
     return (
 
         <GestureHandlerRootView style={{ flex: 1 }}>
-            <View style={{ flex: 1, padding: 20, backgroundColor: theme.colors.background }}>
+            <View style={{ flex: 1, padding: 20, backgroundColor: theme.currentTheme === 'dark' ? isOpen ? 'gray' : 'black' : isOpen ? 'gray' : 'white' }}>
                 <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 40, color: theme.colors.text }}>Configuración</Text>
+                    <Text style={{ fontSize: 30, color: theme.colors.text, fontFamily: 'verdana' }}>Configuración</Text>
                 </View>
 
                 <View style={{ flex: 4, gap: 20, }}>
@@ -60,7 +60,7 @@ export const ConfigurationScreen = () => {
                     backgroundComponent={CustomBackgroundComponent}
                     onClose={() => setIsOpen(false)}
                 >
-                    <BottomSheetView style={{ flex: 1, backgroundColor: theme.colors.background, borderRadius: 30 }}>
+                    <BottomSheetView style={{ flex: 1, backgroundColor: theme.colors.background, borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
                         <VisibilityScreen />
                     </BottomSheetView>
                 </BottomSheet>

@@ -24,7 +24,7 @@ export const TicketComponent = ({ ticket, qrCode, method, props }: Props) => {
         >
             <View style={ticketStyles.listTicketContainer}>
                 <View style={ticketStyles.imgContainer}>
-                    <View style={{ flex: 1, borderRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ flex: 1, borderRadius: 20, justifyContent: 'center' }}>
                         <QRCode
                             value={qrCode}
                             size={80}
