@@ -26,9 +26,6 @@ export const LoginFormComponent = ({ name, password, email, setName, setPassword
     const [emptyField, setEmptyField] = useState(false)
     const { adding } = EmailLoginFunction()
 
-    console.log(adding)
-
-
     const handleSignUp = () => {
         Keyboard.dismiss()
         if (name == '' || email == '' || password == '') {

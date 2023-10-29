@@ -10,19 +10,18 @@ import { MoshiEventComponent } from '../components/MoshiEventComponent';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
 import moment from 'moment';
+import { formatDate } from '../util/utils';
+
 
 export const EventScreen = () => {
+
     const { loading, filterEvent, setSearchText, fetching, handleSetFetching, handleAddFav, handleSelectItem } = EventFunction()
     const { theme } = useContext(ThemeContext);
     const { favorites } = useFavorites();
     const [selectedFilters, setSelectedFilters] = useState([]);
-    const [cargoWhile, setCargoWhile] = useState(false);
     const [selectedDates, setSelectedDates] = useState([]);
     const eventDates = ['2024-03-12', '2024-03-13', '2024-03-14', '2024-03-15', '2024-03-16'];
 
-    const formatDate = (date) => {
-        return moment(date).format('YYYY-MM-DD');
-    };
 
     const toggleFilter = (filter) => {
         if (selectedFilters.includes(filter)) {
@@ -133,11 +132,15 @@ export const EventScreen = () => {
                                     isFavorite={favorites.some(favorite => favorite.idEvent === item.idEvent)}
                                     selectEvent={() => handleSelectItem(item.idEvent)}
                                 />}
+
                                 refreshControl={
                                     <RefreshControl
                                         refreshing={fetching}
                                         progressBackgroundColor={theme.colors.background}
-                                        onRefresh={handleSetFetching}
+                                        onRefresh={() => {
+                                            handleSetFetching()
+
+                                        }}
                                         colors={[theme.customColors.activeColor]} // for android
                                         tintColor={theme.customColors.activeColor} // for ios
                                     />
@@ -160,3 +163,5 @@ export const EventScreen = () => {
         </View >
     );
 };
+
+
