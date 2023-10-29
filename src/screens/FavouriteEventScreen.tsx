@@ -15,25 +15,31 @@ import { NotEventScreen } from './NotEventScreen';
 
 export const FavouriteEventScreen = () => {
 
-    const { loading, fetching, handleSetFetching } = EventFunction()
+    const { loading, fetching, handleSetFetching, removeEvent, events, handleSelectItem } = EventFunction()
     const { theme } = useContext(ThemeContext)
     const { favorites } = useFavorites()
-    const { removeEvent, handleSelectItem } = EventFunction()
     const [searchText, setSearchText] = useState('');
+    const [list, setList] = useState<EventoMoshi[]>([])
 
-    const filterEvent = favorites.filter((ev: EventoMoshi) =>
+
+
+    useEffect(() => {
+        // Al cargar el componente o al volver a él, actualizamos la lista de favoritos
+        setList(events.filter(evento => favorites.includes(evento.idEvent)));
+    }, [events, favorites]);
+
+    const searchByName = events.filter((ev: EventoMoshi) =>
         ev.eventName.toLowerCase().includes(searchText.toLowerCase())
     );
 
-    filterEvent.sort((a, b) => {
+    searchByName.sort((a, b) => {
         const dateA = new Date(a.dateHourStart).getDate();
         const dateB = new Date(b.dateHourStart).getDate();
         return dateA - dateB;
     });
 
     return (
-
-        favorites.length > 0
+        list.length > 0
             ?
             <View style={eventStyle.container} >
                 <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
@@ -46,22 +52,25 @@ export const FavouriteEventScreen = () => {
                             <ActivityIndicator size={'large'} color={MyColors.primary} style={{ backgroundColor: theme.colors.background, height: '100%', width: '100%' }} />
                         </View>
                         :
-                        filterEvent.length > 0 ?
+                        searchByName.length > 0 ?
                             <FlashList
-                                data={filterEvent}
-                                keyExtractor={(event: EventoMoshi) => event.idEvent.toString()}
+                                keyboardShouldPersistTaps="always"
+                                data={list}
+                                keyExtractor={(event) => event.idEvent.toString()}
                                 renderItem={({ item }) => <MoshiEventComponent
                                     moshiEvent={item} method={() => removeEvent(item.idEvent)}
-                                    isFavorite={favorites.some(favorite => favorite.idEvent === item.idEvent)}
+                                    isFavorite={favorites.some(favorite => favorite === item.idEvent)}
                                     selectEvent={() => handleSelectItem(item.idEvent)} />
 
                                 }
-
                                 refreshControl={
                                     <RefreshControl
                                         refreshing={fetching}
                                         progressBackgroundColor={theme.colors.background}
-                                        onRefresh={handleSetFetching}
+                                        onRefresh={() => {
+                                            handleSetFetching()
+
+                                        }}
                                         colors={[theme.customColors.activeColor]} // for android
                                         tintColor={theme.customColors.activeColor} // for ios
                                     />

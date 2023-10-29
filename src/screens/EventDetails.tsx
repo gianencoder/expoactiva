@@ -12,9 +12,9 @@ import { DividerComponent } from '../components/DividerComponent'
 import { SectionHeader } from '../components/SectionHeader'
 import { Ionicons } from '@expo/vector-icons'
 import { useRoute } from '@react-navigation/native';
-import { event } from '../helper/events'
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext'
 import { EventFunction } from '../functions/EventFunction'
+import { dateFormmater } from '../util/utils'
 
 interface Props {
     Event: EventoMoshi
@@ -27,7 +27,7 @@ export const EventDetails = () => {
     const animatedIndex = useSharedValue(0)
     const snapPoints = useMemo(() => ['32%', '80%'], [])
     const { favorites } = useFavorites()
-    const { handleAddFav, formatDateTime } = EventFunction()
+    const { handleAddFav } = EventFunction()
 
 
     const route = useRoute()
@@ -85,13 +85,10 @@ export const EventDetails = () => {
         )
     }))
 
-
-
     const startTime = dateHourStart
     const endTime = dateHourEnd
-    const formattedStartTime = formatDateTime(startTime);
-    const formattedEndTime = formatDateTime(endTime);
-
+    const formattedStartTime = dateFormmater(startTime);
+    const formattedEndTime = dateFormmater(endTime);
 
 
     return (
@@ -141,7 +138,6 @@ export const EventDetails = () => {
 
     )
 }
-
 const styles = StyleSheet.create({
     sectionHeader: {
         marginTop: 10,

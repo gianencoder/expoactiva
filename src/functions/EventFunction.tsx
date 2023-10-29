@@ -82,13 +82,13 @@ export const EventFunction = () => {
 
     const handleAddFav = async (id: number) => {
         const selectedEvent = filterEvent.find((event) => event.idEvent === id)
-        const isFavorite = favorites.find(event => event.idEvent === id)
+        const isFavorite = favorites.find(event => event === id)
 
         if (selectedEvent && !isFavorite) {
 
             const hasPermissions = await verifyAndRequestPermissions();
 
-            addFavorite(selectedEvent);
+            addFavorite(id);
             console.log('selectedEvent.dateHourStart', selectedEvent.dateHourStart)
             if (hasPermissions && notificationToken && (new Date(selectedEvent.dateHourStart) > new Date() && (new Date(selectedEvent.dateHourStart).getTime() - new Date().getTime()) > 900000)) {
                 const eventTokenMapping = JSON.parse(await AsyncStorage.getItem('eventTokenMapping')) || {};
@@ -202,7 +202,7 @@ export const EventFunction = () => {
 
 
     const removeEvent = async (id: number) => {
-        const canRemove = favorites.find(e => e.idEvent === id);
+        const canRemove = favorites.find(e => e === id);
         if (!canRemove) {
 
         } else {
@@ -210,7 +210,6 @@ export const EventFunction = () => {
             removeFavorite(id)
         }
     }
-
 
 
     return ({
@@ -228,6 +227,7 @@ export const EventFunction = () => {
         , handleSelectItem
         , removeEvent
         , searchText
+
 
     })
 }

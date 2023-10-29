@@ -129,7 +129,7 @@ export const EventScreen = () => {
                                 renderItem={({ item }) => <MoshiEventComponent
                                     moshiEvent={item}
                                     method={() => handleAddFav(item.idEvent)}
-                                    isFavorite={favorites.some(favorite => favorite.idEvent === item.idEvent)}
+                                    isFavorite={favorites.some(favorite => favorite === item.idEvent)}
                                     selectEvent={() => handleSelectItem(item.idEvent)}
                                 />}
 
