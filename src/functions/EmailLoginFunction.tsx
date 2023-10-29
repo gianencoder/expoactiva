@@ -110,7 +110,10 @@ export const EmailLoginFunction = () => {
             });
     }
 
-
+    function handleFormCancel() {
+        setIsChecking(true)
+        setExist(false)
+    }
     return (
         {
             getUserByEmail
@@ -122,6 +125,9 @@ export const EmailLoginFunction = () => {
             , response
             , created
             , adding
+            , handleFormCancel
+            , setIsChecking
+            , setExist
 
         }
     )

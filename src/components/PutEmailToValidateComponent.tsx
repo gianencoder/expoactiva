@@ -41,6 +41,7 @@ export const PutEmailToValidateComponent = ({ email, setEmail, getUserByEmail }:
                 <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Email (*)</Text>
                 <TextInput
                     autoComplete={'email'}
+                    clearButtonMode='while-editing'
                     keyboardType='email-address'
                     value={email}
                     onChangeText={text => setEmail(text.toLowerCase())}

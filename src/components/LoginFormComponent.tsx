@@ -15,9 +15,10 @@ interface Props {
     setPassword: (text: string) => void
     setEmail: (text: string) => void
     signUp: (name: string, email: string, password: string) => void
+    handleFormCancel: () => void;
 }
 
-export const LoginFormComponent = ({ name, password, email, setName, setPassword, setEmail, signUp }: Props) => {
+export const LoginFormComponent = ({ name, password, email, setName, setPassword, setEmail, signUp, handleFormCancel }: Props) => {
 
     const { theme } = useContext(ThemeContext)
     const validPassword = /^(?=.*[A-Za-z0-9!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
@@ -51,13 +52,18 @@ export const LoginFormComponent = ({ name, password, email, setName, setPassword
         }
     }
 
+    const handleCancel = () => {
+
+        handleFormCancel();
+
+    }
 
     return (
         adding
             ? <ActivityIndicator style={{ height: '50%' }} size={'large'} color={theme.customColors.activeColor} />
             : <View style={{ ...authStyle.createAccountForm, backgroundColor: theme.colors.background }}>
                 <ToastMessageComponent iconName={'closecircleo'} textColor={'white'} iconColor={'white'} iconSize={24} backgroundColor={'#950101'} visible={isVisible} title={'¡Error!'} message={emptyField ? 'Todos los campos son obligatorios' : !validEmail.test(email) ? 'El email no es válido' : !validPassword.test(password) ? 'La contraseña no cumple los requisitos' : ''} />
-                <Text style={{ alignSelf: 'flex-start', padding: 20, fontSize: 20, color: theme.colors.text }}>El email ingresado no tiene cuenta asociada</Text>
+                <Text style={{ alignSelf: 'flex-start', padding: 20, fontSize: 20, color: theme.colors.text }}>El email ingresado anteriormente no se encuentra asociado a una cuenta</Text>
                 <Text style={{ alignSelf: 'flex-start', paddingHorizontal: 20, fontSize: 18, color: theme.colors.text, fontWeight: '600' }}>Cree una cuenta</Text>
 
                 <View style={{ ...authStyle.formView }}>
@@ -82,16 +88,16 @@ export const LoginFormComponent = ({ name, password, email, setName, setPassword
                 <TouchableOpacity
                     onPress={handleSignUp}
                     style={{
-                        backgroundColor: theme.customColors.buttonColor
+                        backgroundColor: name !== '' && email !== '' && password !== '' ? theme.customColors.buttonColor : '#DBD8E3'
                         , height: 40
                         , width: '90%'
                         , borderRadius: 10
                         , justifyContent: 'center'
                         , alignItems: 'center'
                     }}>
-                    <Text style={{ color: 'white', letterSpacing: 1 }}>CREAR</Text>
+                    <Text style={{ color: name !== '' && email !== '' && password !== '' ? 'white' : '#313131', letterSpacing: 1 }}>{name !== '' && email !== '' && password !== '' ? 'CREAR' : 'COMPLETA TODOS LOS CAMPOS'}</Text>
                 </TouchableOpacity>
-                <Text style={{ fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
+                <Text onPress={handleCancel} style={{ fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
 
 
             </View>

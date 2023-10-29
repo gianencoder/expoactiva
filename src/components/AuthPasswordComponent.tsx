@@ -10,10 +10,11 @@ interface Props {
     password: string
     setPassword: (text: string) => void
     signIn: (email: string, password: string) => void
+    handleFormCancel: () => void;
 }
 
-export const AuthPasswordComponent = ({ email, password, setPassword, signIn }: Props) => {
-    const validPassword = /^(?=.*[A-Za-z0-9!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
+export const AuthPasswordComponent = ({ email, password, setPassword, signIn, handleFormCancel }: Props) => {
+
 
     const { theme } = useContext(ThemeContext)
     const [isValid, setIsValid] = useState(true)
@@ -27,7 +28,7 @@ export const AuthPasswordComponent = ({ email, password, setPassword, signIn }: 
     }
 
     const handleButtonPress = () => {
-        if (!validPassword.test(password)) {
+        if (password === '') {
             setIsValid(false)
             setTimeout(() => {
                 setIsValid(true)
@@ -36,14 +37,19 @@ export const AuthPasswordComponent = ({ email, password, setPassword, signIn }: 
             signIn(email, password)
         }
     };
+
+    const handleCancel = () => {
+        handleFormCancel();
+    }
+
     return (
         <View style={{ alignItems: 'center', height: 'auto', width: '100%', gap: 15, padding: 10 }}>
-            <ToastMessageComponent iconName={'closecircleo'} textColor={'white'} iconColor={'white'} iconSize={24} backgroundColor={'#950101'} visible={!isValid} title={'¡Error!'} message={password != '' ? 'La contraseña no es válida' : 'No puedes dejar el campo vacío'} />
+            <ToastMessageComponent iconName={'closecircleo'} textColor={'white'} iconColor={'white'} iconSize={24} backgroundColor={'#950101'} visible={!isValid} title={'¡Error!'} message={'Ingresa una contraseña por favor'} />
             <Text style={{ alignSelf: 'center', padding: 20, fontSize: 19, color: theme.colors.text }}>Iniciar Sesión</Text>
 
 
             <View style={authStyle.formView}>
-                <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Contraseña (Debe contener 8 o más caracteres)</Text>
+                <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Contraseña</Text>
 
                 <TextInput
                     clearButtonMode='while-editing'
@@ -53,7 +59,7 @@ export const AuthPasswordComponent = ({ email, password, setPassword, signIn }: 
                     value={password}
                     onChangeText={text => setPassword(text)}
                     style={{ ...authStyle.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
-                    placeholder='Contraseña'
+                    placeholder='Ingresa tu contraseña'
                     placeholderTextColor={'gray'}
                     maxLength={20}
                 />
@@ -63,16 +69,16 @@ export const AuthPasswordComponent = ({ email, password, setPassword, signIn }: 
             <TouchableOpacity
                 onPress={handleButtonPress}
                 style={{
-                    backgroundColor: validPassword.test(password) ? theme.customColors.buttonColor : '#DBD8E3'
+                    backgroundColor: password !== '' ? theme.customColors.buttonColor : '#DBD8E3'
                     , height: 40
                     , width: '80%'
                     , borderRadius: 10
                     , justifyContent: 'center'
                     , alignItems: 'center'
                 }}>
-                <Text style={{ color: validPassword.test(password) ? 'white' : '#313131', letterSpacing: 1 }}>{password != '' ? validPassword.test(password) ? 'INGRESAR' : 'CONTRASEÑA INVÁLIDA' : 'CONTRASEÑA VACÍA'}</Text>
+                <Text style={{ color: password !== '' ? 'white' : '#313131', letterSpacing: 1 }}>{password !== '' ? 'INGRESAR' : 'CONTRASEÑA VACÍA'}</Text>
             </TouchableOpacity>
-            <Text style={{ fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
+            <Text onPress={handleCancel} style={{ fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
         </View>
     )
 }

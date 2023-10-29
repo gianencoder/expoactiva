@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
     View
     , Text
@@ -27,13 +27,25 @@ export const EmailLoginScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
-    const { getUserByEmail, exist, isChecking, signIn, loading, response, signUp, created } = EmailLoginFunction()
+    const { getUserByEmail, exist, isChecking, signIn, loading, response, signUp, setIsChecking, setExist } = EmailLoginFunction()
     const { height } = useWindowDimensions()
     const closeKeyboard = () => {
         Keyboard.dismiss();
     };
+    useEffect(() => {
 
+    }, [isChecking, exist])
+
+
+    const handleFormCancel = () => {
+        setIsChecking(true); // Cambia isChecking a true
+        setExist(false); // Cambia exist a false
+    }
     return (
+
+
+
+
         <TouchableWithoutFeedback onPress={closeKeyboard} style={{ backgroundColor: theme.colors.background }}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "height" : null}
@@ -57,7 +69,8 @@ export const EmailLoginScreen = () => {
                                         email={email}
                                         password={password}
                                         setPassword={(text) => setPassword(text)}
-                                        signIn={() => signIn(email, password)} />
+                                        signIn={() => signIn(email, password)}
+                                        handleFormCancel={handleFormCancel} />
                             }
                         </>
                     }
@@ -71,7 +84,8 @@ export const EmailLoginScreen = () => {
                                 setName={text => setName(text)}
                                 setPassword={text => setPassword(text)}
                                 setEmail={text => setEmail(text)}
-                                signUp={() => signUp(name, email, password)} />
+                                signUp={() => signUp(name, email, password)}
+                                handleFormCancel={handleFormCancel} />
                         </>
                     }
                 </View>
@@ -79,8 +93,5 @@ export const EmailLoginScreen = () => {
             </KeyboardAvoidingView >
         </TouchableWithoutFeedback >
     )
-}
-function useWindowsDimension(): { height: any } {
-    throw new Error('Function not implemented.')
 }
 
