@@ -9,6 +9,8 @@ import { exhibitors } from '../assets/expositores.js';
 import * as Location from 'expo-location';
 import styles from './MapStyles';
 import * as turf from '@turf/turf';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationHook } from '../hooks/NavigationHook';
 
 
 const MAPBOX_ACCESS_TOKEN = 'sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A';
@@ -130,6 +132,8 @@ const Map = ({ showModal }) => {
     const [followUserMode, setFollowUserMode] = useState(false);
     const [zoomLevel, setZoomLevel] = useState(16);
     const [disableNavigation, setDisableNavigation] = useState(false);
+    //const navigation = useNavigation();
+    const { navigation } = NavigationHook()
 
     useEffect(() => {
         (async () => {
@@ -189,10 +193,8 @@ const Map = ({ showModal }) => {
 
                         if (!isUserInExpoactiva(currentCoordinates, expoactivaCoordinates)) {
                             setDisableNavigation(true);
-                            console.log('Estoy fuera de la expo, no puedo navegar');
                         } else {
                             setDisableNavigation(false);
-                            console.log('Estoy dentro de la expo, puedo navegar');
                         }
                     }
                 );
@@ -487,14 +489,37 @@ const Map = ({ showModal }) => {
     }, []);
 
     const toggleNavigationMode = useCallback(() => {
-        console.log(disableNavigation)
+        console.log(disableNavigation);
         if (disableNavigation) {
-            Alert.alert("Navegación no disponible", "Para recibir indicaciones, tiene que estar cerca del predio de Expoactiva.");
+            Alert.alert(
+                "Navegación no disponible",
+                "Para recibir indicaciones, tiene que estar cerca del predio de Expoactiva.",
+                [
+                    {
+                        text: "¿Cómo llegar?",
+                        onPress: () => {
+                            showModal();
+                            navigation.navigate('GoToPlaceScreen');
+
+                        },
+                        style: "cancel"
+                    },
+
+                    {
+                        text: "Cancelar",
+                        onPress: () => console.log("OK Pressed"),
+                        style: "cancel"
+                    },
+
+
+                ]
+            );
             setNavigationMode(false);
             return;
         }
         setNavigationMode(prevMode => !prevMode);
     }, [disableNavigation]);
+
 
     const toggleFollowUserMode = useCallback(() => {
         setFollowUserMode(prevMode => !prevMode);

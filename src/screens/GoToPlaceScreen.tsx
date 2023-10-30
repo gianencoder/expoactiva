@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Modal, View, TouchableOpacity, Text, BackHandler, Image } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/core';
+import { View, TouchableOpacity, Text, BackHandler, Image } from 'react-native';
 import { GoToPlaceFunction } from '../functions/GoToPlaceFunction';
 import { mapsTheme } from '../theme/MapsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
@@ -9,8 +7,6 @@ import { HeaderComponent } from '../components/HeaderComponent';
 import { Platform } from 'react-native';
 
 export const GoToPlaceScreen = () => {
-  const [modal, setModal] = useState(true);
-  const navigation = useNavigation();
   const { theme } = useContext(ThemeContext)
   const android = Platform.OS === 'android'
   const googleApp = "https://www.google.com/maps/dir/?api=1&destination="
@@ -20,32 +16,7 @@ export const GoToPlaceScreen = () => {
   const wazeApp = "waze://?ll="
   const wazeUrl = "https://www.waze.com/ul?ll="
 
-  const showModal = () => {
-    setModal(prevState => !prevState);
-    if (modal) {
-      navigation.goBack();
-    }
-  };
-
-  useEffect(() => {
-    const backAction = () => {
-      console.log('Back button pressed');
-      if (modal) {
-        setModal(false);
-        navigation.goBack();
-        return true;
-      }
-      return false;
-    };
-
-
-    const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
-
-    return () => backHandler.remove(); // Cleanup event listener on component unmount
-  }, [modal]);
-
   return (
-
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
       <View style={{
         width: '80%', backgroundColor: theme.colors.background, height: 350, borderRadius: 20, shadowColor: theme.colors.text,
@@ -55,7 +26,6 @@ export const GoToPlaceScreen = () => {
         elevation: 24,
         justifyContent: 'center'
       }}>
-
         <View style={{ alignItems: 'center', justifyContent: 'space-between' }}>
           <TouchableOpacity style={mapsTheme.googleBtn}
             onPress={() => GoToPlaceFunction({ appUrl: googleApp, webUrl: googleWeb, optional: "" })}
@@ -79,7 +49,6 @@ export const GoToPlaceScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
-
+    </View >
   );
 };
