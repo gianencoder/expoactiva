@@ -15,6 +15,40 @@ export const EmailLoginFunction = () => {
     const [adding, setAdding] = useState(false);
     const [response, setResponse] = useState(false)
     const [checkit, setCheckit] = useState(false)
+    const [code, setCode] = useState('')
+    const [expiration, setExpiration] = useState<Date>()
+
+
+
+    const afterEmailVerification = async (email: string) => {
+        setLoading(true)
+        try {
+            await fetch(`${properties.cyberSoftURL}user/update/${email}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    validateEmail: true,
+                    expirationCode: null,
+                    code: null
+                }),
+            })
+                .then(response => {
+                    if (response.status === 200) {
+                        setLoading(false)
+                        response.json().then(data => {
+
+                        })
+                    } else {
+                        setLoading(true)
+                    }
+                })
+
+        } catch (error) {
+            throw new Error('Error verificando el email')
+        }
+    };
 
 
     const getUserByEmail = async (email: string) => {
@@ -34,7 +68,31 @@ export const EmailLoginFunction = () => {
                 setExist(true)
             }
         } catch (error) {
-            console.log(error);
+            throw new Error('Error obteniendo el usuario')
+        }
+    };
+
+    const getCode = async (email: string) => {
+        try {
+            await fetch(`${properties.cyberSoftURL}user/code/${email}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                }
+            })
+                .then(async response => {
+                    if (response.status === 200) {
+                        response.json().then(data => {
+                            setCode(data.code)
+                            setExpiration(data.expirationDate)
+                        })
+                    } else {
+
+                    }
+                })
+
+        } catch (error) {
+            throw new Error('error obteniendo el codigo')
         }
     };
 
@@ -54,9 +112,18 @@ export const EmailLoginFunction = () => {
         })
             .then(async response => {
                 if (response.status === 200) {
-                    setLoading(false)
-                    navigation.navigate('CodeValidation')
 
+                    response.json().then(data => {
+                        setLoading(false);
+                        navigation.navigate('CodeValidation', {
+                            code: data.data.code,
+                            email: data.data.email
+
+                        })
+                    })
+                        .catch(err => {
+                            throw new Error(err)
+                        })
                 }
 
                 if (response.status === 400) {
@@ -64,10 +131,7 @@ export const EmailLoginFunction = () => {
                     setCheckit(true);
                     await new Promise(resolve => setTimeout(resolve, 3500));
                     setIsChecking(true);
-
                 }
-
-
             })
             .catch(err => {
                 throw new Error(err)
@@ -130,6 +194,11 @@ export const EmailLoginFunction = () => {
             , handleFormCancel
             , setIsChecking
             , setExist
+            , getCode
+            , code
+            , expiration
+            , afterEmailVerification
+
 
         }
     )
