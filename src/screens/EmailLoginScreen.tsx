@@ -21,6 +21,7 @@ import { AuthPasswordComponent } from '../components/AuthPasswordComponent'
 import { LoginFormComponent } from '../components/LoginFormComponent'
 import { authStyle } from '../theme/AuthTheme'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
+import { useNavigation } from '@react-navigation/native'
 
 
 export const EmailLoginScreen = () => {
@@ -31,6 +32,7 @@ export const EmailLoginScreen = () => {
     const { getUserByEmail, exist, isChecking, signIn, loading, response, signUp, setIsChecking, setExist, checkit } = EmailLoginFunction()
     const { height } = useWindowDimensions()
     const [toastVisible, setToastVisible] = useState(false)
+    const navigation = useNavigation()
 
     const closeKeyboard = () => {
         Keyboard.dismiss();

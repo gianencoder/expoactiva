@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native'
 export const vct = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10
+        padding: 20
+        , gap: 20
 
     },
 
@@ -34,7 +35,7 @@ export const vct = StyleSheet.create({
 
     buttonDiv: {
         flex: 5
-        , gap: 50
+        , gap: 10
         , alignItems: 'center'
 
 
@@ -42,7 +43,7 @@ export const vct = StyleSheet.create({
 
     btn: {
         width: '60%'
-        , height: 70
+        , height: 50
         , backgroundColor: 'red'
         , alignSelf: 'center'
         , borderRadius: 10
