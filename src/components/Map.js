@@ -10,6 +10,7 @@ import * as Location from 'expo-location';
 import styles from './MapStyles';
 import * as turf from '@turf/turf';
 
+
 const MAPBOX_ACCESS_TOKEN = 'sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A';
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
