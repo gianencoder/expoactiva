@@ -23,7 +23,7 @@ export const NotificationScreen = () => {
             const handleAppStateChange = async () => {
                 const res = await verifyPermissions();
                 setGranted(res);
-                navigation.goBack();
+                navigation.goBack()
             };
 
             const subscription = AppState.addEventListener("change", handleAppStateChange);

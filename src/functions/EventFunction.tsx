@@ -57,7 +57,7 @@ export const EventFunction = () => {
 
     const { expoPushToken, verifyAndRequestPermissions } = usePushNotifications();
     const notificationToken = expoPushToken?.data;
-
+    console.log(notificationToken)
 
     const checkNotificationPermissions = useCallback(async () => {
         const hasPermissions = await verifyAndRequestPermissions();
@@ -90,11 +90,11 @@ export const EventFunction = () => {
 
             addFavorite(id);
             console.log('selectedEvent.dateHourStart', selectedEvent.dateHourStart)
-            if (hasPermissions && notificationToken && (new Date(selectedEvent.dateHourStart) > new Date() && (new Date(selectedEvent.dateHourStart).getTime() - new Date().getTime()) > 900000)) {
+            if (hasPermissions && notificationToken && (new Date(selectedEvent.dateHourStart) > new Date() && (new Date(selectedEvent.dateHourStart).getTime() - new Date().getTime()) > 600000)) {
                 const eventTokenMapping = JSON.parse(await AsyncStorage.getItem('eventTokenMapping')) || {};
                 eventTokenMapping[id] = notificationToken;
                 await AsyncStorage.setItem('eventTokenMapping', JSON.stringify(eventTokenMapping));
-                !showNotificationAlert && Alert.alert('¡Has marcado un favorito!', 'Te avisaremos 15 minutos antes de que comience el evento.', [{ text: 'Ok', onPress: () => setShowNotificationAlert(true) }], { cancelable: false });
+                !showNotificationAlert && Alert.alert('¡Has marcado un favorito!', 'Te avisaremos 10 minutos antes de que comience el evento.', [{ text: 'Ok', onPress: () => setShowNotificationAlert(true) }], { cancelable: false });
                 await sendFavouriteAPI(selectedEvent.idEvent, selectedEvent.dateHourStart);
             }
         } else {
@@ -172,9 +172,9 @@ export const EventFunction = () => {
         delete eventTokenMapping[eventId];
         await AsyncStorage.setItem('eventTokenMapping', JSON.stringify(eventTokenMapping));
 
-        // Si faltan menos de 15 minutos para que comience el evento, no se elimina el favorito
+        // Si faltan menos de 10 minutos para que comience el evento, no se elimina el favorito
         const event = events.find(event => event.idEvent === eventId);
-        if (event && (new Date(event.dateHourStart).getTime() - new Date().getTime()) < 900000) {
+        if (event && (new Date(event.dateHourStart).getTime() - new Date().getTime()) < 600000) {
             return;
         }
 
