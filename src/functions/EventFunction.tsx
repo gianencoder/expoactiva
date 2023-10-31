@@ -136,7 +136,7 @@ export const EventFunction = () => {
     // Función para enviar favorito a la API
     async function sendFavouriteAPI(eventId: Number, eventStartTime: Date) {
 
-        const url = `${properties.cyberSoftURL}/favourites/create`;
+        const url = `${properties.cyberSoftURL}favourites/create`;
 
         let expoPushToken = notificationToken;
         const body = {
@@ -178,7 +178,7 @@ export const EventFunction = () => {
             return;
         }
 
-        const url = `${properties.cyberSoftURL}/favourites/`;
+        const url = `${properties.cyberSoftURL}favourites/`;
 
         let expoPushToken = expoPushTokenForId;
         const body = {
