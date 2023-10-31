@@ -26,7 +26,7 @@ export const VisibilityScreen = () => {
     }, [enabled])
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', }}>
+        <View style={{ flex: 1, paddingVertical: 30 }}>
             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around', alignItems: 'center' }}>
                 <Text style={{ ...visibilityTheme.text, color: theme.colors.text }}>
                     {text}
@@ -39,6 +39,7 @@ export const VisibilityScreen = () => {
                     value={enabled}
                 />
             </View>
+
         </View>
 
     )

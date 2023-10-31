@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, TouchableOpacity, Text, BackHandler, Image } from 'react-native';
+import React, { useContext } from 'react';
+import { View, TouchableOpacity, Text, Image } from 'react-native';
 import { GoToPlaceFunction } from '../functions/GoToPlaceFunction';
 import { mapsTheme } from '../theme/MapsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
-import { HeaderComponent } from '../components/HeaderComponent';
 import { Platform } from 'react-native';
 
 export const GoToPlaceScreen = () => {

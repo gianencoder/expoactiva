@@ -16,6 +16,7 @@ import { TicketDetail } from '../screens/TicketDetailScreen';
 import { EmailLoginScreen } from '../screens/EmailLoginScreen';
 import { BuyTicketScreen } from '../screens/BuyTicketScreen';
 import { ValidateCodeComponent } from '../components/ValidateCodeComponent';
+import { NotificationScreen } from '../screens/NotificationScreen';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,7 @@ export const MyStack = () => {
             <Stack.Screen name="EmailLogin" component={EmailLoginScreen} />
             <Stack.Screen name="BuyTicket" component={BuyTicketScreen} />
             <Stack.Screen name="CodeValidation" component={ValidateCodeComponent} />
+            <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
         </Stack.Navigator >
     );
 }
