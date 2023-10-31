@@ -1,6 +1,6 @@
 import * as Notifications from "expo-notifications";
 
 export const checkNotificationPermissions = async () => {
-    const { status } = await Notifications.getPermissionsAsync();
-    return status;
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    return existingStatus === 'granted';
 };

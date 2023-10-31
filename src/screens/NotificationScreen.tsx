@@ -1,30 +1,63 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { View } from '@motify/components'
-import { Text, TouchableOpacity, Linking } from 'react-native'
+import { Text, TouchableOpacity, Linking, Platform, AppState } from 'react-native'
 import { notiTheme } from '../theme/NotificationTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
+import { usePushNotifications } from '../hooks/usePushNotifications';
+import { useNavigation } from '@react-navigation/native';
 
 export const NotificationScreen = () => {
 
-    const { theme } = useContext(ThemeContext)
+    const { verifyPermissions } = usePushNotifications();
+    const [granted, setGranted] = useState(false)
+    const navigation = useNavigation();
 
+    useEffect(() => {
+        verifyPermissions().then(res => setGranted(res))
+    }, [])
+
+    const { theme } = useContext(ThemeContext)
+    
+    useEffect(() => {
+        if (Platform.OS !== 'android') {
+            const handleAppStateChange = async () => {
+                const res = await verifyPermissions();
+                setGranted(res);
+                navigation.goBack();
+            };
+
+            const subscription = AppState.addEventListener("change", handleAppStateChange);
+
+            return () => {
+                subscription.remove();
+            };
+        }
+    }, [granted]);
 
     return (
         <View style={{ ...notiTheme.container, backgroundColor: theme.colors.background }}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold', color: theme.colors.text }}>Habilitar las notificaciones push</Text>
-            <Text style={{ textAlign: 'center', color: 'gray', width: '90%' }}>Las notificaciones push se encuentran inhabilitadas. Para habilitarlas dirigete a los permisos de la aplicacion en la configuracion personal de tu telefono.</Text>
-
+            {granted ? (
+                <>
+                    <Text style={{ fontSize: 22, fontWeight: 'bold', color: theme.colors.text, marginBottom: 5 }}>Desactivar las notificaciones push</Text>
+                    <Text style={{ textAlign: 'center', color: 'gray', width: '90%', fontSize: 17 }}>Las notificaciones push se encuentran activadas.{"\n"} Si quieres desactivarlas, ten en cuenta que no recibirás recordatorios de eventos favoritos.{"\n"}{"\n"} Para desactivarlas dirigete a los permisos de la aplicación en la configuración personal de tu teléfono.{"\n"}</Text>
+                </>
+            ) : (
+                <>
+                    <Text style={{ fontSize: 22, fontWeight: 'bold', color: theme.colors.text, marginBottom: 5 }}>Activar las notificaciones push</Text>
+                    <Text style={{ textAlign: 'center', color: 'gray', width: '95%', fontSize: 17 }}>Las notificaciones push se encuentran desactivadas.{"\n"}{"\n"} Para activarlas y recibir recordatorios de eventos, dirigete a los permisos de la aplicación en la configuración personal de tu teléfono.{"\n"}</Text>
+                </>
+            )}
             <TouchableOpacity
                 onPress={() => Linking.openSettings()}
                 style={{
                     backgroundColor: theme.customColors.buttonColor
-                    , width: '40%'
+                    , width: '50%'
                     , alignItems: 'center'
                     , justifyContent: 'center'
-                    , height: 35
+                    , height: 45
                     , borderRadius: 8
                 }}>
-                <Text style={{ color: 'white' }} >Abrir configuracion</Text>
+                <Text style={{ color: 'white', fontSize: 18 }} >Abrir configuración</Text>
             </TouchableOpacity>
 
         </View >

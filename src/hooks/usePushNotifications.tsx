@@ -9,6 +9,7 @@ export interface PushNotification {
     expoPushToken: Notifications.ExpoPushToken | undefined | null;
     notification: Notifications.Notification | undefined | null;
     verifyAndRequestPermissions: () => Promise<boolean>;
+    verifyPermissions: () => Promise<boolean>;
 }
 
 export const  usePushNotifications = (): PushNotification => {
@@ -39,6 +40,11 @@ export const  usePushNotifications = (): PushNotification => {
         }
         return finalStatus === 'granted';
     };
+
+    const verifyPermissions = async (): Promise<boolean> => {
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        return existingStatus === 'granted';
+    }
 
     async function registerForPushNotificationsAsync() {
         let token;
@@ -101,5 +107,5 @@ export const  usePushNotifications = (): PushNotification => {
 
     }, []);
 
-    return { expoPushToken, notification, verifyAndRequestPermissions }
+    return { expoPushToken, notification, verifyAndRequestPermissions, verifyPermissions }
 }
