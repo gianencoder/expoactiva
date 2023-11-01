@@ -12,7 +12,7 @@ const IS_DEV = process.env.APP_VARIANT === 'development';
 
 const googleSignInConfigAndroid = {
     scopes: ["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"],
-    webClientId: "808320141330-lrmcjul62fdcg5drvqfpepdbtd8gai79.apps.googleusercontent.com",
+    webClientId: "951022193723-dq3kifjg3s3i9qbjj8krit2a6cfq8mmm.apps.googleusercontent.com",
 };
 
 const googleSignInConfigIos = {
