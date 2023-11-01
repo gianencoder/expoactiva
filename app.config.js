@@ -19,7 +19,7 @@ export default {
       infoPlist: {
         CFBundleURLTypes: [
           {
-            CFBundleURLSchemes: IS_DEV ? ["com.googleusercontent.apps.951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2"] : ["com.googleusercontent.apps.951022193723-to54ihjmtqpmvet6ho2ohburoe96duip"]
+            CFBundleURLSchemes: ["com.googleusercontent.apps.951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2","com.googleusercontent.apps.951022193723-to54ihjmtqpmvet6ho2ohburoe96duip"],
           }
         ],
       }
