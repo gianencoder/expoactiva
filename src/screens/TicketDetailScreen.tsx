@@ -15,7 +15,7 @@ export const TicketDetail = () => {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
 
             <View style={{
-                height: 400, width: '90%'
+                height: 500, width: '90%'
                 , justifyContent: 'center'
                 , alignItems: 'center'
                 , backgroundColor: theme.colors.background
@@ -25,21 +25,23 @@ export const TicketDetail = () => {
                     width: 0,
                     height: 12,
                 },
-                shadowOpacity: 0.58,
+                shadowOpacity: 0.4,
                 shadowRadius: 16.00,
 
-                elevation: 24,
+                elevation: 18,
             }}>
                 {qrCode !== undefined
 
-                    ? <QRCode
-                        value={qrCode}
-                        size={230}
-                        // You can customize the appearance of the QR code using props like color, backgroundColor, etc.
-                        // Example:
-                        color={theme.colors.text}
-                        backgroundColor="transparent"
-                    />
+                    ? 
+                    <View style={{flex: 1, alignItems:'center', justifyContent: 'space-evenly', paddingHorizontal:20}}>
+                        <QRCode
+                            value={qrCode}
+                            size={215}
+                            color={theme.colors.text}
+                            backgroundColor="transparent"
+                        />
+                        <Text style={{ color: theme.colors.text, fontSize: 24, fontWeight: '400', textAlign: 'center'}}>Presentar QR en la entrada al predio para ingresar</Text>
+                    </View>
                     :
                     <View><Text>Codigo QR no válido</Text></View>
                 }
