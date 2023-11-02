@@ -2,7 +2,7 @@ const IS_DEV = process.env.APP_VARIANT === 'development';
 
 export default {
   expo: {
-    name: IS_DEV ? 'Expoactiva (dev)' : 'Expoactiva Nacional',
+    name: IS_DEV ? 'Expoactiva Nacional App (dev)' : 'Expoactiva Nacional App',
     slug: "expoactiva-nacional-app",
     version: "1.0.1",
     orientation: "portrait",
@@ -19,7 +19,7 @@ export default {
       infoPlist: {
         CFBundleURLTypes: [
           {
-            CFBundleURLSchemes: ["com.googleusercontent.apps.808320141330-gnmt0lf7aqh6d5kns4hb2b69eerkm9qp"]
+            CFBundleURLSchemes: ["com.googleusercontent.apps.951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2","com.googleusercontent.apps.951022193723-to54ihjmtqpmvet6ho2ohburoe96duip"],
           }
         ],
       }

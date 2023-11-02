@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "808320141330",
-    "project_id": "expoactiva-nacional-395522",
-    "storage_bucket": "expoactiva-nacional-395522.appspot.com"
+    "project_number": "951022193723",
+    "project_id": "expoactiva-movilapp",
+    "storage_bucket": "expoactiva-movilapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:808320141330:android:a87219dc1d9fb2138370cb",
+        "mobilesdk_app_id": "1:951022193723:android:4ce88ea5c303d99000201e",
         "android_client_info": {
           "package_name": "com.cyb3rsoft.expoactivaapp.dev"
         }
       },
       "oauth_client": [
         {
-          "client_id": "808320141330-lrmcjul62fdcg5drvqfpepdbtd8gai79.apps.googleusercontent.com",
+          "client_id": "951022193723-dq3kifjg3s3i9qbjj8krit2a6cfq8mmm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyChrYoKPVQJgRAo2qql1m8166kg3vd_osA"
+          "current_key": "AIzaSyCOV41oQ3NdwfjQWzQFO4e1M_kETpw5OJc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "808320141330-lrmcjul62fdcg5drvqfpepdbtd8gai79.apps.googleusercontent.com",
+              "client_id": "951022193723-dq3kifjg3s3i9qbjj8krit2a6cfq8mmm.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "808320141330-gnmt0lf7aqh6d5kns4hb2b69eerkm9qp.apps.googleusercontent.com",
+              "client_id": "951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.cyb3rsoft.expoactivaapp.dev"

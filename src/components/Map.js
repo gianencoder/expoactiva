@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationHook } from '../hooks/NavigationHook';
 
 
-const MAPBOX_ACCESS_TOKEN = 'sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A';
+const MAPBOX_ACCESS_TOKEN = process.env.MAPBOX !== undefined ? process.env.MAPBOX : 'sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A'
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
 const EXPOACTIVA_MARKER_LONGITUD = -57.8942;
