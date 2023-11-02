@@ -2,16 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import {
     View
     , Text
-    , TextInput
     , KeyboardAvoidingView
     , Platform
     , Keyboard
     , TouchableWithoutFeedback
-    , TouchableOpacity
-    , ActivityIndicator,
-    ScrollView
+    , ActivityIndicator
     , useWindowDimensions
-
 } from 'react-native'
 
 import { ThemeContext } from '../context/themeContext/ThemeContext'
@@ -20,8 +16,6 @@ import { PutEmailToValidateComponent } from '../components/PutEmailToValidateCom
 import { AuthPasswordComponent } from '../components/AuthPasswordComponent'
 import { LoginFormComponent } from '../components/LoginFormComponent'
 import { authStyle } from '../theme/AuthTheme'
-import { ToastMessageComponent } from '../components/ToastMessageComponent'
-import { useNavigation } from '@react-navigation/native'
 
 
 export const EmailLoginScreen = () => {
@@ -29,16 +23,13 @@ export const EmailLoginScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
-    const { getUserByEmail, exist, isChecking, signIn, loading, response, signUp, setIsChecking, setExist, checkit } = EmailLoginFunction()
+    const { getUserByEmail, exist, isChecking, signIn, loading, response, signUp, setIsChecking, setExist } = EmailLoginFunction()
     const { height } = useWindowDimensions()
-    const [toastVisible, setToastVisible] = useState(false)
-    const navigation = useNavigation()
 
     const closeKeyboard = () => {
         Keyboard.dismiss();
     };
     useEffect(() => {
-
     }, [isChecking, exist])
 
 
@@ -47,18 +38,6 @@ export const EmailLoginScreen = () => {
         setExist(false); // Cambia exist a false
     }
 
-    useEffect(() => {
-        if (checkit) {
-            setTimeout(() => {
-                setToastVisible(true);
-            }, 500);
-            setTimeout(() => {
-                setToastVisible(false);
-            }, 3500);
-        }
-    }, [checkit]);
-
-
     return (
         <TouchableWithoutFeedback onPress={closeKeyboard} style={{ backgroundColor: theme.colors.background }}>
             <KeyboardAvoidingView
@@ -66,36 +45,32 @@ export const EmailLoginScreen = () => {
                 keyboardVerticalOffset={height / 10}
                 style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}
             >
-                <View style={{ ...authStyle.mainView, backgroundColor: theme.colors.background }}>
-                    <ToastMessageComponent setTimeout={3500} iconSize={26} width={'90%'} iconColor={'black'} iconName={'warning'} backgroundColor={'#FFE9AE'} textColor={'black'} visible={toastVisible} title={'¡Email no disponible!'} message={'El email está en uso, intenta iniciar sesión'} />
+                {loading
+                    ? <View>
+                        <ActivityIndicator size={'large'} color={theme.customColors.activeColor} style={{ height: 100, backgroundColor: 'white', borderRadius: 200 }} />
+                        <Text style={{ fontSize: 18, color: 'gray' }}>Obteniendo información. Por favor, espere...</Text>
+                    </View>
 
+                    : <View style={{ ...authStyle.mainView, backgroundColor: theme.colors.background }}>
 
-                    {isChecking && <PutEmailToValidateComponent email={email} setEmail={(text) => setEmail(text.toLowerCase())} getUserByEmail={() => getUserByEmail(email)} />}
+                        {isChecking && <PutEmailToValidateComponent email={email} setEmail={(text) => setEmail(text.toLowerCase())} getUserByEmail={() => getUserByEmail(email)} />}
 
-                    {!isChecking && exist &&
-                        <>
-                            {
-                                loading
-                                    ?
-                                    <ActivityIndicator size={'large'} color={theme.customColors.activeColor} style={{ height: 0, width: 150, backgroundColor: 'white', borderRadius: 200 }} />
-                                    :
+                        {!isChecking && exist &&
+                            <>
+                                {
                                     !response &&
                                     <AuthPasswordComponent
                                         email={email}
                                         password={password}
                                         setPassword={(text) => setPassword(text)}
-                                        signIn={() => signIn(email, password)}
+                                        signIn={() => signIn(email, password, false)}
                                         handleFormCancel={handleFormCancel} />
-                            }
-                        </>
-                    }
+                                }
+                            </>
+                        }
 
-                    {!isChecking && !exist &&
-                        <>
-                            {loading
-                                ?
-                                <ActivityIndicator size={'large'} color={theme.customColors.activeColor} style={{ height: 0, width: 150, backgroundColor: 'white', borderRadius: 200 }} />
-                                :
+                        {!isChecking && !exist &&
+                            <>
                                 <LoginFormComponent
                                     name={name}
                                     email={email}
@@ -105,11 +80,10 @@ export const EmailLoginScreen = () => {
                                     setEmail={text => setEmail(text)}
                                     signUp={() => signUp(name, email, password)}
                                     handleFormCancel={handleFormCancel} />
-                            }
-                        </>
-                    }
-                </View>
-
+                            </>
+                        }
+                    </View>
+                }
             </KeyboardAvoidingView >
         </TouchableWithoutFeedback >
     )

@@ -15,17 +15,10 @@ interface Props {
 
 export const AuthPasswordComponent = ({ email, password, setPassword, signIn, handleFormCancel }: Props) => {
 
-
     const { theme } = useContext(ThemeContext)
     const [isValid, setIsValid] = useState(true)
-    const [securePass, setSecurePass] = useState(true)
 
-    const handleShowPassword = (param: number) => {
 
-        if (param == 0) setSecurePass(true)
-        if (param == 1) setSecurePass(false)
-
-    }
 
     const handleButtonPress = () => {
         if (password === '') {

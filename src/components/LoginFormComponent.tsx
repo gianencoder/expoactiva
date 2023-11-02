@@ -25,7 +25,6 @@ export const LoginFormComponent = ({ name, password, email, setName, setPassword
     const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const [isVisible, setIsVisible] = useState(false)
     const [emptyField, setEmptyField] = useState(false)
-    const [IsValidPswd, setValidPswd] = useState(false)
     const [isValidEmail, setIsValidEmail] = useState(false)
 
 
@@ -71,9 +70,16 @@ export const LoginFormComponent = ({ name, password, email, setName, setPassword
     return (
 
         <View style={{ ...authStyle.createAccountForm, backgroundColor: theme.colors.background }}>
-            <ToastMessageComponent iconName={'closecircleo'} textColor={'white'} iconColor={'white'} iconSize={24} backgroundColor={'#950101'} visible={isVisible} title={'¡Error!'} message={emptyField ? 'Todos los campos son obligatorios' : !validEmail.test(email) ? 'El email no es válido' : !validPassword.test(password) ? 'La contraseña no cumple los requisitos' : ''} />
-            <Text style={{ alignSelf: 'flex-start', padding: 20, fontSize: 20, color: theme.colors.text }}>El email ingresado anteriormente no se encuentra asociado a una cuenta</Text>
-            <Text style={{ alignSelf: 'flex-start', paddingHorizontal: 20, fontSize: 18, color: theme.colors.text, fontWeight: '600' }}>Cree una cuenta</Text>
+            <ToastMessageComponent
+                iconName={'closecircleo'}
+                textColor={'white'}
+                iconColor={'white'}
+                iconSize={24}
+                backgroundColor={'#950101'}
+                visible={isVisible}
+                title={'¡Error!'}
+                message={emptyField ? 'Todos los campos son obligatorios' : !validEmail.test(email) ? 'El email no es válido' : !validPassword.test(password) ? 'La contraseña no cumple los requisitos' : ''} />
+            <Text style={{ alignSelf: 'flex-start', padding: 20, fontSize: 20, color: theme.colors.text }}>Crear cuenta</Text>
 
             <View style={{ ...authStyle.formView }}>
                 <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Nombre y Apellido (*)</Text>

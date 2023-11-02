@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { ToastMessageComponent } from './ToastMessageComponent'
 import { authStyle } from '../theme/AuthTheme'
+import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 
 
 interface Props {
@@ -16,6 +17,7 @@ export const PutEmailToValidateComponent = ({ email, setEmail, getUserByEmail }:
     const { theme } = useContext(ThemeContext)
     const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const [isValid, setIsValid] = useState(true)
+    const { loading } = EmailLoginFunction()
 
 
     const handleButtonPress = () => {
@@ -59,7 +61,9 @@ export const PutEmailToValidateComponent = ({ email, setEmail, getUserByEmail }:
                     , justifyContent: 'center'
                     , alignItems: 'center'
                 }}>
-                <Text style={{ color: validEmail.test(email) ? 'white' : '#313131', letterSpacing: 1 }}>{email != '' ? validEmail.test(email) ? 'CONTINUAR' : 'EMAIL INVÁLIDO' : 'INGRESA EMAIL PARA CONTINUAR'}</Text>
+                {loading
+                    ? <ActivityIndicator color={'white'} style={{ height: 0, width: 150, borderRadius: 200 }} />
+                    : <Text style={{ color: validEmail.test(email) ? 'white' : '#313131', letterSpacing: 1 }}>{email != '' ? validEmail.test(email) ? 'CONTINUAR' : 'EMAIL INVÁLIDO' : 'INGRESA EMAIL PARA CONTINUAR'}</Text>}
             </TouchableOpacity>
         </View>
     )

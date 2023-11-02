@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import properties from '../../properties.json'
 import { Alert, Linking } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
-import { ExhibitorDetails } from '../screens/ExhibitorDetails';
-
 
 export const ExhibitorFunction = () => {
     const [exhibitor, setExhibitor] = useState<Exhibitors[]>([])

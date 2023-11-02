@@ -4,6 +4,8 @@ import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import { useAuthContext } from '../context/AuthContext/AuthContext';
 import properties from '../../properties.json'
+import { Button } from 'react-native';
+import { ToastMessageComponent } from '../components/ToastMessageComponent';
 
 
 export const EmailLoginFunction = () => {
@@ -12,18 +14,15 @@ export const EmailLoginFunction = () => {
     const navigation = useNavigation()
     const { login } = useAuthContext();
     const [loading, setLoading] = useState(false);
-    const [adding, setAdding] = useState(false);
     const [response, setResponse] = useState(false)
-    const [checkit, setCheckit] = useState(false)
-    const [code, setCode] = useState('')
-    const [expiration, setExpiration] = useState<Date>()
-
+    const [isInvalidCode, setIsInvalidCode] = useState(false)
+    const [credentials, setCredentials] = useState(true)
+    const [validAccount, setValidAccount] = useState(true)
 
 
     const afterEmailVerification = async (email: string) => {
-        setLoading(true)
         try {
-            await fetch(`${properties.cyberSoftURL}user/update/${email}`, {
+            await fetch(`${properties.ambienteDesarrollo}user/update/${email}`, {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json',
@@ -34,15 +33,11 @@ export const EmailLoginFunction = () => {
                     code: null
                 }),
             })
-                .then(response => {
-                    if (response.status === 200) {
-                        setLoading(false)
-                        response.json().then(data => {
+                .then(res => {
 
-                        })
-                    } else {
-                        setLoading(true)
-                    }
+                })
+                .catch(err => {
+
                 })
 
         } catch (error) {
@@ -52,54 +47,91 @@ export const EmailLoginFunction = () => {
 
 
     const getUserByEmail = async (email: string) => {
+
+        setLoading(true)
+
         try {
-            const response = await fetch(`${properties.cyberSoftURL}user/${email}`, {
+            const response = await fetch(`${properties.ambienteDesarrollo}user/get/${email}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
                 }
             });
-            if (!response.ok) {
+            if (response.status === 403) {
                 setIsChecking(false)
                 setExist(false)
-            } else {
-                const data = await response.json();
+                setLoading(false)
+            }
+
+            if (response.status === 200) {
+                // const data = await response.json();
                 setIsChecking(false)
                 setExist(true)
+                setLoading(false)
+            }
+
+            if (response.status === 404) {
+                Alert.alert('Error al enviar la solicitud!', 'Intenta nuevamente en unos minutos', [
+                    {
+                        text: 'Aceptar',
+                        onPress: () => navigation.navigate('AuthScreen'),
+                    },
+                ]);
+                setLoading(false)
             }
         } catch (error) {
+            setLoading(false)
+            Alert.alert('Error al enviar la solicitud!', 'Intenta nuevamente en unos minutos')
             throw new Error('Error obteniendo el usuario')
         }
     };
 
-    const getCode = async (email: string) => {
+    const getCode = async (email: string, code: string) => {
+        setLoading(true)
         try {
-            await fetch(`${properties.cyberSoftURL}user/code/${email}`, {
+            const response = await fetch(`${properties.ambienteDesarrollo}user/code?email=${email}&code=${code}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
-                }
-            })
-                .then(async response => {
-                    if (response.status === 200) {
-                        response.json().then(data => {
-                            setCode(data.code)
-                            setExpiration(data.expirationDate)
-                        })
-                    } else {
-
+                },
+            });
+            if (response.status === 200) {
+                setLoading(false)
+                Alert.alert('¡Bien hecho!', 'Has validado tu cuenta', [{
+                    text: 'Iniciar sesión',
+                    onPress: () => {
+                        signIn(email, code, true)
                     }
-                })
+                },
+                {
+                    text: 'Ahora no',
+                    onPress: () => {
+                        navigation.navigate('HomeScreen')
+                        afterEmailVerification(email)
+                    }
+                }
+                ])
 
+            } else if (response.status === 400) {
+                setLoading(false)
+                setIsInvalidCode(true)
+            } else if (response.status === 404) {
+                setLoading(false)
+                Alert.alert('Error en su solicitud', 'Vuelve a intentar en unos momentos')
+            }
+            else {
+                setLoading(false)
+                Alert.alert('Error en su solicitud', 'Vuelve a intentar en unos momentos')
+            }
         } catch (error) {
-            throw new Error('error obteniendo el codigo')
+            setLoading(false)
+            throw new Error('Error obteniendo el código');
         }
     };
 
-
     const signUp = async (name: string, email: string, pswd: string) => {
-        setLoading(true)
-        fetch(`${properties.cyberSoftURL}user/signup`, {
+        setLoading(true);
+        fetch(`${properties.ambienteDesarrollo}user/signup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -111,36 +143,37 @@ export const EmailLoginFunction = () => {
             }),
         })
             .then(async response => {
-                if (response.status === 200) {
 
-                    response.json().then(data => {
-                        setLoading(false);
-                        navigation.navigate('CodeValidation', {
-                            code: data.data.code,
-                            email: data.data.email
-
-                        })
-                    })
-                        .catch(err => {
-                            throw new Error(err)
-                        })
-                }
-
-                if (response.status === 400) {
+                if (response.status === 201) {
                     setLoading(false);
-                    setCheckit(true);
-                    await new Promise(resolve => setTimeout(resolve, 3500));
-                    setIsChecking(true);
+                    navigation.navigate('CodeValidation', {
+                        email: email
+                    });
+                }
+                else if (response.status === 200) {
+                    setLoading(false);
+                    navigation.navigate('CodeValidation', {
+                        email: email
+                    });
+                    setLoading(false)
+                } else {
+                    setLoading(false);
+                    Alert.alert('Error en su solicitud', 'Vuelve a intentar en unos momentos')
+                    // setCheckit(true);
+                    // await new Promise(resolve => setTimeout(resolve, 3500));
+                    // setIsChecking(true);
                 }
             })
             .catch(err => {
-                throw new Error(err)
-            })
+                setLoading(false);
+                Alert.alert('Tiempo agotado', 'Intente nuevamente en unos minutos')
+                throw new Error('Error en la consulta', err);
+            });
     }
 
-    const signIn = async (email: string, pswd: string) => {
+    const signIn = async (email: string, pswd: string, firsTime: boolean) => {
         setLoading(true)
-        fetch(`${properties.cyberSoftURL}auth/login`, {
+        fetch(`${properties.ambienteDesarrollo}auth/${firsTime ? 'firstLogin' : 'login'}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -153,6 +186,8 @@ export const EmailLoginFunction = () => {
             .then(response => {
                 if (response.status === 200) {
                     return response.json().then(async data => {
+                        if (data.message === 'firstLogin') afterEmailVerification(email)
+
                         setResponse(true)
                         login(data.user, data.token);
                         await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user))
@@ -163,11 +198,23 @@ export const EmailLoginFunction = () => {
                     });
                 } else if (response.status === 401) {
                     setLoading(false)
-                    Alert.alert("Contraseña incorrecta",
-                        "Por favor, vuelva a intentar",
-                        [{ text: "Aceptar" }])
-                } else {
-                    throw new Error('Error al iniciar sesión. Por favor, inténtelo de nuevo más tarde.');
+                    setCredentials(false)
+                } else if (response.status === 403) {
+                    setLoading(false)
+                    Alert.alert('¡Falta un paso!', 'Debes validar tu cuenta antes de iniciar sesión',
+                        [
+                            {
+                                text: 'Validar ahora',
+                                onPress: () => navigation.navigate('CodeValidation', {
+                                    email: email
+                                })
+                            },
+                            {
+                                text: 'Ahora no',
+                                onPress: () => navigation.navigate('HomeScreen')
+                            }
+                        ]
+                    )
                 }
             })
             .catch(error => {
@@ -189,17 +236,15 @@ export const EmailLoginFunction = () => {
             , signUp
             , loading
             , response
-            , checkit
-            , adding
             , handleFormCancel
             , setIsChecking
             , setExist
             , getCode
-            , code
-            , expiration
             , afterEmailVerification
-
-
+            , isInvalidCode
+            , setIsInvalidCode
+            , validAccount
+            , setValidAccount
         }
     )
 }

@@ -13,16 +13,19 @@ export interface ThemeState extends Theme {
     currentTheme: 'light' | 'dark',
     dividerColor: string,
     customColors: {
-        transparent: string,
-        littleComponentBg: string,
-        littleComponentIcon: string,
-        bottomTabIcon: string,
-        iconColor: string,
-        shadow: string,
-        activeColor: string,
-        headerColor: string,
-        subtitles: string,
-        buttonColor: string,
+        transparent: string
+        littleComponentBg: string
+        littleComponentIcon: string
+        bottomTabIcon: string
+        iconColor: string
+        shadow: string
+        activeColor: string
+        headerColor: string
+        subtitles: string
+        buttonColor: string
+        bgErrorMessage: string
+        bgSuccesMessage: string
+        colorErrorMessage: string
 
     }
 }
@@ -51,7 +54,10 @@ export const lightTheme: ThemeState = {
         activeColor: MyColors.primary,
         headerColor: MyColors.primary,
         subtitles: MyColors.textGrey,
-        buttonColor: '#5C8374'
+        buttonColor: '#5C8374',
+        bgErrorMessage: '#650000',
+        colorErrorMessage: 'white',
+        bgSuccesMessage: '#86A789'
     }
 }
 
@@ -77,7 +83,10 @@ export const darkTheme: ThemeState = {
         activeColor: '#A0E4CB',
         headerColor: '#1b1b1b',
         subtitles: MyColors.textGrey,
-        buttonColor: '#5C8374'
+        buttonColor: '#5C8374',
+        bgErrorMessage: '#650000',
+        colorErrorMessage: 'white',
+        bgSuccesMessage: '#86A789'
 
     }
 }
