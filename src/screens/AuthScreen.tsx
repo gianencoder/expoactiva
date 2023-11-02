@@ -39,8 +39,8 @@ export const AuthScreen = () => {
                 :
                 <View style={{ ...authStyle.authCard, backgroundColor: theme.colors.background }}>
                     <View style={{ flex: 1, backgroundColor: 'transparent', padding: 10, gap: 15 }}>
-                        <Text style={{ ...authStyle.title, color: theme.colors.text }}>Perfil</Text>
-                        <Text style={{ ...authStyle.subtitle, color: theme.customColors.subtitles }}>Inicia sesión para acceder a todas nuestras funcionalidades</Text>
+                        <Text style={{ ...authStyle.title, color: theme.colors.text }}>Mi cuenta</Text>
+                        <Text style={{ ...authStyle.subtitle, color: theme.customColors.subtitles }}>Inicia sesión para acceder a todas las funcionalidades</Text>
                         <TouchableOpacity onPress={toggleModal} style={{
                             backgroundColor: theme.customColors.buttonColor, width: '100%', justifyContent: 'center', alignItems: 'center', height: 50,
                             borderRadius: 10
