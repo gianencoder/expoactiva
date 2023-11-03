@@ -5,12 +5,11 @@ import useNavigationApi from '../hooks/useNavigationApi.js';
 import MapNavigation from './MapNavigation.js';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import BottomSheet from './BottomSheetNavigator.js';
-import { exhibitors } from '../assets/expositores.js';
 import * as Location from 'expo-location';
 import styles from './MapStyles';
 import * as turf from '@turf/turf';
-import { useNavigation } from '@react-navigation/native';
 import { NavigationHook } from '../hooks/NavigationHook';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const MAPBOX_ACCESS_TOKEN = process.env.MAPBOX !== undefined ? process.env.MAPBOX : 'sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A'
@@ -132,8 +131,32 @@ const Map = ({ showModal }) => {
     const [followUserMode, setFollowUserMode] = useState(false);
     const [zoomLevel, setZoomLevel] = useState(16);
     const [disableNavigation, setDisableNavigation] = useState(false);
-    //const navigation = useNavigation();
     const { navigation } = NavigationHook()
+    const [exhibitors, setExhibitors] = useState([]);
+
+    const getExhibitors = async () => {
+        try {
+            const exhibitorsString = await AsyncStorage.getItem('@exhibitors');
+            if (exhibitorsString !== null) {
+                const parsedExhibitors = JSON.parse(exhibitorsString);
+                const usableExhibitors = parsedExhibitors.map((exhibitor) => {
+                    return {
+                        ...exhibitor,
+                        latitude: parseFloat(exhibitor.latitude),
+                        longitude: parseFloat(exhibitor.longitude),
+                    };
+                });
+                setExhibitors(usableExhibitors);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+
+    useEffect(() => {
+        getExhibitors();
+    }, []);
 
     useEffect(() => {
         (async () => {
@@ -560,7 +583,7 @@ const Map = ({ showModal }) => {
                     {zoomLevel <= 15 ? (
                         <ExpoactivaMarker goToExpoactiva={goToExpoactiva} />
                     ) : (
-                        exhibitors.map((exhibitor) => (
+                        exhibitors && exhibitors.map((exhibitor) => (
                             <ExhibitorMarker
                                 key={exhibitor.id}
                                 exhibitor={exhibitor}

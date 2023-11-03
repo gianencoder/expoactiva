@@ -27,7 +27,7 @@ interface EventoMoshi {
 }
 
 interface Exhibitors {
-    _id: number
+    id: number
     name: string
     tel: string
     image: string

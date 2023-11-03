@@ -1,14 +1,48 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useRef } from 'react'
 import { ScrollView } from 'react-native-gesture-handler';
+import { useExhibitors } from '../hooks/useExhibitors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const HomeFunction = () => {
+    const exhibitors = useExhibitors();
+    const isFocused = useIsFocused();
     const scrollViewRef = useRef<ScrollView>(null);
-    const isFocused = useIsFocused(); //Se esta mostrando la pantalla?
-    useEffect(() => {
-        //Si la pantalla se esta mostrando y si existe una referencia al scrollView
-        if (isFocused && scrollViewRef.current) {
 
+    const getStoredExhibitors = async () => {
+        try {
+            const storedExhibitors = await AsyncStorage.getItem('@exhibitors');
+            return storedExhibitors ? JSON.parse(storedExhibitors) : null;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    };
+
+    const storeExhibitors = async (newExhibitors:Exhibitors[]) => {
+        try {
+            await AsyncStorage.setItem('@exhibitors', JSON.stringify(newExhibitors));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        const updateExhibitorsIfNeeded = async () => {
+            const storedExhibitors = await getStoredExhibitors();
+            if (JSON.stringify(storedExhibitors) !== JSON.stringify(exhibitors)) {
+                console.log('Actualizando los expositores en AsyncStorage');
+                await storeExhibitors(exhibitors);
+            }
+        };
+
+        if (exhibitors.length > 0) {
+            updateExhibitorsIfNeeded();
+        }
+    }, [exhibitors]);
+
+    useEffect(() => {
+        if (isFocused && scrollViewRef.current) {
             const delay = 50;
             const timeout = setTimeout(() => {
                 scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
@@ -16,9 +50,6 @@ export const HomeFunction = () => {
             return () => clearTimeout(timeout);
         }
     }, [isFocused]);
-    return (
-        {
-            scrollViewRef,
-        }
-    )
+
+    return { scrollViewRef };
 }
