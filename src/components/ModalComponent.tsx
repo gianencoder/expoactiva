@@ -15,8 +15,8 @@ export type ModalRefProps = {
 
 export const ModalComponent = React.forwardRef<ModalRefProps, ModalProps>(({ children }, ref) => {
 
-    const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 100
-    const middle = -SCREEN_HEIGHT / 2
+    const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 300
+    const middle = -SCREEN_HEIGHT / 1.8
     const { theme } = useContext(ThemeContext)
     const translateY = useSharedValue(0)
     const context = useSharedValue({ y: 0 })
