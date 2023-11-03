@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   StyleSheet, 
   View, 
@@ -8,15 +8,39 @@ import {
   ScrollView,
   Dimensions
 } from 'react-native';
-import { exhibitors } from '../assets/expositores.js';
 import ExhibitorItem from './ExhibitorItem.js';
 import SearchBar from './SearchBar.js';
 import { AntDesign } from '@expo/vector-icons';
 import { FlashList } from '@shopify/flash-list';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigationMode, toggleFollowUserMode, navigationMode }) {
   const [searchText, setSearchText] = useState('');
   const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const [exhibitors, setExhibitors] = useState([]);
+
+  const getExhibitors = async () => {
+    try {
+        const exhibitorsString = await AsyncStorage.getItem('@exhibitors');
+        if (exhibitorsString !== null) {
+            const parsedExhibitors = JSON.parse(exhibitorsString);
+            const usableExhibitors = parsedExhibitors.map((exhibitor) => {
+                return {
+                    ...exhibitor,
+                    latitude: parseFloat(exhibitor.latitude),
+                    longitude: parseFloat(exhibitor.longitude),
+                };
+            });
+            setExhibitors(usableExhibitors);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+  useEffect(() => {
+      getExhibitors();
+  }, []);
 
   const renderItem = React.useCallback(
     ({ item }) => (
@@ -44,7 +68,7 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
     return copyOfExhibitors.sort((a, b) => 
       removeAccents(a.name).localeCompare(removeAccents(b.name))
     );
-  }, []);
+  }, [exhibitors]);
   
   const filteredExpositores = React.useMemo(() => 
     exhibitorsSorted.filter(exp => 

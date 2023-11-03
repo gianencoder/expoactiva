@@ -94,9 +94,9 @@ export const ExhibitorScreen = () => {
                                 onScrollBeginDrag={handleScroll}
                                 keyboardShouldPersistTaps="always"
                                 data={filterExhibitor}
-                                keyExtractor={(ex: Exhibitors) => ex._id.toString()}
+                                keyExtractor={(ex: Exhibitors) => ex.id.toString()}
                                 estimatedItemSize={250}
-                                renderItem={({ item }) => <ExhibitorComponent ex={item} selectEx={() => selectExhibitor(item._id)} />}
+                                renderItem={({ item }) => <ExhibitorComponent ex={item} selectEx={() => selectExhibitor(item.id)} />}
                                 refreshControl={
                                     <RefreshControl
                                         refreshing={fetching}

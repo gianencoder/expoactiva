@@ -79,7 +79,7 @@ export const AuthComponent = () => {
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <View style={{ ...authStyle.formContainer }}>
                 <View style={{ height: 1, width: '10%', backgroundColor: theme.customColors.activeColor, borderRadius: 40 }} />
-                <Text style={{ color: theme.colors.text }}>Inicia sesión o registrate</Text>
+                <Text style={{ color: theme.colors.text, fontSize: 16 }}>Inicia sesión o registrate</Text>
                 <View style={{ height: 1, width: '10%', backgroundColor: theme.customColors.activeColor, borderRadius: 40 }} />
             </View>
 
@@ -87,14 +87,14 @@ export const AuthComponent = () => {
                 <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
                     <TouchableOpacity onPress={() => navigation.navigate('EmailLogin')} style={{ ...authStyle.authComponentForm, borderColor: 'lightgray' }}>
                         <Image style={authStyle.img} source={require('../assets/icons/email.png')} />
-                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text }}>Continuar con correo</Text>
+                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text, fontSize: 18, textAlign:'center' }}>Continuar con correo</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
                     <TouchableOpacity onPress={signIn} style={{ ...authStyle.authComponentForm, borderColor: 'lightgray' }}>
                         <Image style={authStyle.img} source={require('../assets/icons/googleIcon.png')} />
-                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text }}>Continuar con google</Text>
+                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text, fontSize: 18, textAlign:'center' }}>Continuar con Google</Text>
                     </TouchableOpacity>
                 </View>
 

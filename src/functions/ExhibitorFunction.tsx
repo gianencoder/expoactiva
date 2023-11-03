@@ -24,7 +24,13 @@ export const ExhibitorFunction = () => {
         })
             .then(async res => await res.json())
             .then(res => {
-                setExhibitor(res)
+                const exhibitors = res.map ((data: any) => {
+                    return {
+                        ...data,
+                        id: data._id,
+                    }
+                })
+                setExhibitor(exhibitors);
                 setLoading(false)
             })
             .catch(err => {
@@ -48,7 +54,7 @@ export const ExhibitorFunction = () => {
     const selectExhibitor = (id: number) => {
 
         try {
-            const selectEx = filter.find(ex => ex._id === id)
+            const selectEx = filter.find(ex => ex.id === id)
             if (selectEx === null) {
                 return false
             }
@@ -96,12 +102,12 @@ export const ExhibitorFunction = () => {
     const showInMap = (id: number) => {
 
         try {
-            const selectEx = filter.find(ex => ex._id === id)
+            const selectEx = filter.find(ex => ex.id === id)
             if (selectEx === null) {
                 return false
             }
             navigation.navigate('InterestPointScreen', {
-                id: selectEx?._id
+                id: selectEx?.id
                 , name: selectEx?.name
                 , image: selectEx?.image
                 , logo: selectEx?.logo
