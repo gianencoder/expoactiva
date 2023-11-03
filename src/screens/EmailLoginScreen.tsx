@@ -17,7 +17,6 @@ import { AuthPasswordComponent } from '../components/AuthPasswordComponent'
 import { LoginFormComponent } from '../components/LoginFormComponent'
 import { authStyle } from '../theme/AuthTheme'
 
-
 export const EmailLoginScreen = () => {
     const { theme } = useContext(ThemeContext)
     const [email, setEmail] = useState('')
@@ -31,7 +30,6 @@ export const EmailLoginScreen = () => {
     };
     useEffect(() => {
     }, [isChecking, exist])
-
 
     const handleFormCancel = () => {
         setIsChecking(true); // Cambia isChecking a true

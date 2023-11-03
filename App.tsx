@@ -3,7 +3,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { styles } from './src/theme/GlobalTheme';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LogBox, StatusBar } from 'react-native';
+import { LogBox, Platform, StatusBar } from 'react-native';
 import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 import { MyColors } from './src/theme/ColorsTheme';
 import { ThemeProvider } from './src/context/themeContext/ThemeContext';
@@ -12,6 +12,7 @@ import { FavoritesProvider } from './src/context/FavouriteContext/FavouritesCont
 import { AuthProvider } from './src/context/AuthContext/AuthContext';
 
 export default function App() {
+
   LogBox.ignoreLogs(['Sending']);
   LogBox.ignoreLogs(['new NativeEventEmitter']);
   LogBox.ignoreLogs(['bug in React']);
