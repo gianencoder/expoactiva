@@ -1,12 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useContext } from 'react'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import { useAuthContext } from '../context/AuthContext/AuthContext'
 import { userProfileTheme } from '../theme/UserProfileTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { AntDesign } from '@expo/vector-icons';
-import { ConfigurationItemComponent } from '../components/ConfigurationItemComponent'
-import { SeparatorComponent } from '../components/SeparatorComponent'
 
 
 export const UserProfileScreen = () => {
@@ -19,7 +16,7 @@ export const UserProfileScreen = () => {
 
         <View style={{ ...userProfileTheme.container }}>
             <View style={{ ...userProfileTheme.header, backgroundColor: theme.customColors.headerColor }}>
-                <Image style={{ ...userProfileTheme.img }} resizeMode='stretch' source={require('../assets/images/perfil.jpeg')} />
+                <Image style={{ ...userProfileTheme.img }} resizeMode='stretch' source={{uri: user?.picture }} />
                 <Text style={userProfileTheme.text}>{user?.name}</Text>
                 <Text style={userProfileTheme.text}>{user?.email}</Text>
             </View>

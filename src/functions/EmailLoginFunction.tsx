@@ -25,7 +25,7 @@ export const EmailLoginFunction = () => {
 
     const afterEmailVerification = async (email: string) => {
         try {
-            await fetch(`${properties.ambienteDesarrollo}user/update/${email}`, {
+            await fetch(`${properties.cyberSoftURL}user/update/${email}`, {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json',
@@ -54,7 +54,7 @@ export const EmailLoginFunction = () => {
         setLoading(true)
 
         try {
-            const response = await fetch(`${properties.ambienteDesarrollo}user/get/${email}`, {
+            const response = await fetch(`${properties.cyberSoftURL}user/get/${email}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -92,7 +92,7 @@ export const EmailLoginFunction = () => {
     const getCode = async (email: string, code: string) => {
         setLoading(true)
         try {
-            const response = await fetch(`${properties.ambienteDesarrollo}user/code?email=${email}&code=${code}`, {
+            const response = await fetch(`${properties.cyberSoftURL}user/code?email=${email}&code=${code}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -128,7 +128,7 @@ export const EmailLoginFunction = () => {
 
     const signUp = async (name: string, email: string, pswd: string) => {
         setLoading(true);
-        fetch(`${properties.ambienteDesarrollo}user/signup`, {
+        fetch(`${properties.cyberSoftURL}user/signup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -170,7 +170,7 @@ export const EmailLoginFunction = () => {
 
     const signIn = async (email: string, pswd: string, firsTime: boolean) => {
         setLoading(true)
-        fetch(`${properties.ambienteDesarrollo}auth/${firsTime ? 'firstLogin' : 'login'}`, {
+        fetch(`${properties.cyberSoftURL}auth/${firsTime ? 'firstLogin' : 'login'}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -186,7 +186,7 @@ export const EmailLoginFunction = () => {
                         if (data.message === 'firstLogin') afterEmailVerification(email)
 
                         setResponse(true)
-                        login(data.user, data.token);
+                        login(data.user);
                         await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user))
                         await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token))
                         setLoading(false)
