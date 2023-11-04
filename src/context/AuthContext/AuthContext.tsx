@@ -5,9 +5,9 @@ import { ReactNode, createContext, useContext, useEffect, useState } from "react
 type AuthStateContext = {
     isLoggedIn: boolean;
     visible: boolean;
-    user: User[];
+    user: User;
     logout: () => void;
-    login: (user: User[], token: string) => void;
+    login: (user: User[]) => void;
 };
 
 const AuthContext = createContext<AuthStateContext | undefined>(undefined);
@@ -30,7 +30,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [visible, setVisible] = useState(false);
 
-    const login = (userData: User[], token: string) => {
+    const login = (userData: User[]) => {
         setUser(userData);
         setIsLoggedIn(true);
         setVisible(true)
@@ -40,6 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const getPersistEvent = async () => {
             try {
                 const data = await AsyncStorage.getItem('UserLoggedIn');
+                console.log('Usuario logueado:', data)
                 if (data !== null) {
                     setUser(JSON.parse(data));
                     setIsLoggedIn(true);
@@ -51,7 +52,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             }
         };
         getPersistEvent();
-    }, []);
+    }, [isLoggedIn]);
 
     const logout = async () => {
         try {

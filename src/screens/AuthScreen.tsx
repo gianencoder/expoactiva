@@ -29,44 +29,46 @@ export const AuthScreen = () => {
     const { theme } = useContext(ThemeContext)
     return (
         <View style={{ flex: 1 }}>
-            <ModalComponent ref={ref} children={
-                <AuthComponent />
-            } />
 
             {isLoggedIn
                 ?
                 <UserProfileScreen />
                 :
-                <View style={{ ...authStyle.authCard, backgroundColor: theme.colors.background }}>
-                    <View style={{ flex: 1, backgroundColor: 'transparent', padding: 10, gap: 15 }}>
-                        <Text style={{ ...authStyle.title, color: theme.colors.text }}>Mi cuenta</Text>
-                        <Text style={{ ...authStyle.subtitle, color: theme.customColors.subtitles }}>Inicia sesión para listar, comprar y compartir tus entradas</Text>
-                        <TouchableOpacity onPress={toggleModal} style={{
-                            backgroundColor: theme.customColors.buttonColor, width: '100%', justifyContent: 'center', alignItems: 'center', height: 50,
-                            borderRadius: 10
+                <>
+                    <ModalComponent ref={ref} children={
+                        <AuthComponent />
+                    } />
+                    <View style={{ ...authStyle.authCard, backgroundColor: theme.colors.background }}>
+                        <View style={{ flex: 1, backgroundColor: 'transparent', padding: 10, gap: 15 }}>
+                            <Text style={{ ...authStyle.title, color: theme.colors.text }}>Mi cuenta</Text>
+                            <Text style={{ ...authStyle.subtitle, color: theme.customColors.subtitles }}>Inicia sesión para listar, comprar y compartir tus entradas</Text>
+                            <TouchableOpacity onPress={toggleModal} style={{
+                                backgroundColor: theme.customColors.buttonColor, width: '100%', justifyContent: 'center', alignItems: 'center', height: 50,
+                                borderRadius: 10
 
-                        }}>
-                            <Text style={{ color: 'white', fontSize: 15, fontWeight: '600' }}>Iniciar sesión</Text>
-                        </TouchableOpacity>
-                        <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center', height: 50 }}>
-                            <Text style={{ color: 'gray', fontSize: 13, fontWeight: '500' }}>¿No tienes cuenta?</Text>
-                            <TouchableOpacity onPress={toggleModal} hitSlop={{ top: 30, bottom: 50, right: 30, left: 30 }} >
-                                <Text style={{ ...authStyle.createAccount, color: 'gray', }}>Presiona aquí</Text>
+                            }}>
+                                <Text style={{ color: 'white', fontSize: 15, fontWeight: '600' }}>Iniciar sesión</Text>
                             </TouchableOpacity>
+                            <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center', height: 50 }}>
+                                <Text style={{ color: 'gray', fontSize: 13, fontWeight: '500' }}>¿No tienes cuenta?</Text>
+                                <TouchableOpacity onPress={toggleModal} hitSlop={{ top: 30, bottom: 50, right: 30, left: 30 }} >
+                                    <Text style={{ ...authStyle.createAccount, color: 'gray', }}>Presiona aquí</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>
+
+                        <View style={{ ...authStyle.bottomScreen }}>
+                            <ConfigurationItemComponent title={'Privacidad y Seguridad'} image={<Image source={require('../assets/icons/candado.png')}
+                                style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
+                            <ConfigurationItemComponent title={'Ayuda y soporte'} image={<Image source={require('../assets/icons/ayuda-soporte.png')}
+                                style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
+                            <ConfigurationItemComponent title={'Sobre Expoactiva Nacional App'} image={<Image source={require('../assets/icons/pregunta.png')}
+                                style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Sobre expoactiva')} />
                         </View>
 
                     </View>
-
-                    <View style={{ ...authStyle.bottomScreen }}>
-                        <ConfigurationItemComponent title={'Privacidad y Seguridad'} image={<Image source={require('../assets/icons/candado.png')}
-                            style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
-                        <ConfigurationItemComponent title={'Ayuda y soporte'} image={<Image source={require('../assets/icons/ayuda-soporte.png')}
-                            style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
-                        <ConfigurationItemComponent title={'Sobre Expoactiva Nacional App'} image={<Image source={require('../assets/icons/pregunta.png')}
-                            style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Sobre expoactiva')} />
-                    </View>
-
-                </View>
+                </>
             }
         </View>
 

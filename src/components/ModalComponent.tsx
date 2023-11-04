@@ -1,9 +1,11 @@
-import React, { useCallback, useContext, useImperativeHandle } from 'react'
+import React, { useCallback, useContext, useImperativeHandle, useEffect } from 'react'
 import { Dimensions, View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import { authStyle } from '../theme/AuthTheme'
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
+import { useAuthContext } from '../context/AuthContext/AuthContext'
+import { useNavigation } from '@react-navigation/native'
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -21,7 +23,15 @@ export const ModalComponent = React.forwardRef<ModalRefProps, ModalProps>(({ chi
     const translateY = useSharedValue(0)
     const context = useSharedValue({ y: 0 })
     const active = useSharedValue(false)
+    const { isLoggedIn } = useAuthContext()
+    const navigation = useNavigation()
 
+    useEffect(() => {
+        if (isLoggedIn) {
+            scrollTo(0);
+            navigation.goBack()
+        }
+    }, [isLoggedIn])
 
     const scrollTo = useCallback((destination: number) => {
 
