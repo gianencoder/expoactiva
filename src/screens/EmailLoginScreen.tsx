@@ -16,6 +16,7 @@ import { PutEmailToValidateComponent } from '../components/PutEmailToValidateCom
 import { AuthPasswordComponent } from '../components/AuthPasswordComponent'
 import { LoginFormComponent } from '../components/LoginFormComponent'
 import { authStyle } from '../theme/AuthTheme'
+import { ToastMessageComponent } from '../components/ToastMessageComponent'
 
 export const EmailLoginScreen = () => {
     const { theme } = useContext(ThemeContext)
@@ -29,7 +30,7 @@ export const EmailLoginScreen = () => {
         if (wrongCredentials) {
             setTimeout(() => {
                 setWrongCredentials(false)
-            }, 2500)
+            }, 3000)
         }
     }, [wrongCredentials])
 
@@ -58,6 +59,17 @@ export const EmailLoginScreen = () => {
                     </View>
 
                     : <View style={{ ...authStyle.mainView, backgroundColor: theme.colors.background }}>
+                        <ToastMessageComponent
+                            iconName={'closecircleo'}
+                            textColor={theme.customColors.colorErrorMessage}
+                            iconColor={theme.customColors.colorErrorMessage}
+                            iconSize={24}
+                            backgroundColor={theme.customColors.bgErrorMessage}
+                            visible={wrongCredentials}
+                            title={'¡Error!'}
+                            message={'Credenciales incorrectas'}
+                            width={'90%'}
+                        />
 
                         {isChecking && <PutEmailToValidateComponent email={email} setEmail={(text) => setEmail(text.toLowerCase())} getUserByEmail={() => getUserByEmail(email)} />}
 

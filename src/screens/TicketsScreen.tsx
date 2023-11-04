@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput, useWindowDimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Image, TextInput, useWindowDimensions, Share } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
 import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
@@ -19,7 +19,17 @@ export const TicketsScreen = () => {
     const { ticket, ticketDetail } = TicketFunction()
 
 
+    const onShare = async () => {
+        const result = await Share.share({ message: ('www.google.com') })
 
+        if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+                console.log('shared', result.activityType)
+            } else {
+                console.log('error')
+            }
+        }
+    }
     return (
         ticket.length > 0
 
@@ -46,7 +56,7 @@ export const TicketsScreen = () => {
 
                     <View style={{ ...ticketStyles.topSideComplements, backgroundColor: theme.colors.background }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('BuyTicket')}
+                            onPress={onShare}
                             style={{
                                 backgroundColor: theme.customColors.buttonColor
                                 , height: 50

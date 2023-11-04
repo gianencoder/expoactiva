@@ -170,57 +170,58 @@ export const EmailLoginFunction = () => {
 
     const signIn = async (email: string, pswd: string, firsTime: boolean) => {
         setLoading(true)
-        fetch(`${properties.cyberSoftURL}auth/${firsTime ? 'firstLogin' : 'login'}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: email,
-                password: pswd,
-            }),
-        })
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json().then(async data => {
-                        if (data.message === 'firstLogin') afterEmailVerification(email)
 
-                        setResponse(true)
-                        login(data.user);
-                        await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user))
-                        await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token))
-                        setLoading(false)
-                        navigation.navigate('HomeScreen')
-
-                    });
-                } else if (response.status === 401) {
-                    setWrongCredentials(true)
-                    setLoading(false)
-                } else if (response.status === 403) {
-                    setLoading(false)
-                    Alert.alert('¡Falta un paso!', 'Debes validar tu cuenta antes de iniciar sesión',
-                        [
-                            {
-                                text: 'Validar ahora',
-                                onPress: () => {
-                                    resendCode(email)
-                                    navigation.navigate('CodeValidation', {
-                                        email: email
-                                    })
-                                }
-                            },
-                            {
-                                text: 'Ahora no',
-                                onPress: () => navigation.navigate('HomeScreen')
-                            }
-                        ]
-                    )
-                }
-            })
-            .catch(error => {
-                throw new Error('Error al iniciar sesión:', error);
-
+        try {
+            const response = await fetch(`${properties.cyberSoftURL}auth/${firsTime ? 'firstLogin' : 'login'}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: pswd,
+                }),
             });
+            if (response.status === 200) {
+                return response.json().then(async data => {
+                    if (data.message === 'firstLogin') afterEmailVerification(email)
+
+                    setResponse(true)
+                    login(data.user);
+                    await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user))
+                    await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token))
+                    setLoading(false)
+                    navigation.navigate('HomeScreen')
+
+                });
+            } else if (response.status === 401) {
+                setWrongCredentials(true)
+                setLoading(false)
+                console.log(wrongCredentials)
+            } else if (response.status === 403) {
+                setLoading(false)
+                Alert.alert('¡Falta un paso!', 'Debes validar tu cuenta antes de iniciar sesión',
+                    [
+                        {
+                            text: 'Validar ahora',
+                            onPress: () => {
+                                resendCode(email)
+                                navigation.navigate('CodeValidation', {
+                                    email: email
+                                })
+                            }
+                        },
+                        {
+                            text: 'Ahora no',
+                            onPress: () => navigation.navigate('HomeScreen')
+                        }
+                    ]
+                )
+            }
+        } catch (error) {
+            Alert.alert('Error en la solicitud', 'Vuelve a intentarlo mas tarde')
+            throw new Error('Error en la solicitud')
+        }
     }
 
     const resendCode = async (email: string) => {
@@ -246,7 +247,7 @@ export const EmailLoginFunction = () => {
                 setLoading(false)
             })
             .catch(err => {
-                Alert.alert('Error', err)
+                Alert.alert('Hubo un error en la solicitud', 'Intente más tarde')
                 setLoading(true)
             })
     }

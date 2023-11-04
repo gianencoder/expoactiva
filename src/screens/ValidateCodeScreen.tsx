@@ -81,7 +81,7 @@ export const ValidateCodeScreen = () => {
                         title='¡Bien hecho!'
                         message={'El código se ha reenviado'}
                         visible={isCodeResend}
-                        iconName={'closecircleo'}
+                        iconName={'checkcircleo'}
                     />
 
                     <ToastMessageComponent

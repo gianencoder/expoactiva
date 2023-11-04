@@ -28,16 +28,24 @@ export const HomeScreen = ({ navigation }: Props) => {
         if (visible) {
             setTimeout(() => {
                 setToastVisible(true);
-            }, 300);
+            }, 250);
             setTimeout(() => {
                 setToastVisible(false);
-            }, 2500);
+            }, 2600);
         }
     }, [visible]);
 
     return (
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-            <ToastMessageComponent width={'90%'} visible={toastVisible} title={'¡Bien hecho!'} message={'Has iniciado sesión correctamente'} />
+            <ToastMessageComponent
+                width={'90%'}
+                visible={toastVisible}
+                title={'¡Bien hecho!'}
+                message={'Has iniciado sesión correctamente'}
+                backgroundColor={theme.customColors.bgSuccesMessage}
+                iconColor={theme.customColors.colorSuccessMessage}
+                textColor={theme.customColors.colorSuccessMessage}
+            />
             <ScrollView
                 ref={scrollViewRef}
                 style={styles.scrollView}
