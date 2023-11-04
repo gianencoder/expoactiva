@@ -1,11 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import { useAuthContext } from '../context/AuthContext/AuthContext';
 import properties from '../../properties.json'
-import { Button } from 'react-native';
-import { ToastMessageComponent } from '../components/ToastMessageComponent';
+
 
 
 export const EmailLoginFunction = () => {
@@ -16,8 +15,12 @@ export const EmailLoginFunction = () => {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState(false)
     const [isInvalidCode, setIsInvalidCode] = useState(false)
-    const [credentials, setCredentials] = useState(true)
+    const [isExpiredCode, setIsExpiredCode] = useState(false)
     const [validAccount, setValidAccount] = useState(true)
+    const [isPendingCode, setIsPendingCode] = useState(false)
+    const [isCodeResend, setIsCodeResend] = useState(false)
+    const [wrongCredentials, setWrongCredentials] = useState(false)
+
 
 
     const afterEmailVerification = async (email: string) => {
@@ -97,20 +100,9 @@ export const EmailLoginFunction = () => {
             });
             if (response.status === 200) {
                 setLoading(false)
-                Alert.alert('¡Bien hecho!', 'Has validado tu cuenta', [{
-                    text: 'Iniciar sesión',
-                    onPress: () => {
-                        signIn(email, code, true)
-                    }
-                },
-                {
-                    text: 'Ahora no',
-                    onPress: () => {
-                        navigation.navigate('HomeScreen')
-                        afterEmailVerification(email)
-                    }
-                }
-                ])
+                signIn(email, code, true)
+                navigation.navigate('HomeScreen')
+                afterEmailVerification(email)
 
             } else if (response.status === 400) {
                 setLoading(false)
@@ -119,6 +111,11 @@ export const EmailLoginFunction = () => {
                 setLoading(false)
                 Alert.alert('Error en su solicitud', 'Vuelve a intentar en unos momentos')
             }
+            else if (response.status === 403) {
+                setLoading(false)
+                setIsExpiredCode(true)
+            }
+
             else {
                 setLoading(false)
                 Alert.alert('Error en su solicitud', 'Vuelve a intentar en unos momentos')
@@ -197,17 +194,20 @@ export const EmailLoginFunction = () => {
 
                     });
                 } else if (response.status === 401) {
+                    setWrongCredentials(true)
                     setLoading(false)
-                    setCredentials(false)
                 } else if (response.status === 403) {
                     setLoading(false)
                     Alert.alert('¡Falta un paso!', 'Debes validar tu cuenta antes de iniciar sesión',
                         [
                             {
                                 text: 'Validar ahora',
-                                onPress: () => navigation.navigate('CodeValidation', {
-                                    email: email
-                                })
+                                onPress: () => {
+                                    resendCode(email)
+                                    navigation.navigate('CodeValidation', {
+                                        email: email
+                                    })
+                                }
                             },
                             {
                                 text: 'Ahora no',
@@ -221,6 +221,34 @@ export const EmailLoginFunction = () => {
                 throw new Error('Error al iniciar sesión:', error);
 
             });
+    }
+
+    const resendCode = async (email: string) => {
+        setLoading(true)
+        fetch(`${properties.ambienteDesarrollo}user/code/update/${email}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => {
+
+                if (response.status === 200) { console.log('el codigo es valido'), setIsPendingCode(true) }
+
+                if (response.status === 201) { console.log('Codigo reenviado'), setIsCodeResend(true) }
+
+                if (response.status === 403) console.log('Codigo reenviado pero el email no se pudo enviar')
+
+                if (response.status === 404) console.log('El usuario no fué encontrado',)
+
+                if (response.status === 500) console.log('Error en el servidor')
+
+                setLoading(false)
+            })
+            .catch(err => {
+                Alert.alert('Error', err)
+                setLoading(true)
+            })
     }
 
     function handleFormCancel() {
@@ -245,6 +273,15 @@ export const EmailLoginFunction = () => {
             , setIsInvalidCode
             , validAccount
             , setValidAccount
+            , isExpiredCode
+            , setIsExpiredCode
+            , resendCode
+            , isPendingCode
+            , setIsPendingCode
+            , isCodeResend
+            , setIsCodeResend
+            , wrongCredentials
+            , setWrongCredentials
         }
     )
 }

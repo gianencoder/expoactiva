@@ -37,7 +37,7 @@ export const HomeScreen = ({ navigation }: Props) => {
 
     return (
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-            <ToastMessageComponent visible={toastVisible} title={'¡Bien hecho!'} message={'Has iniciado sesión correctamente'} />
+            <ToastMessageComponent width={'90%'} visible={toastVisible} title={'¡Bien hecho!'} message={'Has iniciado sesión correctamente'} />
             <ScrollView
                 ref={scrollViewRef}
                 style={styles.scrollView}

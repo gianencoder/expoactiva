@@ -25,7 +25,10 @@ export interface ThemeState extends Theme {
         buttonColor: string
         bgErrorMessage: string
         bgSuccesMessage: string
+        bgWarningMessage: string
         colorErrorMessage: string
+        colorWarningMessage: string
+        colorSuccessMessage: string
 
     }
 }
@@ -55,9 +58,12 @@ export const lightTheme: ThemeState = {
         headerColor: MyColors.primary,
         subtitles: MyColors.textGrey,
         buttonColor: '#5C8374',
-        bgErrorMessage: '#650000',
-        colorErrorMessage: 'white',
-        bgSuccesMessage: '#86A789'
+        bgErrorMessage: '#FF9494',
+        colorErrorMessage: 'rgb(91, 0, 0)',
+        bgSuccesMessage: '#86A789',
+        bgWarningMessage: 'rgb(255, 236, 158)',
+        colorWarningMessage: 'rgb(76, 33, 0)',
+        colorSuccessMessage: ''
     }
 }
 
@@ -84,10 +90,12 @@ export const darkTheme: ThemeState = {
         headerColor: '#1b1b1b',
         subtitles: MyColors.textGrey,
         buttonColor: '#5C8374',
-        bgErrorMessage: '#650000',
-        colorErrorMessage: 'white',
-        bgSuccesMessage: '#86A789'
-
+        bgErrorMessage: '#FF9494',
+        colorErrorMessage: 'rgb(91, 0, 0)',
+        bgSuccesMessage: '#86A789',
+        bgWarningMessage: 'rgb(255, 236, 158)',
+        colorWarningMessage: 'rgb(76, 33, 0)',
+        colorSuccessMessage: ''
     }
 }
 

@@ -22,8 +22,16 @@ export const EmailLoginScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
-    const { getUserByEmail, exist, isChecking, signIn, loading, response, signUp, setIsChecking, setExist } = EmailLoginFunction()
+    const { getUserByEmail, exist, isChecking, signIn, loading, response, signUp, setIsChecking, setExist, wrongCredentials, setWrongCredentials } = EmailLoginFunction()
     const { height } = useWindowDimensions()
+
+    useEffect(() => {
+        if (wrongCredentials) {
+            setTimeout(() => {
+                setWrongCredentials(false)
+            }, 2500)
+        }
+    }, [wrongCredentials])
 
     const closeKeyboard = () => {
         Keyboard.dismiss();
@@ -45,7 +53,7 @@ export const EmailLoginScreen = () => {
             >
                 {loading
                     ? <View>
-                        <ActivityIndicator size={'large'} color={theme.customColors.activeColor} style={{ height: 100, backgroundColor: 'white', borderRadius: 200 }} />
+                        <ActivityIndicator size={'large'} color={theme.customColors.activeColor} style={{ height: 100, backgroundColor: theme.colors.background, borderRadius: 200 }} />
                         <Text style={{ fontSize: 18, color: 'gray' }}>Obteniendo información. Por favor, espere...</Text>
                     </View>
 

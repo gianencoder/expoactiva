@@ -87,14 +87,14 @@ export const AuthComponent = () => {
                 <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
                     <TouchableOpacity onPress={() => navigation.navigate('EmailLogin')} style={{ ...authStyle.authComponentForm, borderColor: 'lightgray' }}>
                         <Image style={authStyle.img} source={require('../assets/icons/email.png')} />
-                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text, fontSize: 18, textAlign:'center' }}>Continuar con correo</Text>
+                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text, fontSize: 18, textAlign: 'center' }}>Continuar con correo</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
                     <TouchableOpacity onPress={signIn} style={{ ...authStyle.authComponentForm, borderColor: 'lightgray' }}>
                         <Image style={authStyle.img} source={require('../assets/icons/googleIcon.png')} />
-                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text, fontSize: 18, textAlign:'center' }}>Continuar con Google</Text>
+                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text, fontSize: 18, textAlign: 'center' }}>Continuar con Google</Text>
                     </TouchableOpacity>
                 </View>
 

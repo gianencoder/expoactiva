@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native'
 export const vct = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20
-        , gap: 20
+        padding: 10
+        , gap: 45
 
     },
 

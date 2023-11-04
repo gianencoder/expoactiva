@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { ToastMessageComponent } from './ToastMessageComponent'
 import { authStyle } from '../theme/AuthTheme'
+import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 
 
 interface Props {
@@ -17,6 +18,7 @@ export const AuthPasswordComponent = ({ email, password, setPassword, signIn, ha
 
     const { theme } = useContext(ThemeContext)
     const [isValid, setIsValid] = useState(true)
+    const { wrongCredentials, setWrongCredentials } = EmailLoginFunction()
 
 
 
@@ -31,6 +33,14 @@ export const AuthPasswordComponent = ({ email, password, setPassword, signIn, ha
         }
     };
 
+    useEffect(() => {
+        if (wrongCredentials) {
+            setTimeout(() => {
+                setWrongCredentials(false)
+            }, 2500)
+        }
+    }, [wrongCredentials])
+
     const handleCancel = () => {
         handleFormCancel();
     }
@@ -38,6 +48,15 @@ export const AuthPasswordComponent = ({ email, password, setPassword, signIn, ha
     return (
         <View style={{ alignItems: 'center', height: 'auto', width: '100%', gap: 15, padding: 10 }}>
             <ToastMessageComponent iconName={'closecircleo'} textColor={'white'} iconColor={'white'} iconSize={24} backgroundColor={'#950101'} visible={!isValid} title={'¡Error!'} message={'Ingresa una contraseña por favor'} />
+            <ToastMessageComponent
+                iconName={'closecircleo'}
+                textColor={theme.customColors.colorErrorMessage}
+                iconColor={theme.customColors.colorErrorMessage}
+                iconSize={24}
+                backgroundColor={theme.customColors.bgErrorMessage}
+                visible={wrongCredentials}
+                title={'¡Error!'}
+                message={'Credenciales incorrectas'} />
             <Text style={{ alignSelf: 'center', padding: 20, fontSize: 19, color: theme.colors.text }}>Iniciar Sesión</Text>
 
 
