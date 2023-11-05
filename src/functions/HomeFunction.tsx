@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from 'react'
 import { ScrollView } from 'react-native-gesture-handler';
 import { useExhibitors } from '../hooks/useExhibitors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Location from 'expo-location';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 export const HomeFunction = () => {
     const exhibitors = useExhibitors();
@@ -50,6 +52,15 @@ export const HomeFunction = () => {
             return () => clearTimeout(timeout);
         }
     }, [isFocused]);
+
+    const getLocationPermission = async () => {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        return status;
+    };
+
+    useEffect(() => {
+        getLocationPermission();
+    }, []);
 
     return { scrollViewRef };
 }

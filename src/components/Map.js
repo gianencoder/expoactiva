@@ -10,9 +10,10 @@ import styles from './MapStyles';
 import * as turf from '@turf/turf';
 import { NavigationHook } from '../hooks/NavigationHook';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 
 
-const MAPBOX_ACCESS_TOKEN = process.env.MAPBOX !== undefined ? process.env.MAPBOX : 'sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A'
+const MAPBOX_ACCESS_TOKEN = Constants.expoConfig.extra.mapbox;
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
 const EXPOACTIVA_MARKER_LONGITUD = -57.8942;
@@ -163,7 +164,7 @@ const Map = ({ showModal }) => {
             let locationSubscription;
 
             try {
-                const { status } = await Location.requestForegroundPermissionsAsync();
+                const { status } = await Location.getForegroundPermissionsAsync();
 
                 if (status !== 'granted') {
                     console.log('Permission to access location was denied');

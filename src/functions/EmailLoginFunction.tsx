@@ -226,7 +226,7 @@ export const EmailLoginFunction = () => {
 
     const resendCode = async (email: string) => {
         setLoading(true)
-        fetch(`${properties.ambienteDesarrollo}user/code/update/${email}`, {
+        fetch(`${properties.cyberSoftURL}user/code/update/${email}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
