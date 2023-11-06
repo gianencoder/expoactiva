@@ -115,11 +115,12 @@ export const LoginFormComponent = ({ name, email, setName, setBornDay, setEmail,
                     style={{
                         backgroundColor: name !== '' && email !== '' && bornDay !== null && validEmail.test(email) ? theme.customColors.buttonColor : '#DBD8E3'
                         , height: 40
-                        , width: '90%'
+                        , width: '100%'
                         , borderRadius: 10
                         , justifyContent: 'center'
                         , alignItems: 'center'
                         , alignSelf: 'center'
+                        , marginVertical: 10
                     }}>
                     <Text style={{ color: name !== '' && bornDay !== null && validEmail.test(email) ? 'white' : '#4B5D67', letterSpacing: 1 }}>{name === '' || email === '' || bornDay === null ? 'COMPLETA TODOS LOS CAMPOS' : !validEmail.test(email) ? 'EMAIL INVÁLIDO' : 'CREAR'}</Text>
                 </TouchableOpacity>

@@ -207,7 +207,7 @@ export const EventFunction = () => {
 
         } else {
             await removeFavouriteAPI(id)
-            removeFavorite(id)
+            removeFavorite(id, true)
         }
     }
 

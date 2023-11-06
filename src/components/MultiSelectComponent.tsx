@@ -26,18 +26,16 @@ export const MultiSelectComponent = ({ selected, data, onChange }: props) => {
                 selectedTextStyle={{ ...styles.selectedTextStyle, color: theme.customColors.iconColor }}
                 inputSearchStyle={styles.inputSearchStyle}
                 iconStyle={styles.iconStyle}
-                search
                 data={data}
                 labelField="label"
                 valueField="value"
                 placeholder="Seleccionar intereses"
-                searchPlaceholder="Buscar intereses..."
                 value={selected}
                 onChange={onChange}
                 renderLeftIcon={() => (
                     <AntDesign
                         style={styles.icon}
-                        color={theme.colors.text}
+                        color={theme.customColors.activeColor}
                         name="Safety"
                         size={20}
                     />
@@ -51,7 +49,7 @@ export const MultiSelectComponent = ({ selected, data, onChange }: props) => {
 
 
 const styles = StyleSheet.create({
-    container: { padding: 10 },
+    container: { marginVertical: 10 },
     dropdown: {
         height: 50,
         backgroundColor: 'transparent',
@@ -71,11 +69,12 @@ const styles = StyleSheet.create({
     inputSearchStyle: {
         height: 40,
         fontSize: 16,
+        borderRadius: 5,
     },
     icon: {
         marginRight: 5,
     },
     selectedStyle: {
-        borderRadius: 12,
+        borderRadius: 5,
     },
 });

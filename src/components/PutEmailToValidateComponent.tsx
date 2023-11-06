@@ -56,11 +56,12 @@ export const PutEmailToValidateComponent = ({ email, setEmail, getUserByEmail }:
                 style={{
                     backgroundColor: validEmail.test(email) ? theme.customColors.buttonColor : '#DBD8E3'
                     , height: 40
-                    , width: '80%'
+                    , width: '100%'
                     , borderRadius: 10
                     , justifyContent: 'center'
                     , alignItems: 'center'
                     , alignSelf: 'center'
+                    , marginTop: 15
                 }}>
                 {loading
                     ? <ActivityIndicator color={'white'} style={{ height: 0, width: 150, borderRadius: 200 }} />
