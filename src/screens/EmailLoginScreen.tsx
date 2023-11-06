@@ -18,6 +18,16 @@ import { LoginFormComponent } from '../components/LoginFormComponent'
 import { authStyle } from '../theme/AuthTheme'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
 
+
+const data = [
+    { label: 'Agricultura', value: 'Agricultura' },
+    { label: 'Automóviles', value: 'Automóviles' },
+    { label: 'Ganadería', value: 'Ganadería' },
+    { label: 'Lacteos', value: 'Lacteos' },
+    { label: 'Máquinas', value: 'Máquinas' },
+    { label: 'Tecnología', value: 'Tecnología' },
+];
+
 export const EmailLoginScreen = () => {
     const { theme } = useContext(ThemeContext)
     const [email, setEmail] = useState('')
@@ -25,6 +35,7 @@ export const EmailLoginScreen = () => {
     const [name, setName] = useState('')
     const { getUserByEmail, exist, isChecking, signIn, loading, response, signUp, setIsChecking, setExist, wrongCredentials, setWrongCredentials } = EmailLoginFunction()
     const { height } = useWindowDimensions()
+    const [selected, setSelected] = useState([]);
 
     useEffect(() => {
         if (wrongCredentials) {
@@ -95,8 +106,10 @@ export const EmailLoginScreen = () => {
                                 setName={text => setName(text)}
                                 setBornDay={text => setBornDay(text)}
                                 setEmail={text => setEmail(text)}
-                                signUp={() => signUp(name, email, bornDay)}
-                                handleFormCancel={handleFormCancel} />
+                                signUp={() => signUp(name, email, bornDay, selected)}
+                                handleFormCancel={handleFormCancel} selected={selected} data={data} onChange={item => {
+                                    setSelected(item)
+                                }} />
                         }
                     </View>
                 }

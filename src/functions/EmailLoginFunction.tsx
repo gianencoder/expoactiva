@@ -126,44 +126,46 @@ export const EmailLoginFunction = () => {
         }
     };
 
-    const signUp = async (name: string, email: string, bornDay: Date) => {
+    const signUp = async (name: string, email: string, bornDay: Date, interests: string[]) => {
         setLoading(true);
-        fetch(`${properties.ambienteDesarrollo}user/signup`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                birthDay: bornDay,
-            }),
-        })
-            .then(async response => {
+        console.log(interests)
 
-                if (response.status === 201) {
-                    setLoading(false);
-                    navigation.navigate('CodeValidation', {
-                        email: email
-                    });
-                }
-                else if (response.status === 200) {
-                    setLoading(false);
-                    navigation.navigate('CodeValidation', {
-                        email: email
-                    });
-
-                } else {
-                    setLoading(false);
-                    Alert.alert('Error en su solicitud', 'Vuelve a intentar en unos momentos')
-
-                }
-            })
-            .catch(err => {
-                setLoading(false);
-                Alert.alert('Tiempo agotado', 'Intente nuevamente en unos minutos')
-                throw new Error('Error en la consulta', err);
+        try {
+            const request = await fetch(`${properties.ambienteDesarrollo}user/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    birthDay: bornDay,
+                    interests: interests
+                }),
             });
+            if (request.status === 201) {
+                setLoading(false);
+                navigation.navigate('CodeValidation', {
+                    email: email
+                });
+            }
+            else if (request.status === 200) {
+                setLoading(false);
+                navigation.navigate('CodeValidation', {
+                    email: email
+                });
+
+            } else {
+                setLoading(false);
+                Alert.alert('Error en su solicitud', 'Vuelve a intentar en unos momentos')
+
+            }
+        } catch (error) {
+            setLoading(false);
+            Alert.alert('Tiempo agotado', 'Intente nuevamente en unos minutos')
+            throw new Error('Error en la consulta');
+        }
+
     }
 
     const signIn = async (email: string, pswd: string, firsTime: boolean) => {

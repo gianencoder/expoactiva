@@ -18,6 +18,8 @@ import { BuyTicketScreen } from '../screens/BuyTicketScreen';
 import { ValidateCodeScreen } from '../screens/ValidateCodeScreen';
 import { NotificationScreen } from '../screens/NotificationScreen';
 
+
+
 const Stack = createStackNavigator();
 
 export const MyStack = () => {

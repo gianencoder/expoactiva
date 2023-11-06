@@ -1,11 +1,12 @@
 
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Keyboard, ActivityIndicator, Platform, Button, TouchableWithoutFeedback } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { ToastMessageComponent } from './ToastMessageComponent'
 import { authStyle } from '../theme/AuthTheme'
 import { DatePickerComponent } from './DatePickerComponent'
 import { formatDate } from '../util/utils'
+import { MultiSelectComponent } from './MultiSelectComponent'
 
 interface Props {
     name: string,
@@ -14,17 +15,29 @@ interface Props {
     setName: (text: string) => void
     setBornDay: (text: Date) => void
     setEmail: (text: string) => void
-    signUp: (name: string, email: string, bornDay: Date) => void
+    signUp: (name: string, email: string, bornDay: Date, interests: string[]) => void
     handleFormCancel: () => void;
+    selected: string[]
+    data: {
+        label: string;
+        value: string;
+    }[]
+    onChange: (value: string[]) => void
 }
 
-export const LoginFormComponent = ({ name, email, setName, setBornDay, setEmail, signUp, handleFormCancel, bornDay }: Props) => {
+
+
+export const LoginFormComponent = ({ name, email, setName, setBornDay, setEmail, signUp, handleFormCancel, bornDay, selected, onChange, data }: Props) => {
 
     const { theme } = useContext(ThemeContext)
     const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const [isVisible, setIsVisible] = useState(false)
     const [emptyField, setEmptyField] = useState(false)
     const [isValidEmail, setIsValidEmail] = useState(false)
+
+
+
+
 
     const handleSignUp = () => {
         Keyboard.dismiss()
@@ -43,7 +56,7 @@ export const LoginFormComponent = ({ name, email, setName, setBornDay, setEmail,
                 setIsVisible(false)
             }, 2500)
         } else {
-            signUp(name, email, bornDay)
+            signUp(name, email, bornDay, selected)
             setName('')
             setEmail('')
             setIsVisible(false)
@@ -90,7 +103,12 @@ export const LoginFormComponent = ({ name, email, setName, setBornDay, setEmail,
                     defaultDate={'2000-01-01'}
                     onDateChange={(value: Date) => setBornDay(value)}
                 />
+                <MultiSelectComponent
+                    onChange={onChange}
+                    data={data} selected={selected} />
             </View>
+
+
             <View style={authStyle.formView}>
                 <TouchableOpacity
                     onPress={handleSignUp}
