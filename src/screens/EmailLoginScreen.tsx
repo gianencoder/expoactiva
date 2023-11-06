@@ -64,7 +64,7 @@ export const EmailLoginScreen = () => {
                 style={{ flex: 1, backgroundColor: theme.colors.background }}
             >
                 {loading
-                    ? <View>
+                    ? <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <ActivityIndicator size={'large'} color={theme.customColors.activeColor} style={{ height: 100, backgroundColor: theme.colors.background, borderRadius: 200 }} />
                         <Text style={{ fontSize: 18, color: 'gray' }}>Obteniendo información. Por favor, espere...</Text>
                     </View>
