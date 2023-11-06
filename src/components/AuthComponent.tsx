@@ -8,16 +8,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native"
 import properties from '../../properties.json'
 import { useAuthContext } from '../context/AuthContext/AuthContext';
+import Constants from 'expo-constants';
 
-const IS_DEV = process.env.APP_VARIANT === 'development';
+const webClientId = Constants.expoConfig?.extra?.webClientId;
+const iosClientId = Constants.expoConfig?.extra?.iosClientId;
 
 const googleSignInConfigAndroid = {
     scopes: ["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"],
-    webClientId: "951022193723-dq3kifjg3s3i9qbjj8krit2a6cfq8mmm.apps.googleusercontent.com",
+    webClientId: webClientId,
 };
 
 const googleSignInConfigIos = {
-    iosClientId: IS_DEV ? "951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2.apps.googleusercontent.com" : "951022193723-to54ihjmtqpmvet6ho2ohburoe96duip.apps.googleusercontent.com",
+    iosClientId: iosClientId,
 };
 
 GoogleSignin.configure(Platform.OS === "android" ? googleSignInConfigAndroid : googleSignInConfigIos);

@@ -68,7 +68,7 @@ const LocationDaemon = () => {
 
 
     } catch (error) {
-      throw new Error(error)
+      console.log('Error al enviar localizacion', error);
     }
   }
 

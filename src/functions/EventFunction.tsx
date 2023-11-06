@@ -59,12 +59,12 @@ export const EventFunction = () => {
     const notificationToken = expoPushToken?.data;
     console.log(notificationToken)
 
-    const checkNotificationPermissions = useCallback(async () => {
+    const checkNotificationPermissions = async () => {
         const hasPermissions = await verifyAndRequestPermissions();
         if (!hasPermissions) {
             navigation.goBack();
         }
-    }, [navigation, verifyAndRequestPermissions]);
+    };
 
     useEffect(() => {
         if (Platform.OS !== 'android') {

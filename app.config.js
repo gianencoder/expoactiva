@@ -2,7 +2,7 @@ const IS_DEV = process.env.APP_VARIANT === 'development';
 
 export default {
   expo: {
-    name: IS_DEV ? 'Expoactiva Nacional App (dev)' : 'Expoactiva Nacional App',
+    name: IS_DEV ? 'Expoactiva App (dev)' : 'Expoactiva App',
     slug: "expoactiva-nacional-app",
     version: "1.0.1",
     orientation: "portrait",
@@ -19,7 +19,7 @@ export default {
       infoPlist: {
         CFBundleURLTypes: [
           {
-            CFBundleURLSchemes: ["com.googleusercontent.apps.951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2","com.googleusercontent.apps.951022193723-to54ihjmtqpmvet6ho2ohburoe96duip"],
+            CFBundleURLSchemes: IS_DEV ? ["com.googleusercontent.apps.951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2","com.googleusercontent.apps.951022193723-to54ihjmtqpmvet6ho2ohburoe96duip"] : ["com.googleusercontent.apps.951022193723-to54ihjmtqpmvet6ho2ohburoe96duip","com.googleusercontent.apps.951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2"],
           }
         ],
       }
@@ -57,6 +57,9 @@ export default {
       eas: {
         projectId: "d0ec153d-92dc-4975-8499-3e7f0fa38b98",
       },
+      webClientId: "951022193723-dq3kifjg3s3i9qbjj8krit2a6cfq8mmm.apps.googleusercontent.com",
+      iosClientId: IS_DEV ? "951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2.apps.googleusercontent.com" : "951022193723-to54ihjmtqpmvet6ho2ohburoe96duip.apps.googleusercontent.com",
+      mapbox: "sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A",
     },
     userInterfaceStyle: 'automatic', // Configuración para admitir temas claros y oscuros
   },
