@@ -48,8 +48,6 @@ export const EmailLoginScreen = () => {
     const closeKeyboard = () => {
         Keyboard.dismiss();
     };
-    useEffect(() => {
-    }, [isChecking, exist])
 
     const handleFormCancel = () => {
         setIsChecking(true); // Cambia isChecking a true
