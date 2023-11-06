@@ -6,13 +6,13 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 export const authStyle = StyleSheet.create({
     mainView: {
-        width: '90%'
-        , height: 'auto'
-        , borderRadius: 15
+        flex: 1
+        // , borderRadius: 15
         , justifyContent: "center"
-        , alignItems: "center"
-        , shadowColor: "#000",
-        shadowOffset: {
+        // , alignItems: "center"
+        , shadowColor: "#000"
+        , padding: 20
+        , shadowOffset: {
             width: 0,
             height: 12,
         },
@@ -121,7 +121,7 @@ export const authStyle = StyleSheet.create({
     },
 
     formView: {
-        width: '90%'
+        width: '100%'
     },
 
     formLabel: {
@@ -141,6 +141,7 @@ export const authStyle = StyleSheet.create({
     },
 
     createAccountForm: {
+        flex: 1,
         borderRadius: 10
         , alignItems: 'center'
         , height: 'auto'

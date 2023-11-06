@@ -34,7 +34,7 @@ export const PutEmailToValidateComponent = ({ email, setEmail, getUserByEmail }:
 
     return (
 
-        <View style={{ alignItems: 'center', height: 'auto', width: '100%', gap: 15, padding: 10 }}>
+        <View style={{ flex: 1, gap: 15 }}>
             <ToastMessageComponent iconName={'closecircleo'} textColor={'white'} iconColor={'white'} iconSize={24} backgroundColor={'#950101'} visible={!isValid} title={'¡Error!'} message={email != '' ? 'El email no es válido' : 'No puedes dejar el campo vacío'} />
             <Text style={{ alignSelf: 'center', padding: 20, fontSize: 19, color: theme.colors.text }}>Iniciar Sesión</Text>
 
@@ -60,6 +60,7 @@ export const PutEmailToValidateComponent = ({ email, setEmail, getUserByEmail }:
                     , borderRadius: 10
                     , justifyContent: 'center'
                     , alignItems: 'center'
+                    , alignSelf: 'center'
                 }}>
                 {loading
                     ? <ActivityIndicator color={'white'} style={{ height: 0, width: 150, borderRadius: 200 }} />

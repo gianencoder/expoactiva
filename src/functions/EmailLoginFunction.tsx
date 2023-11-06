@@ -23,30 +23,30 @@ export const EmailLoginFunction = () => {
 
 
 
-    const afterEmailVerification = async (email: string) => {
-        try {
-            await fetch(`${properties.cyberSoftURL}user/update/${email}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify({
-                    validateEmail: true,
-                    expirationCode: null,
-                    code: null
-                }),
-            })
-                .then(res => {
+    // const afterEmailVerification = async (email: string) => {
+    //     try {
+    //         await fetch(`${properties.ambienteDesarrollo}user/update/${email}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 validateEmail: true,
+    //                 expirationCode: null,
+    //                 code: null
+    //             }),
+    //         })
+    //             .then(res => {
 
-                })
-                .catch(err => {
+    //             })
+    //             .catch(err => {
 
-                })
+    //             })
 
-        } catch (error) {
-            throw new Error('Error verificando el email')
-        }
-    };
+    //     } catch (error) {
+    //         throw new Error('Error verificando el email')
+    //     }
+    // };
 
 
     const getUserByEmail = async (email: string) => {
@@ -54,7 +54,7 @@ export const EmailLoginFunction = () => {
         setLoading(true)
 
         try {
-            const response = await fetch(`${properties.cyberSoftURL}user/get/${email}`, {
+            const response = await fetch(`${properties.ambienteDesarrollo}user/get/${email}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -67,10 +67,11 @@ export const EmailLoginFunction = () => {
             }
 
             if (response.status === 200) {
-                // const data = await response.json();
-                setIsChecking(false)
-                setExist(true)
-                setLoading(false)
+                setLoading(false);
+                resendCode(email)
+                navigation.navigate('CodeValidation', {
+                    email: email
+                });
             }
 
             if (response.status === 404) {
@@ -92,7 +93,7 @@ export const EmailLoginFunction = () => {
     const getCode = async (email: string, code: string) => {
         setLoading(true)
         try {
-            const response = await fetch(`${properties.cyberSoftURL}user/code?email=${email}&code=${code}`, {
+            const response = await fetch(`${properties.ambienteDesarrollo}user/code?email=${email}&code=${code}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -102,7 +103,6 @@ export const EmailLoginFunction = () => {
                 setLoading(false)
                 signIn(email, code, true)
                 navigation.navigate('HomeScreen')
-                afterEmailVerification(email)
 
             } else if (response.status === 400) {
                 setLoading(false)
@@ -126,9 +126,9 @@ export const EmailLoginFunction = () => {
         }
     };
 
-    const signUp = async (name: string, email: string, pswd: string) => {
+    const signUp = async (name: string, email: string, bornDay: Date) => {
         setLoading(true);
-        fetch(`${properties.cyberSoftURL}user/signup`, {
+        fetch(`${properties.ambienteDesarrollo}user/signup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ export const EmailLoginFunction = () => {
             body: JSON.stringify({
                 name: name,
                 email: email,
-                password: pswd,
+                birthDay: bornDay,
             }),
         })
             .then(async response => {
@@ -152,13 +152,11 @@ export const EmailLoginFunction = () => {
                     navigation.navigate('CodeValidation', {
                         email: email
                     });
-                    setLoading(false)
+
                 } else {
                     setLoading(false);
                     Alert.alert('Error en su solicitud', 'Vuelve a intentar en unos momentos')
-                    // setCheckit(true);
-                    // await new Promise(resolve => setTimeout(resolve, 3500));
-                    // setIsChecking(true);
+
                 }
             })
             .catch(err => {
@@ -172,7 +170,7 @@ export const EmailLoginFunction = () => {
         setLoading(true)
 
         try {
-            const response = await fetch(`${properties.cyberSoftURL}auth/${firsTime ? 'firstLogin' : 'login'}`, {
+            const response = await fetch(`${properties.ambienteDesarrollo}auth/${firsTime ? 'firstLogin' : 'login'}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -184,9 +182,10 @@ export const EmailLoginFunction = () => {
             });
             if (response.status === 200) {
                 return response.json().then(async data => {
-                    if (data.message === 'firstLogin') afterEmailVerification(email)
-
+                    // if (data.message === 'firstLogin') afterEmailVerification(email)
                     setResponse(true)
+                    console.log('usuaruio', data.user)
+                    console.log('token', data.token)
                     login(data.user);
                     await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user))
                     await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token))
@@ -269,7 +268,7 @@ export const EmailLoginFunction = () => {
             , setIsChecking
             , setExist
             , getCode
-            , afterEmailVerification
+            // , afterEmailVerification
             , isInvalidCode
             , setIsInvalidCode
             , validAccount

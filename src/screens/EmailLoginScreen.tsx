@@ -21,7 +21,7 @@ import { ToastMessageComponent } from '../components/ToastMessageComponent'
 export const EmailLoginScreen = () => {
     const { theme } = useContext(ThemeContext)
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [bornDay, setBornDay] = useState(new Date())
     const [name, setName] = useState('')
     const { getUserByEmail, exist, isChecking, signIn, loading, response, signUp, setIsChecking, setExist, wrongCredentials, setWrongCredentials } = EmailLoginFunction()
     const { height } = useWindowDimensions()
@@ -50,7 +50,7 @@ export const EmailLoginScreen = () => {
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "height" : null}
                 keyboardVerticalOffset={height / 10}
-                style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}
+                style={{ flex: 1, backgroundColor: theme.colors.background }}
             >
                 {loading
                     ? <View>
@@ -73,7 +73,7 @@ export const EmailLoginScreen = () => {
 
                         {isChecking && <PutEmailToValidateComponent email={email} setEmail={(text) => setEmail(text.toLowerCase())} getUserByEmail={() => getUserByEmail(email)} />}
 
-                        {!isChecking && exist &&
+                        {/* {!isChecking && exist &&
                             <>
                                 {
                                     !response &&
@@ -85,20 +85,18 @@ export const EmailLoginScreen = () => {
                                         handleFormCancel={handleFormCancel} />
                                 }
                             </>
-                        }
+                        } */}
 
                         {!isChecking && !exist &&
-                            <>
-                                <LoginFormComponent
-                                    name={name}
-                                    email={email}
-                                    password={password}
-                                    setName={text => setName(text)}
-                                    setPassword={text => setPassword(text)}
-                                    setEmail={text => setEmail(text)}
-                                    signUp={() => signUp(name, email, password)}
-                                    handleFormCancel={handleFormCancel} />
-                            </>
+                            <LoginFormComponent
+                                name={name}
+                                email={email}
+                                bornDay={bornDay}
+                                setName={text => setName(text)}
+                                setBornDay={text => setBornDay(text)}
+                                setEmail={text => setEmail(text)}
+                                signUp={() => signUp(name, email, bornDay)}
+                                handleFormCancel={handleFormCancel} />
                         }
                     </View>
                 }

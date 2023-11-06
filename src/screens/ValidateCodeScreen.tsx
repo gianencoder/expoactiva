@@ -6,10 +6,11 @@ import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { useRoute } from '@react-navigation/native';
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
-
+import { useNavigation } from '@react-navigation/native'
 
 export const ValidateCodeScreen = () => {
 
+    const navigation = useNavigation()
     const [code, setCode] = useState('')
     const { theme: { colors, customColors, currentTheme } } = useContext(ThemeContext)
     const route = useRoute()
@@ -71,7 +72,7 @@ export const ValidateCodeScreen = () => {
                 <View style={{ ...vct.container, backgroundColor: colors.background }}>
                     <View style={{ ...vct.titleDiv }}>
                         <Text style={{ ...vct.titleTxt, color: colors.text }}>Código de verificación</Text>
-                        <Text style={{ ...vct.subtxt, color: colors.text }}>Ingresa el código de verificación enviado a tu correo para activar tu cuenta.</Text>
+                        <Text style={{ ...vct.subtxt, color: colors.text }}>Ingresa el código de verificación enviado a tu correo para iniciar sesión.</Text>
                     </View>
 
                     <ToastMessageComponent
@@ -109,7 +110,7 @@ export const ValidateCodeScreen = () => {
                         iconColor={customColors.colorWarningMessage}
                         backgroundColor={customColors.bgWarningMessage}
                         title='¡Revisa tu email!'
-                        message={'Aún tienes un código válido'}
+                        message={'El código es válido por 10 minutos'}
                         visible={isPendingCode}
                         iconName={'exclamationcircleo'}
                     />
@@ -135,16 +136,18 @@ export const ValidateCodeScreen = () => {
                                 <Text style={{ fontWeight: 'bold', color: isExpiredCode ? customColors.activeColor : 'gray', fontSize: 16, textDecorationLine: 'underline', textTransform: isExpiredCode ? 'uppercase' : 'none' }}> Reenviar</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={{ gap: 50, width: '100%', alignItems: 'center' }}>
+                        <View style={{ gap: 25, width: '100%', alignItems: 'center' }}>
                             <View>
-                                <Text style={{ color: 'gray', fontFamily: 'verdana', fontSize: 16 }}>Válido por 10 minutos</Text>
+                                {/* <Text style={{ color: 'gray', fontFamily: 'verdana', fontSize: 16 }}>Válido por 10 minutos</Text> */}
                             </View>
-                            <View style={{ width: '100%', }}>
+                            <View style={{ width: '100%', gap: 30 }}>
                                 <TouchableOpacity
                                     onPress={() => getCode(email, code)}
                                     style={{ ...vct.btn, backgroundColor: customColors.buttonColor }}>
                                     {loading ? <ActivityIndicator color={'white'} style={{ height: 0, width: 150, borderRadius: 200 }} /> : <Text style={{ ...vct.btnTxt }}>Confirmar</Text>}
                                 </TouchableOpacity>
+
+                                <Text onPress={() => navigation.navigate('HomeScreen')} style={{ fontSize: 17, fontWeight: 'bold', color: 'gray', alignSelf: 'center' }}>Cancelar</Text>
                             </View>
                         </View>
 

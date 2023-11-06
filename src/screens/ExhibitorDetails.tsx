@@ -126,7 +126,7 @@ export const ExhibitorDetails = () => {
     return (
 
         <View style={{ flex: 1 }}>
-            {logo || logo !== null ? <Image style={{ flex: 1, resizeMode: 'stretch' }} source={{ uri: logo }} /> : <View />}
+            {logo && logo !== null && logo !== '' ? <Image style={{ flex: 1, resizeMode: 'stretch' }} source={{ uri: logo }} /> : <View />}
             <BottomSheet
                 animatedIndex={animatedIndex}
                 snapPoints={snapPoints}
@@ -179,7 +179,7 @@ export const ExhibitorDetails = () => {
 
                     <View style={exhibitorTheme.buttonView}>
 
-                        {image || image !== null ? <Image source={{ uri: image }} style={{ height: '90%', width: '90%', borderRadius: 10, resizeMode: 'stretch' }} /> : <View />}
+                        {image && image !== null && image !== '' ? <Image source={{ uri: image }} style={{ height: '90%', width: '90%', borderRadius: 10, resizeMode: 'stretch' }} /> : <View />}
                         {/* <TouchableOpacity onPress={() => showInMap(id)} activeOpacity={0.1} style={exhibitorTheme.buttonMap}>
                             <Text style={exhibitorTheme.textMap}>Ver en mapa</Text>
                         </TouchableOpacity> */}

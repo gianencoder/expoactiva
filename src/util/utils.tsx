@@ -49,8 +49,8 @@ export function dateFormmater(dateTimeString) {
 
 
 
-export function formatDate(date) {
-    return moment(date).format('YYYY-MM-DD');
+export function formatDate(date: Date) {
+    return moment(date).format('DD-MM-YYYY');
 };
 
 export function calculateTimeLeft(dateTimeString) {

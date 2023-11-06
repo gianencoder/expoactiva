@@ -24,7 +24,7 @@ export const ExhibitorFunction = () => {
         })
             .then(async res => await res.json())
             .then(res => {
-                const exhibitors = res.map ((data: any) => {
+                const exhibitors = res.map((data: any) => {
                     return {
                         ...data,
                         id: data._id,
@@ -98,6 +98,17 @@ export const ExhibitorFunction = () => {
         })
     }
 
+    function whatsapp(url: string) {
+        return Linking.openURL('whatsapp://send?text=' +
+            'hola' +
+            '&phone=' + url).catch(err => {
+
+                Alert.alert('No se ha podido realizar la llamda',
+                    "Si el problema persiste ponte en contacto con los administradores",
+                    [{ text: "Ok" }])
+            })
+    }
+
 
     const showInMap = (id: number) => {
 
@@ -124,9 +135,6 @@ export const ExhibitorFunction = () => {
         }
     }
 
-
-
-
     return ({
         exhibitor
         , setSearchText
@@ -140,6 +148,7 @@ export const ExhibitorFunction = () => {
         , fetching
         , loading
         , handleSetFetching
+        , whatsapp
     })
 
 }
