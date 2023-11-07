@@ -6,11 +6,10 @@ import { TicketFunction } from '../functions/TicketFunction'
 
 export const BuyTicketScreen = () => {
     const { theme } = useContext(ThemeContext)
-    const { height, width } = useWindowDimensions()
+    const { height } = useWindowDimensions()
     const { total, operations } = TicketFunction()
-    const [price, setPrice] = useState(250)
-
-
+    const [price] = useState(250)
+    
     return (
 
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>

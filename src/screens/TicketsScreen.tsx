@@ -1,8 +1,7 @@
-import { View, Text, TouchableOpacity, Image, TextInput, useWindowDimensions, Share } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Share } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FlashList } from '@shopify/flash-list';
 import { TicketComponent } from '../components/TicketComponent';
 import { SeparatorComponent } from '../components/SeparatorComponent';
@@ -12,11 +11,8 @@ import { TicketFunction } from '../functions/TicketFunction';
 
 export const TicketsScreen = () => {
     const { theme } = useContext(ThemeContext)
-    const [number, setNumber] = useState(0)
     const navigation = useNavigation()
-    const [chosenDate, setChosenDate] = useState(new Date());
-    const { height, width } = useWindowDimensions()
-    const { ticket, ticketDetail } = TicketFunction()
+    const { tickets, ticketDetail } = TicketFunction()
 
 
     const onShare = async () => {
@@ -31,7 +27,7 @@ export const TicketsScreen = () => {
         }
     }
     return (
-        ticket.length > 0
+        tickets.length > 0
 
             ?
             <View style={{ ...ticketStyles.container, backgroundColor: theme.colors.background }}>
@@ -43,8 +39,8 @@ export const TicketsScreen = () => {
 
                     <FlashList
                         estimatedItemSize={10}
-                        data={ticket}
-                        renderItem={({ item }: any) => <TicketComponent ticket={item} qrCode={item.qrCode} method={() => ticketDetail(item._id)} />}
+                        data={tickets}
+                        renderItem={({ item }: any) => <TicketComponent ticket={item} qrCode={item.ticketId} method={() => ticketDetail(item.ticketId)} />}
                         ItemSeparatorComponent={() => <SeparatorComponent />}
                     />
                 </View>

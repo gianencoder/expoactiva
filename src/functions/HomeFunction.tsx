@@ -4,12 +4,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useExhibitors } from '../hooks/useExhibitors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import { usePushNotifications } from '../hooks/usePushNotifications';
 
 export const HomeFunction = () => {
     const exhibitors = useExhibitors();
     const isFocused = useIsFocused();
     const scrollViewRef = useRef<ScrollView>(null);
+    const { expoPushToken } = usePushNotifications();
+    console.log('expoPushToken', expoPushToken);
 
     const getStoredExhibitors = async () => {
         try {

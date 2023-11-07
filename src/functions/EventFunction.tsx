@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { format } from 'date-fns';
 import { Alert, AppState, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -7,7 +7,6 @@ import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { usePushNotifications } from '../hooks/usePushNotifications';
-import { calculateTimeLeft } from '../util/utils';
 
 export const EventFunction = () => {
 
