@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { View } from '@motify/components'
-import { Image, ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { Image, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import * as Animatable from 'react-native-animatable'
-import Animated, { Extrapolation, FadeIn, interpolate, interpolateColor, runOnJS, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
+import Animated, { Extrapolation, interpolate, interpolateColor, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 import { CustomHandleComponent } from '../components/CustomHandleComponent'
 import { CustomBackgroundComponent } from '../components/CustomBackgroundComponent'
 import { eDetailTheme } from '../theme/EventDetailTheme'
@@ -103,6 +103,7 @@ export const EventDetails = () => {
         <View style={{ flex: 1 }}>
             <Image style={{ flex: 1 }} source={{ uri: image }} />
 
+
             <BottomSheet
                 animatedIndex={animatedIndex}
                 snapPoints={snapPoints}
@@ -151,7 +152,6 @@ export const EventDetails = () => {
                     <Text style={{ paddingHorizontal: 27.5, fontSize: 20, color: theme.colors.text, textAlign: 'justify' }}>{description}</Text>
                 </BottomSheetScrollView>
             </BottomSheet>
-
         </View>
 
     )

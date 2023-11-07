@@ -41,12 +41,12 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
                 activeOpacity={0.7}
                 onPress={() => selectEvent(moshiEvent.idEvent)}
             >
-                <View style={eventStyle.event}>
-                    <View style={eventStyle.eventListImg}>
+                <View style={{ ...eventStyle.event, padding: 10 }}>
+                    <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center', }}>
                         {moshiEvent.picture === null ? (
-                            <Image style={{ ...eventStyle.img, height: 120, width: 105 }} source={require('../assets/images/noPhoto.jpg')} />
+                            <Image style={{ ...eventStyle.img, height: '100%', width: '100%' }} source={require('../assets/images/noPhoto.jpg')} />
                         ) : (
-                            <Image style={eventStyle.img} source={{ uri: moshiEvent.picture.toString() }} />
+                            <Image style={{ borderRadius: 15, height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', resizeMode: 'cover' }} source={{ uri: moshiEvent.picture.toString() }} />
                         )}
                     </View>
                     <View style={eventStyle.eventListTitle}>

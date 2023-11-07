@@ -19,17 +19,6 @@ export const TicketsScreen = () => {
     const { ticket, ticketDetail } = TicketFunction()
 
 
-    const onShare = async () => {
-        const result = await Share.share({ message: ('www.google.com') })
-
-        if (result.action === Share.sharedAction) {
-            if (result.activityType) {
-                console.log('shared', result.activityType)
-            } else {
-                console.log('error')
-            }
-        }
-    }
     return (
         ticket.length > 0
 
@@ -49,14 +38,11 @@ export const TicketsScreen = () => {
                     />
                 </View>
 
-
-
-
                 <View style={{ ...ticketStyles.bottomSide }}>
 
                     <View style={{ ...ticketStyles.topSideComplements, backgroundColor: theme.colors.background }}>
                         <TouchableOpacity
-                            onPress={onShare}
+                            onPress={() => navigation.navigate('BuyTicket')}
                             style={{
                                 backgroundColor: theme.customColors.buttonColor
                                 , height: 50

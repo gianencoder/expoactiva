@@ -13,10 +13,11 @@ import { EventDetails } from '../screens/EventDetails';
 import { EventScreen } from '../screens/EventScreen';
 import { ExhibitorDetails } from '../screens/ExhibitorDetails';
 import { TicketDetail } from '../screens/TicketDetailScreen';
-import { EmailLoginScreen } from '../screens/EmailLoginScreen';
 import { BuyTicketScreen } from '../screens/BuyTicketScreen';
 import { ValidateCodeScreen } from '../screens/ValidateCodeScreen';
 import { NotificationScreen } from '../screens/NotificationScreen';
+import { LoginFormScreen } from '../screens/LoginFormScreen'
+import { EmailScreen } from '../screens/EmailScreen';
 
 
 
@@ -45,10 +46,11 @@ export const MyStack = () => {
             <Stack.Screen name="EventScreen" component={EventScreen} />
             <Stack.Screen name="ExhibitorDetail" component={ExhibitorDetails} />
             <Stack.Screen name="TicketDetail" component={TicketDetail} />
-            <Stack.Screen name="EmailLogin" component={EmailLoginScreen} />
             <Stack.Screen name="BuyTicket" component={BuyTicketScreen} />
             <Stack.Screen name="CodeValidation" component={ValidateCodeScreen} />
             <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
+            <Stack.Screen name="LoginFormScreen" component={LoginFormScreen} />
+            <Stack.Screen name="EmailScreen" component={EmailScreen} />
         </Stack.Navigator >
     );
 }
