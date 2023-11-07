@@ -1,10 +1,22 @@
 import React, { useContext } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Share } from 'react-native'
 import { ticketStyles } from '../theme/TicketsTheme'
 import QRCode from "react-native-qrcode-svg";
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 export const TicketComponent = ({ ticket, qrCode, method }) => {
+
+    const onShare = async (code) => {
+        const result = await Share.share({ message: (code) })
+
+        if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+                console.log('shared', result.activityType)
+            } else {
+                console.log('error')
+            }
+        }
+    }
 
     const { theme } = useContext(ThemeContext)
     return (
@@ -25,8 +37,14 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                 </View>
 
                 <View style={ticketStyles.infoContainer}>
-                    <Text style={{ color: theme.colors.text }}>Expoactiva Nacional Soriano</Text>
-                    <Text style={{ color: theme.colors.text }}>Entrada {ticket.used ? 'Válida' : 'No válida'}</Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={{ color: theme.colors.text }}>Expoactiva Nacional Soriano</Text>
+                        <TouchableOpacity onPress={() => onShare(ticket.qrCode)} hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
+                            <Image style={{ height: 18, width: 18, alignSelf: 'flex-end' }} source={require('../assets/icons/share.png')} />
+                        </TouchableOpacity>
+
+                    </View>
+                    <Text style={{ color: theme.colors.text }}>Entrada {ticket.used ? 'No válida' : 'Válida'}</Text>
                 </View>
             </View>
         </TouchableOpacity>

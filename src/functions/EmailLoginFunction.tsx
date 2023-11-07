@@ -25,7 +25,7 @@ export const EmailLoginFunction = () => {
 
     // const afterEmailVerification = async (email: string) => {
     //     try {
-    //         await fetch(`${properties.cyberSoftURL}user/update/${email}`, {
+    //         await fetch(`${properties.ambienteDesarrollo}user/update/${email}`, {
     //             method: 'PUT',
     //             headers: {
     //                 'Content-type': 'application/json',
@@ -50,19 +50,19 @@ export const EmailLoginFunction = () => {
 
 
     const getUserByEmail = async (email: string) => {
-
         setLoading(true)
-
         try {
-            const response = await fetch(`${properties.cyberSoftURL}user/get/${email}`, {
+            const response = await fetch(`${properties.ambienteDesarrollo}user/get/${email}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
                 }
             });
             if (response.status === 403) {
-                setIsChecking(false)
-                setExist(false)
+
+                navigation.navigate('LoginFormScreen', {
+                    email: email
+                });
                 setLoading(false)
             }
 
@@ -72,6 +72,7 @@ export const EmailLoginFunction = () => {
                 navigation.navigate('CodeValidation', {
                     email: email
                 });
+                setLoading(false)
             }
 
             if (response.status === 404) {
@@ -93,7 +94,7 @@ export const EmailLoginFunction = () => {
     const getCode = async (email: string, code: string) => {
         setLoading(true)
         try {
-            const response = await fetch(`${properties.cyberSoftURL}user/code?email=${email}&code=${code}`, {
+            const response = await fetch(`${properties.ambienteDesarrollo}user/code?email=${email}&code=${code}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -131,7 +132,7 @@ export const EmailLoginFunction = () => {
         console.log(interests)
 
         try {
-            const request = await fetch(`${properties.cyberSoftURL}user/signup`, {
+            const request = await fetch(`${properties.ambienteDesarrollo}user/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -172,7 +173,7 @@ export const EmailLoginFunction = () => {
         setLoading(true)
 
         try {
-            const response = await fetch(`${properties.cyberSoftURL}auth/${firsTime ? 'firstLogin' : 'login'}`, {
+            const response = await fetch(`${properties.ambienteDesarrollo}auth/${firsTime ? 'firstLogin' : 'login'}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -227,7 +228,7 @@ export const EmailLoginFunction = () => {
 
     const resendCode = async (email: string) => {
         setLoading(true)
-        fetch(`${properties.cyberSoftURL}user/code/update/${email}`, {
+        fetch(`${properties.ambienteDesarrollo}user/code/update/${email}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

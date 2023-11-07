@@ -31,7 +31,7 @@ export const TicketFunction = () => {
         if (email) {
             fetchTickets();
         }
-    }, [email, fetchTickets]);
+    }, []);
 
     const ticketDetail = (id) => {
         try {

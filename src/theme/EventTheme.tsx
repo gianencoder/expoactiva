@@ -15,7 +15,6 @@ export const eventStyle = StyleSheet.create({
     event: {
         height: 120,
         flexDirection: 'row',
-        paddingVertical: 5
     },
 
     eventListImg: {
