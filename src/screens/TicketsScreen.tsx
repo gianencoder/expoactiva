@@ -8,7 +8,6 @@ import { SeparatorComponent } from '../components/SeparatorComponent';
 import { useNavigation } from '@react-navigation/native'
 import { TicketFunction } from '../functions/TicketFunction';
 
-
 export const TicketsScreen = () => {
     const { theme } = useContext(ThemeContext)
     const navigation = useNavigation()
@@ -22,16 +21,17 @@ export const TicketsScreen = () => {
             <View style={{ ...ticketStyles.container, backgroundColor: theme.colors.background }}>
 
                 <View style={ticketStyles.topSide}>
-                    <View style={{ width: '100%' }}>
+                    <View style={{ width: '100%', padding: 15 }}>
                         <Text style={{ fontSize: 30, fontFamily: 'verdana', color: theme.colors.text }}>Mis entradas</Text>
                     </View>
 
-                    <FlashList
-                        estimatedItemSize={10}
-                        data={tickets}
-                        renderItem={({ item }: any) => <TicketComponent ticket={item} qrCode={item.ticketId} method={() => ticketDetail(item.ticketId)} />}
-                        ItemSeparatorComponent={() => <SeparatorComponent />}
-                    />
+                        <FlashList
+                            estimatedItemSize={10}
+                            data={tickets}
+                            renderItem={({ item }: any) => <TicketComponent ticket={item} qrCode={item.ticketId} method={() => ticketDetail(item.ticketId)} />}
+                            ItemSeparatorComponent={() => <SeparatorComponent />}
+                        />
+
                 </View>
 
                 <View style={{ ...ticketStyles.bottomSide }}>

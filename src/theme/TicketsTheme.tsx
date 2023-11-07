@@ -4,8 +4,7 @@ import { MyColors } from "./ColorsTheme";
 export const ticketStyles = StyleSheet.create({
 
     container: {
-        flex: 1,
-        padding: 20
+        flex: 1
     },
 
     topSide: {
@@ -23,6 +22,7 @@ export const ticketStyles = StyleSheet.create({
 
     listTicketContainer: {
         width: '100%'
+        , padding: 15
         , height: 120
         , flexDirection: 'row'
 

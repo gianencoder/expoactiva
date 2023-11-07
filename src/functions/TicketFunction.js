@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigation } from "@react-navigation/native"
 import useTickets from '../hooks/useTickets'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -10,37 +10,35 @@ export const TicketFunction = () => {
     
     const { tickets, loading, fetchTickets } = useTickets({ email })
 
+    const getEmailFromStorage = useCallback(async () => {
+        try {
+            const userJson = await AsyncStorage.getItem('UserLoggedIn');
+            const user = JSON.parse(userJson);
+            setEmail(user?.email || '');
+        } catch (err) {
+            console.error('Error al obtener el email:', err);
+        }
+    }, []);
+
     useEffect(() => {
-        const getEmailFromStorage = async () => {
-          try {
-            const user = await AsyncStorage.getItem('UserLoggedIn');
-            const storedEmail = user ? JSON.parse(user).email : null;
-            console.log('storedEmail', storedEmail);
-            if (storedEmail !== null) {
-              setEmail(storedEmail);
-            }
-          } catch (err) {
-            console.log('Error al obtener el email:', err);
-          }
-        };
-    
         getEmailFromStorage();
-      }, []);
-    
+    }, [getEmailFromStorage]);
+
     useEffect(() => {
         if (email) {
             fetchTickets();
         }
-    }, []);
+    }, [email]);
 
     const ticketDetail = (id) => {
         try {
             const selectedTicket = tickets.find(ex => ex.ticketId === id)
+            console.log('selectedTicket', selectedTicket)
             if (selectedTicket === null) {
                 return false
             }
             navigation.navigate('TicketDetail', {
-                qrCode: selectedTicket?.qrCode
+                qrCode: selectedTicket?.ticketId
             })
 
         } catch (error) {

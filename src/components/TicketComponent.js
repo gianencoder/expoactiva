@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { View, Text, TouchableOpacity, Share } from 'react-native'
+import { View, Text, TouchableOpacity, Share, Image } from 'react-native'
 import { ticketStyles } from '../theme/TicketsTheme'
 import QRCode from "react-native-qrcode-svg";
 import { ThemeContext } from '../context/themeContext/ThemeContext';
@@ -23,6 +23,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
         <TouchableOpacity
             activeOpacity={0.5}
             onPress={method}
+            style={{justifyContent: 'center', alignItems: 'center'}}
         >
             <View style={ticketStyles.listTicketContainer}>
                 <View style={ticketStyles.imgContainer}>
