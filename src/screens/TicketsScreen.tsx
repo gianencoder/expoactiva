@@ -1,18 +1,16 @@
-import { View, Text, TouchableOpacity, Image, Share } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Share, FlatList } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
-import { useContext } from 'react';
+import { useContext, useEffect, useCallback } from 'react';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
-import { FlashList } from '@shopify/flash-list';
 import { TicketComponent } from '../components/TicketComponent';
 import { SeparatorComponent } from '../components/SeparatorComponent';
-import { useNavigation } from '@react-navigation/native'
-import { TicketFunction } from '../functions/TicketFunction';
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
+import { useTicketManager } from '../functions/useTicketManager';
 
 export const TicketsScreen = () => {
     const { theme } = useContext(ThemeContext)
     const navigation = useNavigation()
-    const { tickets, ticketDetail } = TicketFunction()
-
+    const { tickets, ticketDetail } = useTicketManager()
 
     return (
         tickets.length > 0
@@ -21,17 +19,18 @@ export const TicketsScreen = () => {
             <View style={{ ...ticketStyles.container, backgroundColor: theme.colors.background }}>
 
                 <View style={ticketStyles.topSide}>
-                    <View style={{ width: '100%', padding: 15 }}>
+                    <View style={{ width: '100%', paddingHorizontal: 20, paddingTop: 15, paddingBottom: 5 }}>
                         <Text style={{ fontSize: 30, fontFamily: 'verdana', color: theme.colors.text }}>Mis entradas</Text>
                     </View>
 
-                        <FlashList
-                            estimatedItemSize={10}
+                    <View style={{width: '100%', height: '90%'}}>
+                        <FlatList
                             data={tickets}
-                            renderItem={({ item }: any) => <TicketComponent ticket={item} qrCode={item.ticketId} method={() => ticketDetail(item.ticketId)} />}
+                            extraData={tickets}
+                            renderItem={({ item }: any) => <TicketComponent key={item.ticketId} ticket={item} qrCode={item.ticketId} method={() => ticketDetail(item.ticketId)} />}
                             ItemSeparatorComponent={() => <SeparatorComponent />}
                         />
-
+                    </View>
                 </View>
 
                 <View style={{ ...ticketStyles.bottomSide }}>

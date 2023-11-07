@@ -2,14 +2,14 @@ import React, { useContext, useState, useEffect } from 'react'
 import { View, Text, Image, TouchableOpacity, useWindowDimensions } from 'react-native'
 import { ticketStyles } from '../theme/TicketsTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
-import { TicketFunction } from '../functions/TicketFunction'
+import { useTicketManager } from '../functions/useTicketManager'
 import useTickets from '../hooks/useTickets'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const BuyTicketScreen = () => {
     const { theme } = useContext(ThemeContext)
     const { height } = useWindowDimensions()
-    const { total, operations } = TicketFunction()
+    const { total, operations } = useTicketManager()
     const [price] = useState(250)
     const [email, setEmail] = useState('');
     const [isReadyToPurchase, setIsReadyToPurchase] = useState(false);

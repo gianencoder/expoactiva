@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import properties from '../../properties.json'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,6 +12,13 @@ export default function useTickets({ email, quantity = 0 }) {
     const [tickets, setTickets] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (email) {
+            fetchTickets();
+        }
+    }, [email]);
+
 
     const purchaseTicket = async () => {
         if (quantity === 0) {
@@ -32,9 +39,9 @@ export default function useTickets({ email, quantity = 0 }) {
             console.log('body', body)
             const response = await axios.post(`${properties.cyberSoftURL}tickets/purchase`, body);
             
+            await fetchTickets();
             console.log('response', response.data)
 
-            setTickets(response.data.tickets);
             setPayment(response.data.data);
         } catch (err) {
             setError(err.response ? err.response.data.error : err.message);
@@ -57,6 +64,7 @@ export default function useTickets({ email, quantity = 0 }) {
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const response = await axios.get(`${properties.cyberSoftURL}tickets/${email}`);
+            console.log('ticketsActualizados', response.data.tickets)
             setTickets(response.data.tickets);
         } catch (err) {
             setError(err.response ? err.response.data.error : err.message);

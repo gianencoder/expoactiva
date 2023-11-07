@@ -3,9 +3,9 @@ import { useNavigation } from "@react-navigation/native"
 import useTickets from '../hooks/useTickets'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export const TicketFunction = () => {
+export const useTicketManager = () => {
     const [email, setEmail] = useState('')
-    const [total, setTotal] = useState(0)
+    const [total, setTotal] = useState(1)
     const navigation = useNavigation()
     
     const { tickets, loading, fetchTickets } = useTickets({ email })
@@ -23,12 +23,6 @@ export const TicketFunction = () => {
     useEffect(() => {
         getEmailFromStorage();
     }, [getEmailFromStorage]);
-
-    useEffect(() => {
-        if (email) {
-            fetchTickets();
-        }
-    }, [email]);
 
     const ticketDetail = (id) => {
         try {
@@ -51,7 +45,7 @@ export const TicketFunction = () => {
             setTotal(previousNumber => previousNumber + 1)
         }
 
-        if (code === 1 && total > 0) {
+        if (code === 1 && total > 1) {
             setTotal(previousNumber => previousNumber - 1)
         }
     }
@@ -62,6 +56,7 @@ export const TicketFunction = () => {
         , total
         , operations
         , loading
+        , fetchTickets
     })
 }
 

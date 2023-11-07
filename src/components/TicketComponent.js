@@ -40,7 +40,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                 <View style={ticketStyles.infoContainer}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ color: theme.colors.text }}>Expoactiva Nacional Soriano</Text>
-                        <TouchableOpacity onPress={() => onShare(ticket.qrCode)} hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
+                        <TouchableOpacity onPress={() => onShare(ticket.ticketId)} hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
                             <Image style={{ height: 18, width: 18, alignSelf: 'flex-end' }} source={require('../assets/icons/share.png')} />
                         </TouchableOpacity>
 
