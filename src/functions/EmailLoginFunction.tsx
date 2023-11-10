@@ -52,7 +52,7 @@ export const EmailLoginFunction = () => {
     const getUserByEmail = async (email: string) => {
         setLoading(true)
         try {
-            const response = await fetch(`${properties.cyberSoftURL}user/get/${email}`, {
+            const response = await fetch(`${properties.ambienteDesarrollo}user/get/${email}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -86,7 +86,12 @@ export const EmailLoginFunction = () => {
             }
         } catch (error) {
             setLoading(false)
-            Alert.alert('Error al enviar la solicitud!', 'Intenta nuevamente en unos minutos')
+            Alert.alert('Error al enviar la solicitud!', 'Intenta nuevamente en unos minutos', [
+                {
+                    text: 'Aceptar',
+                    onPress: () => navigation.navigate('AuthScreen'),
+                },
+            ]);
             throw new Error('Error obteniendo el usuario')
         }
     };
@@ -94,7 +99,7 @@ export const EmailLoginFunction = () => {
     const getCode = async (email: string, code: string) => {
         setLoading(true)
         try {
-            const response = await fetch(`${properties.cyberSoftURL}user/code?email=${email}&code=${code}`, {
+            const response = await fetch(`${properties.ambienteDesarrollo}user/code?email=${email}&code=${code}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -132,7 +137,7 @@ export const EmailLoginFunction = () => {
         console.log(interests)
 
         try {
-            const request = await fetch(`${properties.cyberSoftURL}user/signup`, {
+            const request = await fetch(`${properties.ambienteDesarrollo}user/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -173,7 +178,7 @@ export const EmailLoginFunction = () => {
         setLoading(true)
 
         try {
-            const response = await fetch(`${properties.cyberSoftURL}auth/${firsTime ? 'firstLogin' : 'login'}`, {
+            const response = await fetch(`${properties.ambienteDesarrollo}auth/${firsTime ? 'firstLogin' : 'login'}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -228,7 +233,7 @@ export const EmailLoginFunction = () => {
 
     const resendCode = async (email: string) => {
         setLoading(true)
-        fetch(`${properties.cyberSoftURL}user/code/update/${email}`, {
+        fetch(`${properties.ambienteDesarrollo}user/code/update/${email}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -246,10 +251,16 @@ export const EmailLoginFunction = () => {
 
                 if (response.status === 500) console.log('Error en el servidor')
 
-                setLoading(false)
+
             })
             .catch(err => {
-                Alert.alert('Hubo un error en la solicitud', 'Intente más tarde')
+                Alert.alert('Hubo un error en la solicitud', 'Intente más tarde', [
+                    {
+                        text: 'Aceptar',
+                        onPress: () => navigation.navigate('AuthScreen'),
+                    },
+                ]);
+
                 setLoading(true)
             })
     }

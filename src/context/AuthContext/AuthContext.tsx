@@ -5,7 +5,7 @@ import { ReactNode, createContext, useContext, useEffect, useState } from "react
 type AuthStateContext = {
     isLoggedIn: boolean;
     visible: boolean;
-    user: User;
+    user: User[];
     logout: () => void;
     login: (user: User[]) => void;
 };
@@ -34,21 +34,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setUser(userData);
         setIsLoggedIn(true);
         setVisible(true)
-        
+
     };
 
     useEffect(() => {
         const getPersistEvent = async () => {
             try {
                 const data = await AsyncStorage.getItem('UserLoggedIn');
-                console.log('Usuario logueado:', data)
+
                 if (data !== null) {
                     setUser(JSON.parse(data));
                     setIsLoggedIn(true);
-                    console.log('Datos cargados desde AsyncStorage');
                 }
             } catch (error) {
-                console.error('Error al cargar los datos desde AsyncStorage:', error);
                 throw new Error('Error al cargar los datos desde AsyncStorage');
             }
         };
@@ -64,7 +62,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
             setIsLoggedIn(false);
             setVisible(false)
         } catch (error) {
-            console.error('Error al cerrar la sesión:', error);
             throw new Error('Error al cerrar la sesión');
         }
     }
