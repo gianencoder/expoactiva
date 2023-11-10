@@ -1,16 +1,31 @@
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
+import React,{ useContext } from 'react';
+import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
-import { useContext } from 'react';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { TicketComponent } from '../components/TicketComponent';
 import { SeparatorComponent } from '../components/SeparatorComponent';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { useTicketManager } from '../hooks/useTicketManager';
 
 export const TicketsScreen = () => {
     const { theme } = useContext(ThemeContext)
     const navigation = useNavigation()
-    const { tickets, ticketDetail } = useTicketManager()
+    const { tickets, ticketDetail, fetchTickets, loading } = useTicketManager()
+
+
+    useFocusEffect(
+        React.useCallback(() => {
+            fetchTickets();
+        }, [])
+    )
+
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
+                <ActivityIndicator size="large" color={theme.customColors.activeColor} />
+            </View>
+        );
+    }
 
     return (
         tickets.length > 0
@@ -55,7 +70,7 @@ export const TicketsScreen = () => {
             :
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
 
-                <Image style={{ width: '50%', height: '50%', position: 'absolute' }} source={require('../assets/images/sin-resultado.png')} />
+                <Image style={{ width: '50%', height: '45%', position: 'absolute' }} source={require('../assets/images/sin-resultado.png')} />
 
                 <View style={{ height: '80%', alignItems: 'center', justifyContent: 'flex-end', width: '100%', gap: 15 }}>
                     <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'gray' }}>Usted aun no ha comprado entradas</Text>

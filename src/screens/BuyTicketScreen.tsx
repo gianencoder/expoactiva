@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { View, Text, Image, TouchableOpacity, useWindowDimensions } from 'react-native'
+import { View, Text, Image, TouchableOpacity, useWindowDimensions, ActivityIndicator, Modal, StyleSheet } from 'react-native'
 import { ticketStyles } from '../theme/TicketsTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import {useTicketManager} from '../hooks/useTicketManager'
@@ -8,19 +8,54 @@ export const BuyTicketScreen = () => {
     const { theme } = useContext(ThemeContext)
     const { height } = useWindowDimensions()
     const [price] = useState(250)
-    const [quantity] = useState(1)
 
-    const { purchaseTicket, operations, total } = useTicketManager()
+    const { purchaseTicket, operations, quantity, loading } = useTicketManager()
     
     const handleConfirmPress = () => {
         purchaseTicket();
     }
-      
+
+    const renderLoadingSpinner = () => {
+        return (
+            <Modal
+                transparent={true}
+                animationType="none"
+                visible={loading}
+            >
+                <View style={styles.modalBackground}>
+                    <View style={styles.activityIndicatorWrapper}>
+                        <ActivityIndicator
+                            animating={loading}
+                            size="large"
+                            color={theme.customColors.activeColor}
+                        />
+                    </View>
+                </View>
+            </Modal>
+        );
+    };
+
+    const styles = StyleSheet.create({
+        modalBackground: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        },
+        activityIndicatorWrapper: {
+            backgroundColor: theme.colors.background,
+            borderRadius: 10,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            padding: 50,
+        },
+    });
 
     return (
 
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-
+            {renderLoadingSpinner()}
             <View style={{ ...ticketStyles.btv, flex: 2 }}>
                 <Image style={{ width: '100%', height: '100%' }} source={require('../assets/images/Expoactiva.jpg')} />
             </View>
@@ -38,7 +73,7 @@ export const BuyTicketScreen = () => {
                             <Text style={{ ...ticketStyles.btt, color: 'white', fontSize: height / 40 }}>-</Text>
                         </TouchableOpacity>
 
-                        <Text style={{ color: theme.colors.text, fontSize: height / 30 }}>{total}</Text>
+                        <Text style={{ color: theme.colors.text, fontSize: height / 30 }}>{quantity}</Text>
 
                         <TouchableOpacity onPress={() => operations(0)} style={{ ...ticketStyles.tbtn, backgroundColor: theme.dividerColor, height: height / 25 }}>
                             <Text style={{ ...ticketStyles.btt, color: 'white', fontSize: height / 40 }}>+</Text>
@@ -48,7 +83,7 @@ export const BuyTicketScreen = () => {
 
                 <View style={{ flex: 1, alignItems: 'flex-start', width: '100%' }}>
                     <Text style={{ ...ticketStyles.btt, color: theme.colors.text, fontWeight: 'bold' }}>TOTAL</Text>
-                    <Text style={{ ...ticketStyles.btt, color: theme.colors.text }}>${price * total}</Text>
+                    <Text style={{ ...ticketStyles.btt, color: theme.colors.text }}>${price * quantity}</Text>
                 </View>
 
                 <View style={{ flex: 1, alignItems: 'center', width: '100%' }}>
