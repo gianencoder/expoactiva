@@ -34,6 +34,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setUser(userData);
         setIsLoggedIn(true);
         setVisible(true)
+        
     };
 
     useEffect(() => {

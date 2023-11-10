@@ -1,49 +1,20 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { View, Text, Image, TouchableOpacity, useWindowDimensions } from 'react-native'
 import { ticketStyles } from '../theme/TicketsTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
-import { useTicketManager } from '../functions/useTicketManager'
-import useTickets from '../hooks/useTickets'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useTicketManager} from '../hooks/useTicketManager'
 
 export const BuyTicketScreen = () => {
     const { theme } = useContext(ThemeContext)
     const { height } = useWindowDimensions()
-    const { total, operations } = useTicketManager()
     const [price] = useState(250)
-    const [email, setEmail] = useState('');
-    const [isReadyToPurchase, setIsReadyToPurchase] = useState(false);
+    const [quantity] = useState(1)
 
-    console.log('total', total)
-    const { purchaseTicket } = useTickets({email: email, quantity: total})
-
-    useEffect(() => {
-        const getEmailFromStorage = async () => {
-          try {
-            const user = await AsyncStorage.getItem('UserLoggedIn');
-            const storedEmail = user ? JSON.parse(user).email : null;
-            console.log('storedEmail', storedEmail);
-            if (storedEmail !== null) {
-              setEmail(storedEmail);
-              setIsReadyToPurchase(total > 0);
-            }
-          } catch (err) {
-            console.log('Error al obtener el email:', err);
-          }
-        };
-    
-        getEmailFromStorage();
-    }, [total]);
+    const { purchaseTicket, operations, total } = useTicketManager()
     
     const handleConfirmPress = () => {
-        console.log('handleConfirmPress called');
-        if (isReadyToPurchase) {
-          console.log('About to purchase');
-          purchaseTicket();
-        } else {
-          console.log('Not ready to purchase');
-        }
-      };
+        purchaseTicket();
+    }
       
 
     return (

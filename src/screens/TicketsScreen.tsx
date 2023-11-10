@@ -1,11 +1,11 @@
-import { View, Text, TouchableOpacity, Image, Share, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
-import { useContext, useEffect, useCallback } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { TicketComponent } from '../components/TicketComponent';
 import { SeparatorComponent } from '../components/SeparatorComponent';
-import { useNavigation, useFocusEffect } from '@react-navigation/native'
-import { useTicketManager } from '../functions/useTicketManager';
+import { useNavigation } from '@react-navigation/native'
+import { useTicketManager } from '../hooks/useTicketManager';
 
 export const TicketsScreen = () => {
     const { theme } = useContext(ThemeContext)

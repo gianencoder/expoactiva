@@ -28,9 +28,17 @@ export const AuthComponent = () => {
     const [userInfo, setUserInfo] = useState(null);
     const { login } = useAuthContext();
     const [loading, setLoading] = useState(false);
+    const { theme } = useContext(ThemeContext)
+    const navigation = useNavigation()
 
     useEffect(() => {
-        userInfo && login(userInfo);
+
+        if (userInfo) {
+            login(userInfo);
+            navigation.goBack()
+        }
+
+        
     }, [userInfo]);
 
     const signIn = useCallback(async () => {
@@ -39,7 +47,7 @@ export const AuthComponent = () => {
 
             const userInfo = await GoogleSignin.signIn();
             exchangeGoogleTokenForJWT(userInfo.idToken);
-
+            
         } catch (error) {
             console.log("Error al iniciar sesión:", error);
         }
@@ -68,15 +76,14 @@ export const AuthComponent = () => {
             console.log('tokenJWT', data.token);
 
             setUserInfo(data.user);
+            
         } catch (error) {
             console.error("Error al intercambiar el Token de Google por JWT:", error);
         } finally {
             setLoading(false);
+            
         }
     }, []);
-
-    const { theme } = useContext(ThemeContext)
-    const navigation = useNavigation()
 
     const renderLoadingSpinner = () => {
         return (

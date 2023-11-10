@@ -23,15 +23,6 @@ export const ModalComponent = React.forwardRef<ModalRefProps, ModalProps>(({ chi
     const translateY = useSharedValue(0)
     const context = useSharedValue({ y: 0 })
     const active = useSharedValue(false)
-    const { isLoggedIn } = useAuthContext()
-    const navigation = useNavigation()
-
-    useEffect(() => {
-        if (isLoggedIn) {
-            scrollTo(0);
-            navigation.goBack()
-        }
-    }, [isLoggedIn])
 
     const scrollTo = useCallback((destination: number) => {
 
