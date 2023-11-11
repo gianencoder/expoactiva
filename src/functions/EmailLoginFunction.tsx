@@ -259,7 +259,7 @@ export const EmailLoginFunction = () => {
         setLoading(true)
 
         try {
-            const response = await fetch(`${properties.desa}user/delete/${email}`, {
+            const response = await fetch(`${properties.prod}user/delete/${email}`, {
                 method: 'DELETE',
                 headers: {
 
