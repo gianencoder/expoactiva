@@ -1,15 +1,48 @@
-import React, { useContext } from 'react'
-import { Text, View, Image, TouchableOpacity } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
+import { Text, View, Image, TouchableOpacity, Alert } from 'react-native'
 import { useAuthContext } from '../context/AuthContext/AuthContext'
 import { userProfileTheme } from '../theme/UserProfileTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { AntDesign } from '@expo/vector-icons';
+import { EmailLoginFunction } from '../functions/EmailLoginFunction'
+import { confirmation } from '../util/utils'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 export const UserProfileScreen = () => {
 
-    const { user, logout } = useAuthContext()
+    const { user, logout, token } = useAuthContext()
     const { theme } = useContext(ThemeContext)
+    const { deleteAccount, loading } = EmailLoginFunction()
+
+
+    const showLogoutConfirmation = () => {
+        confirmation(
+            'Cerrar sesión',
+            '¿Seguro deseas cerrar sesión?',
+            'Cancelar',
+            'Aceptar',
+            logout
+        )
+    };
+
+    const handleDelete = () => {
+
+    }
+
+    const handleDeleteAccount = () => {
+        confirmation(
+            '¿Seguro deseas eliminar tu cuenta?',
+            'Se perderá tu configuración y entradas compradas',
+            'Cancelar',
+            'Aceptar',
+            () => {
+                deleteAccount(user?.email, token)
+
+            }
+        )
+
+    }
 
 
     return (
@@ -36,7 +69,7 @@ export const UserProfileScreen = () => {
                     <View style={{ backgroundColor: 'gray', width: '100%', height: 1 }} />
 
                     <TouchableOpacity
-                        onPress={() => logout()}
+                        onPress={showLogoutConfirmation}
                         style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
                         <View style={userProfileTheme.option}>
                             <Image source={require('../assets/icons/salida.png')} style={{ width: 20, height: 20, tintColor: theme.customColors.iconColor }} />
@@ -49,7 +82,7 @@ export const UserProfileScreen = () => {
 
 
                 <View style={{ ...userProfileTheme.footer }}>
-                    <Text onPress={() => logout()} style={{ fontWeight: 'bold', fontSize: 15, color: '#DB2D43' }}>Eliminar cuenta</Text>
+                    <Text onPress={handleDeleteAccount} style={{ fontWeight: 'bold', fontSize: 15, color: '#DB2D43' }}>Eliminar cuenta</Text>
                 </View>
             </View>
 

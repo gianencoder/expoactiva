@@ -18,6 +18,7 @@ import { ValidateCodeScreen } from '../screens/ValidateCodeScreen';
 import { NotificationScreen } from '../screens/NotificationScreen';
 import { LoginFormScreen } from '../screens/LoginFormScreen'
 import { EmailScreen } from '../screens/EmailScreen';
+import { PrivacyPolicyScreen } from '../screens/PrivacyPolicyScreen';
 
 
 

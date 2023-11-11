@@ -12,7 +12,7 @@ export const EmailScreen = () => {
     const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const [isValid, setIsValid] = useState(true)
     const [email, setEmail] = useState('')
-    const { getUserByEmail, loading, } = EmailLoginFunction()
+    const { getUserByEmail, loading, signIn } = EmailLoginFunction()
     const { height } = useWindowDimensions()
     const navigation = useNavigation()
 

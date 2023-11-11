@@ -20,31 +20,51 @@ interface Props extends StackScreenProps<any, any> { }
 export const HomeScreen = ({ navigation }: Props) => {
 
     const { theme } = useContext(ThemeContext)
-    const { visible } = useAuthContext()
+    const { visible, deletedAccount } = useAuthContext()
     const { scrollViewRef } = HomeFunction();
-    const [toastVisible, setToastVisible] = useState(false);
+    const [loginVisible, setLoginVisible] = useState(false);
+    const [deletedVisible, setDeletedVisible] = useState(false);
 
     useEffect(() => {
         if (visible) {
+            setLoginVisible(true);
             setTimeout(() => {
-                setToastVisible(true);
-            }, 250);
-            setTimeout(() => {
-                setToastVisible(false);
+                setLoginVisible(false);
             }, 2600);
         }
     }, [visible]);
+
+
+    useEffect(() => {
+        if (deletedAccount) {
+            setDeletedVisible(true);
+            setTimeout(() => {
+                setDeletedVisible(false);
+            }, 5000);
+        }
+    }, [deletedAccount]);
 
     return (
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <ToastMessageComponent
                 width={'90%'}
-                visible={toastVisible}
+                visible={loginVisible}
                 title={'¡Bien hecho!'}
                 message={'Has iniciado sesión correctamente'}
                 backgroundColor={theme.customColors.bgSuccesMessage}
                 iconColor={theme.customColors.colorSuccessMessage}
                 textColor={theme.customColors.colorSuccessMessage}
+            />
+
+            <ToastMessageComponent
+                width={'90%'}
+                visible={deletedVisible}
+                title={'Lamentamos que te vayas'}
+                iconName={'frowno'}
+                message={'¡Has eliminado tu cuenta correctamente!'}
+                backgroundColor={theme.customColors.bgWarningMessage}
+                iconColor={theme.customColors.colorWarningMessage}
+                textColor={theme.customColors.colorWarningMessage}
             />
             <ScrollView
                 ref={scrollViewRef}

@@ -2,6 +2,7 @@ import React from 'react'
 import { formatDistanceToNow } from 'date-fns';
 import esLocale from 'date-fns/locale/es';
 import moment from 'moment';
+import { Alert } from 'react-native';
 
 
 
@@ -57,5 +58,18 @@ export function calculateTimeLeft(dateTimeString) {
     return formatDistanceToNow(new Date(dateTimeString), { addSuffix: true, locale: esLocale });
 };
 
+
+export function confirmation(title: string, message: string, txt1: string, txt2: string, method: () => void) {
+    Alert.alert(
+        title,
+        message,
+        [
+            {
+                text: txt1,
+            },
+            { text: txt2, onPress: method },
+        ],
+    );
+}
 
 
