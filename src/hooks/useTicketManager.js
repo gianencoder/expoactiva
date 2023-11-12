@@ -107,6 +107,7 @@ export const useTicketManager = () => {
             })
 
             if (response.status === 200) {
+                navigation.navigate('TicketsScreen')
                 setChanged(true)
             }
             if (response.status === 404) {

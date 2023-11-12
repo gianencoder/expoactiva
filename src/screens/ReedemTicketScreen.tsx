@@ -11,21 +11,12 @@ import { ToastMessageComponent } from '../components/ToastMessageComponent'
 export const ReedemTicketScreen = () => {
     const { theme: { colors, customColors, currentTheme } } = useContext(ThemeContext)
     const navigation = useNavigation()
-    const { redeemTicket, changed, changedError, setChanged, setChangedError } = useTicketManager()
+    const { redeemTicket, changedError, setChangedError } = useTicketManager()
     const [code, setCode] = useState('')
     const [emptyCode, setEmptyCode] = useState(false)
 
 
     useEffect(() => {
-        if (changed) {
-            setTimeout(() => {
-                setChanged(false)
-            }, 2500)
-        }
-    }, [changed])
-
-    useEffect(() => {
-
         if (changedError) {
             setTimeout(() => {
                 setChangedError(false)
@@ -43,20 +34,11 @@ export const ReedemTicketScreen = () => {
         } else {
             redeemTicket(code)
         }
-
     }
 
     return (
         <View style={{ ...ticketStyles.container2, backgroundColor: colors.background }}>
-            <ToastMessageComponent
-                backgroundColor={customColors.bgSuccesMessage}
-                iconColor={customColors.colorSuccessMessage}
-                textColor={customColors.colorSuccessMessage}
-                title='¡Bien hecho!'
-                message={'Has recibido una entrada'}
-                visible={changed}
-                iconName={'checkcircleo'}
-            />
+
 
             <ToastMessageComponent
                 backgroundColor={customColors.bgErrorMessage}
@@ -79,7 +61,7 @@ export const ReedemTicketScreen = () => {
             />
 
             <View style={{ width: '100%' }}>
-                <Text style={{ fontSize: 25 }}>Canjea tu entrada</Text>
+                <Text style={{ fontSize: 25, color: colors.text }}>Canjea tu entrada</Text>
             </View>
 
             <View style={editProfileTheme.div}>

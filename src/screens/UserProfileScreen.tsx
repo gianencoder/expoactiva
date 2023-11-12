@@ -38,7 +38,6 @@ export const UserProfileScreen = () => {
 
             }
         )
-
     }
 
 
@@ -56,7 +55,7 @@ export const UserProfileScreen = () => {
                         : <Image style={{ ...userProfileTheme.img }} resizeMode='stretch' source={require('../assets/images/perfil.png')} />
                     }
                     <Text style={userProfileTheme.text}>{user?.name}</Text>
-                    <Text style={userProfileTheme.text}>{user?.email}</Text>
+                    <Text style={{ ...userProfileTheme.text, }}>{user?.email}</Text>
                 </View>
 
                 <View style={{ flex: 2 }}>

@@ -95,8 +95,6 @@ export const ticketStyles = StyleSheet.create({
         color: MyColors.white,
         fontWeight: '500',
         fontSize: 14,
-
-
     },
 
     inputText: {
