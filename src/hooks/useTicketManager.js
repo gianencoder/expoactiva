@@ -13,6 +13,8 @@ export const useTicketManager = () => {
     const [tickets, setTickets] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [changed, setChanged] = useState(false)
+    const [changedError, setChangedError] = useState(false)
 
     const purchaseTicket = useCallback(async () => {
         try {
@@ -27,7 +29,7 @@ export const useTicketManager = () => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const body = { email: user.email, quantity };
             console.log('body', body)
-            const response = await axios.post(`${properties.desa}tickets/purchase`, body);
+            const response = await axios.post(`${properties.prod}tickets/purchase`, body);
             setPayment(response.data.data);
 
             navigation.goBack()
@@ -51,7 +53,8 @@ export const useTicketManager = () => {
             const token = tokenString.replace(/['"]+/g, '');
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            const response = await axios.get(`${properties.desa}tickets/${user.email}`);
+            const response = await axios.get(`${properties.prod}tickets/${user.email}`);
+
             setTickets(response.data);
 
         } catch (err) {
@@ -89,7 +92,7 @@ export const useTicketManager = () => {
     }, [quantity]);
 
 
-    const redeemTicket = async (code, email) => {
+    const redeemTicket = async (code) => {
         setLoading(true)
         try {
             const response = await fetch(`${properties.desa}tickets/update/${code}`, {
@@ -99,13 +102,20 @@ export const useTicketManager = () => {
                     'Content-type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: email
+                    email: user.email
                 }),
             })
 
-            if (response.status === 200) console.log('Codigo 200')
+            if (response.status === 200) {
+                setChanged(true)
+            }
+            if (response.status === 404) {
+                setChangedError(true)
+            }
         } catch (error) {
 
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -119,6 +129,11 @@ export const useTicketManager = () => {
         , error
         , purchaseTicket
         , fetchTickets
+        , redeemTicket
+        , changed
+        , changedError
+        , setChanged
+        , setChangedError
     })
 }
 

@@ -16,7 +16,7 @@ export const ExhibitorFunction = () => {
     );
 
     const getExhibitor = async () => {
-        await fetch(`${properties.cyberSoftURL}exhibitors/`, {
+        await fetch(`${properties.prod}exhibitors/`, {
             method: 'GET',
             headers: {
 

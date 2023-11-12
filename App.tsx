@@ -10,6 +10,7 @@ import { ThemeProvider } from './src/context/themeContext/ThemeContext';
 import LocationDaemon from './src/functions/LocationDaemon';
 import { FavoritesProvider } from './src/context/FavouriteContext/FavouritesContext';
 import { AuthProvider } from './src/context/AuthContext/AuthContext';
+import { PaymentProvider } from './src/context/PaymentContext/PaymentContext';
 
 export default function App() {
 
@@ -24,6 +25,7 @@ export default function App() {
     <AuthProvider>
       <FavoritesProvider>
         <ThemeProvider>
+          <PaymentProvider>
           <NavigationContainer>
             <SafeAreaView style={{ ...styles.container }}>
               <StatusBar
@@ -34,6 +36,7 @@ export default function App() {
             </SafeAreaView>
           </NavigationContainer >
           <LocationDaemon />
+          </PaymentProvider>
         </ThemeProvider >
       </FavoritesProvider>
     </AuthProvider>

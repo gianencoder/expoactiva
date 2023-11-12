@@ -63,7 +63,7 @@ export const lightTheme: ThemeState = {
         bgSuccesMessage: '#86A789',
         bgWarningMessage: 'rgb(255, 236, 158)',
         colorWarningMessage: 'rgb(76, 33, 0)',
-        colorSuccessMessage: ''
+        colorSuccessMessage: 'white'
     }
 }
 

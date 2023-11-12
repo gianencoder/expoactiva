@@ -27,10 +27,6 @@ export const UserProfileScreen = () => {
         )
     };
 
-    const handleDelete = () => {
-
-    }
-
     const handleDeleteAccount = () => {
         confirmation(
             '¿Seguro deseas eliminar tu cuenta?',
