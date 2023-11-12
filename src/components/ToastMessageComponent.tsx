@@ -7,7 +7,7 @@ import { MyColors } from '../theme/ColorsTheme';
 
 
 
-export const ToastMessageComponent = ({ height, width, iconColor = 'white', textColor = 'white', title, message, backgroundColor = 'green', iconSize = 30, iconName = "checkcircleo", visible, fontSize = 18 }: any) => {
+export const ToastMessageComponent = ({ height, width, iconColor, textColor, title, message, backgroundColor, iconSize = 30, iconName = "checkcircleo", visible, fontSize = 18 }: any) => {
 
     return (
         visible &&

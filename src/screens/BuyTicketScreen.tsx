@@ -1,16 +1,39 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { View, Text, Image, TouchableOpacity, useWindowDimensions, ActivityIndicator, Modal, StyleSheet } from 'react-native'
 import { ticketStyles } from '../theme/TicketsTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import {useTicketManager} from '../hooks/useTicketManager'
+import { usePayment } from '../context/PaymentContext/PaymentContext'
+import { ToastMessageComponent } from '../components/ToastMessageComponent'
 
 export const BuyTicketScreen = () => {
     const { theme } = useContext(ThemeContext)
     const { height } = useWindowDimensions()
     const [price] = useState(250)
-
+    const [showToast, setShowToast] = useState(false)
     const { purchaseTicket, operations, quantity, loading } = useTicketManager()
+    const { payment, paymentAttempt, setPaymentAttempt } = usePayment();
+    const mounted = useRef(false);
     
+    useEffect(() => {
+        if (paymentAttempt) {
+            setPaymentAttempt(false);
+        }
+        if (mounted.current) {
+            if (!payment) {
+                setTimeout(() => {
+                    setShowToast(true);
+                }, 500);
+                setTimeout(() => {
+                    setShowToast(false);
+                }, 2800);
+            }
+        } else {
+            mounted.current = true;
+        }
+    }, [paymentAttempt, payment]);
+    
+
     const handleConfirmPress = () => {
         purchaseTicket();
     }
@@ -56,6 +79,15 @@ export const BuyTicketScreen = () => {
 
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             {renderLoadingSpinner()}
+            <ToastMessageComponent
+                width={'95%'}
+                visible={showToast}
+                title={'¡Pago rechazado!'}
+                message={'No se pudo realizar la compra'}
+                backgroundColor={theme.customColors.bgErrorMessage}
+                iconColor={theme.customColors.colorErrorMessage}
+                textColor={theme.customColors.colorErrorMessage}
+            />
             <View style={{ ...ticketStyles.btv, flex: 2 }}>
                 <Image style={{ width: '100%', height: '100%' }} source={require('../assets/images/Expoactiva.jpg')} />
             </View>

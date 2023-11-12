@@ -8,7 +8,7 @@ export const useExhibitors = () => {
     useEffect(() => {
         async function getExhibitors() {
             try {
-                const res = await axios.get(`${properties.cyberSoftURL}exhibitors`);
+                const res = await axios.get(`${properties.prod}exhibitors`);
                 const exhibitors = res.data.map ((data: any) => {
                     return {
                         ...data,

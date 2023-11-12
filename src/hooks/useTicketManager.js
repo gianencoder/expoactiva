@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useNavigation } from "@react-navigation/native"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import properties from '../../properties.json'
 import { useAuthContext } from '../context/AuthContext/AuthContext'
+import { usePayment } from '../context/PaymentContext/PaymentContext'
 
 export const useTicketManager = () => {
     const {user} = useAuthContext()
     const [quantity, setQuantity] = useState(1)
     const navigation = useNavigation()
-    const [payment, setPayment] = useState(false);
     const [tickets, setTickets] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const { payment, setPayment, setPaymentAttempt } = usePayment();
 
     const purchaseTicket = useCallback(async () => {
         try {
@@ -27,11 +28,18 @@ export const useTicketManager = () => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const body = { email: user.email, quantity };
             console.log('body', body)
-            const response = await axios.post(`${properties.cyberSoftURL}tickets/purchase`, body);
-            setPayment(response.data.data);
-            
-            navigation.goBack()
+            const response = await axios.post(`${properties.prod}tickets/purchase`, body);
 
+            console.log('response', response.data.data)
+
+            if (response.data.data) {
+                setPayment(true);
+                navigation.goBack();
+            } else {
+                setPayment(false);
+            }
+            setPaymentAttempt(true);
+        
         } catch (err) {
             setError(err.response ? err.response.data.error : err.message);
             console.log('err', err)
@@ -50,7 +58,7 @@ export const useTicketManager = () => {
             const token = tokenString.replace(/['"]+/g, '');
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            const response = await axios.get(`${properties.cyberSoftURL}tickets/${user.email}`);
+            const response = await axios.get(`${properties.prod}tickets/${user.email}`);
             setTickets(response.data.tickets);
 
         } catch (err) {
@@ -97,6 +105,7 @@ export const useTicketManager = () => {
         , error
         , purchaseTicket
         , fetchTickets
+        , setPayment
     })
 }
 

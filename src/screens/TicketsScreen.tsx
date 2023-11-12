@@ -1,4 +1,4 @@
-import React,{ useContext } from 'react';
+import React,{ useContext, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
@@ -6,18 +6,36 @@ import { TicketComponent } from '../components/TicketComponent';
 import { SeparatorComponent } from '../components/SeparatorComponent';
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { useTicketManager } from '../hooks/useTicketManager';
+import { ToastMessageComponent } from '../components/ToastMessageComponent';
+import { usePayment } from '../context/PaymentContext/PaymentContext';
 
 export const TicketsScreen = () => {
     const { theme } = useContext(ThemeContext)
     const navigation = useNavigation()
+    const [showToast, setShowToast] = React.useState(false);
     const { tickets, ticketDetail, fetchTickets, loading } = useTicketManager()
-
+    const { payment, setPayment, setPaymentAttempt } = usePayment();
 
     useFocusEffect(
         React.useCallback(() => {
             fetchTickets();
+            
         }, [])
-    )
+    );
+
+    useFocusEffect(
+        React.useCallback(() => {
+            console.log('payment focus', payment)
+            if (payment) {
+                setShowToast(true)
+                setTimeout(() => {
+                    setShowToast(false)
+                }, 2800)
+                setPayment(false);
+            }
+            setPaymentAttempt(false);
+        }, [payment])
+    );
 
     if (loading) {
         return (
@@ -32,7 +50,15 @@ export const TicketsScreen = () => {
 
             ?
             <View style={{ ...ticketStyles.container, backgroundColor: theme.colors.background }}>
-
+                <ToastMessageComponent
+                    width={'95%'}
+                    visible={showToast}
+                    title={'¡Pago recibido!'}
+                    message={'Se ha completado la compra con éxito'}
+                    backgroundColor={theme.customColors.bgSuccesMessage}
+                    iconColor={theme.customColors.colorSuccessMessage}
+                    textColor={theme.customColors.colorSuccessMessage}
+                />
                 <View style={ticketStyles.topSide}>
                     <View style={{ width: '100%', paddingHorizontal: 20, paddingTop: 15, paddingBottom: 5 }}>
                         <Text style={{ fontSize: 30, fontFamily: 'verdana', color: theme.colors.text }}>Mis entradas</Text>

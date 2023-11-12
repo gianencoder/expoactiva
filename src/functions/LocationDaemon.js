@@ -57,7 +57,7 @@ const LocationDaemon = () => {
       const deviceId = getUniqueId();
       const interests = ["Ganaderia", "Maquinas"];
 
-      await axios.post(`${properties.cyberSoftURL}open/locations`, {
+      await axios.post(`${properties.prod}open/locations`, {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
         date: date,

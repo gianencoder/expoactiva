@@ -57,7 +57,7 @@ export const AuthComponent = () => {
         try {
             console.log('googleToken', googleToken);
             setLoading(true);
-            const response = await fetch(`${properties.cyberSoftURL}/auth/google`, {
+            const response = await fetch(`${properties.prod}/auth/google`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
