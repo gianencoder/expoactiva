@@ -23,7 +23,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
         <TouchableOpacity
             activeOpacity={0.5}
             onPress={method}
-            style={{justifyContent: 'center', alignItems: 'center'}}
+            style={{ justifyContent: 'center', alignItems: 'center' }}
         >
             <View style={ticketStyles.listTicketContainer}>
                 <View style={ticketStyles.imgContainer}>

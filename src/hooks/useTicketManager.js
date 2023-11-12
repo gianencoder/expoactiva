@@ -6,7 +6,7 @@ import properties from '../../properties.json'
 import { useAuthContext } from '../context/AuthContext/AuthContext'
 
 export const useTicketManager = () => {
-    const {user} = useAuthContext()
+    const { user, token } = useAuthContext()
     const [quantity, setQuantity] = useState(1)
     const navigation = useNavigation()
     const [payment, setPayment] = useState(false);
@@ -16,7 +16,7 @@ export const useTicketManager = () => {
 
     const purchaseTicket = useCallback(async () => {
         try {
-            
+
             setLoading(true);
 
             const tokenString = await AsyncStorage.getItem('AccessToken');
@@ -27,9 +27,9 @@ export const useTicketManager = () => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const body = { email: user.email, quantity };
             console.log('body', body)
-            const response = await axios.post(`${properties.cyberSoftURL}tickets/purchase`, body);
+            const response = await axios.post(`${properties.desa}tickets/purchase`, body);
             setPayment(response.data.data);
-            
+
             navigation.goBack()
 
         } catch (err) {
@@ -39,6 +39,7 @@ export const useTicketManager = () => {
             setLoading(false);
         }
     }, [quantity, user?.email]);
+
 
     const fetchTickets = useCallback(async () => {
         try {
@@ -50,8 +51,8 @@ export const useTicketManager = () => {
             const token = tokenString.replace(/['"]+/g, '');
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            const response = await axios.get(`${properties.cyberSoftURL}tickets/${user.email}`);
-            setTickets(response.data.tickets);
+            const response = await axios.get(`${properties.desa}tickets/${user.email}`);
+            setTickets(response.data);
 
         } catch (err) {
             setError(err.response ? err.response.data.error : err.message);
@@ -86,6 +87,27 @@ export const useTicketManager = () => {
             setQuantity(previousNumber => previousNumber - 1)
         }
     }, [quantity]);
+
+
+    const redeemTicket = async (code, email) => {
+        setLoading(true)
+        try {
+            const response = await fetch(`${properties.desa}tickets/update/${code}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email
+                }),
+            })
+
+            if (response.status === 200) console.log('Codigo 200')
+        } catch (error) {
+
+        }
+    }
 
     return ({
         tickets

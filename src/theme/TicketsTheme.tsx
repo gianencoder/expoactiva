@@ -42,7 +42,7 @@ export const ticketStyles = StyleSheet.create({
     },
 
     bottomSide: {
-        flex: 1,
+        flex: 1.2,
     },
 
     qrCode: {
@@ -132,5 +132,11 @@ export const ticketStyles = StyleSheet.create({
         , borderRadius: 5
         , justifyContent: 'center'
         , alignItems: 'center'
+    },
+    container2: {
+        flex: 1
+        , paddingVertical: 50
+        , paddingHorizontal: 20
+        , gap: 30
     }
 });

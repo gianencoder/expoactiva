@@ -1,4 +1,4 @@
-import React,{ useContext } from 'react';
+import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
@@ -29,7 +29,6 @@ export const TicketsScreen = () => {
 
     return (
         tickets.length > 0
-
             ?
             <View style={{ ...ticketStyles.container, backgroundColor: theme.colors.background }}>
 
@@ -38,7 +37,7 @@ export const TicketsScreen = () => {
                         <Text style={{ fontSize: 30, fontFamily: 'verdana', color: theme.colors.text }}>Mis entradas</Text>
                     </View>
 
-                    <View style={{width: '100%', height: '90%'}}>
+                    <View style={{ width: '100%', height: '90%' }}>
                         <FlatList
                             data={tickets}
                             extraData={tickets}
@@ -51,18 +50,35 @@ export const TicketsScreen = () => {
                 <View style={{ ...ticketStyles.bottomSide }}>
 
                     <View style={{ ...ticketStyles.topSideComplements, backgroundColor: theme.colors.background }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('BuyTicket')}
-                            style={{
-                                backgroundColor: theme.customColors.buttonColor
-                                , height: 50
-                                , width: '90%'
-                                , borderRadius: 10
-                                , justifyContent: 'center'
-                                , alignItems: 'center'
-                            }}>
-                            <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>COMPRAR</Text>
-                        </TouchableOpacity>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 10 }}>
+
+
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('BuyTicket')}
+                                style={{
+                                    backgroundColor: theme.customColors.buttonColor
+                                    , height: 40
+                                    , width: '90%'
+                                    , borderRadius: 10
+                                    , justifyContent: 'center'
+                                    , alignItems: 'center'
+                                }}>
+                                <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>COMPRAR</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('ReedemTicketScreen')}
+                                style={{
+                                    backgroundColor: '#F05941'
+                                    , height: 40
+                                    , width: '90%'
+                                    , borderRadius: 10
+                                    , justifyContent: 'center'
+                                    , alignItems: 'center'
+                                }}>
+                                <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>CANJEAR</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
 

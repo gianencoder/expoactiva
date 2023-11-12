@@ -122,6 +122,7 @@ export const EditProfileScreen = () => {
                 {/* <Button title="Pick an image from camera roll" onPress={pickImage} />
                 {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */}
                 <TouchableOpacity
+                    disabled={loading}
                     onPress={() => handleUpdateUser(user.email, name, selected)}
                     style={{
                         backgroundColor: customColors.buttonColor
