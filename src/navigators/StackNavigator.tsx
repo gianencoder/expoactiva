@@ -19,6 +19,8 @@ import { NotificationScreen } from '../screens/NotificationScreen';
 import { LoginFormScreen } from '../screens/LoginFormScreen'
 import { EmailScreen } from '../screens/EmailScreen';
 import { PrivacyPolicyScreen } from '../screens/PrivacyPolicyScreen';
+import { EditProfileScreen } from '../screens/EditProfileScreen';
+import { UserProfileScreen } from '../screens/UserProfileScreen';
 
 
 
@@ -52,6 +54,8 @@ export const MyStack = () => {
             <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
             <Stack.Screen name="LoginFormScreen" component={LoginFormScreen} />
             <Stack.Screen name="EmailScreen" component={EmailScreen} />
+            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+            <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
         </Stack.Navigator >
     );
 }

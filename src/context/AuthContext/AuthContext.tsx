@@ -9,6 +9,7 @@ type AuthStateContext = {
     user: User[];
     logout: () => void;
     deleteUser: () => void;
+    updateUser: (user: User[]) => void;
     login: (user: User[], token: string) => void;
     token: string;
 };
@@ -89,8 +90,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
+    const updateUser = async (userData: User[]) => {
+        try {
+            setUser(userData);
+        } catch (error) {
+            throw new Error('Error al cerrar la sesión');
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ isLoggedIn, visible, user, logout, login, token, deleteUser, deletedAccount }}>
+        <AuthContext.Provider value={{ updateUser, isLoggedIn, visible, user, logout, login, token, deleteUser, deletedAccount }}>
             {children}
         </AuthContext.Provider>
     );

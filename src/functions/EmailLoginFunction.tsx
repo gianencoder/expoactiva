@@ -12,7 +12,7 @@ export const EmailLoginFunction = () => {
     const [exist, setExist] = useState(false)
     const [isChecking, setIsChecking] = useState(true)
     const navigation = useNavigation()
-    const { login, deleteUser } = useAuthContext();
+    const { login, deleteUser, token, updateUser } = useAuthContext();
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState(false)
     const [isInvalidCode, setIsInvalidCode] = useState(false)
@@ -21,6 +21,7 @@ export const EmailLoginFunction = () => {
     const [isPendingCode, setIsPendingCode] = useState(false)
     const [isCodeResend, setIsCodeResend] = useState(false)
     const [wrongCredentials, setWrongCredentials] = useState(false)
+    const [updated, setUpdated] = useState(false)
 
     // const afterEmailVerification = async (email: string) => {
     //     try {
@@ -46,6 +47,82 @@ export const EmailLoginFunction = () => {
     //         throw new Error('Error verificando el email')
     //     }
     // };
+
+    const editUser = async (email: string, name: string, interests: []) => {
+        setLoading(true)
+        try {
+            const response = await fetch(`${properties.prod}user/update/${email}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    interests: interests
+                }),
+            })
+
+
+            if (response.status === 200) {
+                return response.json().then(async data => {
+                    await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.updatedUser));
+                    updateUser(data.updatedUser)
+                    setLoading(false)
+                    setUpdated(true)
+
+                })
+                    .catch(err => {
+                        Alert.alert('Error en su solicitud', 'Intente nuevamente en unos minutos', [
+                            {
+                                text: 'Aceptar',
+                                onPress: () => navigation.navigate('AuthScreen'),
+                            },
+                        ]);
+                    })
+
+            }
+
+            if (response.status === 404) {
+                console.log('Usuario no editado')
+                setLoading(false)
+                Alert.alert('Error 404', ' El usuario no se pudo editar con éxito', [
+                    {
+                        text: 'Aceptar',
+                        onPress: () => navigation.navigate('AuthScreen'),
+                    },
+                ]);
+            }
+
+            if (response.status === 403) {
+                setLoading(false)
+                Alert.alert('Error 403', 'Error en token de validacion', [
+                    {
+                        text: 'Aceptar',
+                        onPress: () => navigation.navigate('AuthScreen'),
+                    },
+                ]);
+            }
+
+            if (response.status === 500) {
+                setLoading(false)
+                Alert.alert('Error 500', 'Error interno en el servidor', [
+                    {
+                        text: 'Aceptar',
+                        onPress: () => navigation.navigate('AuthScreen'),
+                    },
+                ]);
+
+            }
+            else {
+                console.log(response)
+            }
+
+
+        } catch (error) {
+            console.log('Error en la solicitud')
+        }
+    };
 
 
     const getUserByEmail = async (email: string) => {
@@ -356,6 +433,8 @@ export const EmailLoginFunction = () => {
             , wrongCredentials
             , setWrongCredentials
             , deleteAccount
+            , editUser
+            , updated
         }
     )
 }

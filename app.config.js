@@ -6,7 +6,7 @@ export default {
     slug: "expoactiva-nacional-app",
     version: "1.0.1",
     orientation: "portrait",
-    icon : "./assets/icon.png",
+    icon: "./assets/icon.png",
     splash: {
       image: "./assets/mainIcon.png",
       resizeMode: "contain",
@@ -19,7 +19,7 @@ export default {
       infoPlist: {
         CFBundleURLTypes: [
           {
-            CFBundleURLSchemes: IS_DEV ? ["com.googleusercontent.apps.951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2","com.googleusercontent.apps.951022193723-to54ihjmtqpmvet6ho2ohburoe96duip"] : ["com.googleusercontent.apps.951022193723-to54ihjmtqpmvet6ho2ohburoe96duip","com.googleusercontent.apps.951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2"],
+            CFBundleURLSchemes: IS_DEV ? ["com.googleusercontent.apps.951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2", "com.googleusercontent.apps.951022193723-to54ihjmtqpmvet6ho2ohburoe96duip"] : ["com.googleusercontent.apps.951022193723-to54ihjmtqpmvet6ho2ohburoe96duip", "com.googleusercontent.apps.951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2"],
           }
         ],
       }
@@ -34,6 +34,12 @@ export default {
       googleServicesFile: IS_DEV ? "./google-services-dev.json" : "./google-services.json",
     },
     plugins: [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
       [
         "@rnmapbox/maps",
         {

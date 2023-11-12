@@ -50,7 +50,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                 width={'90%'}
                 visible={loginVisible}
                 title={'¡Bien hecho!'}
-                message={'Has iniciado sesión correctamente'}
+                message={'Has iniciado sesión con éxito'}
                 backgroundColor={theme.customColors.bgSuccesMessage}
                 iconColor={theme.customColors.colorSuccessMessage}
                 textColor={theme.customColors.colorSuccessMessage}
@@ -61,7 +61,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                 visible={deletedVisible}
                 title={'Lamentamos que te vayas'}
                 iconName={'frowno'}
-                message={'¡Has eliminado tu cuenta correctamente!'}
+                message={'¡Has eliminado tu cuenta con éxito!'}
                 backgroundColor={theme.customColors.bgWarningMessage}
                 iconColor={theme.customColors.colorWarningMessage}
                 textColor={theme.customColors.colorWarningMessage}

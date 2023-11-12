@@ -55,7 +55,8 @@
     "react-native-screens": "~3.22.0",
     "react-native-svg": "^13.14.0",
     "react-native-tab-view": "^3.5.2",
-    "expo-checkbox": "~2.4.0"
+    "expo-checkbox": "~2.4.0",
+    "expo-image-picker": "~14.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
