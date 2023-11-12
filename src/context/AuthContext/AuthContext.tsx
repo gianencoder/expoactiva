@@ -71,6 +71,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             setUser([]);
             setIsLoggedIn(false);
             setVisible(false)
+            setToken('')
         } catch (error) {
             throw new Error('Error al cerrar la sesión');
         }

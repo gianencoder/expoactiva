@@ -4,17 +4,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import properties from '../../properties.json'
 import { useAuthContext } from '../context/AuthContext/AuthContext'
+import { usePayment } from '../context/PaymentContext/PaymentContext'
 
 export const useTicketManager = () => {
     const { user, token } = useAuthContext()
     const [quantity, setQuantity] = useState(1)
     const navigation = useNavigation()
-    const [payment, setPayment] = useState(false);
     const [tickets, setTickets] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [changed, setChanged] = useState(false)
     const [changedError, setChangedError] = useState(false)
+    const { setPayment, setPaymentAttempt, paymentAttempt } = usePayment()
 
     const purchaseTicket = useCallback(async () => {
         try {
@@ -30,9 +31,19 @@ export const useTicketManager = () => {
             const body = { email: user.email, quantity };
             console.log('body', body)
             const response = await axios.post(`${properties.prod}tickets/purchase`, body);
-            setPayment(response.data.data);
+            
+            console.log('response', response.data)
 
-            navigation.goBack()
+            
+            if (response.data.data) {
+                setPayment(true);
+                navigation.goBack()
+            } else {
+                setPayment(false);
+                setPaymentAttempt(!paymentAttempt);
+            }
+            
+            
 
         } catch (err) {
             setError(err.response ? err.response.data.error : err.message);
@@ -125,7 +136,6 @@ export const useTicketManager = () => {
         , quantity
         , operations
         , loading
-        , payment
         , error
         , purchaseTicket
         , fetchTickets

@@ -12,14 +12,12 @@ export const BuyTicketScreen = () => {
     const [price] = useState(250)
     const [showToast, setShowToast] = useState(false)
     const { purchaseTicket, operations, quantity, loading } = useTicketManager()
-    const { payment, paymentAttempt, setPaymentAttempt } = usePayment();
+    const { payment, paymentAttempt } = usePayment();
     const mounted = useRef(false);
     
     useEffect(() => {
-        if (paymentAttempt) {
-            setPaymentAttempt(false);
-        }
         if (mounted.current) {
+            console.log('payment', payment)
             if (!payment) {
                 setTimeout(() => {
                     setShowToast(true);
