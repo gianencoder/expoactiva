@@ -26,6 +26,7 @@ GoogleSignin.configure(Platform.OS === "android" ? googleSignInConfigAndroid : g
 
 export const AuthComponent = () => {
     const [userInfo, setUserInfo] = useState(null);
+    const [userToken, setUserToken] = useState(null);
     const { login } = useAuthContext();
     const [loading, setLoading] = useState(false);
     const { theme } = useContext(ThemeContext)
@@ -33,13 +34,13 @@ export const AuthComponent = () => {
 
     useEffect(() => {
 
-        if (userInfo) {
-            login(userInfo);
+        if (userInfo && userToken) {
+            login(userInfo, userToken);
             navigation.goBack()
         }
 
         
-    }, [userInfo]);
+    }, [userInfo, userToken]);
 
     const signIn = useCallback(async () => {
         try {
@@ -76,7 +77,8 @@ export const AuthComponent = () => {
             console.log('tokenJWT', data.token);
 
             setUserInfo(data.user);
-            
+            setUserToken(data.token);
+
         } catch (error) {
             console.error("Error al intercambiar el Token de Google por JWT:", error);
         } finally {
