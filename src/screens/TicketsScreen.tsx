@@ -8,21 +8,16 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { useTicketManager } from '../hooks/useTicketManager';
 import { ToastMessageComponent } from '../components/ToastMessageComponent';
 import { usePayment } from '../context/PaymentContext/PaymentContext';
+import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketContext';
 
 export const TicketsScreen = () => {
     const { theme } = useContext(ThemeContext)
     const navigation = useNavigation()
-    const [showToast, setShowToast] = React.useState(false);
-    const { tickets, ticketDetail, fetchTickets, loading, changed, setChanged } = useTicketManager()
+    const [showPaymentToast, setShowPaymentToast] = React.useState(false);
+    const [showRedeemToast, setShowRedeemToast] = React.useState(false);
+    const { tickets, ticketDetail, fetchTickets, loading } = useTicketManager()
     const { payment, setPayment, setPaymentAttempt } = usePayment();
-
-    useEffect(() => {
-        if (changed) {
-            setTimeout(() => {
-                setChanged(false)
-            }, 2500)
-        }
-    }, [changed])
+    const { claimedTicket, setClaimedTicket, setRedeemTicketAttempt } = useRedeemTicket();
 
     useFocusEffect(
         React.useCallback(() => {
@@ -34,10 +29,24 @@ export const TicketsScreen = () => {
     useFocusEffect(
         React.useCallback(() => {
             console.log('payment focus', payment)
-            if (payment) {
-                setShowToast(true)
+            if (claimedTicket) {
+                setShowRedeemToast(true)
                 setTimeout(() => {
-                    setShowToast(false)
+                    setShowRedeemToast(false)
+                }, 2800)
+                setClaimedTicket(false);
+            }
+            setRedeemTicketAttempt(false);
+        }, [claimedTicket])
+    );
+
+    useFocusEffect(
+        React.useCallback(() => {
+            console.log('payment focus', payment)
+            if (payment) {
+                setShowPaymentToast(true)
+                setTimeout(() => {
+                    setShowPaymentToast(false)
                 }, 2800)
                 setPayment(false);
             }
@@ -56,22 +65,21 @@ export const TicketsScreen = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <ToastMessageComponent
-                width={'90%'}
-                backgroundColor={theme.customColors.bgSuccesMessage}
-                iconColor={theme.customColors.colorSuccessMessage}
-                textColor={theme.customColors.colorSuccessMessage}
-                title='¡Bien hecho!'
-                message={'Has recibido una entrada'}
-                visible={true}
-                iconName={'checkcircleo'}
-            />
             {tickets.length > 0
                 ?
                 <View style={{ ...ticketStyles.container, backgroundColor: theme.colors.background }}>
                     <ToastMessageComponent
                         width={'95%'}
-                        visible={showToast}
+                        visible={showRedeemToast}
+                        title={'¡Bien hecho!'}
+                        message={'Has recibido tu entrada'}
+                        backgroundColor={theme.customColors.bgSuccesMessage}
+                        iconColor={theme.customColors.colorSuccessMessage}
+                        textColor={theme.customColors.colorSuccessMessage}
+                    />
+                    <ToastMessageComponent
+                        width={'95%'}
+                        visible={showPaymentToast}
                         title={'¡Pago recibido!'}
                         message={'Se ha completado la compra con éxito'}
                         backgroundColor={theme.customColors.bgSuccesMessage}
