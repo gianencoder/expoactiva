@@ -38,14 +38,14 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                 </View>
 
                 <View style={ticketStyles.infoContainer}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={{ color: theme.colors.text }}>Expoactiva Nacional Soriano</Text>
-                        <TouchableOpacity onPress={() => onShare(ticket.ticketId)} hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
-                            <Image style={{ height: 18, width: 18, alignSelf: 'flex-end' }} source={require('../assets/icons/share.png')} />
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingRight: 5 }}>
+                        <Text style={{ color: theme.colors.text, fontSize: 16, fontWeight: '500' }}>Expoactiva Nacional Soriano</Text>
+                        <TouchableOpacity onPress={() => onShare(ticket.ticketId)} hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}>
+                            <Image style={{ height: 22, width: 22, alignSelf: 'flex-end', tintColor: theme.customColors.activeColor }} source={require('../assets/icons/share.png')} />
                         </TouchableOpacity>
 
                     </View>
-                    <Text style={{ color: theme.colors.text }}>Entrada {ticket.used ? 'No válida' : 'Válida'}</Text>
+                    <Text style={{ color: theme.customColors.subtitles }}>Entrada {ticket.used ? 'No válida' : 'Válida'}</Text>
                 </View>
             </View>
         </TouchableOpacity>

@@ -30,7 +30,7 @@ export const UserProfileScreen = () => {
     const handleDeleteAccount = () => {
         confirmation(
             '¿Seguro deseas eliminar tu cuenta?',
-            'Se perderá tu configuración y entradas compradas',
+            'Se perderá tu configuración',
             'Cancelar',
             'Aceptar',
             () => {

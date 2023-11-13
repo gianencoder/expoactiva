@@ -1,6 +1,6 @@
 /* eslint-disable*/
 import React, { useContext, useState, useEffect, useCallback } from 'react'
-import { TouchableOpacity, View, Text, Image, Platform, ActivityIndicator, StyleSheet, Modal } from 'react-native'
+import { TouchableOpacity, View, Text, Image, Platform, ActivityIndicator, StyleSheet, Modal, Alert } from 'react-native'
 import { authStyle } from '../theme/AuthTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
@@ -70,6 +70,12 @@ export const AuthComponent = () => {
                 })
             });
             const data = await response.json();
+            console.log(data)
+
+            if (response.status == 400) {
+                Alert.alert(`El correo ya existe`, `No se pudo iniciar sesión. ${"\n"} Ya existe un usuario ingresado con ese correo desde otro método de autenticación.`)
+            }
+
             await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user));
             await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token));
 
@@ -80,7 +86,7 @@ export const AuthComponent = () => {
             setUserToken(data.token);
 
         } catch (error) {
-            console.error("Error al intercambiar el Token de Google por JWT:", error);
+            console.log("Error al intercambiar el Token de Google por JWT:", error);
         } finally {
             setLoading(false);
             

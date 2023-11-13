@@ -113,12 +113,15 @@ export const ReedemTicketScreen = () => {
 
                 <View style={editProfileTheme.div}>
                     <View style={{ width: '100%', flexDirection: 'row', gap: 5, alignItems: 'center' }}>
-                        <Text style={{ ...editProfileTheme.labelName, color: colors.text }}>Código</Text>
-                        <Text style={{ ...editProfileTheme.labelName, color: emptyCode ? 'red' : colors.text, fontSize: emptyCode ? 25 : 18 }}>*</Text>
+                        <Text style={{ ...editProfileTheme.labelName, color: customColors.subtitles }}>Código</Text>
+                        <Text style={{ ...editProfileTheme.labelName, color: emptyCode ? 'red' : customColors.subtitles, fontSize: emptyCode ? 25 : 18 }}>*</Text>
                     </View>
 
                     <TextInput
                         clearButtonMode='while-editing'
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        autoComplete='off'
                         maxLength={50}
                         keyboardType='default'
                         value={code}
@@ -129,7 +132,7 @@ export const ReedemTicketScreen = () => {
                 <TouchableOpacity
                     onPress={handleReedem}
                     style={{
-                        backgroundColor: code.length > 0 ? '#F05941' : 'gray'
+                        backgroundColor: code.length > 0 ? '#F05950' : 'gray'
                         , height: 40
                         , width: '100%'
                         , borderRadius: 10

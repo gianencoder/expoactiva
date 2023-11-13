@@ -104,7 +104,7 @@ export const TicketsScreen = () => {
                     <View style={{ ...ticketStyles.bottomSide }}>
 
                         <View style={{ ...ticketStyles.topSideComplements, backgroundColor: theme.colors.background }}>
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 10 }}>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 15 }}>
 
                                 <TouchableOpacity
                                     onPress={() => navigation.navigate('BuyTicket')}
@@ -122,7 +122,7 @@ export const TicketsScreen = () => {
                                 <TouchableOpacity
                                     onPress={() => navigation.navigate('ReedemTicketScreen')}
                                     style={{
-                                        backgroundColor: '#F05941'
+                                        backgroundColor: '#F05950'
                                         , height: 40
                                         , width: '90%'
                                         , borderRadius: 10
@@ -137,12 +137,13 @@ export const TicketsScreen = () => {
 
                 </View >
                 :
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
+                <View style={{ flex: 1, justifyContent: 'space-evenly', alignItems: 'center', backgroundColor: theme.colors.background }}>
 
-                    <Image style={{ width: '50%', height: '45%', position: 'absolute' }} source={require('../assets/images/sin-resultado.png')} />
+                    <Image style={{ width: '50%', height: '45%', tintColor: theme.customColors.activeColor }} source={require('../assets/images/sin-resultado.png')} />
+                    <Text style={{ fontWeight: '500', fontSize: 24, color: theme.customColors.subtitles}}>No tienes entradas disponibles</Text>
 
-                    <View style={{ height: '80%', alignItems: 'center', justifyContent: 'flex-end', width: '100%', gap: 15 }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'gray' }}>Usted aun no ha comprado entradas</Text>
+                    <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', gap: 15 }}>
+                        
                         <TouchableOpacity
                             onPress={() => navigation.navigate('BuyTicket')}
                             style={{
@@ -158,14 +159,14 @@ export const TicketsScreen = () => {
                         <TouchableOpacity
                             onPress={() => navigation.navigate('ReedemTicketScreen')}
                             style={{
-                                backgroundColor: '#F05941'
+                                backgroundColor: '#F05950'
                                 , height: 40
                                 , width: '90%'
                                 , borderRadius: 10
                                 , justifyContent: 'center'
                                 , alignItems: 'center'
                             }}>
-                            <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>CANJEAR</Text>
+                            <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>CANJEAR CON CÓDIGO</Text>
                         </TouchableOpacity>
                     </View>
                 </View>}

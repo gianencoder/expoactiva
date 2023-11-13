@@ -75,8 +75,8 @@ export const authStyle = StyleSheet.create({
 
     },
     line: {
-        width: 60,
-        height: 5,
+        width: 50,
+        height: 4,
         alignSelf: 'center',
         marginVertical: 15,
         borderRadius: 50

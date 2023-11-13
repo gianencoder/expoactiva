@@ -67,7 +67,7 @@ export const ValidateCodeScreen = () => {
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "height" : 'null'}
                 keyboardVerticalOffset={height / 10}
-                style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}
+                style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background, paddingTop: 10 }}
             >
                 <View style={{ ...vct.container, backgroundColor: colors.background }}>
                     <View style={{ ...vct.titleDiv }}>

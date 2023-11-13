@@ -39,12 +39,12 @@ export const NotificationScreen = () => {
             {granted ? (
                 <>
                     <Text style={{ fontSize: 22, fontWeight: 'bold', color: theme.colors.text, marginBottom: 5 }}>Desactivar las notificaciones push</Text>
-                    <Text style={{ textAlign: 'center', color: 'gray', width: '90%', fontSize: 17 }}>Las notificaciones push se encuentran activadas.{"\n"} Si quieres desactivarlas, ten en cuenta que no recibirás recordatorios de eventos favoritos.{"\n"}{"\n"} Para desactivarlas dirigete a los permisos de la aplicación en la configuración personal de tu teléfono.{"\n"}</Text>
+                    <Text style={{ textAlign: 'center', color: 'gray', width: '90%', fontSize: 17 }}>Las notificaciones push se encuentran activadas.{"\n"} Si quieres desactivarlas, ten en cuenta que no recibirás recordatorios de eventos favoritos.{"\n"}{"\n"} Para desactivarlas dirígete a los permisos de la aplicación en la configuración personal de tu teléfono.{"\n"}</Text>
                 </>
             ) : (
                 <>
                     <Text style={{ fontSize: 22, fontWeight: 'bold', color: theme.colors.text, marginBottom: 5 }}>Activar las notificaciones push</Text>
-                    <Text style={{ textAlign: 'center', color: 'gray', width: '95%', fontSize: 17 }}>Las notificaciones push se encuentran desactivadas.{"\n"}{"\n"} Para activarlas y recibir recordatorios de eventos, dirigete a los permisos de la aplicación en la configuración personal de tu teléfono.{"\n"}</Text>
+                    <Text style={{ textAlign: 'center', color: 'gray', width: '95%', fontSize: 17 }}>Las notificaciones push se encuentran desactivadas.{"\n"}{"\n"} Para activarlas y recibir recordatorios de eventos, dirígete a los permisos de la aplicación en la configuración personal de tu teléfono.{"\n"}</Text>
                 </>
             )}
             <TouchableOpacity

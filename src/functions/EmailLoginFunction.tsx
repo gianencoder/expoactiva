@@ -141,6 +141,14 @@ export const EmailLoginFunction = () => {
                 setLoading(false)
             }
 
+            console.log('data', response.json)
+            console.log('status', response.status)
+            if (response.status === 400) {
+                navigation.goBack()
+                Alert.alert('El correo ya existe', 'El correo ya fue ingresado con una cuenta de Google, inicia sesión con Google para continuar')
+                setLoading(false)
+            }
+
             if (response.status === 200) {
                 setLoading(false);
                 resendCode(email)

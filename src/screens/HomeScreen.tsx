@@ -61,7 +61,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                 visible={deletedVisible}
                 title={'Lamentamos que te vayas'}
                 iconName={'frowno'}
-                message={'¡Has eliminado tu cuenta con éxito!'}
+                message={'Has eliminado tu cuenta con éxito'}
                 backgroundColor={theme.customColors.bgWarningMessage}
                 iconColor={theme.customColors.colorWarningMessage}
                 textColor={theme.customColors.colorWarningMessage}
