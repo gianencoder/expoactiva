@@ -24,10 +24,10 @@ export const useTicketManager = () => {
             const body = { email: user.email, quantity };
             console.log('body', body)
             const response = await axios.post(`${properties.prod}tickets/purchase`, body);
-            
+
             console.log('response', response.data)
 
-            
+
             if (response.data.data) {
                 setPayment(true);
                 navigation.goBack()
@@ -35,8 +35,8 @@ export const useTicketManager = () => {
                 setPayment(false);
                 setPaymentAttempt(!paymentAttempt);
             }
-            
-            
+
+
 
         } catch (err) {
             setError(err.response ? err.response.data.error : err.message);

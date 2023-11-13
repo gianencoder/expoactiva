@@ -40,7 +40,6 @@ export const UserProfileScreen = () => {
         )
     }
 
-
     return (
         loading
             ? <View style={{ backgroundColor: theme.colors.background, flex: 1, justifyContent: 'center', alignItems: 'center', gap: 20 }}>
