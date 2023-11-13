@@ -211,7 +211,7 @@ export const EmailLoginFunction = () => {
         setLoading(true);
 
         try {
-            const request = await fetch(`${properties.desa}user/signup`, {
+            const request = await fetch(`${properties.prod}user/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
