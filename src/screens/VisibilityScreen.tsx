@@ -2,28 +2,24 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Switch, Text, View } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { visibilityTheme } from '../theme/VisibilityTheme';
-import { SeparatorComponent } from '../components/SeparatorComponent';
+
 
 
 
 export const VisibilityScreen = () => {
-    const { setDarkTheme, setLightTheme, theme } = useContext(ThemeContext)
-    const [enabled, setEnabled] = useState(false)
-    const [text, setText] = useState('')
+    const { setDarkTheme, setLightTheme, theme, enabled, setEnabled, text } = useContext(ThemeContext);
 
     const toggleSwitch = () => {
-        setEnabled((previousState) => !previousState)
+        setEnabled((previousState) => !previousState);
     }
 
     useEffect(() => {
         if (enabled) {
-            setDarkTheme()
-            setText('Desactivar modo oscuro')
+            setDarkTheme();
         } else {
-            setLightTheme()
-            setText('Activar modo oscuro')
+            setLightTheme();
         }
-    }, [enabled])
+    }, [enabled]);
 
     return (
         <View style={{ flex: 1, paddingVertical: 30 }}>
@@ -39,8 +35,6 @@ export const VisibilityScreen = () => {
                     value={enabled}
                 />
             </View>
-
         </View>
-
-    )
+    );
 }
