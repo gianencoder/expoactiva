@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import { useAuthContext } from '../context/AuthContext/AuthContext';
 import properties from '../../properties.json'
-import axios from 'axios';
+import axios,{AxiosError} from 'axios';
 
 
 
@@ -124,58 +124,50 @@ export const EmailLoginFunction = () => {
         }
     };
 
-
+    const handleError = (message: string, navigateTo: string) => {
+        Alert.alert('Error al enviar la solicitud!', message, [
+            { text: 'Aceptar', onPress: () => navigation.navigate(navigateTo) },
+        ]);
+    };
+    
     const getUserByEmail = async (email: string) => {
-        setLoading(true)
+
+        setLoading(true);
         try {
-            const response = await fetch(`${properties.prod}user/get/${email}`, {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json',
-                }
-            });
-            if (response.status === 403) {
-                navigation.navigate('LoginFormScreen', {
-                    email: email
-                });
-                setLoading(false)
-            }
+            const response = await axios.get(`${properties.prod}user/get/${email}`);
 
-            console.log('data', response.json)
-            console.log('status', response.status)
-            if (response.status === 400) {
-                navigation.goBack()
-                Alert.alert('El correo ya existe', 'El correo ya fue ingresado con una cuenta de Google, inicia sesión con Google para continuar')
-                setLoading(false)
-            }
+            // No es necesario verificar response.ok con axios
+            console.log('data', response.data);
 
+            // Manejo de la respuesta exitosa
             if (response.status === 200) {
-                setLoading(false);
-                resendCode(email)
-                navigation.navigate('CodeValidation', {
-                    email: email
-                });
-                setLoading(false)
-            }
-
-            if (response.status === 404) {
-                Alert.alert('Error al enviar la solicitud!', 'Intenta nuevamente en unos minutos', [
-                    {
-                        text: 'Aceptar',
-                        onPress: () => navigation.navigate('AuthScreen'),
-                    },
-                ]);
-                setLoading(false)
+                resendCode(email);
+                navigation.navigate('CodeValidation', { email });
             }
         } catch (error) {
-            setLoading(false)
-            Alert.alert('Error al enviar la solicitud!', 'Intenta nuevamente en unos minutos', [
-                {
-                    text: 'Aceptar',
-                    onPress: () => navigation.navigate('AuthScreen'),
-                },
-            ]);
-            throw new Error('Error obteniendo el usuario')
+            const axiosError = error as AxiosError;
+            if (axiosError.response) {
+                // El servidor respondió con un código de estado fuera del rango 2xx
+                console.log('error data', axiosError.response.data);
+                console.log('error status', axiosError.response.status);
+                
+                if (axiosError.response.status === 403) {
+                    navigation.navigate('LoginFormScreen', { email });
+                } else if (axiosError.response.status === 400) {
+                    navigation.goBack();
+                    Alert.alert('El correo ya existe', 'El correo ya fue ingresado con una cuenta de Google, inicia sesión con Google para continuar');
+                } else if (axiosError.response.status === 404) {
+                    handleError('Intenta nuevamente en unos minutos', 'AuthScreen');
+                } else {
+                    // Manejo de otros errores
+                    handleError('Error al procesar la solicitud', 'AuthScreen');
+                }
+            } else {
+                // Errores que no son de respuesta HTTP (por ejemplo, problemas de red)
+                handleError('Error al conectar con el servidor', 'AuthScreen');
+            }
+        } finally {
+            setLoading(false);
         }
     };
 
