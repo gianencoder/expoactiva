@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -24,9 +24,10 @@ export const MultiSelectComponent = ({ selected, data, onChange }: props) => {
                 style={{ ...styles.dropdown, backgroundColor: theme.colors.background }}
                 placeholderStyle={{ ...styles.placeholderStyle, color: theme.colors.text }}
                 selectedTextStyle={{ ...styles.selectedTextStyle, color: theme.customColors.iconColor }}
-                inputSearchStyle={styles.inputSearchStyle}
+                inputSearchStyle={{ ...styles.inputSearchStyle }}
                 iconStyle={styles.iconStyle}
                 data={data}
+                activeColor='lightgray'
                 labelField="label"
                 valueField="value"
                 placeholder="Seleccionar intereses"

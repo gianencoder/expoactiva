@@ -85,13 +85,13 @@ export const DatePickerComponent = (props) => {
                                     <TouchableOpacity onPress={onCancelPress}
                                         style={[styles.btnText, styles.btnCancel]}
                                     >
-                                        <Text style={{ color: theme.colors.text, fontSize: 18 }}>Cancelar</Text>
+                                        <Text style={{ color: theme.colors.text, fontSize: 18, fontWeight: 'bold' }}>Cancelar</Text>
                                     </TouchableOpacity>
 
                                     <TouchableOpacity onPress={onDonePress}
                                         style={[styles.btnText, styles.btnDone]}
                                     >
-                                        <Text style={{ color: theme.colors.text, fontSize: 18 }}>Aceptar</Text>
+                                        <Text style={{ color: theme.colors.text, fontSize: 18, fontWeight: 'bold' }}>Aceptar</Text>
                                     </TouchableOpacity>
 
                                 </View>

@@ -14,7 +14,7 @@ const data = [
     { label: 'Agricultura', value: 'Agricultura' },
     { label: 'Automóviles', value: 'Automóviles' },
     { label: 'Ganadería', value: 'Ganadería' },
-    { label: 'Lacteos', value: 'Lacteos' },
+    { label: 'Lácteos', value: 'Lacteos' },
     { label: 'Máquinas', value: 'Máquinas' },
     { label: 'Tecnología', value: 'Tecnología' },
 ];

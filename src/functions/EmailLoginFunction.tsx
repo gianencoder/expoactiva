@@ -324,6 +324,8 @@ export const EmailLoginFunction = () => {
             ]);
 
             setLoading(true)
+        } finally {
+            setLoading(false)
         }
     }
 
