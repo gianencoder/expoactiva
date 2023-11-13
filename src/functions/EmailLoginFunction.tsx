@@ -207,11 +207,11 @@ export const EmailLoginFunction = () => {
         }
     };
 
-    const signUp = async (name: string, email: string, bornDay: Date, interests: string[]) => {
+    const signUp = async (name: string, email: string, date: Date, interests: string[]) => {
         setLoading(true);
 
         try {
-            const request = await fetch(`${properties.prod}user/signup`, {
+            const request = await fetch(`${properties.desa}user/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -219,7 +219,7 @@ export const EmailLoginFunction = () => {
                 body: JSON.stringify({
                     name: name,
                     email: email,
-                    birthDay: bornDay,
+                    birthDay: date,
                     interests: interests
                 }),
             });

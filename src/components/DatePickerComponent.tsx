@@ -8,11 +8,11 @@ import moment from 'moment-timezone'
 import 'moment/locale/es'; // Importa el idioma español
 
 export const DatePickerComponent = (props) => {
-    const { defaultDate, onDateChange } = props
-
-    const [date, setDate] = useState(new Date(defaultDate))
+    const { onDateChange, date, setDate } = props
     const [show, setShow] = useState(false)
     const { theme } = useContext(ThemeContext)
+    const maxDate = new Date()
+    const today = maxDate.setHours(maxDate.getHours() - 3)
 
     const onChange = (e, selectDate) => {
         setDate(new Date(selectDate))
@@ -23,33 +23,29 @@ export const DatePickerComponent = (props) => {
         if (selectDate) {
             setDate(new Date(selectDate))
         }
+
     }
 
     const onCancelPress = () => {
-
         onDateChange(new Date(date))
         setShow(false)
-
     }
 
     const onDonePress = () => {
-
         onDateChange(date)
         setShow(false)
-
     }
-
 
     const renderDatePicker = () => {
         return (
             <>
                 <DateTimePicker
-                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                    timeZoneOffsetInMinutes={0}
+                    display={Platform.OS === 'ios' ? 'spinner' : 'calendar'}
+                    // timeZoneOffsetInMinutes={0}
                     value={new Date(date)}
                     mode='date'
                     minimumDate={new Date(1900, 1, 1)}
-                    maximumDate={new Date()}
+                    maximumDate={new Date(today)}
                     onChange={Platform.OS === 'ios' ? onChange : onAndroidChange}
                     textColor={theme.currentTheme === 'light' ? 'black' : 'white'}
                     locale='es'
@@ -58,7 +54,7 @@ export const DatePickerComponent = (props) => {
         )
     }
     moment.locale('ES'); // Establece el idioma a español
-    const formattedDate = moment(date).add(3, 'hours').format('DD MMMM YYYY');
+    const formattedDate = moment(date).format('DD MMMM YYYY');
     return (
 
         <Pressable style={{ ...authStyle.ef, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }} onPress={() => {

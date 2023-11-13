@@ -26,7 +26,6 @@ export const LoginFormScreen = () => {
     const { theme } = useContext(ThemeContext)
     const [emptyField, setEmptyField] = useState(false)
     const { height } = useWindowDimensions()
-    const [bornDay, setBornDay] = useState(new Date())
     const [name, setName] = useState('')
     const [isVisible, setIsVisible] = useState(false)
     const { signUp, loading } = EmailLoginFunction()
@@ -34,11 +33,15 @@ export const LoginFormScreen = () => {
     const route = useRoute()
     const navigation = useNavigation()
     const { email }: any = route.params
-
+    const defaultDate = new Date()
+    const fixedDate = defaultDate.setHours(defaultDate.getHours() - 3)
+    const [date, setDate] = useState<Date>(new Date(fixedDate))
+    const now = new Date(fixedDate)
+    const isToday = date.toISOString().split('T')[0] === now.toISOString().split('T')[0];
 
     const handleSignUp = () => {
         Keyboard.dismiss()
-        if (name == '' || bornDay == null) {
+        if (name == '' || isToday) {
             setIsVisible(true)
             setEmptyField(true)
             setTimeout(() => {
@@ -46,7 +49,8 @@ export const LoginFormScreen = () => {
             }, 2500)
 
         } else {
-            signUp(name, email, bornDay, selected)
+            // console.log(date)
+            signUp(name, email, date, selected)
         }
     }
     const closeKeyboard = () => {
@@ -77,7 +81,7 @@ export const LoginFormScreen = () => {
                                 iconSize={24}
                                 visible={isVisible}
                                 title={'¡Error!'}
-                                message={'Los campos con * son obligatorios'} />
+                                message={name.length <= 0 ? 'Los campos con * son obligatorios' : 'Debes seleccionar una fecha'} />
 
                             <View style={authStyle.formView}>
                                 <View style={{ flexDirection: 'row' }}>
@@ -96,12 +100,14 @@ export const LoginFormScreen = () => {
 
                                 <View style={{ flexDirection: 'row' }}>
                                     <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Fecha de nacimiento</Text>
+                                    <Text style={{ fontSize: isToday ? 25 : 20, color: isToday ? 'red' : theme.colors.text }}>*</Text>
                                 </View>
 
                                 <DatePickerComponent
                                     onPress={() => Keyboard.dismiss()}
-                                    defaultDate={'2000-01-01'}
-                                    onDateChange={(value: Date) => setBornDay(value)}
+                                    onDateChange={value => setDate(value)}
+                                    date={date}
+                                    setDate={setDate}
                                 />
                                 <MultiSelectComponent
                                     onChange={item => {
@@ -113,7 +119,7 @@ export const LoginFormScreen = () => {
                                 <TouchableOpacity
                                     onPress={handleSignUp}
                                     style={{
-                                        backgroundColor: name !== '' && bornDay !== null ? theme.customColors.buttonColor : '#DBD8E3'
+                                        backgroundColor: name !== '' ? theme.customColors.buttonColor : '#DBD8E3'
                                         , height: 40
                                         , width: '100%'
                                         , borderRadius: 10
@@ -122,7 +128,7 @@ export const LoginFormScreen = () => {
                                         , alignSelf: 'center'
                                         , marginVertical: 10
                                     }}>
-                                    <Text style={{ color: name !== '' && bornDay !== null ? 'white' : '#4B5D67', letterSpacing: 1 }}>{name === '' || bornDay === null ? 'COMPLETA TODA LA INFORMACIÓN' : 'CREAR'}</Text>
+                                    <Text style={{ color: name !== '' ? 'white' : '#4B5D67', letterSpacing: 1 }}>{name === '' ? 'COMPLETA TODA LA INFORMACIÓN' : 'CREAR'}</Text>
                                 </TouchableOpacity>
                                 <Text onPress={() => navigation.navigate('AuthScreen')} style={{ alignSelf: 'center', fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
                             </View>
