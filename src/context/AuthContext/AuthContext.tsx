@@ -6,11 +6,11 @@ type AuthStateContext = {
     isLoggedIn: boolean;
     visible: boolean;
     deletedAccount: boolean;
-    user: User[];
+    user: User | null;
     logout: () => void;
     deleteUser: () => void;
-    updateUser: (user: User[]) => void;
-    login: (user: User[], token: string) => void;
+    updateUser: (user: User) => void;
+    login: (user: User, token: string) => void;
     token: string;
 };
 
@@ -30,13 +30,13 @@ type AuthProviderProps = {
 
 
 export function AuthProvider({ children }: AuthProviderProps) {
-    const [user, setUser] = useState<User[]>([]);
+    const [user, setUser] = useState<User | null>(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [visible, setVisible] = useState(false);
     const [token, setToken] = useState('');
     const [deletedAccount, setDeletedAccount] = useState(false)
 
-    const login = (userData: User[], userToken: string) => {
+    const login = (userData: User, userToken: string) => {
         setUser(userData);
         setIsLoggedIn(true);
         setVisible(true)
@@ -68,7 +68,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             await AsyncStorage.removeItem('UserLoggedIn');
             await AsyncStorage.removeItem('AccessToken');
             // Restablecer los valores del estado del contexto
-            setUser([]);
+            setUser(null);
             setIsLoggedIn(false);
             setVisible(false)
             setToken('')
@@ -82,7 +82,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             await AsyncStorage.removeItem('UserLoggedIn');
             await AsyncStorage.removeItem('AccessToken');
             // Restablecer los valores del estado del contexto
-            setUser([]);
+            setUser(null);
             setIsLoggedIn(false);
             setVisible(false)
             setDeletedAccount(true)
@@ -91,7 +91,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
-    const updateUser = async (userData: User[]) => {
+    const updateUser = async (userData: User) => {
         try {
             setUser(userData);
         } catch (error) {
