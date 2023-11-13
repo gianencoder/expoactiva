@@ -59,7 +59,7 @@ export function calculateTimeLeft(dateTimeString) {
 };
 
 
-export function confirmation(title: string, message: string, txt1: string, txt2: string, method: () => void) {
+export function confirmation(title: string, message: string, txt1: string, txt2: string, method: () => void, style: "cancel" | "default" | "destructive" | undefined) {
     Alert.alert(
         title,
         message,
@@ -67,7 +67,7 @@ export function confirmation(title: string, message: string, txt1: string, txt2:
             {
                 text: txt1,
             },
-            { text: txt2, onPress: method, style: 'destructive' },
+            { text: txt2, onPress: method, style: style }
         ],
     );
 }
