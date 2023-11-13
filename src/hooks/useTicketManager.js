@@ -105,7 +105,7 @@ export const useTicketManager = () => {
             })
 
             if (response.status === 200) {
-                
+
                 setClaimedTicket(true)
                 navigation.goBack()
             }
