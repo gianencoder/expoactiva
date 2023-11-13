@@ -11,6 +11,7 @@ import LocationDaemon from './src/functions/LocationDaemon';
 import { FavoritesProvider } from './src/context/FavouriteContext/FavouritesContext';
 import { AuthProvider } from './src/context/AuthContext/AuthContext';
 import { PaymentProvider } from './src/context/PaymentContext/PaymentContext';
+import { RedeemTicketProvider } from './src/context/RedeemTicketContext/RedeemTicketContext';
 
 export default function App() {
 
@@ -26,6 +27,7 @@ export default function App() {
       <FavoritesProvider>
         <ThemeProvider>
           <PaymentProvider>
+            <RedeemTicketProvider>
           <NavigationContainer>
             <SafeAreaView style={{ ...styles.container }}>
               <StatusBar
@@ -36,6 +38,7 @@ export default function App() {
             </SafeAreaView>
           </NavigationContainer >
           <LocationDaemon />
+          </RedeemTicketProvider>
           </PaymentProvider>
         </ThemeProvider >
       </FavoritesProvider>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigation } from "@react-navigation/native"
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import properties from '../../properties.json'
 import { useAuthContext } from '../context/AuthContext/AuthContext'
 import { usePayment } from '../context/PaymentContext/PaymentContext'
+import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketContext'
 
 export const useTicketManager = () => {
     const { user, token } = useAuthContext()
@@ -13,20 +13,13 @@ export const useTicketManager = () => {
     const [tickets, setTickets] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [changed, setChanged] = useState(false)
-    const [changedError, setChangedError] = useState(false)
     const { setPayment, setPaymentAttempt, paymentAttempt } = usePayment()
+    const { setClaimedTicket, setRedeemTicketAttempt, redeemTicketAttempt } = useRedeemTicket()
 
     const purchaseTicket = useCallback(async () => {
         try {
 
             setLoading(true);
-
-            const tokenString = await AsyncStorage.getItem('AccessToken');
-
-            // sacarle las comillas al token
-            const token = tokenString.replace(/['"]+/g, '');
-
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const body = { email: user.email, quantity };
             console.log('body', body)
@@ -57,12 +50,6 @@ export const useTicketManager = () => {
     const fetchTickets = useCallback(async () => {
         try {
             setLoading(true);
-
-            const tokenString = await AsyncStorage.getItem('AccessToken');
-
-            // sacarle las comillas al token
-            const token = tokenString.replace(/['"]+/g, '');
-
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const response = await axios.get(`${properties.prod}tickets/${user.email}`);
 
@@ -106,7 +93,7 @@ export const useTicketManager = () => {
     const redeemTicket = async (code) => {
         setLoading(true)
         try {
-            const response = await fetch(`${properties.desa}tickets/update/${code}`, {
+            const response = await fetch(`${properties.prod}tickets/update/${code}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -118,14 +105,16 @@ export const useTicketManager = () => {
             })
 
             if (response.status === 200) {
-                navigation.navigate('TicketsScreen')
-                setChanged(true)
+                
+                setClaimedTicket(true)
+                navigation.goBack()
             }
             if (response.status === 404) {
-                setChangedError(true)
+                setClaimedTicket(false)
+                setRedeemTicketAttempt(!redeemTicketAttempt)
             }
         } catch (error) {
-
+            console.log('error', error)
         } finally {
             setLoading(false)
         }
@@ -141,10 +130,6 @@ export const useTicketManager = () => {
         , purchaseTicket
         , fetchTickets
         , redeemTicket
-        , changed
-        , changedError
-        , setChanged
-        , setChangedError
     })
 }
 

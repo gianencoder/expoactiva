@@ -7,7 +7,7 @@ import { ThemeContext } from '../context/themeContext/ThemeContext';
 export const TicketComponent = ({ ticket, qrCode, method }) => {
 
     const onShare = async (code) => {
-        const result = await Share.share({ message: (code) })
+        const result = await Share.share({ message: `Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada: ${"\n"}${"\n"} ${code}` })
 
         if (result.action === Share.sharedAction) {
             if (result.activityType) {
