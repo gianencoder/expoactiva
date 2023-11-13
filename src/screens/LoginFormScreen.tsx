@@ -4,7 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, Keyboard, ActivityIndicator, P
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
 import { authStyle } from '../theme/AuthTheme'
-import { DatePickerComponent } from '../components/DatePickerComponent'
+//import { DatePickerComponent } from '../components/DatePickerComponent'
 import { MultiSelectComponent } from '../components/MultiSelectComponent'
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { useRoute } from '@react-navigation/native';
@@ -32,15 +32,15 @@ export const LoginFormScreen = () => {
     const route = useRoute()
     const navigation = useNavigation()
     const { email }: any = route.params
-    const defaultDate = new Date()
-    const fixedDate = defaultDate.setHours(defaultDate.getHours() - 3)
-    const [date, setDate] = useState<Date>(new Date(fixedDate))
-    const now = new Date(fixedDate)
-    const isToday = date.toISOString().split('T')[0] === now.toISOString().split('T')[0];
+    //const defaultDate = new Date()
+   // const fixedDate = defaultDate.setHours(defaultDate.getHours() - 3)
+    //const [date, setDate] = useState<Date>(new Date(fixedDate))
+    //const now = new Date(fixedDate)
+    //const isToday = date.toISOString().split('T')[0] === now.toISOString().split('T')[0];
 
     const handleSignUp = () => {
         Keyboard.dismiss()
-        if (name == '' || isToday) {
+        if (name == '') {
             setIsVisible(true)
             setEmptyField(true)
             setTimeout(() => {
@@ -49,7 +49,7 @@ export const LoginFormScreen = () => {
 
         } else {
             // console.log(date)
-            signUp(name, email, date, selected)
+            signUp(name, email, new Date('2000-01-01'), selected)
         }
     }
     const closeKeyboard = () => {
@@ -64,7 +64,7 @@ export const LoginFormScreen = () => {
             </View>
             : <TouchableWithoutFeedback onPress={closeKeyboard} style={{ backgroundColor: theme.colors.background }}>
                 <KeyboardAvoidingView
-                    behavior={Platform.OS === "ios" ? "height" : null}
+                    behavior= {"height"}
                     keyboardVerticalOffset={height / 10}
                     style={{ flex: 1, backgroundColor: theme.colors.background }}
                 >
@@ -99,15 +99,15 @@ export const LoginFormScreen = () => {
 
                                 <View style={{ flexDirection: 'row' }}>
                                     <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Fecha de nacimiento</Text>
-                                    <Text style={{ fontSize: isToday ? 25 : 20, color: isToday ? 'red' : theme.colors.text }}>*</Text>
+                                    {/* <Text style={{ fontSize: isToday ? 25 : 20, color: isToday ? 'red' : theme.colors.text }}>*</Text> */}
                                 </View>
 
-                                <DatePickerComponent
+                                {/* <DatePickerComponent
                                     onPress={() => Keyboard.dismiss()}
                                     onDateChange={value => setDate(value)}
                                     date={date}
                                     setDate={setDate}
-                                />
+                                /> */}
                                 <MultiSelectComponent
                                     onChange={item => {
                                         setSelected(item)
