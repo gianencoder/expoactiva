@@ -15,15 +15,18 @@ import { WhereIsMyCarIconComponent } from '../components/Icons/WhereIsMyCarIconC
 import { ExhibitorsComponent } from '../components/Icons/MyProfileIconComponent';
 import { ToastMessageComponent } from '../components/ToastMessageComponent';
 import { useAuthContext } from '../context/AuthContext/AuthContext';
+import { useNavigation } from '@react-navigation/native';
+
 
 interface Props extends StackScreenProps<any, any> { }
 export const HomeScreen = ({ navigation }: Props) => {
 
     const { theme } = useContext(ThemeContext)
-    const { visible, deletedAccount } = useAuthContext()
+    const { visible, deletedAccount, user } = useAuthContext()
     const { scrollViewRef } = HomeFunction();
     const [loginVisible, setLoginVisible] = useState(false);
     const [deletedVisible, setDeletedVisible] = useState(false);
+    const globalNavigation = useNavigation();
 
     useEffect(() => {
         if (visible) {
@@ -34,6 +37,16 @@ export const HomeScreen = ({ navigation }: Props) => {
         }
     }, [visible]);
 
+    const handleTicketsNavigation = () => {
+
+        console.log('user', user)
+        if (user === {} as User || user === undefined || user === null) {
+            globalNavigation.navigate('AuthScreen');
+        } else {
+            globalNavigation.navigate('TicketsScreen');
+        }
+
+    }
 
     useEffect(() => {
         if (deletedAccount) {
@@ -61,7 +74,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                 visible={deletedVisible}
                 title={'Lamentamos que te vayas'}
                 iconName={'frowno'}
-                message={'¡Has eliminado tu cuenta con éxito!'}
+                message={'Has eliminado tu cuenta con éxito'}
                 backgroundColor={theme.customColors.bgWarningMessage}
                 iconColor={theme.customColors.colorWarningMessage}
                 textColor={theme.customColors.colorWarningMessage}
@@ -79,7 +92,7 @@ export const HomeScreen = ({ navigation }: Props) => {
 
                     </View>
                     <View style={{ ...styles.littleComponentContainer, backgroundColor: theme.colors.background }}>
-                        <HomeLittleComponent action={() => navigation.navigate('TicketsScreen')} page={'Entradas'} icon={<TicketIconComponent />} />
+                        <HomeLittleComponent action={handleTicketsNavigation} page={'Entradas'} icon={<TicketIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Mapa expo'} icon={<GoToPlaceIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('TopTabNavigtorEvent')} page={'Eventos'} icon={<EventIconComponent />} />
                         <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<InteresPointIconComponent />} />

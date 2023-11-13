@@ -50,7 +50,7 @@ export const ModalComponent = React.forwardRef<ModalRefProps, ModalProps>(({ chi
             translateY.value = Math.max(translateY.value, MAX_TRANSLATE_Y)
         })
         .onEnd(() => {
-            if (translateY.value > -SCREEN_HEIGHT / 3) {
+            if (translateY.value > -SCREEN_HEIGHT / 1.8) {
                 scrollTo(0)
             } else if (translateY.value > -SCREEN_HEIGHT / 1.5) {
                 scrollTo(middle)

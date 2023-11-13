@@ -67,7 +67,7 @@ export function confirmation(title: string, message: string, txt1: string, txt2:
             {
                 text: txt1,
             },
-            { text: txt2, onPress: method },
+            { text: txt2, onPress: method, style: 'destructive' },
         ],
     );
 }
