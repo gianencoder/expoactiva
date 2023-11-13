@@ -27,7 +27,7 @@ export const TicketsScreen = () => {
     useFocusEffect(
         React.useCallback(() => {
             fetchTickets();
-        }, [])
+        }, [isFocused])
     );
 
     useEffect(() => {
@@ -70,8 +70,9 @@ export const TicketsScreen = () => {
 
     return (
         <>
-            {!charging
-                ? isLoggedIn
+            {isLoggedIn
+                ?
+                !charging
                     ?
                     <View style={{ flex: 1 }}>
                         {tickets.length > 0
@@ -180,12 +181,11 @@ export const TicketsScreen = () => {
                                 </View>
                             </View>}
                     </View>
-                    : <AuthScreen />
-
-                : <View style={{ flex: 1, backgroundColor: theme.colors.background, justifyContent: 'center', alignItems: 'center', gap: 15 }}>
-                    <ActivityIndicator size={'large'} color={theme.customColors.activeColor} />
-                    <Text style={{ fontSize: 18, color: theme.colors.text }}>Cargando entradas...</Text>
-                </View>
+                    : <View style={{ flex: 1, backgroundColor: theme.colors.background, justifyContent: 'center', alignItems: 'center', gap: 15 }}>
+                        <ActivityIndicator size={'large'} color={theme.customColors.activeColor} />
+                        <Text style={{ fontSize: 18, color: theme.colors.text }}>Cargando entradas...</Text>
+                    </View>
+                : <AuthScreen />
             }
         </>
     )
