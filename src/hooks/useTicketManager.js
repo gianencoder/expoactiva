@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
+import { Share } from 'react-native'
 import { useNavigation } from "@react-navigation/native"
 import axios from 'axios'
 import properties from '../../properties.json'
@@ -33,9 +34,9 @@ export const useTicketManager = () => {
                 navigation.goBack()
             } else {
                 setPayment(false);
-                setPaymentAttempt(!paymentAttempt);
             }
 
+            setPaymentAttempt(!paymentAttempt)
 
 
         } catch (err) {
@@ -100,7 +101,9 @@ export const useTicketManager = () => {
                     'Content-type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: user.email
+                    email: user.email,
+                    shared: false,
+                    redeem: true
                 }),
             })
 
@@ -120,6 +123,42 @@ export const useTicketManager = () => {
         }
     }
 
+    const shareTicket = async (code) => {
+        try {
+            const result = await Share.share({ message: `Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada:${"\n"}${"\n"}${code}` })
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+
+                    const response = await fetch(`${properties.prod}tickets/update/${code}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            shared: true
+                        }),
+                    })
+
+                    const data = await response.json()
+                    
+                    console.log('data', data)
+                    console.log('status', response.status)
+
+                    if (response.status === 200) {
+                        console.log('shared', result.activityType)
+                    }
+
+                } else {
+                    console.log('error')
+                }
+            }
+        } catch (error) {
+            console.log('error', error)
+        }
+    }
+
     return ({
         tickets
         , ticketDetail
@@ -130,6 +169,7 @@ export const useTicketManager = () => {
         , purchaseTicket
         , fetchTickets
         , redeemTicket
+        , shareTicket
     })
 }
 

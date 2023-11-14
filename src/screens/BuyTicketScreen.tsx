@@ -16,6 +16,7 @@ export const BuyTicketScreen = () => {
     const mounted = useRef(false);
     
     useEffect(() => {
+        console.log('ejecuta')
         if (mounted.current) {
             console.log('payment', payment)
             if (!payment) {
@@ -29,7 +30,7 @@ export const BuyTicketScreen = () => {
         } else {
             mounted.current = true;
         }
-    }, [paymentAttempt, payment]);
+    }, [paymentAttempt]);
     
 
     const handleConfirmPress = () => {

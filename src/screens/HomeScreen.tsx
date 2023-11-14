@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useContext, useEffect, useState } from 'react'
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, Alert } from 'react-native';
 import { styles } from '../theme/GlobalTheme';
 import { HomeLittleComponent } from '../components/HomeLittleComponent';
 import { CarouselComponent } from '../components/CarouselComponent';
@@ -41,6 +41,7 @@ export const HomeScreen = ({ navigation }: Props) => {
 
         console.log('user', user)
         if (user === {} as User || user === undefined || user === null) {
+            Alert.alert('Inicia sesión', 'Debes iniciar sesión para ver o comprar entradas')
             globalNavigation.navigate('AuthScreen');
         } else {
             globalNavigation.navigate('TicketsScreen');
