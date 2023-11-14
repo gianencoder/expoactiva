@@ -6,6 +6,7 @@ import properties from '../../properties.json'
 import { useAuthContext } from '../context/AuthContext/AuthContext'
 import { usePayment } from '../context/PaymentContext/PaymentContext'
 import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketContext'
+import { Alert } from 'react-native'
 
 export const useTicketManager = () => {
     const { user, token } = useAuthContext()
@@ -147,6 +148,7 @@ export const useTicketManager = () => {
                     console.log('status', response.status)
 
                     if (response.status === 200) {
+                        Alert.alert('¡Bien hecho!', 'La entrada se compartió correctamente')
                         console.log('shared', result.activityType)
                     }
 

@@ -74,7 +74,8 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
         },
         copyNotification: {
             position: 'absolute',
-            top: '-25%',
+            zIndex: 3,
+            top: '100%',
             alignSelf: 'center',
             backgroundColor: 'black',
             padding: 10,
