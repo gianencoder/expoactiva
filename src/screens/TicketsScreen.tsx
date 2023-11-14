@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator, Alert } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { TicketComponent } from '../components/TicketComponent';
@@ -23,6 +23,12 @@ export const TicketsScreen = () => {
     const { claimedTicket, setClaimedTicket, setRedeemTicketAttempt } = useRedeemTicket();
     const [charging, setCharging] = useState(true)
     const isFocused = useIsFocused();
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            Alert.alert('Inicia sesión', 'Debes iniciar sesión para ver o comprar entradas')
+        }
+    }, [isLoggedIn])
 
     useFocusEffect(
         React.useCallback(() => {

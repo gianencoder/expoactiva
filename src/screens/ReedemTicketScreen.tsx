@@ -102,7 +102,7 @@ export const ReedemTicketScreen = () => {
                     iconColor={customColors.colorErrorMessage}
                     textColor={customColors.colorErrorMessage}
                     title='¡Error!'
-                    message={'La entrada no existe o no está disponible'}
+                    message={'La entrada no existe o no está compartida'}
                     visible={showErrorTicketToast}
                     iconName={'closecircleo'}
                 />
@@ -113,8 +113,8 @@ export const ReedemTicketScreen = () => {
 
                 <View style={editProfileTheme.div}>
                     <View style={{ width: '100%', flexDirection: 'row', gap: 5, alignItems: 'center' }}>
-                        <Text style={{ ...editProfileTheme.labelName, color: customColors.subtitles }}>Código</Text>
-                        <Text style={{ ...editProfileTheme.labelName, color: emptyCode ? 'red' : customColors.subtitles, fontSize: emptyCode ? 25 : 18 }}>*</Text>
+                        <Text style={{ ...editProfileTheme.labelName, color: colors.text }}>Código</Text>
+                        <Text style={{ ...editProfileTheme.labelName, color: emptyCode ? 'red' : colors.text, fontSize: emptyCode ? 25 : 18 }}>*</Text>
                     </View>
 
                     <TextInput
