@@ -158,6 +158,7 @@ export const useTicketManager = () => {
             }
         } catch (error) {
             console.log('error', error)
+            Alert.alert('Error', 'Ocurrió un error al compartir la entrada, intente nuevamente')
         }
     }
 
