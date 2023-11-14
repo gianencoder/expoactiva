@@ -28,7 +28,6 @@ export const ConfigurationScreen = ({ navigation }: Props) => {
 
 
     return (
-
         <GestureHandlerRootView style={{ flex: 1 }}>
             <View style={{ ...themeConfig.container, backgroundColor: theme.colors.background }}>
                 <ModalComponent ref={ref} children={<VisibilityScreen />} />
@@ -36,9 +35,9 @@ export const ConfigurationScreen = ({ navigation }: Props) => {
                     <View style={{ flex: 1 }}><Text style={{ fontSize: 30, fontWeight: '400', color: theme.colors.text }}>Configuración</Text></View>
                     <View style={{ flex: 5, gap: 20 }}>
                         <ConfigurationItemComponent title={'Mi cuenta'} image={<Image source={require('../assets/icons/perfil.png')}
-                            style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('AuthScreen')} />
+                            style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('AuthScreen2')} />
                         <ConfigurationItemComponent title={'Notificaciones'} image={<Image source={require('../assets/icons/campana.png')}
-                            style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('NotificationScreen')} />
+                            style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('NotificationScreen2')} />
                         <ConfigurationItemComponent title={'Apariencia'} image={<Image source={require('../assets/icons/apariencia.png')}
                             style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={toggleModal} />
                         <ConfigurationItemComponent title={'Privacidad y Seguridad'} image={<Image source={require('../assets/icons/cerrar.png')}

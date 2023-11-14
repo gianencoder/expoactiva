@@ -18,6 +18,7 @@ export const useTicketManager = (ticket = null) => {
     const { setPayment, setPaymentAttempt, paymentAttempt } = usePayment()
     const { setClaimedTicket, setRedeemTicketAttempt, redeemTicketAttempt } = useRedeemTicket()
     const [isTicketShared, setIsTicketShared] = useState(ticket ? ticket.shared : false)
+    const indexPage = navigation.getState().index
 
     const purchaseTicket = useCallback(async () => {
         try {
@@ -33,8 +34,9 @@ export const useTicketManager = (ticket = null) => {
 
             if (response.data.data) {
                 setPayment(true);
-                navigation.goBack()
+                indexPage === 1 ? navigation.replace('TicketsScreen') : navigation.goBack()
             } else {
+
                 setPayment(false);
             }
 
@@ -120,7 +122,7 @@ export const useTicketManager = (ticket = null) => {
                 setClaimedTicket(false)
                 setRedeemTicketAttempt(!redeemTicketAttempt)
             }
-            
+
         } catch (error) {
             console.log('error', error)
         } finally {
@@ -145,11 +147,6 @@ export const useTicketManager = (ticket = null) => {
                             shared: true
                         }),
                     })
-
-                    const data = await response.json()
-                    
-                    console.log('data', data)
-                    console.log('status', response.status)
 
                     if (response.status === 200) {
                         Alert.alert('¡Bien hecho!', 'La entrada se compartió correctamente')
