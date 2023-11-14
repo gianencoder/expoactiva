@@ -1,14 +1,17 @@
-import React, { useContext, useEffect } from 'react'
-import { View, Text, TouchableOpacity, Share, Image } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, Image, Modal, StyleSheet, Clipboard, Animated } from 'react-native'
 import { ticketStyles } from '../theme/TicketsTheme'
 import QRCode from "react-native-qrcode-svg";
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { useTicketManager } from '../hooks/useTicketManager';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export const TicketComponent = ({ ticket, qrCode, method }) => {
 
     const { theme } = useContext(ThemeContext)
     const { shareTicket } = useTicketManager()
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [fadeAnim] = useState(new Animated.Value(0)); 
 
     const isTicketShared = ticket.shared
 
@@ -16,13 +19,103 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
         console.log('ticket', ticket)
     }, [isTicketShared])
 
+    const handlePress = () => {
+        if (isTicketShared) {
+            setIsModalVisible(true);
+        } else {
+            method();
+        }
+    };
+
+    const handleCopyToClipboard = () => {
+        Clipboard.setString(ticket.ticketId);
+
+        // Fade in
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: false,
+        }).start();
+
+        setTimeout(() => {
+            // Fade out
+            Animated.timing(fadeAnim, {
+                toValue: 0,
+                duration: 500,
+                useNativeDriver: false,
+            }).start();
+        }, 1000);
+    };
+
+    const styles = StyleSheet.create({
+        modalView: {
+            top: '35%',
+            marginHorizontal: 20,
+            backgroundColor: 'white',
+            borderRadius: 20,
+            padding: 55,
+            alignItems: 'center',
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+            elevation: 5,
+            position: 'relative',
+        },
+        closeButton: {
+            position: 'absolute',
+            top: 10,
+            right: 10,
+        },
+        copyButton: {
+            position: 'absolute',
+            bottom: 10,
+            right: 10,
+        },
+        copyNotification: {
+            position: 'absolute',
+            top: '-25%',
+            alignSelf: 'center',
+            backgroundColor: 'black',
+            padding: 10,
+            borderRadius: 5,
+        },
+    });
+
     return (
         <TouchableOpacity
             activeOpacity={0.5}
-            onPress={!isTicketShared ? method : () => {}}
-            disabled={isTicketShared}
+            onPress={handlePress}
             style={{ justifyContent: 'center', alignItems: 'center' }}
         >
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isModalVisible}
+                onRequestClose={() => setIsModalVisible(false)}
+            >
+                <View style={styles.modalView}>
+                    <TouchableOpacity
+                        style={styles.closeButton}
+                        onPress={() => setIsModalVisible(false)}
+                        hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}
+                    >
+                        <MaterialIcons name="close" size={24} color="darkgreen" />
+                    </TouchableOpacity>
+
+                    <Text style={{ marginBottom: 15, textAlign: 'center', fontSize: 17, fontWeight: '500' }}>Código para canjear la entrada:{"\n"}{"\n"}{ticket.ticketId}</Text>
+
+                    <TouchableOpacity
+                        style={styles.copyButton}
+                        onPress={handleCopyToClipboard}
+                        hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}
+                    >
+                        <MaterialIcons name="content-copy" size={24} color="darkgreen" />
+                    </TouchableOpacity>
+                </View>
+            </Modal>
+
             <View style={ticketStyles.listTicketContainer}>
                 <View style={ticketStyles.imgContainer}>
                     <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -32,7 +125,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                             color={isTicketShared ? 'gray' : theme.colors.text}
                             backgroundColor="transparent"
                         />
-                        {isTicketShared && <View style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)'}} />}
+                        {isTicketShared && <View style={{ position: 'absolute', width: '80%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.7)'}} />}
                     </View>
                 </View>
 
@@ -57,6 +150,14 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                     <Text style={{ color: theme.customColors.subtitles }}>Entrada {isTicketShared ? 'compartida' : ticket.used ? 'no válida' : 'válida'}</Text>
                 </View>
             </View>
+            <Animated.View
+                style={{
+                    ...styles.copyNotification,
+                    opacity: fadeAnim, // Enlaza la opacidad a la variable de animación
+                }}
+            >
+                <Text style={{ color: 'white' }}>Copiado al portapapeles</Text>
+            </Animated.View>
         </TouchableOpacity>
 
     )

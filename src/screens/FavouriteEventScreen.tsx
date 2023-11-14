@@ -43,7 +43,7 @@ export const FavouriteEventScreen = () => {
             ?
             <View style={eventStyle.container} >
                 <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-                    <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 45, backgroundColor: 'transparent' }}>
+                    <View style={{ width: '100%', marginVertical: 10, paddingVertical: 5, paddingHorizontal: 10, height: 45, backgroundColor: 'transparent' }}>
                         <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar nombre del evento..." />
                     </View>
                     {loading

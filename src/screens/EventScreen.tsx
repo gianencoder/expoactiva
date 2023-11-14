@@ -57,7 +57,7 @@ export const EventScreen = () => {
     return (
         <View style={eventStyle.container} >
             <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-                <View style={{ width: '100%', marginVertical: 10, padding: 5, height: 45, backgroundColor: 'transparent' }}>
+                <View style={{ width: '100%', marginVertical: 10, paddingVertical: 5, paddingHorizontal: 10, height: 45, backgroundColor: 'transparent' }}>
                     <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar nombre del evento..." />
                 </View>
                 <View style={{ height: 40, alignItems: 'center' }}>
@@ -65,7 +65,7 @@ export const EventScreen = () => {
                         horizontal
                         showsHorizontalScrollIndicator={false}
                     >
-                        <View style={{ height: 25, paddingHorizontal: 10, flexDirection: 'row', gap: 10 }}>
+                        <View style={{ height: 20, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 20, marginTop: 5, paddingHorizontal: 10 }}>
                             {eventDates.map(date => (
 
                                 <TouchableOpacity
@@ -80,7 +80,6 @@ export const EventScreen = () => {
                         </View>
                     </ScrollView>
                 </View>
-                <View style={{ height: 10 }}></View>
                 <View style={{ height: 40, justifyContent: 'center', paddingHorizontal: 10 }}>
                     <ScrollView
                         horizontal

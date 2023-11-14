@@ -21,6 +21,7 @@ export default function App() {
   LogBox.ignoreLogs(['Warning']);
   LogBox.ignoreLogs(['BACK']);
   LogBox.ignoreLogs(['Possible']);
+  LogBox.ignoreLogs(['Clipboard']);
 
   return (
     <AuthProvider>
