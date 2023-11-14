@@ -96,6 +96,7 @@ export const useTicketManager = (ticket = null) => {
     const redeemTicket = async (code) => {
         setLoading(true)
         try {
+            console.log('code', code)
             const response = await fetch(`${properties.prod}tickets/update/${code}`, {
                 method: 'PUT',
                 headers: {
@@ -108,17 +109,18 @@ export const useTicketManager = (ticket = null) => {
                     redeem: true
                 }),
             })
-
+            const data = await response.json()
+            console.log(data)
             if (response.status === 200) {
 
                 setClaimedTicket(true)
                 navigation.goBack()
                 setIsTicketShared(false)
-            }
-            if (response.status === 404) {
+            } else {
                 setClaimedTicket(false)
                 setRedeemTicketAttempt(!redeemTicketAttempt)
             }
+            
         } catch (error) {
             console.log('error', error)
         } finally {

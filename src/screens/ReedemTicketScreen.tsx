@@ -20,6 +20,7 @@ export const ReedemTicketScreen = () => {
     const { claimedTicket ,redeemTicketAttempt } = useRedeemTicket();
 
     useEffect(() => {
+
         if (mounted.current) {
             if (!claimedTicket) {
                 setTimeout(() => {
@@ -32,7 +33,7 @@ export const ReedemTicketScreen = () => {
         } else {
             mounted.current = true;
         }
-    }, [redeemTicketAttempt, claimedTicket]);
+    }, [redeemTicketAttempt]);
 
     const handleReedem = () => {
         if (code.length <= 0) {
