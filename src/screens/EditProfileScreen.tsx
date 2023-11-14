@@ -10,15 +10,9 @@ import { MultiSelectComponent } from '../components/MultiSelectComponent'
 import { useFocusEffect } from '@react-navigation/native';
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
+import { data } from '../util/utils'
 
-const data = [
-    { label: 'Agricultura', value: 'Agricultura' },
-    { label: 'Automóviles', value: 'Automóviles' },
-    { label: 'Ganadería', value: 'Ganadería' },
-    { label: 'Lacteos', value: 'Lacteos' },
-    { label: 'Máquinas', value: 'Máquinas' },
-    { label: 'Tecnología', value: 'Tecnología' },
-];
+
 
 export const EditProfileScreen = () => {
     const navigation = useNavigation()
@@ -100,7 +94,7 @@ export const EditProfileScreen = () => {
             </View>
 
             <View style={editProfileTheme.div}>
-                <Text style={{ ...editProfileTheme.labelName, color: colors.text }}>Nombre</Text>
+                <Text style={{ ...editProfileTheme.labelName, color: colors.text }}>Nombre y Apellido</Text>
                 <TextInput
                     clearButtonMode='while-editing'
                     maxLength={50}
@@ -108,7 +102,7 @@ export const EditProfileScreen = () => {
                     value={name}
                     onChangeText={text => setName(text)}
                     style={{ ...authStyle.ef, color: colors.text, backgroundColor: currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
-                    placeholder='Nombre' placeholderTextColor={'gray'} />
+                    placeholder='Nombre y Apellido' placeholderTextColor={'gray'} />
             </View>
 
             <MultiSelectComponent

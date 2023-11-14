@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import { useAuthContext } from '../context/AuthContext/AuthContext';
 import properties from '../../properties.json'
-import axios,{AxiosError} from 'axios';
+import axios, { AxiosError } from 'axios';
 
 
 
@@ -129,7 +129,7 @@ export const EmailLoginFunction = () => {
             { text: 'Aceptar', onPress: () => navigation.navigate(navigateTo) },
         ]);
     };
-    
+
     const getUserByEmail = async (email: string) => {
 
         setLoading(true);
@@ -150,7 +150,7 @@ export const EmailLoginFunction = () => {
                 // El servidor respondió con un código de estado fuera del rango 2xx
                 console.log('error data', axiosError.response.data);
                 console.log('error status', axiosError.response.status);
-                
+
                 if (axiosError.response.status === 403) {
                     navigation.navigate('LoginFormScreen', { email });
                 } else if (axiosError.response.status === 400) {
@@ -211,7 +211,7 @@ export const EmailLoginFunction = () => {
         setLoading(true);
 
         try {
-            const request = await fetch(`${properties.prod}user/signup`, {
+            const request = await fetch(`${properties.desa}user/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

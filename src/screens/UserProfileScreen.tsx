@@ -22,8 +22,9 @@ export const UserProfileScreen = () => {
             'Cerrar sesión',
             '¿Seguro deseas cerrar sesión?',
             'Cancelar',
-            'Aceptar',
-            logout
+            'Cerrar sesión',
+            logout,
+            'cancel'
         )
     };
 
@@ -32,11 +33,9 @@ export const UserProfileScreen = () => {
             '¿Seguro deseas eliminar tu cuenta?',
             'Se perderá tu configuración',
             'Cancelar',
-            'Aceptar',
-            () => {
-                deleteAccount(user?.email, token)
-
-            }
+            'Eliminar',
+            () => deleteAccount(user?.email, token),
+            'destructive'
         )
     }
 

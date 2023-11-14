@@ -73,3 +73,11 @@ export function confirmation(title: string, message: string, txt1: string, txt2:
 }
 
 
+export const data = [
+    { label: 'Agricultura', value: 'Agricultura' },
+    { label: 'Automóviles', value: 'Automóviles' },
+    { label: 'Ganadería', value: 'Ganadería' },
+    { label: 'Lácteos', value: 'Lacteos' },
+    { label: 'Máquinas', value: 'Máquinas' },
+    { label: 'Tecnología', value: 'Tecnología' },
+];
