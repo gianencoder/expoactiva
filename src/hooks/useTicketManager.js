@@ -8,7 +8,7 @@ import { usePayment } from '../context/PaymentContext/PaymentContext'
 import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketContext'
 import { Alert } from 'react-native'
 
-export const useTicketManager = () => {
+export const useTicketManager = (ticket = null) => {
     const { user, token } = useAuthContext()
     const [quantity, setQuantity] = useState(1)
     const navigation = useNavigation()
@@ -17,6 +17,7 @@ export const useTicketManager = () => {
     const [loading, setLoading] = useState(false);
     const { setPayment, setPaymentAttempt, paymentAttempt } = usePayment()
     const { setClaimedTicket, setRedeemTicketAttempt, redeemTicketAttempt } = useRedeemTicket()
+    const [isTicketShared, setIsTicketShared] = useState(ticket ? ticket.shared : false)
 
     const purchaseTicket = useCallback(async () => {
         try {
@@ -112,6 +113,7 @@ export const useTicketManager = () => {
 
                 setClaimedTicket(true)
                 navigation.goBack()
+                setIsTicketShared(false)
             }
             if (response.status === 404) {
                 setClaimedTicket(false)
@@ -149,6 +151,7 @@ export const useTicketManager = () => {
 
                     if (response.status === 200) {
                         Alert.alert('¡Bien hecho!', 'La entrada se compartió correctamente')
+                        setIsTicketShared(true)
                         console.log('shared', result.activityType)
                     }
 
@@ -173,6 +176,7 @@ export const useTicketManager = () => {
         , fetchTickets
         , redeemTicket
         , shareTicket
+        , isTicketShared
     })
 }
 

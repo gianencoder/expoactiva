@@ -9,15 +9,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 export const TicketComponent = ({ ticket, qrCode, method }) => {
 
     const { theme } = useContext(ThemeContext)
-    const { shareTicket } = useTicketManager()
+    const { shareTicket, isTicketShared } = useTicketManager(ticket)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [fadeAnim] = useState(new Animated.Value(0)); 
-
-    const isTicketShared = ticket.shared
-
-    useEffect(() => {
-        console.log('ticket', ticket)
-    }, [isTicketShared])
 
     const handlePress = () => {
         if (isTicketShared) {
@@ -61,6 +55,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
             shadowRadius: 4,
             elevation: 5,
             position: 'relative',
+            zIndex: 3,
         },
         closeButton: {
             position: 'absolute',
@@ -74,8 +69,8 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
         },
         copyNotification: {
             position: 'absolute',
-            zIndex: 3,
-            top: '100%',
+            zIndex: 4,
+            top: 150,
             alignSelf: 'center',
             backgroundColor: 'black',
             padding: 10,
@@ -100,7 +95,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                     <TouchableOpacity
                         style={styles.closeButton}
                         onPress={() => setIsModalVisible(false)}
-                        hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}
+                        hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}
                     >
                         <MaterialIcons name="close" size={24} color="darkgreen" />
                     </TouchableOpacity>
@@ -110,10 +105,18 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                     <TouchableOpacity
                         style={styles.copyButton}
                         onPress={handleCopyToClipboard}
-                        hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}
+                        hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}
                     >
                         <MaterialIcons name="content-copy" size={24} color="darkgreen" />
                     </TouchableOpacity>
+                        <Animated.View
+                    style={{
+                        ...styles.copyNotification,
+                        opacity: fadeAnim, // Enlaza la opacidad a la variable de animación
+                    }}
+                >
+                    <Text style={{ color: 'white' }}>Copiado al portapapeles</Text>
+                </Animated.View>
                 </View>
             </Modal>
 
@@ -151,14 +154,6 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                     <Text style={{ color: theme.customColors.subtitles }}>Entrada {isTicketShared ? 'compartida' : ticket.used ? 'no válida' : 'válida'}</Text>
                 </View>
             </View>
-            <Animated.View
-                style={{
-                    ...styles.copyNotification,
-                    opacity: fadeAnim, // Enlaza la opacidad a la variable de animación
-                }}
-            >
-                <Text style={{ color: 'white' }}>Copiado al portapapeles</Text>
-            </Animated.View>
         </TouchableOpacity>
 
     )
