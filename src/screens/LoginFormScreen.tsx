@@ -85,21 +85,21 @@ export const LoginFormScreen = () => {
             }, 2500)
         }
 
-        else if (numericDay <= 0 || numericDay > 31 || numericMonth <= 0 || numericMonth > 12 || numericYear < 1900 && numericYear > new Date().getFullYear() || bornDay.getTime() > new Date().getTime() || date.length !== 10) {
+        else if (numericDay <= 0 || numericDay > 31 || numericMonth <= 0 || numericMonth > 12 || numericYear < 1900 || numericYear >= new Date().getFullYear() || bornDay >= new Date() || date.length !== 10) {
             setBadDate(true)
             setTimeout(() => {
                 setBadDate(false)
             }, 2500)
+
+            return
         }
         else {
-            signUp(name, email, new Date(), selected)
+            signUp(name, email, bornDay, selected)
         }
     }
     const closeKeyboard = () => {
         Keyboard.dismiss();
     };
-
-
 
     return (
         loading
