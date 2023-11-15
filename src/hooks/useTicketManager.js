@@ -129,7 +129,8 @@ export const useTicketManager = (ticket = null) => {
                     redeem: true
                 }),
             })
-
+            const data = await response.json()
+            console.log(data)
             if (response.status === 200) {
 
                 setClaimedTicket(true)
@@ -138,9 +139,8 @@ export const useTicketManager = (ticket = null) => {
                 
             } else {
                 setClaimedTicket(false)
+                setRedeemTicketAttempt(!redeemTicketAttempt)
             }
-
-            setRedeemTicketAttempt(currentAttempt => !currentAttempt)
 
         } catch (error) {
             console.log('error', error)
