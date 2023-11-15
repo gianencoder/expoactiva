@@ -132,28 +132,30 @@ export const useTicketManager = (ticket = null) => {
 
     const shareTicket = async (code) => {
         try {
+            const updateTicketStatus = async () => {
+                const response = await fetch(`${properties.prod}tickets/update/${code}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        shared: true
+                    }),
+                });
+                return response.status === 200;
+            };
+    
             const proceedWithSharing = async () => {
                 const result = await Share.share({
                     message: `Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada:${"\n"}${"\n"}${code}`
                 });
     
-                if (result.action === Share.sharedAction) {
+                if (Platform.OS === 'ios' && result.action === Share.sharedAction) {
                     if (result.activityType) {
-                        const response = await fetch(`${properties.prod}tickets/update/${code}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Authorization': `Bearer ${token}`,
-                                'Content-type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                shared: true
-                            }),
-                        });
-    
-                        if (response.status === 200) {
+                        if (await updateTicketStatus()) {
                             Alert.alert('¡Bien hecho!', 'La entrada se compartió correctamente');
                             setIsTicketShared(true);
-                            console.log('shared', result.activityType);
                         } else {
                             console.log('error en la API');
                         }
@@ -169,7 +171,14 @@ export const useTicketManager = (ticket = null) => {
                     '¿Realmente desea compartir su entrada?',
                     [
                         { text: 'No', onPress: () => console.log('Compartir cancelado'), style: 'cancel' },
-                        { text: 'Sí', onPress: () => proceedWithSharing() },
+                        { text: 'Sí', onPress: async () => {
+                            if (await updateTicketStatus()) {
+                                setIsTicketShared(true);
+                                proceedWithSharing();
+                            } else {
+                                console.log('error en la API');
+                            }
+                        }},
                     ],
                     { cancelable: false }
                 );
@@ -181,6 +190,7 @@ export const useTicketManager = (ticket = null) => {
             Alert.alert('Error', 'Ocurrió un error al compartir la entrada, intente nuevamente');
         }
     };
+    
     
     return ({
         tickets
