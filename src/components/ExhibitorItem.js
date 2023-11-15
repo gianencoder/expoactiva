@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: '600',
     fontSize: 20,
-    paddingBottom: 3
+    paddingBottom: 3,
+    textTransform: 'capitalize',
   },
   iconContainer: {
     justifyContent: 'center',

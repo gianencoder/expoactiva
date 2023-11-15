@@ -4,6 +4,13 @@ import esLocale from 'date-fns/locale/es';
 import moment from 'moment';
 import { Alert } from 'react-native';
 
+export function capitalize(word: any) {
+    if (word && typeof word === 'string') {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }
+    return '';
+  }
+  
 
 
 export function dateFormmater(dateTimeString) {
