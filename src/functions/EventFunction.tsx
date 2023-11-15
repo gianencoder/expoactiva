@@ -205,8 +205,12 @@ export const EventFunction = () => {
         if (!canRemove) {
 
         } else {
-            await removeFavouriteAPI(id)
-            removeFavorite(id, true)
+            const userDecision = await presentRemoveFavoriteAlert();
+            console.log('removeFavoriteAlert', userDecision);
+            if (userDecision) {
+                await removeFavouriteAPI(id);
+                removeFavorite(id, true);
+            }
         }
     }
 

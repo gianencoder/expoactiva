@@ -7,6 +7,7 @@ import { useAuthContext } from '../context/AuthContext/AuthContext'
 import { usePayment } from '../context/PaymentContext/PaymentContext'
 import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketContext'
 import { Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const useTicketManager = (ticket = null) => {
     const { user, token } = useAuthContext()
@@ -55,10 +56,21 @@ export const useTicketManager = (ticket = null) => {
     const fetchTickets = useCallback(async () => {
         try {
             setLoading(true);
+
+            const storedTicketsString = await AsyncStorage.getItem('@tickets');
+            const storedTickets = storedTicketsString ? JSON.parse(storedTicketsString) : null;
+
+            if (storedTickets) {
+                setTickets(storedTickets);
+            }
+
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const response = await axios.get(`${properties.prod}tickets/${user.email}`);
 
-            setTickets(response.data);
+            if (!storedTickets || JSON.stringify(storedTickets) !== JSON.stringify(response.data)) {
+                setTickets(response.data);
+                await AsyncStorage.setItem('@tickets', JSON.stringify(response.data));
+            }
 
         } catch (err) {
             setError(err.response ? err.response.data.error : err.message);
