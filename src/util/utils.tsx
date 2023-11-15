@@ -81,3 +81,8 @@ export const data = [
     { label: 'Máquinas', value: 'Máquinas' },
     { label: 'Tecnología', value: 'Tecnología' },
 ];
+
+
+export function filterFormmat(date) {
+    return moment(date).format('YYYY-MM-DD');
+};

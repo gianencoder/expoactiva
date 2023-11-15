@@ -10,7 +10,7 @@ import { MoshiEventComponent } from '../components/MoshiEventComponent';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
 import moment from 'moment';
-import { formatDate } from '../util/utils';
+import { filterFormmat, formatDate } from '../util/utils';
 
 
 
@@ -21,7 +21,17 @@ export const EventScreen = () => {
     const { favorites } = useFavorites();
     const [selectedFilters, setSelectedFilters] = useState([]);
     const [selectedDates, setSelectedDates] = useState([]);
-    const eventDates = ['2024-03-12', '2024-03-13', '2024-03-14', '2024-03-15', '2024-03-16'];
+    const filterDays = new Set();
+
+    filterEvent.forEach((e) => {
+        const { dateHourStart } = e;
+        const dayAndMonth = new Date(dateHourStart).toISOString().slice(0, 10);
+        if (!filterDays.has(dayAndMonth)) {
+            filterDays.add(dayAndMonth);
+        }
+    });
+
+    const listDays = Array.from(filterDays);
 
 
     const toggleFilter = (filter) => {
@@ -33,6 +43,7 @@ export const EventScreen = () => {
     };
 
     const toggleDateFilter = (date) => {
+        // console.log(date)
         if (selectedDates.includes(date)) {
             setSelectedDates(selectedDates.filter(item => item !== date));
         } else {
@@ -47,12 +58,15 @@ export const EventScreen = () => {
     const filteredEvents = filterEvent.filter((event) => {
         if (
             (!selectedFilters.length || selectedFilters.includes(event.type.toLowerCase())) &&
-            (!selectedDates.length || selectedDates.includes(formatDate(event.dateHourStart)))
+            (!selectedDates.length || selectedDates.includes(filterFormmat(event.dateHourStart)))
         ) {
+
             return true;
         }
         return false;
     });
+
+
 
     return (
         <View style={eventStyle.container} >
@@ -66,13 +80,13 @@ export const EventScreen = () => {
                         showsHorizontalScrollIndicator={false}
                     >
                         <View style={{ height: 20, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 20, marginTop: 5, paddingHorizontal: 10 }}>
-                            {eventDates.map(date => (
+                            {listDays.map(date => (
 
                                 <TouchableOpacity
                                     key={date}
                                     onPress={() => toggleDateFilter(date)}
                                     style={{ justifyContent: 'center', borderRadius: 5, alignItems: 'center' }}>
-                                    <View style={{ ...eventStyle.typeFilterView, borderWidth: 0, /*borderBottomColor: theme.currentTheme === 'dark' ? 'lightgray' : 'black',*/ backgroundColor: selectedDates.includes(date) ? theme.currentTheme === 'dark' ? 'white' : 'black' : 'transparent' }}>
+                                    <View style={{ ...eventStyle.typeFilterView, borderWidth: 0, backgroundColor: selectedDates.includes(date) ? theme.currentTheme === 'dark' ? 'white' : 'black' : 'transparent' }}>
                                         <Text style={{ textTransform: 'uppercase', color: selectedDates.includes(date) ? theme.currentTheme === 'dark' ? 'black' : 'white' : theme.currentTheme === 'dark' ? 'white' : 'black' }}>{moment(date).format('DD / MM')}</Text>
                                     </View>
                                 </TouchableOpacity>
