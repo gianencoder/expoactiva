@@ -36,7 +36,7 @@ export const AuthComponent = () => {
 
         if (userInfo && userToken) {
             login(userInfo, userToken);
-            navigation.goBack()
+            navigation.navigate('HomeScreen');
         }
 
         

@@ -116,7 +116,7 @@ export const useTicketManager = (ticket = null) => {
             if (response.status === 200) {
 
                 setClaimedTicket(true)
-                navigation.goBack()
+                indexPage === 1 ? navigation.replace('TicketsScreen') : navigation.goBack()
                 setIsTicketShared(false)
             } else {
                 setClaimedTicket(false)
@@ -132,38 +132,56 @@ export const useTicketManager = (ticket = null) => {
 
     const shareTicket = async (code) => {
         try {
-            const result = await Share.share({ message: `Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada:${"\n"}${"\n"}${code}` })
-
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-
-                    const response = await fetch(`${properties.prod}tickets/update/${code}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Content-type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            shared: true
-                        }),
-                    })
-
-                    if (response.status === 200) {
-                        Alert.alert('¡Bien hecho!', 'La entrada se compartió correctamente')
-                        setIsTicketShared(true)
-                        console.log('shared', result.activityType)
+            const proceedWithSharing = async () => {
+                const result = await Share.share({
+                    message: `Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada:${"\n"}${"\n"}${code}`
+                });
+    
+                if (result.action === Share.sharedAction) {
+                    if (result.activityType) {
+                        const response = await fetch(`${properties.prod}tickets/update/${code}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `Bearer ${token}`,
+                                'Content-type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                shared: true
+                            }),
+                        });
+    
+                        if (response.status === 200) {
+                            Alert.alert('¡Bien hecho!', 'La entrada se compartió correctamente');
+                            setIsTicketShared(true);
+                            console.log('shared', result.activityType);
+                        } else {
+                            console.log('error en la API');
+                        }
+                    } else {
+                        console.log('error al compartir');
                     }
-
-                } else {
-                    console.log('error')
                 }
+            };
+    
+            if (Platform.OS === 'android') {
+                Alert.alert(
+                    'Compartir entrada',
+                    '¿Realmente desea compartir su entrada?',
+                    [
+                        { text: 'No', onPress: () => console.log('Compartir cancelado'), style: 'cancel' },
+                        { text: 'Sí', onPress: () => proceedWithSharing() },
+                    ],
+                    { cancelable: false }
+                );
+            } else {
+                proceedWithSharing();
             }
         } catch (error) {
-            console.log('error', error)
-            Alert.alert('Error', 'Ocurrió un error al compartir la entrada, intente nuevamente')
+            console.log('error', error);
+            Alert.alert('Error', 'Ocurrió un error al compartir la entrada, intente nuevamente');
         }
-    }
-
+    };
+    
     return ({
         tickets
         , ticketDetail
