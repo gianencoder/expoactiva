@@ -18,7 +18,7 @@ export const TicketsScreen = () => {
     const navigation = useNavigation()
     const [showPaymentToast, setShowPaymentToast] = React.useState(false);
     const [showRedeemToast, setShowRedeemToast] = React.useState(false);
-    const { tickets, ticketDetail, fetchTickets, loading } = useTicketManager()
+    const { tickets, ticketDetail, fetchTickets } = useTicketManager()
     const { payment, setPayment, setPaymentAttempt } = usePayment();
     const { claimedTicket, setClaimedTicket, setRedeemTicketAttempt } = useRedeemTicket();
     const [charging, setCharging] = useState(true)

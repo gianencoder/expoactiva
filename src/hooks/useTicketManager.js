@@ -54,31 +54,36 @@ export const useTicketManager = (ticket = null) => {
 
 
     const fetchTickets = useCallback(async () => {
+        setLoading(true);
+    
+        // clave única para los tickets en AsyncStorage con el email del usuario
+        const ticketsKey = `@tickets_${user.email}`;
+    
         try {
-            setLoading(true);
-
-            const storedTicketsString = await AsyncStorage.getItem('@tickets');
-            const storedTickets = storedTicketsString ? JSON.parse(storedTicketsString) : null;
-
-            if (storedTickets) {
-                setTickets(storedTickets);
-            }
-
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const response = await axios.get(`${properties.prod}tickets/${user.email}`);
-
-            if (!storedTickets || JSON.stringify(storedTickets) !== JSON.stringify(response.data)) {
+            
+            // Si la respuesta es exitosa, actualiza los tickets en el estado y AsyncStorage
+            if (response.data) {
                 setTickets(response.data);
-                await AsyncStorage.setItem('@tickets', JSON.stringify(response.data));
+                await AsyncStorage.setItem(ticketsKey, JSON.stringify(response.data));
+            }
+        } catch (err) {
+            console.log('Error al obtener tickets desde la API, intentando cargar desde AsyncStorage:', err);
+            
+            // Si hay un error (como falta de conexión), intenta cargar los tickets desde AsyncStorage
+            const storedTicketsString = await AsyncStorage.getItem(ticketsKey);
+            if (storedTicketsString) {
+                const storedTickets = JSON.parse(storedTicketsString);
+                setTickets(storedTickets);
+            } else {
+                setError(err.response ? err.response.data.error : err.message);
             }
 
-        } catch (err) {
-            setError(err.response ? err.response.data.error : err.message);
-            console.log('err', err)
         } finally {
             setLoading(false);
         }
-    }, [user?.email]);
+    }, [user?.email, token]);
 
     const ticketDetail = useCallback((id) => {
         try {
@@ -128,8 +133,9 @@ export const useTicketManager = (ticket = null) => {
             if (response.status === 200) {
 
                 setClaimedTicket(true)
-                indexPage === 1 ? navigation.replace('TicketsScreen') : navigation.goBack()
                 setIsTicketShared(false)
+                indexPage === 1 ? navigation.replace('TicketsScreen') : navigation.goBack()
+                
             } else {
                 setClaimedTicket(false)
                 setRedeemTicketAttempt(!redeemTicketAttempt)
