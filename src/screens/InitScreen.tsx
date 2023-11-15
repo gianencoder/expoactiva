@@ -46,7 +46,7 @@ export const InitScreen = ({ onAcceptTerms }) => {
                                     Para utilizar la aplicación, debes aceptar los <Text onPress={handlePresentModalPress} style={styles.ref}>Términos y Condiciones de Uso</Text> y la <Text onPress={handlePresentModalPress} style={styles.ref}>Política de Privacidad</Text> establecidas por la organización.
                                 </Text>
 
-                                <View style={{ gap: 5, flexDirection: 'row', alignSelf: 'center' }}>
+                                <View style={{ gap: 5, flexDirection: 'row', alignSelf: 'center', justifyContent: 'center' }}>
                                     <Text onPress={handlePresentModalPress} style={{ fontSize: 21 }}> Acepto Términos y Política</Text>
                                     <Checkbox
                                         style={{ borderRadius: 5 }}
