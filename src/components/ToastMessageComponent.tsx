@@ -23,7 +23,7 @@ export const ToastMessageComponent = ({ height, width, iconColor, textColor, tit
             , alignItems: 'center'
             , gap: 15
             , overflow: 'hidden'
-            , zIndex: 3
+            , zIndex: 1
             , alignSelf: 'center'
 
         }}
