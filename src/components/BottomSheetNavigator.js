@@ -158,7 +158,7 @@ const BottomSheet = ({
             {selectedExhibitor && (
                 <>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10 }}>
-                        <Text style={{ fontSize: 25, fontWeight: 'bold', textAlign: 'left', paddingLeft: 20 }}>{selectedExhibitor && selectedExhibitor.name}</Text>
+                        <Text style={{ fontSize: 25, fontWeight: 'bold', textAlign: 'left', paddingLeft: 20, textTransform:'capitalize' }}>{selectedExhibitor && selectedExhibitor.name}</Text>
                         <TouchableOpacity style={{ paddingRight: 20 }} onPress={onMapPress} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
                             <AntDesign name="close" size={22} color="darkgreen" />
                         </TouchableOpacity>

@@ -26,6 +26,7 @@ export default function App() {
   LogBox.ignoreLogs(['BACK']);
   LogBox.ignoreLogs(['Possible']);
   LogBox.ignoreLogs(['Clipboard']);
+  LogBox.ignoreLogs(['Mapbox']);
   LogBox.ignoreLogs(['No native splash screen registered for given view controller']);
   const [showInitScreen, setShowInitScreen] = useState(true);
   const [splashScreen, setSplashScreen] = useState(true)

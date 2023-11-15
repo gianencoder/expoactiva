@@ -33,9 +33,7 @@ const ExhibitorMarker = React.memo(({ exhibitor, selectedExhibitor, selectExhibi
         return null;
     }
 
-    console.log('exhibitor', exhibitor.name);
     exhibitor.name = capitalize(exhibitor.name);
-    console.log('exhibitor', exhibitor.name);
 
     const featureCollection = {
         type: 'FeatureCollection',

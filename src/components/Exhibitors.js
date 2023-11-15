@@ -13,14 +13,17 @@ import SearchBar from './SearchBar.js';
 import { AntDesign } from '@expo/vector-icons';
 import { FlashList } from '@shopify/flash-list';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ActivityIndicator } from 'react-native';
 
 export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigationMode, toggleFollowUserMode, navigationMode }) {
   const [searchText, setSearchText] = useState('');
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const [exhibitors, setExhibitors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getExhibitors = async () => {
     try {
+      setLoading(true);
         const exhibitorsString = await AsyncStorage.getItem('@exhibitors');
         if (exhibitorsString !== null) {
             const parsedExhibitors = JSON.parse(exhibitorsString);
@@ -35,6 +38,8 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
         }
     } catch (error) {
         console.log(error);
+    } finally {
+        setLoading(false);
     }
 }
 
@@ -84,39 +89,42 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
   };
 
   return (
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <SearchBar placeholder="Expositor, Comidas, Baños..." onSearchTextChange={setSearchText} setKeyboardVisible={setKeyboardVisible} />
-            <TouchableOpacity 
-              style={styles.closeButton} 
-              onPress={onMapPress} 
-              hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-            >
-              <AntDesign name="close" size={22} color="darkgreen" />
-            </TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <SearchBar placeholder="Expositor, Comidas, Baños..." onSearchTextChange={setSearchText} setKeyboardVisible={setKeyboardVisible} />
+        <TouchableOpacity 
+          style={styles.closeButton} 
+          onPress={onMapPress} 
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+        >
+          <AntDesign name="close" size={22} color="darkgreen" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.separator} />
+      <View style={styles.listContainer}>
+        {loading ? (
+          <View style={styles.centeredView}>
+            <ActivityIndicator size="large" color="darkgreen" />
           </View>
-          <View style={styles.separator} />
-          <View style={styles.listContainer}>
-            {filteredExpositores.length > 0 ? (
-              <FlashList
-                data={filteredExpositores}
-                keyExtractor={(item) => item.id}
-                renderItem={renderItem}
-                onScroll={handleScroll}
-                estimatedItemSize={200}
-                keyboardShouldPersistTaps="always"
-              />
-            ) : (
-              <ScrollView scrollEventThrottle={8} onScrollBeginDrag={handleScroll}>
-                <View style={emptyContainerStyle}>
-                  <Text style={styles.emptyText}>Sin resultados</Text>
-                </View>
-              </ScrollView>
-            )}
-          </View>
-        </View>
-  );
-}
+        ) : filteredExpositores.length > 0 ? (
+          <FlashList
+            data={filteredExpositores}
+            keyExtractor={(item) => item.id}
+            renderItem={renderItem}
+            onScroll={handleScroll}
+            estimatedItemSize={200}
+            keyboardShouldPersistTaps="always"
+          />
+        ) : (
+          <ScrollView scrollEventThrottle={16} onScrollBeginDrag={handleScroll}>
+            <View style={emptyContainerStyle}>
+              <Text style={styles.emptyText}>Sin resultados</Text>
+            </View>
+          </ScrollView>
+        )}
+      </View>
+    </View>
+  );}
 
 const styles = StyleSheet.create({
   container: {
@@ -148,5 +156,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '400',
     color: 'gray',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
