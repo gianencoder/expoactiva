@@ -14,6 +14,11 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
     const [fadeAnim] = useState(new Animated.Value(0)); 
 
     const handlePress = () => {
+
+        if (ticket.used) {
+            return;
+        }
+
         if (isTicketShared) {
             setIsModalVisible(true);
         } else {
@@ -83,6 +88,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
             activeOpacity={0.5}
             onPress={handlePress}
             style={{ justifyContent: 'center', alignItems: 'center' }}
+            disabled={ticket.used} 
         >
 
             <Modal
@@ -126,26 +132,26 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                         <QRCode
                             value={qrCode}
                             size={80}
-                            color={isTicketShared ? 'gray' : theme.colors.text}
+                            color={(isTicketShared || ticket.used) ? 'gray' : theme.colors.text}
                             backgroundColor="transparent"
                         />
-                        {isTicketShared && <View style={{ position: 'absolute', width: '80%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.7)'}} />}
+                        {(isTicketShared || ticket.used) && <View style={{ position: 'absolute', width: '80%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.7)'}} />}
                     </View>
                 </View>
 
                 <View style={ticketStyles.infoContainer}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingRight: 5 }}>
-                        <Text style={{ color: isTicketShared ? theme.customColors.subtitles : theme.colors.text, fontSize: 15, fontWeight: '500' }}>Expoactiva Nacional Soriano</Text>
+                        <Text style={{ color: (isTicketShared || ticket.used) ? theme.customColors.subtitles : theme.colors.text, fontSize: 15, fontWeight: '500' }}>Expoactiva Nacional Soriano</Text>
                         <TouchableOpacity 
-                            onPress={() => !isTicketShared && shareTicket(ticket.ticketId)}
-                            disabled={isTicketShared}
+                            onPress={() => (!isTicketShared && !ticket.used) && shareTicket(ticket.ticketId)}
+                            disabled={isTicketShared || ticket.used}
                             hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}>
                             <Image 
                                 style={{ 
                                     height: 20, 
                                     width: 20, 
                                     alignSelf: 'flex-end', 
-                                    tintColor: isTicketShared ? 'lightgray' : theme.customColors.activeColor 
+                                    tintColor: (isTicketShared || ticket.used) ? 'lightgray' : theme.customColors.activeColor 
                                 }} 
                                 source={require('../assets/icons/share.png')} 
                             />

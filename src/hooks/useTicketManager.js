@@ -41,7 +41,8 @@ export const useTicketManager = (ticket = null) => {
                 setPayment(false);
             }
 
-            setPaymentAttempt(!paymentAttempt)
+            console.log('paymentAttempt', paymentAttempt)
+            setPaymentAttempt(currentAttempt => !currentAttempt)
 
 
         } catch (err) {
@@ -50,7 +51,7 @@ export const useTicketManager = (ticket = null) => {
         } finally {
             setLoading(false);
         }
-    }, [quantity, user?.email]);
+    }, [quantity, user?.email, token, navigation, indexPage]);
 
 
     const fetchTickets = useCallback(async () => {
@@ -128,8 +129,7 @@ export const useTicketManager = (ticket = null) => {
                     redeem: true
                 }),
             })
-            const data = await response.json()
-            console.log(data)
+
             if (response.status === 200) {
 
                 setClaimedTicket(true)
@@ -138,8 +138,9 @@ export const useTicketManager = (ticket = null) => {
                 
             } else {
                 setClaimedTicket(false)
-                setRedeemTicketAttempt(!redeemTicketAttempt)
             }
+
+            setRedeemTicketAttempt(currentAttempt => !currentAttempt)
 
         } catch (error) {
             console.log('error', error)
