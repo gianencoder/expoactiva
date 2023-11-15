@@ -3,9 +3,6 @@ import { Switch, Text, View } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { visibilityTheme } from '../theme/VisibilityTheme';
 
-
-
-
 export const VisibilityScreen = () => {
     const { setDarkTheme, setLightTheme, theme, enabled, setEnabled, text } = useContext(ThemeContext);
 

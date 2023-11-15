@@ -17,7 +17,7 @@ export const ReedemTicketScreen = () => {
     const [code, setCode] = useState('')
     const [emptyCode, setEmptyCode] = useState(false)
     const [showErrorTicketToast, setShowErrorTicketToast] = useState(false);
-    const { claimedTicket ,redeemTicketAttempt } = useRedeemTicket();
+    const { claimedTicket, redeemTicketAttempt } = useRedeemTicket();
 
     useEffect(() => {
 

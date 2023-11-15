@@ -58,7 +58,7 @@ export const UserProfileScreen = () => {
 
                 <View style={{ flex: 2 }}>
                     <View style={userProfileTheme.body}>
-                        <TouchableOpacity onPress={() => navigation.navigate('EditProfileScreen')} style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('EditProfileScreen2')} style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
                             <View style={userProfileTheme.option}>
                                 <Image source={require('../assets/icons/editarPerfil.png')} style={{ width: 20, height: 20, tintColor: theme.customColors.iconColor }} />
                                 <Text style={{ ...userProfileTheme.text, color: theme.colors.text }}>Editar perfil</Text>

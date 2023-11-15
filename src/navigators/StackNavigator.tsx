@@ -18,7 +18,6 @@ import { ValidateCodeScreen } from '../screens/ValidateCodeScreen';
 import { NotificationScreen } from '../screens/NotificationScreen';
 import { LoginFormScreen } from '../screens/LoginFormScreen'
 import { EmailScreen } from '../screens/EmailScreen';
-import { PrivacyPolicyScreen } from '../screens/PrivacyPolicyScreen';
 import { EditProfileScreen } from '../screens/EditProfileScreen';
 import { UserProfileScreen } from '../screens/UserProfileScreen';
 import { ReedemTicketScreen } from '../screens/ReedemTicketScreen';
