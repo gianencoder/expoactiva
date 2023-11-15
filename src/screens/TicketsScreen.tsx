@@ -125,7 +125,7 @@ export const TicketsScreen = () => {
                                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 15 }}>
 
                                             <TouchableOpacity
-                                                onPress={() => navigation.navigate('BuyTicket')}
+                                                onPress={() => navigation.navigate('BuyTicketScreen2')}
                                                 style={{
                                                     backgroundColor: theme.customColors.buttonColor
                                                     , height: 40
@@ -138,7 +138,7 @@ export const TicketsScreen = () => {
                                             </TouchableOpacity>
 
                                             <TouchableOpacity
-                                                onPress={() => navigation.navigate('ReedemTicketScreen')}
+                                                onPress={() => navigation.navigate('ReedemTicketScreen2')}
                                                 style={{
                                                     backgroundColor: '#F05950'
                                                     , height: 40

@@ -35,7 +35,7 @@ export const useTicketManager = (ticket = null) => {
 
             if (response.data.data) {
                 setPayment(true);
-                indexPage === 1 ? navigation.replace('TicketsScreen') : navigation.goBack()
+                navigation.goBack()
             } else {
 
                 setPayment(false);
@@ -93,7 +93,7 @@ export const useTicketManager = (ticket = null) => {
             if (selectedTicket === null) {
                 return false
             }
-            navigation.navigate('TicketDetail', {
+            navigation.navigate('TicketDetail2', {
                 qrCode: selectedTicket?.ticketId
             })
 
@@ -135,7 +135,7 @@ export const useTicketManager = (ticket = null) => {
                 setClaimedTicket(true)
                 setIsTicketShared(false)
                 console.log('isTicketShared', isTicketShared)
-                indexPage === 1 ? navigation.replace('TicketsScreen') : navigation.goBack()
+                navigation.goBack()
                 
             } else {
                 setClaimedTicket(false)
