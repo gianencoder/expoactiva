@@ -1,7 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react'
 import { ConfigurationScreen } from '../screens/ConfigurationScreen';
 import { AuthScreen } from '../screens/AuthScreen';
 import { NotificationScreen } from '../screens/NotificationScreen';
+import { EditProfileScreen } from '../screens/EditProfileScreen';
 import { PrivacyPolicyScreen } from '../screens/PrivacyPolicyScreen';
 
 
@@ -19,6 +21,7 @@ export const ConfigurationNavigator = () => {
             <Stack.Screen name='ConfigurationScreen' component={ConfigurationScreen} />
             <Stack.Screen name="AuthScreen2" component={AuthScreen} />
             <Stack.Screen name="NotificationScreen2" component={NotificationScreen} />
+            <Stack.Screen name="EditProfileScreen2" component={EditProfileScreen} />
             <Stack.Screen name="PrivacyPolicyScreen2" component={PrivacyPolicyScreen} />
         </Stack.Navigator>
 

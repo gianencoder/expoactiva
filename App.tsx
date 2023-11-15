@@ -12,6 +12,9 @@ import { FavoritesProvider } from './src/context/FavouriteContext/FavouritesCont
 import { AuthProvider } from './src/context/AuthContext/AuthContext';
 import { PaymentProvider } from './src/context/PaymentContext/PaymentContext';
 import { RedeemTicketProvider } from './src/context/RedeemTicketContext/RedeemTicketContext';
+import { InitScreen } from './src/screens/InitScreen';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
 
@@ -22,24 +25,44 @@ export default function App() {
   LogBox.ignoreLogs(['BACK']);
   LogBox.ignoreLogs(['Possible']);
   LogBox.ignoreLogs(['Clipboard']);
+  LogBox.ignoreLogs(['No native splash screen registered for given view controller']);
+  const [showInitScreen, setShowInitScreen] = useState(true);
 
+  useEffect(() => {
+    // Verificar si el usuario ya ha aceptado los términos en AsyncStorage
+    AsyncStorage.getItem('termsAccepted').then((value) => {
+      if (value === 'true') {
+        setShowInitScreen(false);
+      }
+    });
+  }, []);
+
+  const handleAcceptTerms = () => {
+    // Guardar el estado en AsyncStorage
+    AsyncStorage.setItem('termsAccepted', 'true');
+    setShowInitScreen(false);
+  };
+
+  if (showInitScreen) {
+    return <InitScreen onAcceptTerms={handleAcceptTerms} />;
+  }
   return (
     <AuthProvider>
       <FavoritesProvider>
         <ThemeProvider>
           <PaymentProvider>
             <RedeemTicketProvider>
-          <NavigationContainer>
-            <SafeAreaView style={{ ...styles.container }}>
-              <StatusBar
-                barStyle={'light-content'}
-                backgroundColor={MyColors.primary}
-              />
-              <BottomTabNavigator />
-            </SafeAreaView>
-          </NavigationContainer >
-          <LocationDaemon />
-          </RedeemTicketProvider>
+              <NavigationContainer>
+                <SafeAreaView style={{ ...styles.container }}>
+                  <StatusBar
+                    barStyle={'light-content'}
+                    backgroundColor={MyColors.primary}
+                  />
+                  <BottomTabNavigator />
+                </SafeAreaView>
+              </NavigationContainer >
+              <LocationDaemon />
+            </RedeemTicketProvider>
           </PaymentProvider>
         </ThemeProvider >
       </FavoritesProvider>

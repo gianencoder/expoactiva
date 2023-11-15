@@ -4,21 +4,21 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import { authStyle } from '../theme/AuthTheme'
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
-import { useAuthContext } from '../context/AuthContext/AuthContext'
-import { useNavigation } from '@react-navigation/native'
+
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
-type ModalProps = { children: React.ReactNode }
+type ModalProps = { children: React.ReactNode, midle?: number }
 export type ModalRefProps = {
     scrollTo: (destination: number) => void
     isActive: () => boolean
+
 }
 
-export const ModalComponent = React.forwardRef<ModalRefProps, ModalProps>(({ children }, ref) => {
+export const ModalComponent = React.forwardRef<ModalRefProps, ModalProps>(({ children, midle = -SCREEN_HEIGHT / 1.8 }, ref) => {
 
     const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 300
-    const middle = -SCREEN_HEIGHT / 1.8
+    const middle = midle
     const { theme } = useContext(ThemeContext)
     const translateY = useSharedValue(0)
     const context = useSharedValue({ y: 0 })
