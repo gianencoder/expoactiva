@@ -129,17 +129,17 @@ export const useTicketManager = (ticket = null) => {
                     redeem: true
                 }),
             })
-            const data = await response.json()
-            console.log(data)
+
             if (response.status === 200) {
 
                 setClaimedTicket(true)
                 setIsTicketShared(false)
+                console.log('isTicketShared', isTicketShared)
                 indexPage === 1 ? navigation.replace('TicketsScreen') : navigation.goBack()
                 
             } else {
                 setClaimedTicket(false)
-                setRedeemTicketAttempt(!redeemTicketAttempt)
+                setRedeemTicketAttempt(currentAttempt => !currentAttempt)
             }
 
         } catch (error) {

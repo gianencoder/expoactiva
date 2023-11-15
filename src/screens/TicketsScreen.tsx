@@ -12,13 +12,14 @@ import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketCont
 import { useAuthContext } from '../context/AuthContext/AuthContext';
 import { AuthScreen } from './AuthScreen';
 
+
 export const TicketsScreen = () => {
     const { theme } = useContext(ThemeContext)
     const { isLoggedIn } = useAuthContext()
     const navigation = useNavigation()
     const [showPaymentToast, setShowPaymentToast] = React.useState(false);
     const [showRedeemToast, setShowRedeemToast] = React.useState(false);
-    const { tickets, ticketDetail, fetchTickets } = useTicketManager()
+    const { tickets, ticketDetail, fetchTickets, loading } = useTicketManager()
     const { payment, setPayment, setPaymentAttempt } = usePayment();
     const { claimedTicket, setClaimedTicket, setRedeemTicketAttempt } = useRedeemTicket();
     const [charging, setCharging] = useState(true)
@@ -32,6 +33,7 @@ export const TicketsScreen = () => {
 
     useFocusEffect(
         React.useCallback(() => {
+            console.log('isFocused', isFocused)
             fetchTickets();
         }, [isFocused])
     );
@@ -48,7 +50,7 @@ export const TicketsScreen = () => {
 
     useFocusEffect(
         React.useCallback(() => {
-            console.log('payment focus', payment)
+            console.log('claimed focus', claimedTicket)
             if (claimedTicket) {
                 setShowRedeemToast(true)
                 setTimeout(() => {

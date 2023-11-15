@@ -44,7 +44,7 @@ export const HomeScreen = ({ navigation }: Props) => {
             Alert.alert('Inicia sesión', 'Debes iniciar sesión para ver o comprar entradas')
             globalNavigation.navigate('AuthScreen');
         } else {
-            globalNavigation.navigate('TicketsScreen');
+            globalNavigation.navigate('Mis entradas');
         }
 
     }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MyStack } from './StackNavigator';
 import { TicketsScreen } from '../screens/TicketsScreen';
@@ -8,16 +8,12 @@ import { IconMyTicketsComponent } from '../components/IconMyTicketsComponent';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { HeaderComponent } from '../components/HeaderComponent';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
-import { ConfigurationScreen } from '../screens/ConfigurationScreen';
 import { ConfigurationNavigator } from './ConfigurationNavigator';
-
 
 const Tab = createBottomTabNavigator();
 
 export const BottomTabNavigator = () => {
     const { theme } = useContext(ThemeContext)
-
-
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <HeaderComponent />
@@ -25,7 +21,6 @@ export const BottomTabNavigator = () => {
                 screenOptions={({ route }) => ({
                     headerShown: false,
                     tabBarShowLabel: false,
-
                     tabBarStyle: {
                         backgroundColor: theme.customColors.transparent,
                         borderTopColor: 'transparent',

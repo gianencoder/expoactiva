@@ -11,6 +11,7 @@ import * as turf from '@turf/turf';
 import { NavigationHook } from '../hooks/NavigationHook';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
+import { capitalize } from '../util/utils.tsx';
 
 
 const MAPBOX_ACCESS_TOKEN = Constants.expoConfig.extra.mapbox;
@@ -31,6 +32,10 @@ const ExhibitorMarker = React.memo(({ exhibitor, selectedExhibitor, selectExhibi
     if (navigationMode === true && !isSelected) {
         return null;
     }
+
+    console.log('exhibitor', exhibitor.name);
+    exhibitor.name = capitalize(exhibitor.name);
+    console.log('exhibitor', exhibitor.name);
 
     const featureCollection = {
         type: 'FeatureCollection',
