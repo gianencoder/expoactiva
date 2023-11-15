@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeState, lightTheme, themeReducer } from "../themeContext/themeReducer";
+import { MainScreen } from "../../screens/MainScreen";
 
 interface ThemeContextProps {
     theme: ThemeState;
@@ -18,16 +19,23 @@ export const ThemeProvider = ({ children }: any) => {
     const [theme, dispatch] = useReducer(themeReducer, lightTheme);
     const [enabled, setEnabled] = useState(false);
     const [text, setText] = useState('');
+    const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
         const getStoredTheme = async () => {
             try {
                 const storedTheme = await AsyncStorage.getItem('darkMode');
                 if (storedTheme !== null) {
-                    setEnabled(storedTheme === 'true');  // Convertir a booleano
+                    setEnabled(storedTheme === 'true');
                     setText(storedTheme === 'true' ? 'Desactivar modo oscuro' : 'Activar modo oscuro');
                     dispatch({ type: storedTheme === 'true' ? 'set_dark_theme' : 'set_light_theme' });
+                } else {
+                    // Si no hay un tema almacenado, establece el tema por defecto (claro)
+                    setLightTheme();
                 }
+
+                // Indica que la promesa se ha resuelto y la aplicación está lista para mostrarse
+                setIsReady(true);
             } catch (error) {
                 console.error('Error al recuperar el tema desde AsyncStorage:', error);
             }
@@ -57,6 +65,11 @@ export const ThemeProvider = ({ children }: any) => {
             console.error('Error al establecer el tema claro en AsyncStorage:', error);
         }
     };
+
+    // Renderiza el contenido de la aplicación solo cuando la promesa se ha resuelto
+    if (!isReady) {
+        return <MainScreen />;
+    }
 
     return (
         <ThemeContext.Provider value={{

@@ -57,16 +57,16 @@ export const InitScreen = ({ onAcceptTerms }) => {
                                     />
                                 </View>
                             </View>
+
                             <TouchableOpacity onPress={handleContinue}
                                 disabled={!isChecked}
                                 activeOpacity={0.8}
                                 style={{ alignSelf: 'center', justifyContent: 'center', alignItems: 'center', width: '90%', height: 35, borderRadius: 10, backgroundColor: isChecked ? MyColors.primary : 'gray' }}>
                                 <Text style={{ color: 'white', fontSize: 18 }}>Continuar</Text>
                             </TouchableOpacity>
+
                         </View>
                     </ImageBackground>
-
-
                     <BottomSheetModal
                         ref={bottomSheetModalRef}
                         index={1}

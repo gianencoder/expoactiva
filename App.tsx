@@ -15,6 +15,7 @@ import { RedeemTicketProvider } from './src/context/RedeemTicketContext/RedeemTi
 import { InitScreen } from './src/screens/InitScreen';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MainScreen } from './src/screens/MainScreen';
 
 export default function App() {
 
@@ -27,15 +28,20 @@ export default function App() {
   LogBox.ignoreLogs(['Clipboard']);
   LogBox.ignoreLogs(['No native splash screen registered for given view controller']);
   const [showInitScreen, setShowInitScreen] = useState(true);
+  const [splashScreen, setSplashScreen] = useState(true)
 
   useEffect(() => {
-    // Verificar si el usuario ya ha aceptado los términos en AsyncStorage
+
+    // AsyncStorage.setItem('termsAccepted', 'false');
     AsyncStorage.getItem('termsAccepted').then((value) => {
+      setSplashScreen(false)
       if (value === 'true') {
         setShowInitScreen(false);
       }
     });
   }, []);
+
+
 
   const handleAcceptTerms = () => {
     // Guardar el estado en AsyncStorage
@@ -43,9 +49,14 @@ export default function App() {
     setShowInitScreen(false);
   };
 
+  if (splashScreen) {
+    return <MainScreen />
+  }
+
   if (showInitScreen) {
     return <InitScreen onAcceptTerms={handleAcceptTerms} />;
   }
+
   return (
     <AuthProvider>
       <FavoritesProvider>
