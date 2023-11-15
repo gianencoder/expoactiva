@@ -3,7 +3,6 @@ import React, { useCallback, useContext, useRef, } from 'react'
 import { themeConfig } from '../theme/ConfigurationTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { ConfigurationItemComponent } from '../components/ConfigurationItemComponent'
-import { useNavigation } from '@react-navigation/native';
 import { VisibilityScreen } from './VisibilityScreen'
 import { ModalComponent, ModalRefProps } from '../components/ModalComponent'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -41,7 +40,7 @@ export const ConfigurationScreen = ({ navigation }: Props) => {
                         <ConfigurationItemComponent title={'Apariencia'} image={<Image source={require('../assets/icons/apariencia.png')}
                             style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={toggleModal} />
                         <ConfigurationItemComponent title={'Privacidad y Seguridad'} image={<Image source={require('../assets/icons/cerrar.png')}
-                            style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
+                            style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('PrivacyPolicyScreen2')} />
                         <ConfigurationItemComponent title={'Ayuda y soporte'} image={<Image source={require('../assets/icons/ayuda-soporte.png')}
                             style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
                         <ConfigurationItemComponent title={'Sobre Expoactiva Nacional App'} image={<Image source={require('../assets/icons/pregunta.png')}

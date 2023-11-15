@@ -7,6 +7,7 @@ import { useAuthContext } from '../context/AuthContext/AuthContext'
 import { usePayment } from '../context/PaymentContext/PaymentContext'
 import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketContext'
 import { Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const useTicketManager = (ticket = null) => {
     const { user, token } = useAuthContext()
@@ -55,10 +56,21 @@ export const useTicketManager = (ticket = null) => {
     const fetchTickets = useCallback(async () => {
         try {
             setLoading(true);
+
+            const storedTicketsString = await AsyncStorage.getItem('@tickets');
+            const storedTickets = storedTicketsString ? JSON.parse(storedTicketsString) : null;
+
+            if (storedTickets) {
+                setTickets(storedTickets);
+            }
+
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const response = await axios.get(`${properties.prod}tickets/${user.email}`);
 
-            setTickets(response.data);
+            if (!storedTickets || JSON.stringify(storedTickets) !== JSON.stringify(response.data)) {
+                setTickets(response.data);
+                await AsyncStorage.setItem('@tickets', JSON.stringify(response.data));
+            }
 
         } catch (err) {
             setError(err.response ? err.response.data.error : err.message);
@@ -116,7 +128,7 @@ export const useTicketManager = (ticket = null) => {
             if (response.status === 200) {
 
                 setClaimedTicket(true)
-                navigation.goBack()
+                indexPage === 1 ? navigation.replace('TicketsScreen') : navigation.goBack()
                 setIsTicketShared(false)
             } else {
                 setClaimedTicket(false)
@@ -132,38 +144,66 @@ export const useTicketManager = (ticket = null) => {
 
     const shareTicket = async (code) => {
         try {
-            const result = await Share.share({ message: `Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada:${"\n"}${"\n"}${code}` })
-
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-
-                    const response = await fetch(`${properties.prod}tickets/update/${code}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Content-type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            shared: true
-                        }),
-                    })
-
-                    if (response.status === 200) {
-                        Alert.alert('¡Bien hecho!', 'La entrada se compartió correctamente')
-                        setIsTicketShared(true)
-                        console.log('shared', result.activityType)
+            const updateTicketStatus = async () => {
+                const response = await fetch(`${properties.prod}tickets/update/${code}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        shared: true
+                    }),
+                });
+                return response.status === 200;
+            };
+    
+            const proceedWithSharing = async () => {
+                const result = await Share.share({
+                    message: `Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada:${"\n"}${"\n"}${code}`
+                });
+    
+                if (Platform.OS === 'ios' && result.action === Share.sharedAction) {
+                    if (result.activityType) {
+                        if (await updateTicketStatus()) {
+                            Alert.alert('¡Bien hecho!', 'La entrada se compartió correctamente');
+                            setIsTicketShared(true);
+                        } else {
+                            console.log('error en la API');
+                        }
+                    } else {
+                        console.log('error al compartir');
                     }
-
-                } else {
-                    console.log('error')
                 }
+            };
+    
+            if (Platform.OS === 'android') {
+                Alert.alert(
+                    'Compartir entrada',
+                    '¿Realmente desea compartir su entrada?',
+                    [
+                        { text: 'No', onPress: () => console.log('Compartir cancelado'), style: 'cancel' },
+                        { text: 'Sí', onPress: async () => {
+                            if (await updateTicketStatus()) {
+                                setIsTicketShared(true);
+                                proceedWithSharing();
+                            } else {
+                                console.log('error en la API');
+                            }
+                        }},
+                    ],
+                    { cancelable: false }
+                );
+            } else {
+                proceedWithSharing();
             }
         } catch (error) {
-            console.log('error', error)
-            Alert.alert('Error', 'Ocurrió un error al compartir la entrada, intente nuevamente')
+            console.log('error', error);
+            Alert.alert('Error', 'Ocurrió un error al compartir la entrada, intente nuevamente');
         }
-    }
-
+    };
+    
+    
     return ({
         tickets
         , ticketDetail
