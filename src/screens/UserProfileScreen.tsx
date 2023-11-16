@@ -10,16 +10,32 @@ import { confirmation } from '../util/utils'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 
 export const UserProfileScreen = () => {
 
-    const { user, logout, token, image, setImage } = useAuthContext()
+    const { user, logout, token, image, setImage, setPending, pending } = useAuthContext()
     const { theme } = useContext(ThemeContext)
     const { deleteAccount, loading, updateUserPicture, changingPicture } = EmailLoginFunction()
     const navigation = useNavigation()
     const [galleryPermission, requestPermission] = ImagePicker.useMediaLibraryPermissions();
+
+
+    useFocusEffect(
+        React.useCallback(() => {
+            if (user?.interests !== undefined) {
+                if (user?.interests.length > 0) {
+                    setPending(false)
+                }
+            }
+            return () => {
+            };
+        }, [pending])
+    );
+
+
 
 
     const showLogoutConfirmation = () => {
@@ -172,8 +188,6 @@ export const UserProfileScreen = () => {
     }
 
 
-
-
     return (
         loading
             ? <View style={{ backgroundColor: theme.colors.background, flex: 1, justifyContent: 'center', alignItems: 'center', gap: 20 }}>
@@ -217,7 +231,11 @@ export const UserProfileScreen = () => {
                         <TouchableOpacity onPress={() => navigation.navigate('EditProfileScreen2')} style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
                             <View style={userProfileTheme.option}>
                                 <Image source={require('../assets/icons/editarPerfil.png')} style={{ width: 20, height: 20, tintColor: theme.customColors.iconColor }} />
-                                <Text style={{ ...userProfileTheme.text, color: theme.colors.text }}>Editar perfil</Text>
+                                <View style={{ flexDirection: 'row', gap: 15 }}>
+                                    <Text style={{ ...userProfileTheme.text, color: theme.colors.text }}>Editar perfil</Text>
+                                    {pending && <View style={{ borderRadius: 10, width: 10, height: 10, backgroundColor: 'orange' }} />}
+                                </View>
+
                             </View>
                             <AntDesign name="right" size={18} color={theme.customColors.iconColor} />
                         </TouchableOpacity>

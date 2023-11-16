@@ -58,4 +58,5 @@ interface User {
     picture: string,
     password: string,
     birthDay: Date,
+    interests: []
 }

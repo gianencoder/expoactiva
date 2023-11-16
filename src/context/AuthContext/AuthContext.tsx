@@ -13,7 +13,9 @@ type AuthStateContext = {
     login: (user: User, token: string) => void;
     token: string;
     image: string
+    pending: boolean
     setImage: React.Dispatch<React.SetStateAction<string>>
+    setPending: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 const AuthContext = createContext<AuthStateContext | undefined>(undefined);
@@ -38,6 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [token, setToken] = useState('');
     const [deletedAccount, setDeletedAccount] = useState(false)
     const [image, setImage] = useState('')
+    const [pending, setPending] = useState(false)
 
     const login = (userData: User, userToken: string) => {
         setUser(userData);
@@ -63,6 +66,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
                 }
                 if (token !== null) setToken(JSON.parse(token))
+
+                if (user?.interests != undefined) {
+                    if (user.interests.length <= 0) {
+                        setPending(true)
+                    }
+                }
             } catch (error) {
                 throw new Error('Error al cargar los datos desde AsyncStorage');
             }
@@ -109,7 +118,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{ image, setImage, updateUser, isLoggedIn, visible, user, logout, login, token, deleteUser, deletedAccount }}>
+        <AuthContext.Provider value={{ setPending, pending, image, setImage, updateUser, isLoggedIn, visible, user, logout, login, token, deleteUser, deletedAccount }}>
             {children}
         </AuthContext.Provider>
     );

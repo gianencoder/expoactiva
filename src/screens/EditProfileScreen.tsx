@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, TextInput, Button, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { editProfileTheme } from '../theme/EditProfileTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { useAuthContext } from '../context/AuthContext/AuthContext'
 import { useNavigation } from '@react-navigation/native'
 import { authStyle } from '../theme/AuthTheme'
-import * as ImagePicker from 'expo-image-picker';
 import { MultiSelectComponent } from '../components/MultiSelectComponent'
 import { useFocusEffect } from '@react-navigation/native';
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
 import { data } from '../util/utils'
+import { Feather } from '@expo/vector-icons';
 
 
 
@@ -18,11 +18,11 @@ export const EditProfileScreen = () => {
     const navigation = useNavigation()
     const { editUser, loading, updated } = EmailLoginFunction()
     const { theme: { colors, customColors, currentTheme } } = useContext(ThemeContext)
-    const { user } = useAuthContext()
+    const { user, setPending, pending } = useAuthContext()
     const [name, setName] = useState('')
-    const [image, setImage] = useState(null);
     const [selected, setSelected] = useState([]);
     const [showToast, setShowToast] = useState(false)
+
 
 
     const handleUpdateUser = (email: string, name: string, selected: []) => {
@@ -53,32 +53,32 @@ export const EditProfileScreen = () => {
         }, [])
     );
 
-    // const pickImage = async () => {
-    //     // No permissions request is necessary for launching the image library
-    //     let result = await ImagePicker.launchImageLibraryAsync({
-    //         mediaTypes: ImagePicker.MediaTypeOptions.All,
-    //         allowsEditing: true,
-    //         aspect: [4, 3],
-    //         quality: 1,
-    //     });
+    const handleSelect = (i) => {
+        // Verificar si el interés ya está en la lista selected
+        const isSelected = selected.includes(i.label);
 
-    //     if (!result.canceled) {
-    //         setImage(result.assets[0].uri);
-    //     }
-    // };
+        if (isSelected) {
+            // Si ya está seleccionado, lo eliminamos
+            const newSelected = selected.filter((item) => item !== i.label);
+            setSelected(newSelected);
+        } else {
+            // Si no está seleccionado, lo agregamos
+            setSelected([...selected, i.label]);
+        }
+    }
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    //         if (status !== 'granted') {
-    //             alert('Se requieren permisos para acceder a la biblioteca de imágenes.');
-    //         }
-    //     })();
-    // }, []);
-
+    useEffect(() => {
+        if (user?.interests.length > 0) {
+            setPending(false)
+            console.log('entro aca?')
+        } else {
+            console.log('hola')
+            setPending(true)
+        }
+    }, [pending])
 
     return (
-        <View style={{ ...editProfileTheme.container, backgroundColor: colors.background }}>
+        <View style={{ ...editProfileTheme.container, backgroundColor: colors.background, gap: 20 }}>
             <ToastMessageComponent
                 width={'100%'}
                 visible={showToast}
@@ -105,16 +105,29 @@ export const EditProfileScreen = () => {
                     placeholder='Nombre y Apellido' placeholderTextColor={'gray'} />
             </View>
 
-            <MultiSelectComponent
+            <View style={{ gap: 15 }}>
+                <Text style={{ fontSize: 16, color: colors.text }}>Seleccionar intereses</Text>
+                <View style={{ height: 1, width: '100%', backgroundColor: 'gray' }} />
+                <View style={{ flexDirection: 'row', gap: 15, flexWrap: 'wrap', width: '100%', justifyContent: 'center' }}>
+
+                    {data.map(i => (
+                        <TouchableOpacity
+
+                            key={i.value}
+                            onPress={() => handleSelect(i)}
+                            style={{ backgroundColor: selected.includes(i.label) ? 'transparent' : 'transparent', flexDirection: 'row', borderWidth: 0.5, height: 25, justifyContent: 'center', alignItems: 'center', gap: 3, borderColor: !selected.includes(i.label) ? colors.text : customColors.activeColor, paddingHorizontal: 5, borderRadius: 5 }}>
+                            <Text style={{ color: !selected.includes(i.label) ? colors.text : customColors.activeColor }} >{i.label}</Text>
+                            {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? colors.text : customColors.activeColor} />}
+                        </TouchableOpacity>
+                    ))}
+                </View>
+            </View>
+            {/* <MultiSelectComponent
                 onChange={item => {
                     setSelected(item)
                 }}
-                data={data} selected={selected} />
-
-
+                data={data} selected={selected} /> */}
             <View style={editProfileTheme.div}>
-                {/* <Button title="Pick an image from camera roll" onPress={pickImage} />
-                {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */}
                 <TouchableOpacity
                     disabled={loading}
                     onPress={() => handleUpdateUser(user.email, name, selected)}
