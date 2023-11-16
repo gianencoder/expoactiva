@@ -61,14 +61,14 @@ const ExpoactivaMarker = ({ goToExpoactiva }) => {
 const CarMarker = ({ deviceCoordinates, onCarPress }) => {
 
     return (
-        <TouchableOpacity onPress={()=> onCarPress()}>
-            <Mapbox.MarkerView coordinate={[deviceCoordinates[0],deviceCoordinates[1]]} id="car-marker">
-                <View style={{justifyContent: 'center', alignItems: 'center', marginBottom: 60}}>
-                    <MaterialCommunityIcons name="car" color="darkgreen" size={48} />
-                    <Ionicons name="md-caret-down" color="#F05950" size={30} />
+        <Mapbox.PointAnnotation id='car-marker' coordinate={[deviceCoordinates[0],deviceCoordinates[1]]} onSelected={() => onCarPress()} >
+            <Mapbox.MarkerView coordinate={[deviceCoordinates[0],deviceCoordinates[1]]} id="car-marker" >
+                <View style={{justifyContent: 'center', alignItems: 'center', marginBottom: 65}}>
+                    <MaterialCommunityIcons name="car" color="darkgreen" size={35} />
+                    <Ionicons name="pin" color="#F05950" size={40} />
                 </View>
             </Mapbox.MarkerView>
-        </TouchableOpacity>
+        </Mapbox.PointAnnotation>
     );
 };
 
