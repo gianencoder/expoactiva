@@ -229,7 +229,6 @@ export const EmailLoginFunction = () => {
                 if (axiosError.response.status === 403) {
                     navigation.navigate('LoginFormScreen', { email });
                 } else if (axiosError.response.status === 400) {
-                    navigation.goBack();
                     Alert.alert('El correo ya existe', 'El correo ya fue ingresado con una cuenta de Google, inicia sesión con Google para continuar');
                 } else if (axiosError.response.status === 404) {
                     handleError('Intenta nuevamente en unos minutos', 'AuthScreen');

@@ -100,7 +100,7 @@ export const TicketsScreen = () => {
                                 />
                                 <View style={ticketStyles.topSide}>
                                     <View style={{ width: '100%', paddingHorizontal: 20, paddingTop: 15, paddingBottom: 5 }}>
-                                        <Text style={{ fontSize: 30, fontFamily: 'verdana', color: theme.colors.text }}>Mis entradas</Text>
+                                        <Text style={{ fontSize: 34, color: theme.colors.text, fontWeight: '300' }}>Mis entradas</Text>
                                     </View>
 
                                     <View style={{ width: '100%', height: '90%' }}>

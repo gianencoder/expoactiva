@@ -30,16 +30,15 @@ export const authStyle = StyleSheet.create({
 
     },
     title: {
-        fontSize: 30,
-        fontWeight: '400',
+        fontSize: 32,
+        fontWeight: '300',
     },
     subtitle: {
-        fontSize: 18,
+        fontSize: 20,
         color: MyColors.textGrey,
-        fontFamily: 'lucida grande'
     },
     createAccount: {
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: '600',
         textDecorationLine: 'underline'
     },

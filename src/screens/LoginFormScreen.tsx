@@ -115,7 +115,7 @@ export const LoginFormScreen = () => {
                 >
                     <View style={{ ...authStyle.mainView, backgroundColor: theme.colors.background }}>
                         <View style={{ flex: 1, gap: 25 }}>
-                            <Text style={{ alignSelf: 'center', padding: 20, fontSize: 25, color: theme.colors.text }}>Crear cuenta</Text>
+                            <Text style={{ alignSelf: 'center', padding: 20, fontSize: 30, color: theme.colors.text, fontWeight: '400' }}>Crear cuenta</Text>
                             <ToastMessageComponent
                                 iconName={'closecircleo'}
                                 textColor={theme.customColors.colorErrorMessage}

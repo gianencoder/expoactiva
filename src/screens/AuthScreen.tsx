@@ -39,7 +39,7 @@ export const AuthScreen = () => {
                         <AuthComponent />
                     } />
                     <View style={{ ...authStyle.authCard, backgroundColor: theme.colors.background }}>
-                        <View style={{ flex: 1, backgroundColor: 'transparent', padding: 10, gap: 15 }}>
+                        <View style={{ flex: 1, backgroundColor: 'transparent', padding: 10, gap: 20, paddingTop: 20 }}>
                             <Text style={{ ...authStyle.title, color: theme.colors.text }}>Mi cuenta</Text>
                             <Text style={{ ...authStyle.subtitle, color: theme.customColors.subtitles }}>
                                 Inicia sesión para 
@@ -50,29 +50,19 @@ export const AuthScreen = () => {
 
                             <TouchableOpacity onPress={toggleModal} style={{
                                 backgroundColor: theme.customColors.buttonColor, width: '100%', justifyContent: 'center', alignItems: 'center', height: 50,
-                                borderRadius: 10
+                                borderRadius: 10, marginTop: 40
 
                             }}>
-                                <Text style={{ color: 'white', fontSize: 15, fontWeight: '600' }}>Iniciar sesión</Text>
+                                <Text style={{ color: 'white', fontSize: 18, fontWeight: '600' }}>Iniciar sesión</Text>
                             </TouchableOpacity>
                             <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center', height: 50 }}>
-                                <Text style={{ color: 'gray', fontSize: 13, fontWeight: '500' }}>¿No tienes cuenta?</Text>
+                                <Text style={{ color: '#777777', fontSize: 14, fontWeight: '500' }}>¿No tienes cuenta?</Text>
                                 <TouchableOpacity onPress={toggleModal} hitSlop={{ top: 30, bottom: 50, right: 30, left: 30 }} >
-                                    <Text style={{ ...authStyle.createAccount, color: 'gray', }}>Presiona aquí</Text>
+                                    <Text style={{ ...authStyle.createAccount, color: '#777777', }}>Presiona aquí</Text>
                                 </TouchableOpacity>
                             </View>
 
                         </View>
-
-                        <View style={{ ...authStyle.bottomScreen }}>
-                            <ConfigurationItemComponent title={'Privacidad y Seguridad'} image={<Image source={require('../assets/icons/candado.png')}
-                                style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
-                            <ConfigurationItemComponent title={'Ayuda y soporte'} image={<Image source={require('../assets/icons/ayuda-soporte.png')}
-                                style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
-                            <ConfigurationItemComponent title={'Sobre Expoactiva Nacional App'} image={<Image source={require('../assets/icons/pregunta.png')}
-                                style={{ width: width / 25, height: height / 40, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Sobre expoactiva')} />
-                        </View>
-
                     </View>
                 </>
             }

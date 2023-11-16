@@ -2,7 +2,7 @@ import Mapbox from '@rnmapbox/maps';
 import Constants from 'expo-constants';
 import { useRef, useState, useEffect } from 'react';
 import * as Location from 'expo-location';
-import { Alert, Linking, TouchableOpacity, View, Text } from 'react-native';
+import { Alert, Linking, TouchableOpacity, View, Text, Image } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import styles from './MapStyles';
 import { useNavigation } from '@react-navigation/native';
@@ -63,11 +63,7 @@ const CarMarker = ({ deviceCoordinates, onCarPress }) => {
     return (
 
         <Mapbox.MarkerView coordinate={[deviceCoordinates[0],deviceCoordinates[1]]} id="car-marker" >
-            <View style={{justifyContent: 'center', alignItems: 'center', marginBottom: 65}}>
-                <MaterialCommunityIcons name="car" color="#004B11" size={32} />
-                <Ionicons name="pin" color="#F05950" size={40} />
-            </View>
-
+                <Image style={{width: 55, height: 55}} source={require('./Icons/car.png')} />
         </Mapbox.MarkerView>
             
     );
@@ -166,7 +162,7 @@ export const WhereIsMyCarMap = () => {
         if (carLocation) {
           cameraRef.current.setCamera({
             centerCoordinate: [carLocation.longitude, carLocation.latitude],
-            zoomLevel: 16,
+            zoomLevel: 18,
             animationDuration: 500,
           });
         }

@@ -39,7 +39,7 @@ export const AuthPasswordComponent = ({ email, password, setPassword, signIn, ha
         <View style={{ alignItems: 'center', height: 'auto', width: '100%', gap: 15, padding: 10 }}>
             <ToastMessageComponent iconName={'closecircleo'} textColor={'white'} iconColor={'white'} iconSize={24} backgroundColor={'#950101'} visible={!isValid} title={'¡Error!'} message={'Ingresa una contraseña por favor'} />
 
-            <Text style={{ alignSelf: 'center', padding: 20, fontSize: 19, color: theme.colors.text }}>Iniciar Sesión</Text>
+            <Text style={{ alignSelf: 'center', padding: 20, fontSize: 19, color: theme.colors.text, fontWeight: '600' }}>Iniciar Sesión</Text>
 
 
             <View style={authStyle.formView}>
