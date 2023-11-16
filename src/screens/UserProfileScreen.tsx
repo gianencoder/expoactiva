@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, View, Image, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
+import * as ImagePicker from 'expo-image-picker';
+import { Text, View, Image, TouchableOpacity, Alert, ActivityIndicator, Linking, Dimensions } from 'react-native'
 import { useAuthContext } from '../context/AuthContext/AuthContext'
 import { userProfileTheme } from '../theme/UserProfileTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
@@ -7,14 +8,18 @@ import { AntDesign } from '@expo/vector-icons';
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { confirmation } from '../util/utils'
 import { useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Ionicons } from '@expo/vector-icons';
+
 
 
 export const UserProfileScreen = () => {
 
-    const { user, logout, token } = useAuthContext()
+    const { user, logout, token, image, setImage } = useAuthContext()
     const { theme } = useContext(ThemeContext)
-    const { deleteAccount, loading } = EmailLoginFunction()
+    const { deleteAccount, loading, updateUserPicture, changingPicture } = EmailLoginFunction()
     const navigation = useNavigation()
+    const [galleryPermission, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
 
     const showLogoutConfirmation = () => {
@@ -39,24 +44,175 @@ export const UserProfileScreen = () => {
         )
     }
 
+    const uploadImage = async (mode) => {
+        try {
+            let result = {}
+            if (mode == 'gallery') {
+
+                if (galleryPermission?.granted === true) {
+
+                    result = await ImagePicker.launchImageLibraryAsync({
+                        mediaTypes: ImagePicker.MediaTypeOptions
+                            .Images,
+                        allowsEditing: true,
+                        aspect: [1, 1],
+                        quality: 1
+                    })
+                    if (!result.canceled) {
+                        await saveImage(result.assets[0].uri)
+                    }
+
+                } else {
+
+                    Alert.alert('Sin permiso',
+                        "¿Deseas permitir ingresar a tu galería? ",
+                        [
+                            { text: 'Configuración', onPress: () => Linking.openSettings(), style: 'default' },
+                            { text: 'Cancelar' }
+                        ]
+                    )
+                }
+
+            } else {
+                const cameraPermission = await ImagePicker.requestCameraPermissionsAsync()
+                if (cameraPermission) {
+                    result = await ImagePicker.launchCameraAsync({
+                        cameraType: ImagePicker.CameraType.front,
+                        allowsEditing: true,
+                        aspect: [1, 1],
+                        quality: 1,
+                    })
+
+                    if (!result.canceled) {
+                        await saveImage(result.assets[0].uri)
+                    }
+                } else {
+                    Alert.alert('Sin permiso',
+                        "¿Deseas permitir ingresar a tu galería? ",
+                        [
+                            { text: 'Configuración', onPress: () => Linking.openSettings(), style: 'default' },
+                            { text: 'Cancelar' }
+                        ]
+                    )
+                }
+            }
+        } catch (error) {
+            Alert.alert('Sin permiso',
+                "¿Deseas permitir usar tu cámara? ",
+                [
+                    { text: 'Configuración', onPress: () => Linking.openSettings(), style: 'default' },
+                    { text: 'Cancelar' }
+                ]
+            )
+
+        }
+    }
+
+
+    const saveImage = async (image) => {
+        try {
+            await AsyncStorage.setItem("profileImage", JSON.stringify(image))
+            setImage(image)
+            updateUserPicture(user?.email, image)
+        } catch (error) {
+            Alert.alert('No está disponible en este momento')
+        }
+    }
+
+    const options = () => {
+        Alert.alert(
+            '¿Que desea realizar?',
+            '',
+            [
+                { text: 'Editar foto', onPress: () => handleEditImage(), style: 'default' },
+                { text: 'Eliminar foto', onPress: () => optionDeleteImage(), style: 'destructive' },
+                { text: 'Cancelar', style: 'cancel' }
+
+            ]
+        );
+    }
+
+    const handleDeleteImage = async () => {
+        try {
+            await AsyncStorage.removeItem('profileImage')
+            setImage('')
+            updateUserPicture(user?.email, '')
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    }
+
+    const optionDeleteImage = () => {
+        Alert.alert(
+            'Eliminar imagen de perfil',
+            '',
+            [
+                { text: 'Eliminar', onPress: () => handleDeleteImage(), style: 'destructive' },
+                { text: 'Cancelar', style: 'cancel' },
+
+
+            ]
+        );
+    }
+
+    const handleEditImage = () => {
+        Alert.alert(
+            'Selecciona una opción',
+            '',
+            [
+                { text: 'Abrir cámara', onPress: () => uploadImage('camera'), style: 'default' },
+                { text: 'Subir desde la galería', onPress: () => uploadImage('gallery'), style: 'default' },
+                { text: 'Cancelar', style: 'cancel' },
+
+
+            ]
+        );
+    }
+
+
+
+
     return (
         loading
             ? <View style={{ backgroundColor: theme.colors.background, flex: 1, justifyContent: 'center', alignItems: 'center', gap: 20 }}>
                 <ActivityIndicator color={theme.customColors.activeColor} size={'large'} />
-                <Text style={{ fontSize: 18, color: theme.colors.text }}>Eliminando cuenta, por favor espere...</Text>
             </View>
 
             : <View style={{ ...userProfileTheme.container, backgroundColor: theme.colors.background }}>
+
                 <View style={{ ...userProfileTheme.header, backgroundColor: theme.customColors.headerColor }}>
-                    {user?.picture
-                        ? <Image style={{ ...userProfileTheme.img }} resizeMode='stretch' source={{ uri: user?.picture }} />
-                        : <Image style={{ ...userProfileTheme.img }} resizeMode='stretch' source={require('../assets/images/perfil.png')} />
-                    }
-                    <Text style={userProfileTheme.text}>{user?.name}</Text>
-                    <Text style={{ ...userProfileTheme.text, }}>{user?.email}</Text>
+                    <View style={{ width: 120, height: 120, justifyContent: 'center' }}>
+                        {!changingPicture ?
+                            user?.picture
+                                ? <Image style={{ ...userProfileTheme.img }} resizeMode='stretch' source={{ uri: user?.picture }} />
+                                :
+                                image
+                                    ? <Image style={{ ...userProfileTheme.img }} resizeMode='stretch' source={{ uri: image }} />
+                                    : <Image style={{ ...userProfileTheme.img }} resizeMode='stretch' source={require('../assets/images/perfil.png')} />
+
+                            : <ActivityIndicator size={'large'} color={theme.customColors.activeColor} />
+                        }
+                    </View>
+
+                    <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center', gap: 20 }}>
+                        <TouchableOpacity
+                            onPress={options}
+                            style={{ flexDirection: 'row', width: 'auto', borderWidth: 0.5, borderColor: 'white', borderRadius: 5, height: 25, paddingHorizontal: 5, alignItems: 'center', gap: 5 }}>
+                            <Text style={{ color: 'white' }}>Editar</Text>
+                            <Ionicons name="camera-outline" size={16} color='white' />
+                        </TouchableOpacity>
+
+
+                    </View>
+                    <Text style={userProfileTheme.text} numberOfLines={1} >{user?.name}</Text>
+                    <Text style={{ ...userProfileTheme.text }} numberOfLines={1}>{user?.email}</Text>
+
+
                 </View>
 
-                <View style={{ flex: 2 }}>
+                <View style={{ flex: 1 }}>
                     <View style={userProfileTheme.body}>
                         <TouchableOpacity onPress={() => navigation.navigate('EditProfileScreen2')} style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
                             <View style={userProfileTheme.option}>

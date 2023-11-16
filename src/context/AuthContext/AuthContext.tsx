@@ -12,6 +12,8 @@ type AuthStateContext = {
     updateUser: (user: User) => void;
     login: (user: User, token: string) => void;
     token: string;
+    image: string
+    setImage: React.Dispatch<React.SetStateAction<string>>
 };
 
 const AuthContext = createContext<AuthStateContext | undefined>(undefined);
@@ -35,6 +37,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [visible, setVisible] = useState(false);
     const [token, setToken] = useState('');
     const [deletedAccount, setDeletedAccount] = useState(false)
+    const [image, setImage] = useState('')
 
     const login = (userData: User, userToken: string) => {
         setUser(userData);
@@ -50,10 +53,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
             try {
                 const data = await AsyncStorage.getItem('UserLoggedIn');
                 const token = await AsyncStorage.getItem('AccessToken');
+                const image = await AsyncStorage.getItem('profileImage');
 
                 if (data !== null) {
                     setUser(JSON.parse(data));
                     setIsLoggedIn(true);
+
+                    if (image !== null) setImage(JSON.parse(image))
+
                 }
                 if (token !== null) setToken(JSON.parse(token))
             } catch (error) {
@@ -67,6 +74,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         try {
             await AsyncStorage.removeItem('UserLoggedIn');
             await AsyncStorage.removeItem('AccessToken');
+            await AsyncStorage.removeItem('profileImage');
             // Restablecer los valores del estado del contexto
             setUser(null);
             setIsLoggedIn(false);
@@ -81,6 +89,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         try {
             await AsyncStorage.removeItem('UserLoggedIn');
             await AsyncStorage.removeItem('AccessToken');
+            await AsyncStorage.removeItem('profileImage');
             // Restablecer los valores del estado del contexto
             setUser(null);
             setIsLoggedIn(false);
@@ -100,7 +109,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{ updateUser, isLoggedIn, visible, user, logout, login, token, deleteUser, deletedAccount }}>
+        <AuthContext.Provider value={{ image, setImage, updateUser, isLoggedIn, visible, user, logout, login, token, deleteUser, deletedAccount }}>
             {children}
         </AuthContext.Provider>
     );
