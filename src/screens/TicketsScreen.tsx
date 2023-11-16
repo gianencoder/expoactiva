@@ -25,12 +25,6 @@ export const TicketsScreen = () => {
     const [charging, setCharging] = useState(true)
     const isFocused = useIsFocused();
 
-    useEffect(() => {
-        if (!isLoggedIn) {
-            Alert.alert('Inicia sesión', 'Debes iniciar sesión para ver o comprar entradas')
-        }
-    }, [isLoggedIn])
-
     useFocusEffect(
         React.useCallback(() => {
             console.log('isFocused', isFocused)

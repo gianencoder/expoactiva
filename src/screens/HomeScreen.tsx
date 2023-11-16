@@ -41,7 +41,6 @@ export const HomeScreen = ({ navigation }: Props) => {
 
         console.log('user', user)
         if (user === {} as User || user === undefined || user === null) {
-            Alert.alert('Inicia sesión', 'Debes iniciar sesión para ver o comprar entradas')
             globalNavigation.navigate('AuthScreen');
         } else {
             globalNavigation.navigate('Mis entradas');
