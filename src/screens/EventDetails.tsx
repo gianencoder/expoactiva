@@ -23,7 +23,7 @@ export const EventDetails = () => {
 
     const { theme } = useContext(ThemeContext)
     const animatedIndex = useSharedValue(0)
-    const snapPoints = useMemo(() => ['32%', '80%'], [])
+    const snapPoints = useMemo(() => ['32%', '90%'], [])
     const { favorites } = useFavorites()
     const { handleAddFav } = EventFunction()
     const route = useRoute()
@@ -149,7 +149,7 @@ export const EventDetails = () => {
                     </Animatable.View>
                     <AnimatedDivider style={contentStyle} />
                     <SectionHeader title={'Descripción'} containerStyle={styles.sectionHeader} titleStyle={{ ...styles.sectionTitle, color: theme.colors.text }} onPress={undefined} />
-                    <Text style={{ paddingHorizontal: 27.5, fontSize: 20, color: theme.colors.text, textAlign: 'justify' }}>{description}</Text>
+                    <Text style={{ paddingHorizontal: 27.5, fontSize: 20, color: '#6E6E6E', textAlign: 'left' }}>{description}</Text>
                 </BottomSheetScrollView>
             </BottomSheet>
         </View>

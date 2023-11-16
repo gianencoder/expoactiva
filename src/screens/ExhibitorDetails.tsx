@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { useRoute } from '@react-navigation/native';
 import { exhibitorTheme } from '../theme/ExhibitorTheme'
 import { ExhibitorFunction } from '../functions/ExhibitorFunction'
+import { formatPhoneNumber } from '../util/utils'
 
 interface Props {
     Event: EventoMoshi
@@ -24,7 +25,7 @@ export const ExhibitorDetails = () => {
 
     const { theme } = useContext(ThemeContext)
     const animatedIndex = useSharedValue(0)
-    const snapPoints = useMemo(() => ['32%', '80%'], [])
+    const snapPoints = useMemo(() => ['32%', '90%'], [])
     const { goSite, showInMap, callPhone } = ExhibitorFunction()
     const route = useRoute()
     const {
@@ -171,7 +172,7 @@ export const ExhibitorDetails = () => {
                         {tel &&
                             <View style={exhibitorTheme.iconView}>
                                 <Animated.Image style={[imageStyle, { ...exhibitorTheme.icons, tintColor: theme.customColors.activeColor }]} source={require('../assets/icons/tel.png')} />
-                                <Animated.Text onPress={() => callPhone(tel)} style={[eDetailTheme.date, telStyle]}> {tel} </Animated.Text>
+                                <Animated.Text onPress={() => callPhone(tel)} style={[eDetailTheme.date, telStyle]}> {formatPhoneNumber(tel)} </Animated.Text>
                             </View>
                         }
 
@@ -185,7 +186,7 @@ export const ExhibitorDetails = () => {
                         </TouchableOpacity> */}
                     </View>
                     <SectionHeader title={'Descripción'} containerStyle={styles.sectionHeader} titleStyle={{ ...styles.sectionTitle, color: theme.colors.text }} onPress={undefined} />
-                    <Text style={{ paddingHorizontal: 30, fontSize: 20, color: 'gray', textAlign: 'justify' }}>{description !== '' ? description : 'No tiene descripción'}</Text>
+                    <Text style={{ paddingHorizontal: 30, fontSize: 20, color: '#6E6E6E', textAlign: 'left' }}>{description !== '' ? description : 'No tiene descripción'}</Text>
                 </BottomSheetScrollView>
             </BottomSheet>
 

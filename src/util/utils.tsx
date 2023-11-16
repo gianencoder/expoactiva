@@ -11,6 +11,19 @@ export function capitalize(word: any) {
     return '';
   }
   
+export function formatPhoneNumber(phoneNumber :any) {
+    const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+
+    if (cleaned.length === 9) {
+        // Formato XXX XXX XXX
+        return cleaned.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3');
+    } else if (cleaned.length === 8) {
+        // Formato XXXX XXXX
+        return cleaned.replace(/(\d{4})(\d{4})/, '$1 $2');
+    } else {
+        return phoneNumber;
+    }
+}
 
 
 export function dateFormmater(dateTimeString) {

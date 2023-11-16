@@ -6,6 +6,7 @@ import { eventStyle } from '../theme/EventTheme'
 import { Ionicons } from '@expo/vector-icons'
 import { exhibitorTheme } from '../theme/ExhibitorTheme'
 import { ExhibitorFunction } from '../functions/ExhibitorFunction'
+import { formatPhoneNumber } from '../util/utils'
 
 
 interface Props {
@@ -17,8 +18,6 @@ export const ExhibitorComponent = ({ ex, selectEx }: Props) => {
   const { theme } = useContext(ThemeContext)
 
   const { goSite, callPhone, whatsapp } = ExhibitorFunction()
-  var formattedNumber = ex.tel.replace(/^0*0*5*9*8*(\d{2})(\d{3})(\d{3})$/, '0$1 $2 $3');
-
 
   return (
     <View style={{ backgroundColor: 'transparent', flex: 1 }}>
@@ -40,7 +39,7 @@ export const ExhibitorComponent = ({ ex, selectEx }: Props) => {
             }
             {ex.tel && <View style={exhibitorTheme.linksView}>
               <Image style={{ ...exhibitorTheme.linksImg, tintColor: theme.customColors.activeColor }} source={require('../assets/icons/tel.png')} />
-              <Text style={{ ...exhibitorTheme.phoneTxt, color: theme.colors.text }} onPress={() => callPhone(ex.tel)}>{formattedNumber}</Text>
+              <Text style={{ ...exhibitorTheme.phoneTxt, color: theme.colors.text }} onPress={() => callPhone(ex.tel)}>{formatPhoneNumber(ex.tel)}</Text>
             </View>
             }
           </View>

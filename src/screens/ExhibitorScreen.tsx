@@ -9,6 +9,7 @@ import { ExhibitorFunction } from '../functions/ExhibitorFunction'
 import SearchBar from '../components/SearchBarComponent';
 import { eventStyle } from '../theme/EventTheme'
 
+
 export const ExhibitorScreen = () => {
     const { theme } = useContext(ThemeContext)
     const { fetching, loading, setSearchText, filter, selectExhibitor, handleSetFetching } = ExhibitorFunction()
