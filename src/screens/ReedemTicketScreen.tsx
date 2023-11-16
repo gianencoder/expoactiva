@@ -141,7 +141,7 @@ export const ReedemTicketScreen = () => {
                         }}>
                         <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>{code.length > 0 ? 'CANJEAR' : 'INGRESA UN CÓDIGO'}</Text>
                     </TouchableOpacity>
-                    <Text onPress={() => navigation.navigate('TicketsScreen')} style={{ alignSelf: 'center', fontWeight: '600', color: currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18 }}>Cancelar</Text>
+                    <Text onPress={() => navigation.goBack()} style={{ alignSelf: 'center', fontWeight: '600', color: currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18 }}>Cancelar</Text>
                 </View>
             }
         </>
