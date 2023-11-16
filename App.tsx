@@ -16,6 +16,7 @@ import { InitScreen } from './src/screens/InitScreen';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MainScreen } from './src/screens/MainScreen';
+import { CarLocationProvider } from './src/context/CarLocationContext/CarLocationContext';
 
 export default function App() {
 
@@ -28,6 +29,8 @@ export default function App() {
   LogBox.ignoreLogs(['Clipboard']);
   LogBox.ignoreLogs(['Mapbox']);
   LogBox.ignoreLogs(['No native splash screen registered for given view controller']);
+  LogBox.ignoreLogs(['LOCATION_FOREGROUND']);
+
   const [showInitScreen, setShowInitScreen] = useState(true);
   const [splashScreen, setSplashScreen] = useState(true)
 
@@ -60,6 +63,7 @@ export default function App() {
 
   return (
     <AuthProvider>
+      <CarLocationProvider>
       <FavoritesProvider>
         <ThemeProvider>
           <PaymentProvider>
@@ -78,6 +82,7 @@ export default function App() {
           </PaymentProvider>
         </ThemeProvider >
       </FavoritesProvider>
+      </CarLocationProvider>
     </AuthProvider>
   );
 }
