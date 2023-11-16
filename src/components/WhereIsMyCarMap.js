@@ -57,19 +57,20 @@ const ExpoactivaMarker = ({ goToExpoactiva }) => {
         </Mapbox.ShapeSource>
     );
 };
-    
+
 const CarMarker = ({ deviceCoordinates, onCarPress }) => {
 
     return (
 
-        <Mapbox.MarkerView coordinate={[deviceCoordinates[0],deviceCoordinates[1]]} id="car-marker" >
-            <View style={{justifyContent: 'center', alignItems: 'center', marginBottom: 65}}>
-                <MaterialCommunityIcons name="car" color="#004B11" size={32} />
-                <Ionicons name="pin" color="#F05950" size={40} />
-            </View>
+        <Mapbox.MarkerView coordinate={[deviceCoordinates[0], deviceCoordinates[1]]} id="car-marker" >
+            {/* <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 65 }}> */}
+            {/* <MaterialCommunityIcons name="car" color="#004B11" size={32} /> */}
+            <MaterialCommunityIcons name="car-convertible" size={34} color="black" />
+            {/* <Ionicons name="pin" color="#F05950" size={40} /> */}
+            {/* </View> */}
 
         </Mapbox.MarkerView>
-            
+
     );
 };
 
@@ -80,7 +81,7 @@ export const WhereIsMyCarMap = () => {
     const navigation = useNavigation();
     const initialDeviceCoordinatesRef = useRef(null);
     const initialCameraSetRef = useRef(false);
-    const {carLocation, saveCarLocation, removeCarLocation} = useCarLocation();
+    const { carLocation, saveCarLocation, removeCarLocation } = useCarLocation();
 
     useEffect(() => {
         (async () => {
@@ -150,28 +151,28 @@ export const WhereIsMyCarMap = () => {
             let centerCoordinates = carLocation
                 ? [carLocation.longitude, carLocation.latitude]
                 : initialDeviceCoordinatesRef.current;
-    
+
             cameraRef.current.setCamera({
                 centerCoordinate: centerCoordinates,
                 zoomLevel: 16,
                 animationDuration: 500,
             });
-    
+
             initialCameraSetRef.current = true;
         }
     }, [carLocation, cameraRef.current]);
-    
+
 
     const goToCarLocation = () => {
         if (carLocation) {
-          cameraRef.current.setCamera({
-            centerCoordinate: [carLocation.longitude, carLocation.latitude],
-            zoomLevel: 16,
-            animationDuration: 500,
-          });
+            cameraRef.current.setCamera({
+                centerCoordinate: [carLocation.longitude, carLocation.latitude],
+                zoomLevel: 16,
+                animationDuration: 500,
+            });
         }
-      };
-      
+    };
+
     const goToExpoactiva = () => {
         cameraRef.current.setCamera({
             centerCoordinate: [EXPOACTIVA_MARKER_LONGITUD, EXPOACTIVA_MARKER_LATITUD],
@@ -221,73 +222,73 @@ export const WhereIsMyCarMap = () => {
     };
 
     return (
-        <View style={{flex: 1}}>
-        <Mapbox.MapView
-            zoomLevel={15}
-            centerCoordinate={[0,0]}
-            style={{flex: 1}}
-            pitchEnabled={false} 
-            attributionEnabled={false} 
-            logoEnabled={false} 
-            styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' 
-            scaleBarEnabled={false}
-        >   
-            <Mapbox.UserLocation minDisplacement={0.5} visible={true} renderMode={'normal'} showsUserHeadingIndicator={true} />
-            <Mapbox.Camera
-                ref={cameraRef}
-                centerCoordinate={carLocation ? [carLocation.longitude, carLocation.latitude] : initialDeviceCoordinatesRef.current}
-                zoomLevel={15.6}
-                animationDuration={500}
-                maxZoomLevel={17}
-            />
-            <Mapbox.Images images={iconImages} />
-            {carLocation ? (
+        <View style={{ flex: 1 }}>
+            <Mapbox.MapView
+                zoomLevel={15}
+                centerCoordinate={[0, 0]}
+                style={{ flex: 1 }}
+                pitchEnabled={false}
+                attributionEnabled={false}
+                logoEnabled={false}
+                styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg'
+                scaleBarEnabled={false}
+            >
+                <Mapbox.UserLocation minDisplacement={0.5} visible={true} renderMode={'normal'} showsUserHeadingIndicator={true} />
+                <Mapbox.Camera
+                    ref={cameraRef}
+                    centerCoordinate={carLocation ? [carLocation.longitude, carLocation.latitude] : initialDeviceCoordinatesRef.current}
+                    zoomLevel={15.6}
+                    animationDuration={500}
+                    maxZoomLevel={17}
+                />
+                <Mapbox.Images images={iconImages} />
+                {carLocation ? (
                     <CarMarker deviceCoordinates={[carLocation.longitude, carLocation.latitude]} onCarPress={goToCarLocation} />
-            ) : (
-                <ExpoactivaMarker goToExpoactiva={goToExpoactiva} />
-            )}
+                ) : (
+                    <ExpoactivaMarker goToExpoactiva={goToExpoactiva} />
+                )}
 
-        </Mapbox.MapView>
-        <TouchableOpacity
-            onPress={goToCarLocation}
-            disabled={!carLocation}
-            style={[
-                styles.searchButton,
-                {
-                    bottom: 20,
-                    left: '58.5%',
-                    transform: [{ translateX: 15 }],
-                    padding: 15,
-                    width: 'auto',
-                    borderRadius: 50,
-                    opacity: 0.85,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }
-            ]}
-        >
-            <MaterialCommunityIcons name="car" color={carLocation ? 'darkgreen' : 'gray'} size={24} />
-        </TouchableOpacity>
-        <TouchableOpacity
-            onPress={centerCamera}
-            style={[
-                styles.searchButton,
-                {
-                    bottom: 20,
-                    left: '77%',
-                    transform: [{ translateX: 15 }],
-                    padding: 15,
-                    width: 'auto',
-                    borderRadius: 50,
-                    opacity: 0.85,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }
-            ]}
-        >
-            <MaterialCommunityIcons name="crosshairs-gps" color="darkgreen" size={24} />
-        </TouchableOpacity>
-        <TouchableOpacity
+            </Mapbox.MapView>
+            <TouchableOpacity
+                onPress={goToCarLocation}
+                disabled={!carLocation}
+                style={[
+                    styles.searchButton,
+                    {
+                        bottom: 20,
+                        left: '58.5%',
+                        transform: [{ translateX: 15 }],
+                        padding: 15,
+                        width: 'auto',
+                        borderRadius: 50,
+                        opacity: 0.85,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }
+                ]}
+            >
+                <MaterialCommunityIcons name="car-convertible" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={centerCamera}
+                style={[
+                    styles.searchButton,
+                    {
+                        bottom: 20,
+                        left: '77%',
+                        transform: [{ translateX: 15 }],
+                        padding: 15,
+                        width: 'auto',
+                        borderRadius: 50,
+                        opacity: 0.85,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }
+                ]}
+            >
+                <MaterialCommunityIcons name="crosshairs-gps" color="darkgreen" size={24} />
+            </TouchableOpacity>
+            <TouchableOpacity
                 onPress={toggleCarMarker}
                 style={[
                     styles.searchButton,
@@ -295,20 +296,20 @@ export const WhereIsMyCarMap = () => {
                         bottom: 20,
                         left: '25%',
                         transform: [{ translateX: -75 }],
-                        padding:  15,
-                        width:  200,
-                        opacity:  0.85,
+                        padding: 15,
+                        width: 200,
+                        opacity: 0.85,
                     }
                 ]}
-            >   
-            <View style={{flex:1, flexDirection: 'row', gap: 10, justifyContent: 'center', alignItems:'center'}}>
-                <MaterialCommunityIcons
-                    name={carLocation ? "car-off" : "car"}
-                    size={24}
-                    color={carLocation ? "red" : "darkgreen"}
-                />
-                { carLocation ? <Text style={{fontSize: 17, fontWeight: '500', color: 'red'}}>Eliminar marca</Text> : <Text style={{fontSize: 17, fontWeight: '500', color: 'darkgreen'}}>Marcar mi vehículo</Text> }
-            </View>
+            >
+                <View style={{ flex: 1, flexDirection: 'row', gap: 10, justifyContent: 'center', alignItems: 'center' }}>
+                    <MaterialCommunityIcons
+                        name={carLocation ? "car-off" : "car"}
+                        size={24}
+                        color={carLocation ? "red" : "darkgreen"}
+                    />
+                    {carLocation ? <Text style={{ fontSize: 17, fontWeight: '500', color: 'red' }}>Eliminar marca</Text> : <Text style={{ fontSize: 17, fontWeight: '500', color: 'darkgreen' }}>Marcar mi vehículo</Text>}
+                </View>
             </TouchableOpacity>
         </View>
     );
