@@ -61,14 +61,15 @@ const ExpoactivaMarker = ({ goToExpoactiva }) => {
 const CarMarker = ({ deviceCoordinates, onCarPress }) => {
 
     return (
-        <Mapbox.PointAnnotation id='car-marker' coordinate={[deviceCoordinates[0],deviceCoordinates[1]]} onSelected={() => onCarPress()} >
-            <Mapbox.MarkerView coordinate={[deviceCoordinates[0],deviceCoordinates[1]]} id="car-marker" >
-                <View style={{justifyContent: 'center', alignItems: 'center', marginBottom: 65}}>
-                    <MaterialCommunityIcons name="car" color="darkgreen" size={35} />
-                    <Ionicons name="pin" color="#F05950" size={40} />
-                </View>
-            </Mapbox.MarkerView>
-        </Mapbox.PointAnnotation>
+
+        <Mapbox.MarkerView coordinate={[deviceCoordinates[0],deviceCoordinates[1]]} id="car-marker" >
+            <View style={{justifyContent: 'center', alignItems: 'center', marginBottom: 65}}>
+                <MaterialCommunityIcons name="car" color="#004B11" size={32} />
+                <Ionicons name="pin" color="#F05950" size={40} />
+            </View>
+
+        </Mapbox.MarkerView>
+            
     );
 };
 
@@ -241,7 +242,7 @@ export const WhereIsMyCarMap = () => {
             />
             <Mapbox.Images images={iconImages} />
             {carLocation ? (
-                <CarMarker deviceCoordinates={[carLocation.longitude, carLocation.latitude]} onCarPress={goToCarLocation} />
+                    <CarMarker deviceCoordinates={[carLocation.longitude, carLocation.latitude]} onCarPress={goToCarLocation} />
             ) : (
                 <ExpoactivaMarker goToExpoactiva={goToExpoactiva} />
             )}
