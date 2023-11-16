@@ -140,7 +140,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                             color={(sharedTicket || ticket.used) ? 'gray' : theme.colors.text}
                             backgroundColor="transparent"
                         />
-                        {(sharedTicket || ticket.used) && <View style={{ position: 'absolute', width: '80%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.7)'}} />}
+                        {(sharedTicket || ticket.used) && <View style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.7)'}} />}
                     </View>
                 </View>
 
