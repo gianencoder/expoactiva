@@ -25,12 +25,6 @@ export const TicketsScreen = () => {
     const [charging, setCharging] = useState(true)
     const isFocused = useIsFocused();
 
-    useEffect(() => {
-        if (!isLoggedIn) {
-            Alert.alert('Inicia sesión', 'Debes iniciar sesión para ver o comprar entradas')
-        }
-    }, [isLoggedIn])
-
     useFocusEffect(
         React.useCallback(() => {
             console.log('isFocused', isFocused)
@@ -163,7 +157,7 @@ export const TicketsScreen = () => {
                                 <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', gap: 15 }}>
 
                                     <TouchableOpacity
-                                        onPress={() => navigation.navigate('BuyTicket')}
+                                        onPress={() => navigation.navigate('BuyTicketScreen2')}
                                         style={{
                                             backgroundColor: theme.customColors.buttonColor
                                             , height: 40
@@ -175,7 +169,7 @@ export const TicketsScreen = () => {
                                         <Text style={{ ...ticketStyles.btt, color: 'white', letterSpacing: 1 }}>PRESIONE AQUÍ PARA COMPRAR</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
-                                        onPress={() => navigation.navigate('ReedemTicketScreen')}
+                                        onPress={() => navigation.navigate('ReedemTicketScreen2')}
                                         style={{
                                             backgroundColor: '#F05950'
                                             , height: 40

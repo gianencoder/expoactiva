@@ -41,7 +41,13 @@ export const AuthScreen = () => {
                     <View style={{ ...authStyle.authCard, backgroundColor: theme.colors.background }}>
                         <View style={{ flex: 1, backgroundColor: 'transparent', padding: 10, gap: 15 }}>
                             <Text style={{ ...authStyle.title, color: theme.colors.text }}>Mi cuenta</Text>
-                            <Text style={{ ...authStyle.subtitle, color: theme.customColors.subtitles }}>Inicia sesión para listar, comprar y compartir tus entradas</Text>
+                            <Text style={{ ...authStyle.subtitle, color: theme.customColors.subtitles }}>
+                                Inicia sesión para 
+                                <Text style={{ fontWeight: '700' }}> listar</Text>, 
+                                <Text style={{ fontWeight: '700' }}> comprar</Text> y 
+                                <Text style={{ fontWeight: '700' }}> compartir</Text> tus entradas
+                            </Text>
+
                             <TouchableOpacity onPress={toggleModal} style={{
                                 backgroundColor: theme.customColors.buttonColor, width: '100%', justifyContent: 'center', alignItems: 'center', height: 50,
                                 borderRadius: 10
