@@ -160,19 +160,11 @@ export const WhereIsMyCarMap = () => {
 
     const goToCarLocation = () => {
         if (carLocation) {
-<<<<<<< HEAD
           cameraRef.current.setCamera({
             centerCoordinate: [carLocation.longitude, carLocation.latitude],
             zoomLevel: 18,
             animationDuration: 500,
           });
-=======
-            cameraRef.current.setCamera({
-                centerCoordinate: [carLocation.longitude, carLocation.latitude],
-                zoomLevel: 16,
-                animationDuration: 500,
-            });
->>>>>>> ef98edccdd76f13368cbebff6442b5b1e48c734c
         }
     };
 
@@ -270,7 +262,7 @@ export const WhereIsMyCarMap = () => {
                     }
                 ]}
             >
-                <MaterialCommunityIcons name="car-convertible" size={24} color="black" />
+                <MaterialCommunityIcons name="car" size={24} color="darkgreen" />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={centerCamera}
