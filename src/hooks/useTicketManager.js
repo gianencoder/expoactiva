@@ -56,23 +56,26 @@ export const useTicketManager = (ticket = null) => {
 
     const fetchTickets = useCallback(async () => {
         setLoading(true);
-    
-        // clave única para los tickets en AsyncStorage con el email del usuario
         const ticketsKey = `@tickets_${user.email}`;
     
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const response = await axios.get(`${properties.prod}tickets/${user.email}`);
-            
-            // Si la respuesta es exitosa, actualiza los tickets en el estado y AsyncStorage
+    
+            // Si la respuesta es exitosa, primero actualiza los tickets en el estado
             if (response.data) {
                 setTickets(response.data);
+    
+                // Luego borra las entradas antiguas de AsyncStorage
+                await AsyncStorage.removeItem(ticketsKey);
+    
+                // Y finalmente almacena los nuevos tickets
                 await AsyncStorage.setItem(ticketsKey, JSON.stringify(response.data));
             }
         } catch (err) {
             console.log('Error al obtener tickets desde la API, intentando cargar desde AsyncStorage:', err);
             
-            // Si hay un error (como falta de conexión), intenta cargar los tickets desde AsyncStorage
+            // Intenta cargar los tickets desde AsyncStorage si hay un error
             const storedTicketsString = await AsyncStorage.getItem(ticketsKey);
             if (storedTicketsString) {
                 const storedTickets = JSON.parse(storedTicketsString);
@@ -80,11 +83,11 @@ export const useTicketManager = (ticket = null) => {
             } else {
                 setError(err.response ? err.response.data.error : err.message);
             }
-
         } finally {
             setLoading(false);
         }
     }, [user?.email, token]);
+    
 
     const ticketDetail = useCallback((id) => {
         try {
