@@ -262,7 +262,7 @@ export const WhereIsMyCarMap = () => {
                     }
                 ]}
             >
-                <MaterialCommunityIcons name="car" size={24} color="darkgreen" />
+                <MaterialCommunityIcons name="car" size={24} color={carLocation ? 'darkgreen' : 'gray'}/>
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={centerCamera}
