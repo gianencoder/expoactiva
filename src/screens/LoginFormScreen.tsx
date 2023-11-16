@@ -9,6 +9,7 @@ import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native'
 import { data } from '../util/utils'
+import { Feather } from '@expo/vector-icons';
 
 
 export const LoginFormScreen = () => {
@@ -101,6 +102,21 @@ export const LoginFormScreen = () => {
         Keyboard.dismiss();
     };
 
+    const handleSelect = (i) => {
+        // Verificar si el interés ya está en la lista selected
+        const isSelected = selected.includes(i.label);
+
+        if (isSelected) {
+            // Si ya está seleccionado, lo eliminamos
+            const newSelected = selected.filter((item) => item !== i.label);
+            setSelected(newSelected);
+        } else {
+            // Si no está seleccionado, lo agregamos
+            setSelected([...selected, i.label]);
+        }
+    }
+
+
     return (
         loading
             ? <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 50, backgroundColor: theme.colors.background }}>
@@ -170,12 +186,25 @@ export const LoginFormScreen = () => {
                                     placeholderTextColor={'gray'} />
                             </View>
 
-                            <View style={authStyle.formView}>
-                                <MultiSelectComponent
+                            <View style={{ ...authStyle.formView, gap: 15 }}>
+                                <Text style={{ fontSize: 16, color: theme.colors.text }}>Seleccionar intereses</Text>
+                                <View style={{ height: 1, width: '100%', backgroundColor: 'gray' }} />
+                                <View style={{ flexDirection: 'row', gap: 15, flexWrap: 'wrap', width: '100%', justifyContent: 'center' }}>
+                                    {data.map(i => (
+                                        <TouchableOpacity
+                                            key={i.value}
+                                            onPress={() => handleSelect(i)}
+                                            style={{ backgroundColor: selected.includes(i.label) ? 'transparent' : 'transparent', flexDirection: 'row', borderWidth: 0.5, height: 25, justifyContent: 'center', alignItems: 'center', gap: 3, borderColor: !selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor, paddingHorizontal: 5, borderRadius: 5 }}>
+                                            <Text style={{ color: !selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor }} >{i.label}</Text>
+                                            {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? themecolors.text : theme.customColors.activeColor} />}
+                                        </TouchableOpacity>
+                                    ))}
+                                </View>
+                                {/* <MultiSelectComponent
                                     onChange={item => {
                                         setSelected(item)
                                     }}
-                                    data={data} selected={selected} />
+                                    data={data} selected={selected} /> */}
                             </View>
                             <View style={authStyle.formView}>
                                 <TouchableOpacity

@@ -36,8 +36,6 @@ export const UserProfileScreen = () => {
     );
 
 
-
-
     const showLogoutConfirmation = () => {
         confirmation(
             'Cerrar sesión',
