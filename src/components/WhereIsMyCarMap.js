@@ -234,15 +234,13 @@ export const WhereIsMyCarMap = () => {
                     centerCoordinate={carLocation ? [carLocation.longitude, carLocation.latitude] : initialDeviceCoordinatesRef.current}
                     zoomLevel={15.6}
                     animationDuration={500}
-                    maxZoomLevel={17}
+                    maxZoomLevel={20}
                 />
                 <Mapbox.Images images={iconImages} />
-                {carLocation ? (
+                {carLocation &&
                     <CarMarker deviceCoordinates={[carLocation.longitude, carLocation.latitude]} onCarPress={goToCarLocation} />
-                ) : (
-                    <ExpoactivaMarker goToExpoactiva={goToExpoactiva} />
-                )}
-
+                }
+                <ExpoactivaMarker goToExpoactiva={goToExpoactiva} />
             </Mapbox.MapView>
             <TouchableOpacity
                 onPress={goToCarLocation}
