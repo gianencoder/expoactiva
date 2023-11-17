@@ -39,7 +39,7 @@ export const ConfigurationScreen = ({ navigation }: Props) => {
                             style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('NotificationScreen2')} />
                         <ConfigurationItemComponent title={'Apariencia'} image={<Image source={require('../assets/icons/apariencia.png')}
                             style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={toggleModal} />
-                        <ConfigurationItemComponent title={'Privacidad y Seguridad'} image={<Image source={require('../assets/icons/cerrar.png')}
+                        <ConfigurationItemComponent title={'Política de privacidad y términos'} image={<Image source={require('../assets/icons/cerrar.png')}
                             style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('PrivacyPolicyScreen2')} />
                         <ConfigurationItemComponent title={'Ayuda y soporte'} image={<Image source={require('../assets/icons/ayuda-soporte.png')}
                             style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />

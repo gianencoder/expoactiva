@@ -79,7 +79,7 @@ export const InitScreen = ({ onAcceptTerms }) => {
 
                                 <Text style={{ fontWeight: 'bold', fontSize: 17 }}>Términos y Condiciones de Uso - Aplicación Móvil Expoactiva Nacional Uruguay</Text>
                                 <Text style={{ fontSize: 16 }}>
-                                    Bienvenido/a a la aplicación móvil de la Exposición en Soriano, organizada por la Asociación Rural de Soriano. Antes de utilizar esta aplicación, por favor, lea detenidamente los siguientes términos y condiciones. El acceso y uso de esta aplicación están sujetos a su aceptación y cumplimiento de estos términos.
+                                    Bienvenido/a a la aplicación móvil de Expoactiva Nacional, organizada por la Asociación Rural de Soriano. Antes de utilizar esta aplicación, por favor, lea detenidamente los siguientes términos y condiciones. El acceso y uso de esta aplicación están sujetos a su aceptación y cumplimiento de estos términos.
                                 </Text>
                                 <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
                                     1. Aceptación de Términos y Condiciones:
@@ -148,7 +148,7 @@ export const InitScreen = ({ onAcceptTerms }) => {
 
                                     <Text style={{ fontWeight: 'bold', fontSize: 17 }}>Política de Privacidad - Aplicación Móvil Expoactiva Nacional Uruguay</Text>
                                     <Text style={{ fontSize: 16 }}>
-                                        Bienvenido/a a la aplicación móvil de la Exposición en Soriano, organizada por la Asociación Rural de Soriano. Antes de utilizar esta aplicación, por favor, lea detenidamente los siguientes términos y condiciones. El acceso y uso de esta aplicación están sujetos a su aceptación y cumplimiento de estos términos.
+                                        Bienvenido/a a la aplicación móvil de Expoactiva Nacional, organizada por la Asociación Rural de Soriano. Antes de utilizar esta aplicación, por favor, lea detenidamente los siguientes términos y condiciones. El acceso y uso de esta aplicación están sujetos a su aceptación y cumplimiento de estos términos.
 
                                     </Text>
                                     <Text style={{ fontWeight: 'bold', fontSize: 16 }}>

@@ -104,8 +104,8 @@ export const authStyle = StyleSheet.create({
 
     },
     img: {
-        width: 25,
-        height: 25
+        width: 28,
+        height: 28
     },
     btnTxt: {
 

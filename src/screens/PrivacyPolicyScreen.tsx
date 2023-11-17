@@ -22,7 +22,7 @@ export const PrivacyPolicyScreen = () => {
             <ScrollView style={{ backgroundColor: colors.background, flex: 1 }}>
                 <View style={{ flex: 3, gap: 15 }}>
                     <Text style={{ ...privacyTheme.title, color: colors.text }}>
-                        Política de Privacidad de Cyb3rSoft para Expoactiva Nacional
+                        Términos de Uso y Política de Privacidad
                     </Text>
                     <Text style={{ ...privacyTheme.text, color: colors.text }}>
                         Bienvenido a Expoactiva Nacional, un evento
@@ -108,31 +108,6 @@ export const PrivacyPolicyScreen = () => {
 
                 </View>
             </ScrollView>
-            <View style={{ flex: 0.2, gap: 40, padding: 10 }}>
-                <View style={{ flexDirection: 'row', gap: 15 }}>
-                    <Text style={{ ...privacyTheme.text, color: colors.text, fontWeight: 'bold', fontSize: 20 }}>Acepto las Políticas de privacidad</Text>
-                    <Checkbox
-                        style={{ borderRadius: 10 }}
-                        hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}
-                        value={isChecked}
-                        onValueChange={accept}
-                        color={isChecked ? customColors.activeColor : 'gray'}
-                    />
-                </View>
-
-                <View style={{ flexDirection: 'row', flex: 0.2, gap: 10 }}>
-                    <TouchableOpacity style={{ ...privacyTheme.btn, backgroundColor: customColors.bgErrorMessage }}>
-                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Salir</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('HomeScreen')}
-                        disabled={!isChecked}
-                        style={{ ...privacyTheme.btn, backgroundColor: isChecked ? customColors.buttonColor : 'gray' }}>
-                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Aceptar</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-
         </View >
     )
 }

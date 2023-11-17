@@ -17,7 +17,7 @@ export const privacyTheme = StyleSheet.create({
     },
     text: {
         fontSize: 17
-        , textAlign: 'justify'
+        , textAlign: 'left'
     },
     btn: {
         width: '50%'
