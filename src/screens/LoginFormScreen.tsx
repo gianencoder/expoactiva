@@ -196,7 +196,7 @@ export const LoginFormScreen = () => {
                                             onPress={() => handleSelect(i)}
                                             style={{ backgroundColor: selected.includes(i.label) ? 'transparent' : 'transparent', flexDirection: 'row', borderWidth: 0.5, height: 25, justifyContent: 'center', alignItems: 'center', gap: 3, borderColor: !selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor, paddingHorizontal: 5, borderRadius: 5 }}>
                                             <Text style={{ color: !selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor }} >{i.label}</Text>
-                                            {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? themecolors.text : theme.customColors.activeColor} />}
+                                            {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor} />}
                                         </TouchableOpacity>
                                     ))}
                                 </View>

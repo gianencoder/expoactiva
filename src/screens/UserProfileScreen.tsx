@@ -20,7 +20,6 @@ export const UserProfileScreen = () => {
     const { theme } = useContext(ThemeContext)
     const { deleteAccount, loading, updateUserPicture, changingPicture } = EmailLoginFunction()
     const navigation = useNavigation()
-    const [galleryPermission, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
 
     useFocusEffect(
@@ -62,9 +61,8 @@ export const UserProfileScreen = () => {
         try {
             let result = {}
             if (mode == 'gallery') {
-
-                if (galleryPermission?.granted === true) {
-
+                const galleryPermission = await ImagePicker.requestMediaLibraryPermissionsAsync()
+                if (galleryPermission) {
                     result = await ImagePicker.launchImageLibraryAsync({
                         mediaTypes: ImagePicker.MediaTypeOptions
                             .Images,
