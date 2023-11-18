@@ -6,6 +6,7 @@ import { NotificationScreen } from '../screens/NotificationScreen';
 import { EditProfileScreen } from '../screens/EditProfileScreen';
 import { PrivacyPolicyScreen } from '../screens/PrivacyPolicyScreen';
 import { AboutExpoactivaScreen } from '../screens/AboutExpoactivaScreen';
+import { EmailScreen } from '../screens/EmailScreen';
 
 
 
@@ -26,6 +27,7 @@ export const ConfigurationNavigator = () => {
             <Stack.Screen name="EditProfileScreen2" component={EditProfileScreen} />
             <Stack.Screen name="PrivacyPolicyScreen2" component={PrivacyPolicyScreen} />
             <Stack.Screen name="AboutExpoactivaScreen" component={AboutExpoactivaScreen} />
+            <Stack.Screen name="EmailScreen" component={EmailScreen} />
 
 
         </Stack.Navigator>
