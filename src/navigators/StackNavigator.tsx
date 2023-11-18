@@ -17,15 +17,12 @@ import { BuyTicketScreen } from '../screens/BuyTicketScreen';
 import { ValidateCodeScreen } from '../screens/ValidateCodeScreen';
 import { NotificationScreen } from '../screens/NotificationScreen';
 import { LoginFormScreen } from '../screens/LoginFormScreen'
-import { EmailScreen } from '../screens/EmailScreen';
 import { EditProfileScreen } from '../screens/EditProfileScreen';
 import { UserProfileScreen } from '../screens/UserProfileScreen';
 import { ReedemTicketScreen } from '../screens/ReedemTicketScreen';
 
 
-
 const Stack = createStackNavigator();
-
 export const MyStack = () => {
     return (
         <Stack.Navigator
@@ -53,7 +50,6 @@ export const MyStack = () => {
             <Stack.Screen name="CodeValidation" component={ValidateCodeScreen} />
             <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
             <Stack.Screen name="LoginFormScreen" component={LoginFormScreen} />
-            <Stack.Screen name="EmailScreen" component={EmailScreen} />
             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
             <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
             <Stack.Screen name="ReedemTicketScreen" component={ReedemTicketScreen} />
