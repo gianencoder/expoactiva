@@ -18,7 +18,7 @@ export const EditProfileScreen = () => {
     const { theme: { colors, customColors, currentTheme } } = useContext(ThemeContext)
     const { user, setPending, pending } = useAuthContext()
     const [name, setName] = useState('')
-    const [selected, setSelected] = useState([]);
+    const [selected, setSelected] = useState<[]>([]);
     const [showToast, setShowToast] = useState(false)
     const [emptyName, setEmptyName] = useState(false)
 
