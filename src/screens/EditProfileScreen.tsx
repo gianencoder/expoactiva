@@ -9,6 +9,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
 import { data } from '../util/utils'
+import { Feather } from '@expo/vector-icons'
 
 
 export const EditProfileScreen = () => {
@@ -53,10 +54,10 @@ export const EditProfileScreen = () => {
 
     useFocusEffect(
         React.useCallback(() => {
-            setName(user.name)
-            setSelected(user.interests)
-            return () => {
-            };
+            if (user !== null) {
+                setName(user.name)
+                setSelected(user.interests)
+            }
         }, [])
     );
 
@@ -75,13 +76,14 @@ export const EditProfileScreen = () => {
     }
 
     useEffect(() => {
-        if (user?.interests.length > 0) {
-            setPending(false)
+        if (user !== null)
+            if (user?.interests.length > 0) {
+                setPending(false)
 
-        } else {
+            } else {
 
-            setPending(true)
-        }
+                setPending(true)
+            }
     }, [pending])
 
     return (
