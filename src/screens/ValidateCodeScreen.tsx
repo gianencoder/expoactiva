@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { TextInput, View, Text, TouchableWithoutFeedback, Keyboard, ActivityIndicator, Alert, KeyboardAvoidingView, Platform, useWindowDimensions } from 'react-native'
+import { ScrollView,TextInput, View, Text, TouchableWithoutFeedback, Keyboard, ActivityIndicator, Alert, KeyboardAvoidingView, Platform, useWindowDimensions } from 'react-native'
 import { vct } from '../theme/CodeValidatorTheme'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
@@ -63,6 +63,7 @@ export const ValidateCodeScreen = () => {
     }, [isExpiredCode])
 
     return (
+        <ScrollView onScroll={Keyboard.dismiss} style={{backgroundColor: colors.background}}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "height" : 'null'}
@@ -130,7 +131,7 @@ export const ValidateCodeScreen = () => {
                     </View>
                     <View style={{ ...vct.buttonDiv, gap: 20 }}>
                         <View style={{ flexDirection: 'row', gap: 5 }}>
-                            <Text style={{ color: 'gray', fontFamily: 'verdana', fontSize: 16 }}>¿Aún no lo has recibido?</Text>
+                            <Text style={{ color: 'gray', fontSize: 16 }}>¿Aún no lo has recibido?</Text>
                             <TouchableOpacity
                                 disabled={loading}
                                 onPress={() => resendCode(email)}
@@ -148,11 +149,12 @@ export const ValidateCodeScreen = () => {
                                 {loading ? <ActivityIndicator color={'white'} style={{ height: 0, width: 150, borderRadius: 200 }} /> : <Text style={{ ...vct.btnTxt }}>Confirmar</Text>}
                             </TouchableOpacity>
 
-                            <Text onPress={() => navigation.navigate('HomeScreen')} style={{ fontSize: 17, fontWeight: 'bold', color: 'gray', alignSelf: 'center' }}>Cancelar</Text>
+                            <Text onPress={() => navigation.goBack()} style={{ fontSize: 17, fontWeight: 'bold', color: 'gray', alignSelf: 'center' }}>Cancelar</Text>
                         </View>
                     </View>
                 </View>
             </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
+        </ScrollView>
     )
 }

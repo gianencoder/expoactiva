@@ -12,14 +12,6 @@ export const authStyle = StyleSheet.create({
         // , alignItems: "center"
         , shadowColor: "#000"
         , padding: 20
-        , shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
-
-        elevation: 24,
     },
 
     authCard: {
