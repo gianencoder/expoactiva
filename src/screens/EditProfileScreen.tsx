@@ -5,13 +5,10 @@ import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { useAuthContext } from '../context/AuthContext/AuthContext'
 import { useNavigation } from '@react-navigation/native'
 import { authStyle } from '../theme/AuthTheme'
-import { MultiSelectComponent } from '../components/MultiSelectComponent'
 import { useFocusEffect } from '@react-navigation/native';
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
 import { data } from '../util/utils'
-import { Feather } from '@expo/vector-icons';
-
 
 
 export const EditProfileScreen = () => {
@@ -22,10 +19,20 @@ export const EditProfileScreen = () => {
     const [name, setName] = useState('')
     const [selected, setSelected] = useState([]);
     const [showToast, setShowToast] = useState(false)
+    const [emptyName, setEmptyName] = useState(false)
 
 
 
     const handleUpdateUser = (email: string, name: string, selected: []) => {
+
+        if (name == '' || name.length <= 0) {
+            setEmptyName(true)
+            setTimeout(() => {
+                setEmptyName(false)
+            }, 2500)
+            return
+        }
+
         editUser(email, name, selected)
         if (updated) {
             setShowToast(true)
@@ -70,15 +77,18 @@ export const EditProfileScreen = () => {
     useEffect(() => {
         if (user?.interests.length > 0) {
             setPending(false)
-            console.log('entro aca?')
+
         } else {
-            console.log('hola')
+
             setPending(true)
         }
     }, [pending])
 
     return (
         <View style={{ ...editProfileTheme.container, backgroundColor: colors.background, gap: 20 }}>
+            <View style={{ width: '100%', height: 100, justifyContent: 'center' }}>
+                <Text style={{ ...editProfileTheme.title, color: colors.text }}>Editar perfil</Text>
+            </View>
             <ToastMessageComponent
                 width={'100%'}
                 visible={showToast}
@@ -88,13 +98,22 @@ export const EditProfileScreen = () => {
                 iconColor={customColors.colorSuccessMessage}
                 textColor={customColors.colorSuccessMessage}
             />
-
-            <View style={{ width: '100%', height: 100, justifyContent: 'center' }}>
-                <Text style={{ ...editProfileTheme.title, color: colors.text }}>Editar perfil</Text>
-            </View>
+            <ToastMessageComponent
+                width={'100%'}
+                visible={emptyName}
+                title={'¡Error!'}
+                message={'El campo nombre es obligatorio'}
+                backgroundColor={customColors.bgErrorMessage}
+                iconColor={customColors.colorErrorMessage}
+                textColor={customColors.colorErrorMessage}
+            />
 
             <View style={editProfileTheme.div}>
-                <Text style={{ ...editProfileTheme.labelName, color: colors.text }}>Nombre y Apellido</Text>
+                <View style={{ flexDirection: 'row', alignSelf: 'flex-start', gap: 15, }}>
+                    <Text style={{ ...editProfileTheme.labelName, color: colors.text }}>Nombre y Apellido</Text>
+                    <Text style={{ ...editProfileTheme.labelName, color: name == '' ? 'red' : colors.text, fontSize: emptyName ? 25 : 20, bottom: 5 }}>*</Text>
+                </View>
+
                 <TextInput
                     clearButtonMode='while-editing'
                     maxLength={50}
@@ -112,7 +131,6 @@ export const EditProfileScreen = () => {
 
                     {data.map(i => (
                         <TouchableOpacity
-
                             key={i.value}
                             onPress={() => handleSelect(i)}
                             style={{ backgroundColor: selected.includes(i.label) ? 'transparent' : 'transparent', flexDirection: 'row', borderWidth: 0.5, height: 25, justifyContent: 'center', alignItems: 'center', gap: 3, borderColor: !selected.includes(i.label) ? colors.text : customColors.activeColor, paddingHorizontal: 5, borderRadius: 5 }}>

@@ -93,8 +93,9 @@ export const ExhibitorDetails = () => {
         fontSize: interpolate(
             animatedIndex.value,
             [0, 0.08],
-            [8, 9]
+            [19.5, 20]
         ),
+
     }))
 
 
