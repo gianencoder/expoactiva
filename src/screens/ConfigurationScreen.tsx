@@ -1,4 +1,4 @@
-import { View, Image, useWindowDimensions, Text } from 'react-native'
+import { View, Image, useWindowDimensions, Text, Linking, Alert } from 'react-native'
 import React, { useCallback, useContext, useRef, } from 'react'
 import { themeConfig } from '../theme/ConfigurationTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
@@ -26,12 +26,20 @@ export const ConfigurationScreen = ({ navigation }: Props) => {
     }, [])
 
 
+    function support() {
+        return Linking.openURL('mailto:soporte@expoactiva.com').catch(err => {
+            Alert.alert('No se ha podido procesar tu solicitud',
+                "Intenta nuevamente en unos minutos",
+                [{ text: "Ok" }])
+        })
+    }
+
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <View style={{ ...themeConfig.container, backgroundColor: theme.colors.background }}>
                 <ModalComponent ref={ref} children={<VisibilityScreen />} />
                 <View style={{ flex: 1, padding: 20 }}>
-                    <View style={{ flex: 1 }}><Text style={{ fontSize: 32, fontWeight: '300', color: theme.colors.text}}>Configuración</Text></View>
+                    <View style={{ flex: 1 }}><Text style={{ fontSize: 32, fontWeight: '300', color: theme.colors.text }}>Configuración</Text></View>
                     <View style={{ flex: 5, gap: 20 }}>
                         <ConfigurationItemComponent title={'Mi cuenta'} image={<Image source={require('../assets/icons/perfil.png')}
                             style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('AuthScreen2')} />
@@ -42,9 +50,9 @@ export const ConfigurationScreen = ({ navigation }: Props) => {
                         <ConfigurationItemComponent title={'Política de privacidad y términos'} image={<Image source={require('../assets/icons/cerrar.png')}
                             style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('PrivacyPolicyScreen2')} />
                         <ConfigurationItemComponent title={'Ayuda y soporte'} image={<Image source={require('../assets/icons/ayuda-soporte.png')}
-                            style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Mi cuenta')} />
+                            style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => support()} />
                         <ConfigurationItemComponent title={'Sobre Expoactiva Nacional App'} image={<Image source={require('../assets/icons/pregunta.png')}
-                            style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => console.log('Sobre expoactiva')} />
+                            style={{ width: 18, height: 18, tintColor: theme.customColors.iconColor }} />} method={() => navigation.navigate('AboutExpoactivaScreen')} />
                     </View>
                 </View>
             </View >
