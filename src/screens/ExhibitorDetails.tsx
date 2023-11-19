@@ -186,7 +186,6 @@ export const ExhibitorDetails = () => {
                             <Text style={exhibitorTheme.textMap}>Ver en mapa</Text>
                         </TouchableOpacity> */}
                     </View>
-                    <SectionHeader title={'Descripción'} containerStyle={styles.sectionHeader} titleStyle={{ ...styles.sectionTitle, color: theme.colors.text }} onPress={undefined} />
                     <Text style={{ paddingHorizontal: 30, fontSize: 20, color: '#6E6E6E', textAlign: 'left' }}>{description !== '' ? description : 'No tiene descripción'}</Text>
                 </BottomSheetScrollView>
             </BottomSheet>

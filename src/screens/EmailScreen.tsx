@@ -91,7 +91,7 @@ export const EmailScreen = () => {
                                     ? <ActivityIndicator color={'white'} style={{ height: 0, width: 150, borderRadius: 200 }} />
                                     : <Text style={{ color: validEmail.test(email) ? 'white' : '#313131', letterSpacing: 1 }}>{email != '' ? validEmail.test(email) ? 'CONTINUAR' : 'EMAIL INVÁLIDO' : 'INGRESA EMAIL PARA CONTINUAR'}</Text>}
                             </TouchableOpacity>
-                            <Text onPress={() => navigation.navigate('AuthScreen')} style={{ alignSelf: 'center', fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
+                            <Text onPress={() => navigation.goBack()} style={{ alignSelf: 'center', fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
                         </View>
                     </View>
                 }

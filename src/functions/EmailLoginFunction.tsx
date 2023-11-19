@@ -75,7 +75,7 @@ export const EmailLoginFunction = () => {
                         Alert.alert('Error en su solicitud', 'Intente nuevamente en unos minutos', [
                             {
                                 text: 'Aceptar',
-                                onPress: () => navigation.navigate('AuthScreen'),
+                                onPress: () => navigation.goBack(),
                             },
                         ]);
                     })
@@ -86,7 +86,7 @@ export const EmailLoginFunction = () => {
                 Alert.alert('Error 404', ' El usuario no se pudo editar con éxito', [
                     {
                         text: 'Aceptar',
-                        onPress: () => navigation.navigate('AuthScreen'),
+                        onPress: () => navigation.goBack(),
                     },
                 ]);
             }
@@ -95,7 +95,7 @@ export const EmailLoginFunction = () => {
                 Alert.alert('Error 403', 'Error en token de validacion', [
                     {
                         text: 'Aceptar',
-                        onPress: () => navigation.navigate('AuthScreen'),
+                        onPress: () => navigation.goBack(),
                     },
                 ]);
             }
@@ -104,7 +104,7 @@ export const EmailLoginFunction = () => {
                 Alert.alert('Error 500', 'Error interno en el servidor', [
                     {
                         text: 'Aceptar',
-                        onPress: () => navigation.navigate('AuthScreen'),
+                        onPress: () => navigation.goBack(),
                     },
                 ]);
 
@@ -151,7 +151,7 @@ export const EmailLoginFunction = () => {
                         Alert.alert('Error en su solicitud', 'Intente nuevamente en unos minutos', [
                             {
                                 text: 'Aceptar',
-                                onPress: () => navigation.navigate('AuthScreen'),
+                                onPress: () => navigation.goBack(),
                             },
                         ]);
                     })
@@ -164,7 +164,7 @@ export const EmailLoginFunction = () => {
                 Alert.alert('Error 404', ' El usuario no se pudo editar con éxito', [
                     {
                         text: 'Aceptar',
-                        onPress: () => navigation.navigate('AuthScreen'),
+                        onPress: () => navigation.goBack(),
                     },
                 ]);
             }
@@ -174,7 +174,7 @@ export const EmailLoginFunction = () => {
                 Alert.alert('Error 403', 'Error en token de validacion', [
                     {
                         text: 'Aceptar',
-                        onPress: () => navigation.navigate('AuthScreen'),
+                        onPress: () => navigation.goBack(),
                     },
                 ]);
             }
@@ -184,7 +184,7 @@ export const EmailLoginFunction = () => {
                 Alert.alert('Error 500', 'Error interno en el servidor', [
                     {
                         text: 'Aceptar',
-                        onPress: () => navigation.navigate('AuthScreen'),
+                        onPress: () => navigation.goBack(),
                     },
                 ]);
 
@@ -217,7 +217,7 @@ export const EmailLoginFunction = () => {
             // Manejo de la respuesta exitosa
             if (response.status === 200) {
                 resendCode(email);
-                navigation.navigate('CodeValidation', { email });
+                navigation.navigate('CodeValidation2', { email });
             }
         } catch (error) {
             const axiosError = error as AxiosError;
@@ -227,7 +227,7 @@ export const EmailLoginFunction = () => {
                 console.log('error status', axiosError.response.status);
 
                 if (axiosError.response.status === 403) {
-                    navigation.navigate('LoginFormScreen', { email });
+                    navigation.navigate('LoginFormScreen2', { email });
                 } else if (axiosError.response.status === 400) {
                     Alert.alert('El correo ya existe', 'El correo ya fue ingresado con una cuenta de Google, inicia sesión con Google para continuar');
                 } else if (axiosError.response.status === 404) {
@@ -299,13 +299,13 @@ export const EmailLoginFunction = () => {
             });
             if (request.status === 201) {
                 setLoading(false);
-                navigation.navigate('CodeValidation', {
+                navigation.navigate('CodeValidation2', {
                     email: email
                 });
             }
             else if (request.status === 200) {
                 setLoading(false);
-                navigation.navigate('CodeValidation', {
+                navigation.navigate('CodeValidation2', {
                     email: email
                 });
 
@@ -393,7 +393,7 @@ export const EmailLoginFunction = () => {
             Alert.alert('Hubo un error en la solicitud', 'Intente más tarde', [
                 {
                     text: 'Aceptar',
-                    onPress: () => navigation.navigate('AuthScreen'),
+                    onPress: () => navigation.goBack()
                 },
             ]);
         } finally {

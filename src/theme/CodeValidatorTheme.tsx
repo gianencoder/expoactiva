@@ -14,15 +14,13 @@ export const vct = StyleSheet.create({
     },
 
     titleTxt: {
-        fontSize: 28
-        , fontFamily: 'verdana'
-        , fontWeight: '400'
+        fontSize: 32
+        , fontWeight: '300'
     },
 
     subtxt: {
-        fontFamily: 'verdana'
-        , color: 'gray'
-        , fontSize: 16
+        color: 'gray'
+        , fontSize: 18
         , flexWrap: 'wrap'
     },
 
