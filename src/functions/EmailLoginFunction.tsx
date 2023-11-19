@@ -123,7 +123,7 @@ export const EmailLoginFunction = () => {
 
 
 
-    const editUser = async (email: string, name: string, interests: []) => {
+    const editUser = async (email: string, name: string, interests: [], bornDay: string) => {
         setLoading(true)
         try {
             const response = await fetch(`${properties.prod}user/update/${email}`, {
@@ -134,10 +134,10 @@ export const EmailLoginFunction = () => {
                 },
                 body: JSON.stringify({
                     name: name,
-                    interests: interests
+                    interests: interests,
+                    birthDay: bornDay
                 }),
             })
-
 
             if (response.status === 200) {
                 return response.json().then(async data => {
@@ -383,7 +383,7 @@ export const EmailLoginFunction = () => {
 
             if (response.status === 201) { console.log('Codigo reenviado'), setIsCodeResend(true) }
 
-            if (response.status === 403) console.log('Codigo reenviado pero el email no se pudo enviar')
+            if (response.status === 403) console.log('El email no se pudo enviar')
 
             if (response.status === 404) console.log('El usuario no fué encontrado',)
 
@@ -396,8 +396,6 @@ export const EmailLoginFunction = () => {
                     onPress: () => navigation.navigate('AuthScreen'),
                 },
             ]);
-
-            setLoading(true)
         } finally {
             setLoading(false)
         }

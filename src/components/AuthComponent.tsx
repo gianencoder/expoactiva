@@ -39,7 +39,7 @@ export const AuthComponent = () => {
             navigation.navigate('HomeScreen');
         }
 
-        
+
     }, [userInfo, userToken]);
 
     const signIn = useCallback(async () => {
@@ -48,7 +48,7 @@ export const AuthComponent = () => {
 
             const userInfo = await GoogleSignin.signIn();
             exchangeGoogleTokenForJWT(userInfo.idToken);
-            
+
         } catch (error) {
             console.log("Error al iniciar sesión:", error);
         }
@@ -56,7 +56,7 @@ export const AuthComponent = () => {
 
     const exchangeGoogleTokenForJWT = useCallback(async (googleToken: any) => {
         try {
-            console.log('googleToken', googleToken);
+
             setLoading(true);
             const response = await fetch(`${properties.prod}/auth/google`, {
                 method: "POST",
@@ -70,18 +70,13 @@ export const AuthComponent = () => {
                 })
             });
             const data = await response.json();
-            console.log(data)
+
 
             if (response.status == 400) {
                 Alert.alert(`El correo ya existe`, `No se pudo iniciar sesión. ${"\n"} Ya existe un usuario ingresado con ese correo desde otro método de autenticación.`)
             }
-
             await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user));
             await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token));
-
-            console.log('user', data.user);
-            console.log('tokenJWT', data.token);
-
             setUserInfo(data.user);
             setUserToken(data.token);
 
@@ -89,7 +84,7 @@ export const AuthComponent = () => {
             console.log("Error al intercambiar el Token de Google por JWT:", error);
         } finally {
             setLoading(false);
-            
+
         }
     }, []);
 
