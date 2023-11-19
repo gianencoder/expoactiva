@@ -142,6 +142,9 @@ export const EditProfileScreen = () => {
             }
     }, [pending])
 
+    const handleScroll = () => {
+        Keyboard.dismiss()
+    }
 
 
     return (
