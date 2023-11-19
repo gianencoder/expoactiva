@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, ScrollView, Keyboard } from 'react-native'
 import { editProfileTheme } from '../theme/EditProfileTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
@@ -18,15 +18,61 @@ export const EditProfileScreen = () => {
     const { theme: { colors, customColors, currentTheme } } = useContext(ThemeContext)
     const { user, setPending, pending } = useAuthContext()
     const [name, setName] = useState('')
+    const [bornDay, setBornDay] = useState(new Date('1900-01-01'))
     const [selected, setSelected] = useState<[]>([]);
     const [showToast, setShowToast] = useState(false)
     const [emptyName, setEmptyName] = useState(false)
+    const [date, setDate] = useState('')
+    const [day, month, year] = date.split('-');
+    const [badDate, setBadDate] = useState(false)
+    const prevLengthRef = useRef(0);
+    const numericDay = parseInt(day, 10);
+    const numericMonth = parseInt(month, 10);
+    const numericYear = parseInt(year, 10);
 
-    const handleScroll = () => {
-        Keyboard.dismiss()
-    }
 
-    const handleUpdateUser = (email: string, name: string, selected: []) => {
+    useEffect(() => {
+        if (date.length === 2) {
+            if (date.length > prevLengthRef.current) {
+                setDate(date + '-');
+            }
+        }
+        if (date.length === 3 && date[2] !== '-') {
+            if (date.length > prevLengthRef.current) {
+                const date1 = date.slice(0, 2)
+                const date2 = date.slice(-1)
+                setDate(date1 + '-' + date2)
+            }
+        }
+        if (date.length === 5) {
+
+            if (date.length > prevLengthRef.current) {
+                setDate(date + '-');
+
+            }
+        }
+        if (date.length === 6 && date[5] !== '-') {
+            if (date.length > prevLengthRef.current) {
+                const date1 = date.slice(0, 2)
+                const date2 = date.slice(3, 5)
+                const date3 = date.slice(-1)
+                setDate(date1 + '-' + date2 + '-' + date3)
+            }
+        }
+        if (date.length === 10 || date.length > 6 && date[5] !== '-') {
+            if (date.length > prevLengthRef.current) {
+                const date1 = date.slice(0, 2)
+                const date2 = date.slice(3, 5)
+                const date3 = date.slice(-4)
+                setDate(date1 + '-' + date2 + '-' + date3)
+            }
+        }
+        prevLengthRef.current = date.length;
+        setBornDay(new Date(numericYear, numericMonth - 1, numericDay))
+    }, [date])
+
+
+    const handleUpdateUser = (email: string, name: string, selected: [], bornDay: string) => {
 
         if (name == '' || name.length <= 0) {
             setEmptyName(true)
@@ -36,7 +82,15 @@ export const EditProfileScreen = () => {
             return
         }
 
-        editUser(email, name, selected)
+        if (date.length <= 0 || date == null || date == '') {
+            setBadDate(true)
+            setTimeout(() => {
+                setBadDate(false)
+            }, 2500)
+            return
+        }
+
+        editUser(email, name, selected, user?.birthDay == '' || user?.birthDay == null ? bornDay : user.birthDay)
         if (updated) {
             setShowToast(true)
             setTimeout(() => {
@@ -88,9 +142,14 @@ export const EditProfileScreen = () => {
             }
     }, [pending])
 
+    const handleScroll = () => {
+        Keyboard.dismiss()
+    }
+
+
     return (
 
-        <ScrollView onScroll={handleScroll} style={{backgroundColor: colors.background}}>
+        <ScrollView onScroll={handleScroll} style={{ backgroundColor: colors.background }}>
             <View style={{ ...editProfileTheme.container, backgroundColor: colors.background, gap: 20 }}>
                 <View style={{ width: '100%', height: 100, justifyContent: 'center' }}>
                     <Text style={{ ...editProfileTheme.title, color: colors.text }}>Editar perfil</Text>
@@ -112,12 +171,24 @@ export const EditProfileScreen = () => {
                     backgroundColor={customColors.bgErrorMessage}
                     iconColor={customColors.colorErrorMessage}
                     textColor={customColors.colorErrorMessage}
+                    iconName='closecircleo'
+                />
+
+                <ToastMessageComponent
+                    width={'100%'}
+                    visible={badDate}
+                    title={'¡Error!'}
+                    message={'El campo fecha es obligatorio'}
+                    backgroundColor={customColors.bgErrorMessage}
+                    iconColor={customColors.colorErrorMessage}
+                    textColor={customColors.colorErrorMessage}
+                    iconName='closecircleo'
                 />
 
                 <View style={editProfileTheme.div}>
-                    <View style={{ flexDirection: 'row', alignSelf: 'flex-start', gap: 15, }}>
-                        <Text style={{ ...editProfileTheme.labelName, color: colors.text }}>Nombre y Apellido</Text>
-                        <Text style={{ ...editProfileTheme.labelName, color: name == '' ? 'red' : colors.text, fontSize: emptyName ? 25 : 20, bottom: 5 }}>*</Text>
+                    <View style={{ flexDirection: 'row', alignSelf: 'flex-start' }}>
+                        <Text style={{ ...authStyle.formLabel, color: colors.text }}>Nombre y Apellido</Text>
+                        <Text style={{ fontSize: date === '' ? 25 : 20, color: name === '' ? 'red' : colors.text }}>*</Text>
                     </View>
 
                     <TextInput
@@ -130,8 +201,34 @@ export const EditProfileScreen = () => {
                         placeholder='Nombre y Apellido' placeholderTextColor={'gray'} />
                 </View>
 
+                {user?.birthDay == "" || user?.birthDay == null ?
+                    <View style={editProfileTheme.div}>
+                        <View style={{ flexDirection: 'row', alignSelf: 'flex-start', gap: 15 }}>
+                            <View style={{ flexDirection: 'row', gap: 2 }}>
+                                <Text style={{ ...authStyle.formLabel, color: colors.text, alignSelf: 'center' }}>Fecha de nacimiento</Text>
+                                {date.length <= 0 && <View style={{ height: 10, width: 10, borderRadius: 20, backgroundColor: 'orange', alignSelf: 'center' }} />}
+                            </View>
+                            <Text style={{ fontSize: date === '' || date.length <= 0 ? 25 : 20, color: date === '' || date.length <= 0 ? 'red' : colors.text }}>*</Text>
+                        </View>
+
+                        <TextInput
+                            maxLength={10}
+                            clearButtonMode='while-editing'
+                            keyboardType='numeric'
+                            value={date}
+                            onChangeText={text => setDate(text)}
+                            style={{ ...authStyle.ef, color: badDate ? 'red' : colors.text, backgroundColor: currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
+                            placeholder='DD-MM-YYYY'
+                            placeholderTextColor={'gray'} />
+                    </View>
+                    : <View />
+                }
+
                 <View style={{ gap: 15 }}>
-                    <Text style={{ fontSize: 16, color: colors.text }}>Seleccionar intereses</Text>
+                    <View style={{ flexDirection: 'row', gap: 5 }}>
+                        <Text style={{ fontSize: 16, color: colors.text }}>Seleccionar intereses</Text>
+                        {user?.interests.length <= 0 && selected.length <= 0 && <View style={{ height: 10, width: 10, borderRadius: 20, backgroundColor: 'orange', alignSelf: 'center' }} />}
+                    </View>
                     <View style={{ height: 1, width: '100%', backgroundColor: 'gray' }} />
                     <View style={{ flexDirection: 'row', gap: 15, flexWrap: 'wrap', width: '100%', justifyContent: 'center' }}>
 
@@ -154,7 +251,7 @@ export const EditProfileScreen = () => {
                 <View style={editProfileTheme.div}>
                     <TouchableOpacity
                         disabled={loading}
-                        onPress={() => handleUpdateUser(user.email, name, selected)}
+                        onPress={() => handleUpdateUser(user.email, name, selected, bornDay)}
                         style={{
                             backgroundColor: customColors.buttonColor
                             , height: 40

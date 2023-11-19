@@ -183,7 +183,6 @@ export const UserProfileScreen = () => {
         );
     }
 
-
     return (
         loading
             ? <View style={{ backgroundColor: theme.colors.background, flex: 1, justifyContent: 'center', alignItems: 'center', gap: 20 }}>
@@ -229,7 +228,7 @@ export const UserProfileScreen = () => {
                                 <Image source={require('../assets/icons/editarPerfil.png')} style={{ width: 20, height: 20, tintColor: theme.customColors.iconColor }} />
                                 <View style={{ flexDirection: 'row', gap: 15 }}>
                                     <Text style={{ ...userProfileTheme.text, color: theme.colors.text }}>Editar perfil</Text>
-                                    {pending && <View style={{ borderRadius: 10, width: 10, height: 10, backgroundColor: 'orange' }} />}
+                                    {user?.interests.length <= 0 || user?.birthDay == null || user.birthDay == '' ? <View style={{ borderRadius: 10, width: 10, height: 10, backgroundColor: 'orange', alignSelf: 'center' }} /> : <View />}
                                 </View>
 
                             </View>
