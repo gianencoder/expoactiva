@@ -217,7 +217,7 @@ export const EmailLoginFunction = () => {
             // Manejo de la respuesta exitosa
             if (response.status === 200) {
                 resendCode(email);
-                navigation.navigate('CodeValidation2', { email });
+                navigation.navigate('CodeValidation', { email });
             }
         } catch (error) {
             const axiosError = error as AxiosError;
@@ -227,7 +227,7 @@ export const EmailLoginFunction = () => {
                 console.log('error status', axiosError.response.status);
 
                 if (axiosError.response.status === 403) {
-                    navigation.navigate('LoginFormScreen2', { email });
+                    navigation.navigate('LoginFormScreen', { email });
                 } else if (axiosError.response.status === 400) {
                     Alert.alert('El correo ya existe', 'El correo ya fue ingresado con una cuenta de Google, inicia sesión con Google para continuar');
                 } else if (axiosError.response.status === 404) {
@@ -299,13 +299,13 @@ export const EmailLoginFunction = () => {
             });
             if (request.status === 201) {
                 setLoading(false);
-                navigation.navigate('CodeValidation2', {
+                navigation.navigate('CodeValidation', {
                     email: email
                 });
             }
             else if (request.status === 200) {
                 setLoading(false);
-                navigation.navigate('CodeValidation2', {
+                navigation.navigate('CodeValidation', {
                     email: email
                 });
 

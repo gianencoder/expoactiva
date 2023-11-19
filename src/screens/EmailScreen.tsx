@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { ActivityIndicator, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View, useWindowDimensions } from 'react-native'
+import { ScrollView, ActivityIndicator, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View, useWindowDimensions } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
 import { authStyle } from '../theme/AuthTheme'
@@ -33,6 +33,7 @@ export const EmailScreen = () => {
     };
 
     return (
+        <ScrollView onScrollBeginDrag={closeKeyboard} style={{backgroundColor: theme.colors.background}}>
         <TouchableWithoutFeedback onPress={closeKeyboard} style={{ backgroundColor: theme.colors.background }}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "height" : null}
@@ -46,7 +47,9 @@ export const EmailScreen = () => {
                         <Text style={{ fontSize: 18, color: 'gray' }}>Obteniendo información. Por favor, espere...</Text>
                     </View>
 
-                    : <View style={{ ...authStyle.mainView, backgroundColor: theme.colors.background }}>
+                    : 
+                    
+                    <View style={{ ...authStyle.mainView, backgroundColor: theme.colors.background }}>
                         <View style={{ flex: 1, gap: 25 }}>
                             <ToastMessageComponent
                                 iconName={'closecircleo'}
@@ -97,5 +100,6 @@ export const EmailScreen = () => {
                 }
             </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
+        </ScrollView>
     )
 }
