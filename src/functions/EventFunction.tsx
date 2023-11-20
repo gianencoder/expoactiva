@@ -39,10 +39,23 @@ export const EventFunction = () => {
                 setEvents(res)
                 setLoading(false)
             })
-            .catch(err => {
-                Alert.alert("Hubo un problema obteniendo la información",
-                    'Intenta nuevamente en unos minutos',
-                    [{ text: "Aceptar", onPress: () => navigation.goBack() }])
+            .catch(async err => {
+                await fetch(properties.prod + 'events', {
+                    method: 'GET',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Authorization': `Bearer ${properties.token}`,
+                    }
+                }).then(async res => await res.json())
+                    .then(res => {
+                        setEvents(res)
+                        setLoading(false)
+                    }).catch(err => {
+                        console.log(err)
+                        Alert.alert("Hubo un problema obteniendo la información",
+                            'Intenta nuevamente en unos minutos',
+                            [{ text: "Aceptar", onPress: () => navigation.goBack() }])
+                    })
             }).finally(() => setFetching(false))
     }
 

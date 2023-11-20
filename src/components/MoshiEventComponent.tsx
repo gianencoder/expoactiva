@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-native';
 import { eventStyle } from '../theme/EventTheme';
 import { Ionicons } from '@expo/vector-icons';
 import { formatDistanceToNow } from 'date-fns';
@@ -18,6 +18,7 @@ interface Props {
 
 export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, selectEvent, }: Props) => {
     const { theme } = useContext(ThemeContext);
+    const [imageLoader, setImageLoader] = useState(true)
 
 
     const [sTimeLeft, setsTimeLeft] = useState(formatDistanceToNow(new Date(moshiEvent.dateHourStart), { addSuffix: true, locale: esLocale }));
@@ -43,11 +44,24 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
             >
                 <View style={{ ...eventStyle.event, padding: 10 }}>
                     <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center', }}>
-                        {moshiEvent.picture === null ? (
-                            <Image style={{ ...eventStyle.img, height: '100%', width: '100%' }} source={require('../assets/images/noPhoto.jpg')} />
-                        ) : (
-                            <Image style={{ borderRadius: 15, height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', resizeMode: 'cover' }} source={{ uri: moshiEvent.picture.toString() }} />
-                        )}
+                        {
+                            moshiEvent.picture === null
+                                ? <Image
+                                    style={{ ...eventStyle.img, height: '100%', width: '100%' }}
+                                    source={require('../assets/images/noPhoto.jpg')} />
+                                :
+
+                                moshiEvent.picture == ''
+                                    ?
+                                    <Image
+                                        onLoadStart={() => setImageLoader(true)}
+                                        onLoadEnd={() => setImageLoader(true)}
+                                        style={{ borderRadius: 15, height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', resizeMode: 'cover' }}
+                                        source={{ uri: `https://picsum.photos/id/5${moshiEvent.idEvent}/500/500` }} />
+                                    : <Image
+                                        style={{ borderRadius: 15, height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', resizeMode: 'cover' }}
+                                        source={{ uri: moshiEvent.picture.toString() }} />
+                        }
                     </View>
                     <View style={eventStyle.eventListTitle}>
                         <Text numberOfLines={2} style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{moshiEvent.eventName}</Text>
