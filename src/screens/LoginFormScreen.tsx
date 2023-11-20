@@ -118,118 +118,111 @@ export const LoginFormScreen = () => {
 
 
     return (
-        loading
-            ? <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 50, backgroundColor: theme.colors.background }}>
-                <ActivityIndicator size={'large'} color={theme.customColors.activeColor} style={{ height: 0, backgroundColor: theme.colors.background, borderRadius: 200 }} />
-                <Text style={{ fontSize: 18, color: 'gray' }}>Obteniendo información. Por favor, espere...</Text>
-            </View>
-                : 
-                <ScrollView onScroll={closeKeyboard} style={{ backgroundColor: theme.colors.background }}>
-                    <TouchableWithoutFeedback onPress={closeKeyboard} style={{ backgroundColor: theme.colors.background }}>
-                        <KeyboardAvoidingView
-                            behavior={"height"}
-                            keyboardVerticalOffset={height / 10}
-                            style={{ flex: 1, backgroundColor: theme.colors.background }}
-                        >
-                            <View style={{ ...authStyle.mainView, backgroundColor: theme.colors.background }}>
-                                <View style={{ flex: 1, gap: 25 }}>
-                                    <Text style={{ alignSelf: 'center', padding: 20, fontSize: 30, color: theme.colors.text, fontWeight: '400' }}>Crear cuenta</Text>
-                                    <ToastMessageComponent
-                                        iconName={'closecircleo'}
-                                        textColor={theme.customColors.colorErrorMessage}
-                                        iconColor={theme.customColors.colorErrorMessage}
-                                        backgroundColor={theme.customColors.bgErrorMessage}
-                                        width={'100%'}
-                                        iconSize={24}
-                                        visible={isVisible}
-                                        title={'¡Error!'}
-                                        message={name.length <= 0 ? 'Nombre y apellido es un campo obligatorio' : 'Debes ingresar una fecha'} />
-                                    <ToastMessageComponent
-                                        iconName={'closecircleo'}
-                                        textColor={theme.customColors.colorErrorMessage}
-                                        iconColor={theme.customColors.colorErrorMessage}
-                                        backgroundColor={theme.customColors.bgErrorMessage}
-                                        width={'100%'}
-                                        iconSize={24}
-                                        visible={badDate}
-                                        title={'¡Error!'}
-                                        message={'Debes ingresar una fecha válida'} />
 
-                                    <View style={authStyle.formView}>
-                                        <View style={{ flexDirection: 'row' }}>
-                                            <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Nombre y Apellido </Text>
-                                            <Text style={{ fontSize: name === '' ? 25 : 20, color: name === '' ? 'red' : theme.colors.text }}>*</Text>
-                                        </View>
-                                        <TextInput
-                                            clearButtonMode='while-editing'
-                                            maxLength={50}
-                                            keyboardType='default'
-                                            value={name}
-                                            onChangeText={text => setName(text)}
-                                            style={{ ...authStyle.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
-                                            placeholder='Nombre y Apellido'
-                                            placeholderTextColor={'gray'} />
-                                    </View>
+        <ScrollView onScroll={closeKeyboard} style={{ backgroundColor: theme.colors.background }}>
+            <TouchableWithoutFeedback onPress={closeKeyboard} style={{ backgroundColor: theme.colors.background }}>
+                <KeyboardAvoidingView
+                    behavior={"height"}
+                    keyboardVerticalOffset={height / 10}
+                    style={{ flex: 1, backgroundColor: theme.colors.background }}
+                >
+                    <View style={{ ...authStyle.mainView, backgroundColor: theme.colors.background }}>
+                        <View style={{ flex: 1, gap: 25 }}>
+                            <Text style={{ alignSelf: 'center', padding: 20, fontSize: 30, color: theme.colors.text, fontWeight: '400' }}>Crear cuenta</Text>
+                            <ToastMessageComponent
+                                iconName={'closecircleo'}
+                                textColor={theme.customColors.colorErrorMessage}
+                                iconColor={theme.customColors.colorErrorMessage}
+                                backgroundColor={theme.customColors.bgErrorMessage}
+                                width={'100%'}
+                                iconSize={24}
+                                visible={isVisible}
+                                title={'¡Error!'}
+                                message={name.length <= 0 ? 'Nombre y apellido es un campo obligatorio' : 'Debes ingresar una fecha'} />
+                            <ToastMessageComponent
+                                iconName={'closecircleo'}
+                                textColor={theme.customColors.colorErrorMessage}
+                                iconColor={theme.customColors.colorErrorMessage}
+                                backgroundColor={theme.customColors.bgErrorMessage}
+                                width={'100%'}
+                                iconSize={24}
+                                visible={badDate}
+                                title={'¡Error!'}
+                                message={'Debes ingresar una fecha válida'} />
 
-                                    <View style={authStyle.formView}>
-                                        <View style={{ flexDirection: 'row' }}>
-                                            <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Fecha de nacimiento</Text>
-                                            <Text style={{ fontSize: date === '' ? 25 : 20, color: date === '' ? 'red' : theme.colors.text }}>*</Text>
-                                        </View>
+                            <View style={authStyle.formView}>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Nombre y Apellido </Text>
+                                    <Text style={{ fontSize: name === '' ? 25 : 20, color: name === '' ? 'red' : theme.colors.text }}>*</Text>
+                                </View>
+                                <TextInput
+                                    editable={!loading}
+                                    clearButtonMode='while-editing'
+                                    maxLength={50}
+                                    keyboardType='default'
+                                    value={name}
+                                    onChangeText={text => setName(text)}
+                                    style={{ ...authStyle.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
+                                    placeholder='Nombre y Apellido'
+                                    placeholderTextColor={'gray'} />
+                            </View>
 
-                                        <TextInput
-                                            maxLength={10}
-                                            clearButtonMode='while-editing'
-                                            keyboardType='numeric'
-                                            value={date}
-                                            onChangeText={text => setDate(text)}
-                                            style={{ ...authStyle.ef, color: badDate ? 'red' : theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
-                                            placeholder='DD-MM-YYYY'
-                                            placeholderTextColor={'gray'} />
-                                    </View>
+                            <View style={authStyle.formView}>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Fecha de nacimiento</Text>
+                                    <Text style={{ fontSize: date === '' ? 25 : 20, color: date === '' ? 'red' : theme.colors.text }}>*</Text>
+                                </View>
 
-                                    <View style={{ ...authStyle.formView, gap: 15 }}>
-                                        <Text style={{ fontSize: 16, color: theme.colors.text }}>Seleccionar intereses</Text>
-                                        <View style={{ height: 1, width: '100%', backgroundColor: 'gray' }} />
-                                        <View style={{ flexDirection: 'row', gap: 15, flexWrap: 'wrap', width: '100%', justifyContent: 'center' }}>
-                                            {data.map(i => (
-                                                <TouchableOpacity
-                                                    key={i.value}
-                                                    onPress={() => handleSelect(i)}
-                                                    style={{ backgroundColor: selected.includes(i.label) ? 'transparent' : 'transparent', flexDirection: 'row', borderWidth: 0.5, height: 25, justifyContent: 'center', alignItems: 'center', gap: 3, borderColor: !selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor, paddingHorizontal: 5, borderRadius: 5 }}>
-                                                    <Text style={{ color: !selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor }} >{i.label}</Text>
-                                                    {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor} />}
-                                                </TouchableOpacity>
-                                            ))}
-                                        </View>
-                                        {/* <MultiSelectComponent
-                                            onChange={item => {
-                                                setSelected(item)
-                                            }}
-                                            data={data} selected={selected} /> */}
-                                    </View>
-                                    <View style={authStyle.formView}>
+                                <TextInput
+                                    editable={!loading}
+                                    maxLength={10}
+                                    clearButtonMode='while-editing'
+                                    keyboardType='numeric'
+                                    value={date}
+                                    onChangeText={text => setDate(text)}
+                                    style={{ ...authStyle.ef, color: badDate ? 'red' : theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
+                                    placeholder='DD-MM-YYYY'
+                                    placeholderTextColor={'gray'} />
+                            </View>
+
+                            <View style={{ ...authStyle.formView, gap: 15 }}>
+                                <Text style={{ fontSize: 16, color: theme.colors.text }}>Seleccionar intereses</Text>
+                                <View style={{ height: 1, width: '100%', backgroundColor: 'gray' }} />
+                                <View style={{ flexDirection: 'row', gap: 15, flexWrap: 'wrap', width: '100%', justifyContent: 'center' }}>
+                                    {data.map(i => (
                                         <TouchableOpacity
-                                            onPress={handleSignUp}
-                                            style={{
-                                                backgroundColor: name !== '' && date.length === 10 ? theme.customColors.buttonColor : '#DBD8E3'
-                                                , height: 40
-                                                , width: '100%'
-                                                , borderRadius: 10
-                                                , justifyContent: 'center'
-                                                , alignItems: 'center'
-                                                , alignSelf: 'center'
-                                                , marginVertical: 10
-                                            }}>
-                                            <Text style={{ color: name !== '' && date.length === 10 ? 'white' : '#4B5D67', letterSpacing: 1 }}>{name === '' || date.length !== 10 ? 'COMPLETA TODA LA INFORMACIÓN' : 'CREAR'}</Text>
+                                            key={i.value}
+                                            onPress={() => handleSelect(i)}
+                                            style={{ backgroundColor: selected.includes(i.label) ? 'transparent' : 'transparent', flexDirection: 'row', borderWidth: 0.5, height: 25, justifyContent: 'center', alignItems: 'center', gap: 3, borderColor: !selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor, paddingHorizontal: 5, borderRadius: 5 }}>
+                                            <Text style={{ color: !selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor }} >{i.label}</Text>
+                                            {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor} />}
                                         </TouchableOpacity>
-                                        <Text onPress={() => navigation.goBack()}
-                                            style={{ alignSelf: 'center', fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
-                                    </View>
+                                    ))}
                                 </View>
                             </View>
-                        </KeyboardAvoidingView >
-                    </TouchableWithoutFeedback >
-                </ScrollView>
-                )
+                            <View style={authStyle.formView}>
+                                <TouchableOpacity
+                                    disabled={loading}
+                                    onPress={handleSignUp}
+                                    style={{
+                                        backgroundColor: name !== '' && date.length === 10 ? theme.customColors.buttonColor : '#DBD8E3'
+                                        , height: 40
+                                        , width: '100%'
+                                        , borderRadius: 10
+                                        , justifyContent: 'center'
+                                        , alignItems: 'center'
+                                        , alignSelf: 'center'
+                                        , marginVertical: 10
+                                    }}>
+                                    {loading ? <ActivityIndicator color={'white'} /> : <Text style={{ color: name !== '' && date.length === 10 ? 'white' : '#4B5D67', letterSpacing: 1 }}>{name === '' || date.length !== 10 ? 'COMPLETA TODA LA INFORMACIÓN' : 'CREAR'}</Text>}
+                                </TouchableOpacity>
+                                <Text onPress={() => navigation.goBack()}
+                                    style={{ alignSelf: 'center', fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
+                            </View>
+                        </View>
+                    </View>
+                </KeyboardAvoidingView >
+            </TouchableWithoutFeedback >
+        </ScrollView>
+    )
 }

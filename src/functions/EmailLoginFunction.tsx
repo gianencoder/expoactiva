@@ -206,15 +206,10 @@ export const EmailLoginFunction = () => {
     };
 
     const getUserByEmail = async (email: string) => {
-
         setLoading(true);
         try {
             const response = await axios.get(`${properties.prod}user/get/${email}`);
 
-            // No es necesario verificar response.ok con axios
-            console.log('data', response.data);
-
-            // Manejo de la respuesta exitosa
             if (response.status === 200) {
                 resendCode(email);
                 navigation.navigate('CodeValidation2', { email });
@@ -222,9 +217,6 @@ export const EmailLoginFunction = () => {
         } catch (error) {
             const axiosError = error as AxiosError;
             if (axiosError.response) {
-                // El servidor respondió con un código de estado fuera del rango 2xx
-                console.log('error data', axiosError.response.data);
-                console.log('error status', axiosError.response.status);
 
                 if (axiosError.response.status === 403) {
                     navigation.navigate('LoginFormScreen2', { email });
@@ -257,7 +249,7 @@ export const EmailLoginFunction = () => {
             if (response.status === 200) {
                 setLoading(false)
                 signIn(email, code, true)
-                navigation.navigate('HomeScreen')
+                // navigation.navigate('HomeScreen2')
 
             } else if (response.status === 400) {
                 setLoading(false)
@@ -342,7 +334,7 @@ export const EmailLoginFunction = () => {
                     await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user))
                     await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token))
                     setLoading(false)
-                    navigation.navigate('HomeScreen')
+                    navigation.navigate('HomeScreen2')
 
                 });
             } else if (response.status === 401) {
@@ -379,9 +371,17 @@ export const EmailLoginFunction = () => {
                 }
             })
 
-            if (response.status === 200) { console.log('el codigo es valido'), setIsPendingCode(true) }
+            if (response.status === 200) {
+                console.log('el codigo es valido'), setIsPendingCode(true)
+                setLoading(false)
+                return
+            }
 
-            if (response.status === 201) { console.log('Codigo reenviado'), setIsCodeResend(true) }
+            if (response.status === 201) {
+                console.log('Codigo reenviado'), setIsCodeResend(true)
+                setLoading(false)
+                return
+            }
 
             if (response.status === 403) console.log('El email no se pudo enviar')
 

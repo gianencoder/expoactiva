@@ -30,7 +30,9 @@ export const HomeScreen = ({ navigation }: Props) => {
 
     useEffect(() => {
         if (visible) {
-            setLoginVisible(true);
+            setTimeout(() => {
+                setLoginVisible(true);
+            }, 800)
             setTimeout(() => {
                 setLoginVisible(false);
             }, 2600);
@@ -39,7 +41,6 @@ export const HomeScreen = ({ navigation }: Props) => {
 
     const handleTicketsNavigation = () => {
 
-        console.log('user', user)
         if (user === {} as User || user === undefined || user === null) {
             globalNavigation.navigate('AuthScreen');
         } else {

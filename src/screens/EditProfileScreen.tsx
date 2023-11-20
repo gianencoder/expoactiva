@@ -71,7 +71,6 @@ export const EditProfileScreen = () => {
         setBornDay(new Date(numericYear, numericMonth - 1, numericDay))
     }, [date])
 
-
     const handleUpdateUser = (email: string, name: string, selected: [], bornDay: string) => {
 
         if (name == '' || name.length <= 0) {
@@ -82,7 +81,7 @@ export const EditProfileScreen = () => {
             return
         }
 
-        if (date.length <= 0 || date == null || date == '') {
+        if (date.length <= 0 && user?.birthDay == '' || user?.birthDay == null) {
             setBadDate(true)
             setTimeout(() => {
                 setBadDate(false)
@@ -236,9 +235,19 @@ export const EditProfileScreen = () => {
                             <TouchableOpacity
                                 key={i.value}
                                 onPress={() => handleSelect(i)}
-                                style={{ backgroundColor: selected.includes(i.label) ? 'transparent' : 'transparent', flexDirection: 'row', borderWidth: 0.5, height: 25, justifyContent: 'center', alignItems: 'center', gap: 3, borderColor: !selected.includes(i.label) ? colors.text : customColors.activeColor, paddingHorizontal: 5, borderRadius: 5 }}>
-                                <Text style={{ color: !selected.includes(i.label) ? colors.text : customColors.activeColor }} >{i.label}</Text>
-                                {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? colors.text : customColors.activeColor} />}
+                                style={{
+                                    backgroundColor: selected.includes(i.label) ? customColors.buttonColor : 'transparent'
+                                    , flexDirection: 'row'
+                                    , borderWidth: !selected.includes(i.label) ? 1 : 0
+                                    , height: 25
+                                    , justifyContent: 'center', alignItems: 'center'
+                                    , gap: 3
+                                    , borderColor: colors.text
+                                    , paddingHorizontal: 5
+                                    , borderRadius: 5
+                                }}>
+                                <Text style={{ color: !selected.includes(i.label) ? colors.text : 'white' }} >{i.label}</Text>
+                                {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? colors.text : 'white'} />}
                             </TouchableOpacity>
                         ))}
                     </View>
@@ -251,7 +260,7 @@ export const EditProfileScreen = () => {
                 <View style={editProfileTheme.div}>
                     <TouchableOpacity
                         disabled={loading}
-                        onPress={() => handleUpdateUser(user.email, name, selected, bornDay)}
+                        onPress={() => handleUpdateUser(user !== null ? user.email : '', name, selected, date)}
                         style={{
                             backgroundColor: customColors.buttonColor
                             , height: 40

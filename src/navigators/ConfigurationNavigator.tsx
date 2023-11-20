@@ -9,6 +9,7 @@ import { AboutExpoactivaScreen } from '../screens/AboutExpoactivaScreen';
 import { EmailScreen } from '../screens/EmailScreen';
 import { LoginFormScreen } from '../screens/LoginFormScreen';
 import { ValidateCodeScreen } from '../screens/ValidateCodeScreen';
+import { HomeScreen } from '../screens/HomeScreen';
 
 
 
@@ -32,6 +33,7 @@ export const ConfigurationNavigator = () => {
             <Stack.Screen name="PrivacyPolicyScreen2" component={PrivacyPolicyScreen} />
             <Stack.Screen name="AboutExpoactivaScreen" component={AboutExpoactivaScreen} />
             <Stack.Screen name="EmailScreen" component={EmailScreen} />
+            <Stack.Screen name="HomeScreen2" component={HomeScreen} />
 
 
         </Stack.Navigator>
