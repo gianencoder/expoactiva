@@ -89,6 +89,14 @@ export const EditProfileScreen = () => {
             return
         }
 
+        if (numericDay <= 0 || numericDay > 31 || numericMonth <= 0 || numericMonth > 12 || numericYear < 1900 || numericYear >= new Date().getFullYear() || bornDay >= new Date() || date.length !== 10) {
+            setBadDate(true)
+            setTimeout(() => {
+                setBadDate(false)
+            }, 2500)
+            return
+        }
+
         editUser(email, name, selected, user?.birthDay == '' || user?.birthDay == null ? bornDay : user.birthDay)
         if (updated) {
             setShowToast(true)

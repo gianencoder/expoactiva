@@ -193,9 +193,19 @@ export const LoginFormScreen = () => {
                                         <TouchableOpacity
                                             key={i.value}
                                             onPress={() => handleSelect(i)}
-                                            style={{ backgroundColor: selected.includes(i.label) ? 'transparent' : 'transparent', flexDirection: 'row', borderWidth: 0.5, height: 25, justifyContent: 'center', alignItems: 'center', gap: 3, borderColor: !selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor, paddingHorizontal: 5, borderRadius: 5 }}>
-                                            <Text style={{ color: !selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor }} >{i.label}</Text>
-                                            {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? theme.colors.text : theme.customColors.activeColor} />}
+                                            style={{
+                                                backgroundColor: selected.includes(i.label) ? theme.customColors.buttonColor : 'transparent'
+                                                , flexDirection: 'row'
+                                                , borderWidth: !selected.includes(i.label) ? 1 : 0
+                                                , height: 25
+                                                , justifyContent: 'center', alignItems: 'center'
+                                                , gap: 3
+                                                , borderColor: theme.colors.text
+                                                , paddingHorizontal: 5
+                                                , borderRadius: 5
+                                            }}>
+                                            <Text style={{ color: !selected.includes(i.label) ? theme.colors.text : 'white' }} >{i.label}</Text>
+                                            {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? theme.colors.text : 'white'} />}
                                         </TouchableOpacity>
                                     ))}
                                 </View>
