@@ -16,9 +16,6 @@ const iconImages = {
     'car-icon': require('./Icons/car.png'),
 };
 
-const EXPOACTIVA_MARKER_LONGITUD = -57.8942;
-const EXPOACTIVA_MARKER_LATITUD = -33.45128;
-
 const ExpoactivaMarker = ({ goToExpoactiva }) => {
     const featureCollection = {
         type: 'FeatureCollection',
@@ -31,7 +28,7 @@ const ExpoactivaMarker = ({ goToExpoactiva }) => {
             },
             geometry: {
                 type: 'Point',
-                coordinates: [EXPOACTIVA_MARKER_LONGITUD, EXPOACTIVA_MARKER_LATITUD],
+                coordinates: [-57.8942, -33.45128],
             },
         }]
     };
@@ -59,24 +56,36 @@ const ExpoactivaMarker = ({ goToExpoactiva }) => {
 };
 
 const CarMarker = ({ deviceCoordinates, onCarPress }) => {
-
     return (
-
-        <Mapbox.MarkerView coordinate={[deviceCoordinates[0],deviceCoordinates[1]]} id="car-marker" >
-                <Image style={{width: 55, height: 55}} source={require('./Icons/car.png')} />
+        <Mapbox.MarkerView coordinate={[deviceCoordinates[0], deviceCoordinates[1]]} id="car-marker">
+            <Image style={{ width: 55, height: 55 }} source={require('./Icons/car.png')} />
         </Mapbox.MarkerView>
-
     );
 };
 
 export const WhereIsMyCarMap = () => {
-
     const cameraRef = useRef(null);
     const [deviceCoordinates, setDeviceCoordinates] = useState(null);
+    const [distanceToCarMarker, setDistanceToCarMarker] = useState(null);
     const navigation = useNavigation();
     const initialDeviceCoordinatesRef = useRef(null);
     const initialCameraSetRef = useRef(false);
     const { carLocation, saveCarLocation, removeCarLocation } = useCarLocation();
+
+    const calcularDistancia = (lat1, lon1, lat2, lon2) => {
+        const radioTierra = 6371;
+        const dLat = (lat2 - lat1) * (Math.PI / 180);
+        const dLon = (lon2 - lon1) * (Math.PI / 180);
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * (Math.PI / 180)) *
+            Math.cos(lat2 * (Math.PI / 180)) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distancia = radioTierra * c;
+        return distancia;
+    };
 
     useEffect(() => {
         (async () => {
@@ -113,7 +122,6 @@ export const WhereIsMyCarMap = () => {
                         distanceInterval: 1,
                     },
                     (location) => {
-
                         if (!initialDeviceCoordinatesRef.current) {
                             initialDeviceCoordinatesRef.current = [
                                 location.coords.longitude,
@@ -125,7 +133,6 @@ export const WhereIsMyCarMap = () => {
                             location.coords.longitude,
                             location.coords.latitude,
                         ]);
-
                     }
                 );
             } catch (error) {
@@ -138,7 +145,6 @@ export const WhereIsMyCarMap = () => {
                 }
             };
         })();
-
     }, []);
 
     useEffect(() => {
@@ -157,27 +163,41 @@ export const WhereIsMyCarMap = () => {
         }
     }, [carLocation, cameraRef.current]);
 
+    useEffect(() => {
+        calcularDistanciaHastaCarMarker();
+    }, [deviceCoordinates, carLocation]);
+
+    const calcularDistanciaHastaCarMarker = () => {
+        if (deviceCoordinates && carLocation) {
+            const distancia = calcularDistancia(
+                deviceCoordinates[1],
+                deviceCoordinates[0],
+                carLocation.latitude,
+                carLocation.longitude
+            );
+            setDistanceToCarMarker(distancia * 1000); // Convertir de kilómetros a metros
+        }
+    };
 
     const goToCarLocation = () => {
         if (carLocation) {
-          cameraRef.current.setCamera({
-            centerCoordinate: [carLocation.longitude, carLocation.latitude],
-            zoomLevel: 18,
-            animationDuration: 500,
-          });
+            cameraRef.current.setCamera({
+                centerCoordinate: [carLocation.longitude, carLocation.latitude],
+                zoomLevel: 18,
+                animationDuration: 500,
+            });
         }
     };
 
     const goToExpoactiva = () => {
         cameraRef.current.setCamera({
-            centerCoordinate: [EXPOACTIVA_MARKER_LONGITUD, EXPOACTIVA_MARKER_LATITUD],
+            centerCoordinate: [-57.8942, -33.45128],
             zoomLevel: 15.5,
             animationDuration: 500,
         });
     };
 
     const centerCamera = () => {
-        console.log('deviceCoordinates', deviceCoordinates)
         if (!deviceCoordinates) return;
         cameraRef.current.setCamera({
             centerCoordinate: deviceCoordinates,
@@ -201,7 +221,7 @@ export const WhereIsMyCarMap = () => {
                     {
                         text: "Eliminar",
                         onPress: async () => {
-                            removeCarLocation(); // Usar removeCarLocation del contexto
+                            removeCarLocation();
                         },
                         style: "destructive"
                     }
@@ -212,7 +232,7 @@ export const WhereIsMyCarMap = () => {
                 longitude: deviceCoordinates[0],
                 latitude: deviceCoordinates[1]
             };
-            saveCarLocation(coordinatesToSave); // Usar saveCarLocation del contexto
+            saveCarLocation(coordinatesToSave);
         }
     };
 
@@ -237,11 +257,11 @@ export const WhereIsMyCarMap = () => {
                     maxZoomLevel={20}
                 />
                 <Mapbox.Images images={iconImages} />
-                {carLocation &&
-                    <CarMarker deviceCoordinates={[carLocation.longitude, carLocation.latitude]} onCarPress={goToCarLocation} />
-                }
+                {carLocation && <CarMarker deviceCoordinates={[carLocation.longitude, carLocation.latitude]} onCarPress={goToCarLocation} />}
                 <ExpoactivaMarker goToExpoactiva={goToExpoactiva} />
             </Mapbox.MapView>
+
+            {/* Botones y elementos adicionales */}
             <TouchableOpacity
                 onPress={goToCarLocation}
                 disabled={!carLocation}
@@ -260,7 +280,7 @@ export const WhereIsMyCarMap = () => {
                     }
                 ]}
             >
-                <MaterialCommunityIcons name="car" size={24} color={carLocation ? 'darkgreen' : 'gray'}/>
+                <MaterialCommunityIcons name="car" size={24} color={carLocation ? 'darkgreen' : 'gray'} />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={centerCamera}
@@ -304,6 +324,12 @@ export const WhereIsMyCarMap = () => {
                     {carLocation ? <Text style={{ fontSize: 17, fontWeight: '500', color: 'red' }}>Eliminar marca</Text> : <Text style={{ fontSize: 17, fontWeight: '500', color: 'darkgreen' }}>Marcar mi vehículo</Text>}
                 </View>
             </TouchableOpacity>
+
+            {distanceToCarMarker !== null && carLocation && (
+                <View style={{ position: 'absolute', top: 20, left: 20 }}>
+                    <Text>Distancia al vehículo: {distanceToCarMarker.toFixed(1)} metros</Text>
+                </View>
+            )}
         </View>
     );
-}
+};
