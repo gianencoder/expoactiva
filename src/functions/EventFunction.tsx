@@ -66,10 +66,8 @@ export const EventFunction = () => {
     const handleSetFetching = () => {
         setFetching(true)
     }
-
     const { expoPushToken, verifyAndRequestPermissions } = usePushNotifications();
     const notificationToken = expoPushToken?.data;
-    console.log(notificationToken)
 
     const checkNotificationPermissions = async () => {
         const hasPermissions = await verifyAndRequestPermissions();

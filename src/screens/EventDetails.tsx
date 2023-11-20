@@ -97,12 +97,12 @@ export const EventDetails = () => {
     const formattedStartTime = dateFormmater(startTime);
     const formattedEndTime = dateFormmater(endTime);
 
-
     return (
-
         <View style={{ flex: 1 }}>
-            <Image style={{ flex: 1 }} source={{ uri: image }} />
-
+            {image !== ''
+                ? <Image style={{ flex: 1 }} source={{ uri: image }} />
+                : <Image style={{ flex: 1 }} source={require('../assets/images/predio.expoactiva.jpg')} />
+            }
 
             <BottomSheet
                 animatedIndex={animatedIndex}
