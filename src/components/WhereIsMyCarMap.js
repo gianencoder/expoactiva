@@ -327,7 +327,10 @@ export const WhereIsMyCarMap = () => {
 
             {distanceToCarMarker !== null && carLocation && (
                 <View style={{ position: 'absolute', top: 20, left: 20 }}>
-                    <Text>Distancia al vehículo: {distanceToCarMarker.toFixed(1)} metros</Text>
+                    {distanceToCarMarker.toFixed(1) < 5.0
+                        ? <Text>Te encuentras muy cerca de tu vehículo</Text>
+                        : <Text>Distancia al vehículo: {distanceToCarMarker.toFixed(1)} metros</Text>
+                    }
                 </View>
             )}
         </View>
