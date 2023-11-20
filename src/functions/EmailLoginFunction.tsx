@@ -334,7 +334,11 @@ export const EmailLoginFunction = () => {
                     await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user))
                     await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token))
                     setLoading(false)
-                    navigation.navigate('HomeScreen2')
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'ConfigurationScreen' }],
+                    });
+                    navigation.navigate('HomeScreen')
 
                 });
             } else if (response.status === 401) {
