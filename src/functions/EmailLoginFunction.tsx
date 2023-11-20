@@ -212,6 +212,10 @@ export const EmailLoginFunction = () => {
 
             if (response.status === 200) {
                 resendCode(email);
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'ConfigurationScreen' }],
+                });
                 navigation.navigate('CodeValidation', { email });
             }
         } catch (error) {
@@ -291,12 +295,20 @@ export const EmailLoginFunction = () => {
             });
             if (request.status === 201) {
                 setLoading(false);
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'ConfigurationScreen' }],
+                });
                 navigation.navigate('CodeValidation', {
                     email: email
                 });
             }
             else if (request.status === 200) {
                 setLoading(false);
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'ConfigurationScreen' }],
+                });
                 navigation.navigate('CodeValidation', {
                     email: email
                 });
