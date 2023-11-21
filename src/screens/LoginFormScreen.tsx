@@ -4,7 +4,6 @@ import { View, Text, TextInput, TouchableOpacity, Keyboard, ActivityIndicator, P
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
 import { authStyle } from '../theme/AuthTheme'
-import { MultiSelectComponent } from '../components/MultiSelectComponent'
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native'
