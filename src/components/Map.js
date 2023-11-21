@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useMemo, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, Animated, Easing, Platform, Dimensions, Alert, Linking, AppState } from 'react-native';
 import Mapbox from '@rnmapbox/maps';
 import useNavigationApi from '../hooks/useNavigationApi.js';
@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import { capitalize } from '../util/utils.tsx';
 import { ThemeContext } from '../context/themeContext/ThemeContext.tsx';
+
 
 const MAPBOX_ACCESS_TOKEN = Constants.expoConfig.extra.mapbox;
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
@@ -161,7 +162,7 @@ const Map = ({ showModal }) => {
             console.log(error);
         }
     }
-    
+
 
     useEffect(() => {
         getExhibitors();

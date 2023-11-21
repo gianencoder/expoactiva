@@ -1,10 +1,13 @@
-import React, { memo, useCallback } from "react";
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import React, { memo, useCallback, useContext } from "react";
+import { StyleSheet, View, Text, Pressable, Image } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 import { SeparatorComponent } from "./SeparatorComponent";
+import { ThemeContext } from "../context/themeContext/ThemeContext";
+
 
 function ExhibitorItem({ item, selectExhibitor, toggleNavigationMode, toggleFollowUserMode, navigationMode }) {
-  const { name, description } = item;
+  const { name, description, logo } = item;
+  const { theme } = useContext(ThemeContext)
 
   const onSelect = useCallback(() => {
     selectExhibitor(item);
@@ -13,8 +16,8 @@ function ExhibitorItem({ item, selectExhibitor, toggleNavigationMode, toggleFoll
   const onIconPressed = useCallback(() => {
     selectExhibitor(item);
     toggleNavigationMode();
-    navigationMode &&  toggleFollowUserMode();
-  }, [item, selectExhibitor,navigationMode, toggleFollowUserMode, toggleNavigationMode]);
+    navigationMode && toggleFollowUserMode();
+  }, [item, selectExhibitor, navigationMode, toggleFollowUserMode, toggleNavigationMode]);
 
   const pressedStyle = (pressed) => [
     styles.exhibitor,
@@ -26,15 +29,15 @@ function ExhibitorItem({ item, selectExhibitor, toggleNavigationMode, toggleFoll
   ];
 
   return (
-    <View>
+    <View style={{ backgroundColor: theme.colors.background }}>
       <Pressable onPress={onSelect} style={({ pressed }) => pressedStyle(pressed)}>
         <View style={styles.itemContainer}>
-          <Text style={styles.title}>{name}</Text>
-          <Text style={{color:'gray', fontSize: 15}}>{description}</Text>
+          <Image borderRadius={10} height={60} width={60} source={{ uri: logo }} />
+          <Text style={{ ...styles.title, color: theme.colors.text }}>{name}</Text>
         </View>
         <View style={styles.iconContainer}>
-          <Pressable onPress={onIconPressed} style={iconPressedStyle} hitSlop={{top:20,right:20,bottom:20,left:20}}>
-            <MaterialIcons name="near-me" size={35} color="seagreen" />
+          <Pressable onPress={onIconPressed} style={iconPressedStyle} hitSlop={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <MaterialIcons name="near-me" size={35} color={theme.customColors.activeColor} />
           </Pressable>
         </View>
       </Pressable>
@@ -64,6 +67,9 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     flex: 1,
+    flexDirection: 'row'
+    , gap: 25
+    , alignItems: 'center'
   },
   title: {
     fontWeight: '600',
