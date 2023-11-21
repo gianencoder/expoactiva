@@ -260,11 +260,6 @@ export const EditProfileScreen = () => {
                         ))}
                     </View>
                 </View>
-                {/* <MultiSelectComponent
-                    onChange={item => {
-                        setSelected(item)
-                    }}
-                    data={data} selected={selected} /> */}
                 <View style={editProfileTheme.div}>
                     <TouchableOpacity
                         disabled={loading}

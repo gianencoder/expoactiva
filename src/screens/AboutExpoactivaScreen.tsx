@@ -8,7 +8,7 @@ export const AboutExpoactivaScreen = () => {
     return (
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
 
-            <ImageBackground style={{ flex: 1 }} source={require('../assets/images/Expoactiva2.jpg')}></ImageBackground>
+            <ImageBackground style={{ flex: 1 }} source={require('../assets/images/predio.expoactiva.jpg')}></ImageBackground>
 
             <ScrollView style={{ flex: 2, top: 30, }}>
                 <View style={{ padding: 15 }}>
