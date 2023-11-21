@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { styles } from './src/theme/GlobalTheme';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { LogBox, Platform, StatusBar } from 'react-native';
 import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 import { MyColors } from './src/theme/ColorsTheme';
@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MainScreen } from './src/screens/MainScreen';
 import { CarLocationProvider } from './src/context/CarLocationContext/CarLocationContext';
+import { ThemeContext } from './src/context/themeContext/ThemeContext';
 
 export default function App() {
 
@@ -33,6 +34,7 @@ export default function App() {
 
   const [showInitScreen, setShowInitScreen] = useState(true);
   const [splashScreen, setSplashScreen] = useState(true)
+  const { theme } = React.useContext(ThemeContext);
 
   useEffect(() => {
 
@@ -62,27 +64,29 @@ export default function App() {
   }
 
   return (
+    <ThemeProvider>
     <AuthProvider>
       <CarLocationProvider>
       <FavoritesProvider>
-        <ThemeProvider>
+        
           <PaymentProvider>
             <RedeemTicketProvider>
               <NavigationContainer>
-                <SafeAreaView style={{ ...styles.container }}>
+                <SafeAreaProvider style={{ flex: 1, backgroundColor: theme && theme.colors ? theme.colors.background : MyColors.primary }}>
                   <StatusBar
                     barStyle={'light-content'}
                     backgroundColor={MyColors.primary}
                   />
                   <BottomTabNavigator />
-                </SafeAreaView>
+                </SafeAreaProvider>
               </NavigationContainer >
               <LocationDaemon />
             </RedeemTicketProvider>
           </PaymentProvider>
-        </ThemeProvider >
+
       </FavoritesProvider>
       </CarLocationProvider>
     </AuthProvider>
+    </ThemeProvider>
   );
 }

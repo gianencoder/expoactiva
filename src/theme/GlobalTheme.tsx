@@ -4,7 +4,7 @@ import { MyColors } from './ColorsTheme'
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: MyColors.primary,
+        backgroundColor : MyColors.white,
     },
 
     homeContainer: {
