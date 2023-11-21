@@ -156,7 +156,7 @@ export const EditProfileScreen = () => {
 
     return (
 
-        <ScrollView onScroll={handleScroll} style={{ backgroundColor: colors.background }}>
+        <ScrollView onScrollBeginDrag={handleScroll} style={{ backgroundColor: colors.background }}>
             <View style={{ ...editProfileTheme.container, backgroundColor: colors.background, gap: 20 }}>
                 <View style={{ width: '100%', height: 100, justifyContent: 'center' }}>
                     <Text style={{ ...editProfileTheme.title, color: colors.text }}>Editar perfil</Text>

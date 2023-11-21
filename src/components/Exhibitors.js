@@ -111,7 +111,7 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
             data={filteredExpositores}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
-            onScroll={handleScroll}
+            onScrollBeginDrag={handleScroll}
             estimatedItemSize={200}
             keyboardShouldPersistTaps="always"
           />

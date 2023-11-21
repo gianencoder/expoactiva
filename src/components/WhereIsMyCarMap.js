@@ -118,8 +118,8 @@ export const WhereIsMyCarMap = () => {
                 locationSubscription = await Location.watchPositionAsync(
                     {
                         accuracy: Location.Accuracy.BestForNavigation,
-                        timeInterval: 2000,
-                        distanceInterval: 1,
+                        timeInterval: 1000,
+                        distanceInterval: 2,
                     },
                     (location) => {
                         if (!initialDeviceCoordinatesRef.current) {
@@ -248,7 +248,7 @@ export const WhereIsMyCarMap = () => {
                 styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg'
                 scaleBarEnabled={false}
             >
-                <Mapbox.UserLocation minDisplacement={0.5} visible={true} renderMode={'normal'} showsUserHeadingIndicator={true} />
+                <Mapbox.UserLocation minDisplacement={0.2} visible={true} renderMode={'normal'} showsUserHeadingIndicator={true} />
                 <Mapbox.Camera
                     ref={cameraRef}
                     centerCoordinate={carLocation ? [carLocation.longitude, carLocation.latitude] : initialDeviceCoordinatesRef.current}
@@ -326,10 +326,10 @@ export const WhereIsMyCarMap = () => {
             </TouchableOpacity>
 
             {distanceToCarMarker !== null && carLocation && (
-                <View style={{ position: 'absolute', top: 20, left: 20 }}>
+                <View style={ [styles.searchButton, { top: 20, left: 20, backgroundColor: 'white', padding: 8, borderRadius:50, shadowColor: 'darkgray'}] }>
                     {distanceToCarMarker.toFixed(1) < 5.0
-                        ? <Text>Te encuentras muy cerca de tu vehículo</Text>
-                        : <Text>Distancia al vehículo: {distanceToCarMarker.toFixed(1)} metros</Text>
+                        ? <Text style={{fontSize: 14, fontWeight: '400', color: '#00624e'}}>Te encuentras muy cerca de tu vehículo</Text>
+                        : <Text style={{fontSize: 14, fontWeight: '400', color: '#00624e'}}>{distanceToCarMarker.toFixed(1)} metros hasta tu vehículo</Text>
                     }
                 </View>
             )}
