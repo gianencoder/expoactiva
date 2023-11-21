@@ -9,7 +9,6 @@ import {
   Dimensions
 } from 'react-native';
 import ExhibitorItem from './ExhibitorItem.js';
-// import SearchBar from './SearchBar.js';
 import SearchBar from '../components/SearchBarComponent';
 import { AntDesign } from '@expo/vector-icons';
 import { FlashList } from '@shopify/flash-list';
@@ -45,6 +44,26 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
 
   useEffect(() => {
     getExhibitors();
@@ -91,6 +110,12 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
     alignItems: 'center',
   };
 
+  const separatorStyle = {
+    height: 1,
+    backgroundColor: theme.currentTheme === 'light' ? 'lightgray' : '#383838',
+    marginTop: 5
+  };
+
   return (
     <View style={{ ...styles.container, backgroundColor: theme.colors.background }}>
       <View style={styles.header}>
@@ -105,7 +130,7 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
           <AntDesign name="close" size={22} color={theme.customColors.activeColor} />
         </TouchableOpacity>
       </View>
-      <View style={styles.separator} />
+      <View style={separatorStyle} />
       <View style={styles.listContainer}>
         {loading ? (
           <View style={styles.centeredView}>
@@ -116,7 +141,7 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
             data={filteredExpositores}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
-            onScroll={handleScroll}
+            onScrollBeginDrag={handleScroll}
             estimatedItemSize={200}
             keyboardShouldPersistTaps="always"
           />
@@ -138,6 +163,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     paddingTop: 15,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   header: {
     flexDirection: 'row',
@@ -147,12 +174,8 @@ const styles = StyleSheet.create({
 
   },
   closeButton: {
-    marginRight: 15,
+    marginRight: 10,
     marginBottom: 15,
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#E0E0E0',
   },
   listContainer: {
     minHeight: 2,

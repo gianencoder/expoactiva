@@ -74,7 +74,7 @@ export const ValidateCodeScreen = () => {
             {
                 waiting
                     ? <View style={{ flex: 1, backgroundColor: colors.background, justifyContent: 'center' }}><ActivityIndicator size={'large'} color={customColors.activeColor} /></View>
-                    : <ScrollView onScroll={Keyboard.dismiss} style={{ backgroundColor: colors.background }}>
+                    : <ScrollView onScrollBeginDrag={Keyboard.dismiss} style={{ backgroundColor: colors.background }}>
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <KeyboardAvoidingView
                                 behavior={Platform.OS === "ios" ? "height" : 'null'}

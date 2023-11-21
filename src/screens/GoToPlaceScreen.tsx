@@ -20,7 +20,7 @@ export const GoToPlaceScreen = () => {
       <View style={{
         width: '80%', backgroundColor: theme.colors.background, height: 350, borderRadius: 20, shadowColor: theme.colors.text,
         shadowOffset: { width: 0, height: 12 },
-        shadowOpacity: 0.15,
+        shadowOpacity: 0.1,
         shadowRadius: 16.00,
         elevation: 24,
         justifyContent: 'center'

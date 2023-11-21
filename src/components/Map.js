@@ -28,6 +28,7 @@ const iconImages = {
 
 const ExhibitorMarker = React.memo(({ exhibitor, selectedExhibitor, selectExhibitor, navigationMode, zoomLevel }) => {
     const isSelected = selectedExhibitor && selectedExhibitor.id === exhibitor.id;
+    const { theme } = React.useContext(ThemeContext);
 
     // Si navigationMode es true y el marcador no está seleccionado, no renderizamos nada.
     if (navigationMode === true && !isSelected) {
@@ -74,6 +75,7 @@ const ExhibitorMarker = React.memo(({ exhibitor, selectedExhibitor, selectExhibi
                     textOffset: [0, 1.7],
                     textSize: isSelected ? 14 : 13,
                     textOpacity: selectedExhibitor ? (isSelected ? 1 : 0.5) : 1,
+                    textColor: theme.colors.text,
                 }}
             />
         </Mapbox.ShapeSource>
@@ -81,6 +83,7 @@ const ExhibitorMarker = React.memo(({ exhibitor, selectedExhibitor, selectExhibi
 });
 
 const ExpoactivaMarker = React.memo(({ goToExpoactiva }) => {
+    const { theme } = React.useContext(ThemeContext);
     const featureCollection = {
         type: 'FeatureCollection',
         features: [{
@@ -113,6 +116,7 @@ const ExpoactivaMarker = React.memo(({ goToExpoactiva }) => {
                     textAnchor: 'top',
                     textOffset: [0, 1.7],
                     textSize: 14,
+                    textColor: theme.colors.text,
                 }}
             />
         </Mapbox.ShapeSource>
@@ -138,6 +142,7 @@ const Map = ({ showModal }) => {
     const [disableNavigation, setDisableNavigation] = useState(false);
     const { navigation } = NavigationHook()
     const [exhibitors, setExhibitors] = useState([]);
+    const { theme } = React.useContext(ThemeContext);
 
     const getExhibitors = async () => {
         try {
@@ -575,8 +580,8 @@ const Map = ({ showModal }) => {
                     outputRange: followUserMode || isSearchMode ? [1, 1] : [1, 0.43]
                 })
             }}>
-                <Mapbox.MapView pitchEnabled={false} attributionEnabled={false} logoEnabled={false} ref={mapRef} style={{ flex: 1 }} onPress={!followUserMode && onMapPress} styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' onCameraChanged={handleRegionChange} scaleBarEnabled={false}>
-                    <Mapbox.UserLocation minDisplacement={0.5} visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} renderMode={Platform.OS === 'android' && followUserMode ? 'native' : 'normal'} showsUserHeadingIndicator={true} />
+                <Mapbox.MapView pitchEnabled={false} attributionEnabled={false} logoEnabled={false} ref={mapRef} style={{ flex: 1 }} onPress={!followUserMode && onMapPress} styleURL={theme.currentTheme ==='light' ? 'mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' : 'mapbox://styles/lazaroborghi/clp7m30oh014j01nsaju4fd7f'} onCameraChanged={handleRegionChange} scaleBarEnabled={false}>
+                    <Mapbox.UserLocation minDisplacement={0.2} visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} renderMode={Platform.OS === 'android' && followUserMode ? 'native' : 'normal'} showsUserHeadingIndicator={true} />
                     <Mapbox.Camera
                         ref={cameraRef}
                         centerCoordinate={followUserMode && deviceCoordinates ? [deviceCoordinates[0], deviceCoordinates[1]] : [EXPOACTIVA_MARKER_LONGITUD, EXPOACTIVA_MARKER_LATITUD]}
@@ -616,11 +621,12 @@ const Map = ({ showModal }) => {
                                     padding: selectedExhibitor ? 5 : 15,
                                     width: selectedExhibitor ? 100 : 150,
                                     opacity: selectedExhibitor ? 0.60 : 0.85,
+                                    backgroundColor: theme.currentTheme === 'dark' ? '#1E1E1E' : '#fff',
                                 }
                             ]}
                         >
-                            <AntDesign name="search1" size={15} style={styles.searchIcon} />
-                            <Text style={[styles.searchText, { fontSize: selectedExhibitor ? 14 : 16 }]}>
+                            <AntDesign name="search1" size={15} style={[styles.searchIcon, {color: theme.customColors.activeColor}]} />
+                            <Text style={[styles.searchText, { fontSize: selectedExhibitor ? 14 : 16, color: theme.customColors.activeColor } ]}>
                                 Buscar
                             </Text>
                         </TouchableOpacity>
@@ -639,10 +645,11 @@ const Map = ({ showModal }) => {
                                         opacity: 0.85,
                                         justifyContent: 'center',
                                         alignItems: 'center',
+                                        backgroundColor: theme.currentTheme === 'dark' ? '#1E1E1E' : '#fff',
                                     }
                                 ]}
                             >
-                                <MaterialCommunityIcons name="crosshairs-gps" color="darkgreen" size={24} />
+                                <MaterialCommunityIcons name="crosshairs-gps" color={theme.customColors.activeColor} size={24} />
                             </TouchableOpacity>
                         )}
                     </>

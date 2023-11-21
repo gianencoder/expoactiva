@@ -2,11 +2,13 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Animated, Image, ScrollView, ActivityIndicator, Dimensions } from 'react-native';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import Exhibitors from './Exhibitors';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
+import { SeparatorComponent } from './SeparatorComponent';
 
 const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) => {
     const [localLoading, setLocalLoading] = React.useState(true);
     const [distanceData, setDistanceData] = React.useState({ value: 0, unit: 'Metros' });
-    const { theme } = useContext(ThemeContext)
+    const { theme } = React.useContext(ThemeContext)
 
     React.useEffect(() => {
         setLocalLoading(true);
@@ -20,7 +22,7 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
     return (
         <>
             {localLoading && !followUserMode ? (
-                <ActivityIndicator size="small" color="darkgreen" style={{ paddingHorizontal: 10 }} />
+                <ActivityIndicator size="small" color={theme.customColors.activeColor} style={{ paddingHorizontal: 10 }} />
             ) : (
                 followUserMode ? (
                     <>
@@ -76,6 +78,7 @@ const BottomSheet = ({
 }) => {
 
     const timeoutRef = React.useRef();
+    const { theme } = React.useContext(ThemeContext)
 
     React.useEffect(() => {
         const { value } = getFormattedDistance();
@@ -120,7 +123,7 @@ const BottomSheet = ({
                 left: 0,
                 right: 0,
                 zIndex: 1,
-                backgroundColor: 'white',
+                backgroundColor: theme.colors.background,
                 borderTopRightRadius: 20,
                 borderTopLeftRadius: 20,
                 shadowOpacity: 0.2,
@@ -142,7 +145,7 @@ const BottomSheet = ({
                 left: 0,
                 right: 0,
                 zIndex: 1,
-                backgroundColor: 'white',
+                backgroundColor: theme.colors.background,
                 shadowColor: '#000',
                 shadowOffset: {
                     width: 0,
@@ -159,13 +162,13 @@ const BottomSheet = ({
             {selectedExhibitor && (
                 <>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10 }}>
-                        <Text style={{ fontSize: 25, fontWeight: 'bold', textAlign: 'left', paddingLeft: 20, textTransform: 'capitalize' }}>{selectedExhibitor && selectedExhibitor.name}</Text>
+                        <Text style={{ fontSize: 25, fontWeight: 'bold', textAlign: 'left', paddingLeft: 20, textTransform: 'capitalize', color: theme.colors.text }}>{selectedExhibitor && selectedExhibitor.name}</Text>
                         <TouchableOpacity style={{ paddingRight: 20 }} onPress={onMapPress} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-                            <AntDesign name="close" size={22} color="darkgreen" />
+                            <AntDesign name="close" size={22} color={theme.customColors.activeColor} />
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{ height: 1, backgroundColor: '#E0E0E0', marginLeft: 20, marginRight: 20 }} />
+                    <SeparatorComponent />
 
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start', paddingHorizontal: 15, gap: 15, marginTop: 20 }}>
                         {selectedExhibitor.image ? (
@@ -179,7 +182,7 @@ const BottomSheet = ({
                                 borderWidth: 0.15,
                                 borderColor: 'darkgreen'
                             }}>
-                                {isImageLoading && <ActivityIndicator size="auto" color="darkgreen" style={{ position: 'absolute' }} />}
+                                {isImageLoading && <ActivityIndicator size="auto" color={theme.customColors.activeColor} style={{ position: 'absolute' }} />}
                                 <Image
                                     source={{ uri: selectedExhibitor.image }}
                                     style={{
@@ -200,7 +203,7 @@ const BottomSheet = ({
                                 maxHeight: Dimensions.get("screen").height * (navigationMode && Dimensions.get("screen").height < 840 ? 0.16 : 0.22),
                             }}
                         >
-                            <Text style={{ fontSize: 17 }}>{selectedExhibitor.description}</Text>
+                            <Text style={{ fontSize: 17, color: theme.colors.text }}>{selectedExhibitor.description}</Text>
                         </ScrollView>
                     </View>
                 </>
@@ -219,20 +222,20 @@ const BottomSheet = ({
                         }
                         <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row', paddingBottom: 10, gap: 15 }}>
                             <TouchableOpacity onPress={toggleFollowUserMode} style={buttonStyle}>
-                                <MaterialCommunityIcons name="navigation" size={24} color="darkgreen" />
-                                <Text style={{ fontSize: 15, color: 'darkgreen', fontWeight: '500' }}>Iniciar</Text>
+                                <MaterialCommunityIcons name="navigation" size={24} color={theme.customColors.activeColor} />
+                                <Text style={{ fontSize: 15, color: theme.customColors.activeColor, fontWeight: '500' }}>Iniciar</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={toggleNavigationMode} style={buttonStyle}>
-                                <MaterialCommunityIcons name="cancel" size={24} color="darkgreen" />
-                                <Text style={{ fontSize: 15, color: 'darkgreen', fontWeight: '500' }}>Cancelar</Text>
+                                <MaterialCommunityIcons name="cancel" size={24} color={theme.customColors.activeColor} />
+                                <Text style={{ fontSize: 15, color: theme.customColors.activeColor, fontWeight: '500' }}>Cancelar</Text>
                             </TouchableOpacity>
                         </View>
                     </>
                 ) : (
                     <View style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 10, paddingTop: 10 }}>
                         <TouchableOpacity onPress={toggleNavigationMode} style={buttonStyle}>
-                            <MaterialCommunityIcons name="arrow-right-top" size={24} color="darkgreen" />
-                            <Text style={{ fontSize: 16, color: 'darkgreen', fontWeight: '500' }}>Como llegar</Text>
+                            <MaterialCommunityIcons name="arrow-right-top" size={24} color={theme.customColors.activeColor} />
+                            <Text style={{ fontSize: 16, color: theme.customColors.activeColor, fontWeight: '500' }}>Como llegar</Text>
                         </TouchableOpacity>
                     </View>
                 )
@@ -247,7 +250,7 @@ const BottomSheet = ({
         padding: 15,
         borderRadius: 25,
         gap: 5,
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.background,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -272,7 +275,7 @@ const BottomSheet = ({
                         left: 0,
                         right: 0,
                         zIndex: 1,
-                        backgroundColor: 'white',
+                        backgroundColor: theme.colors.background,
                         borderTopRightRadius: 20,
                         borderTopLeftRadius: 20,
                         shadowOpacity: 0.2,
@@ -288,7 +291,7 @@ const BottomSheet = ({
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Distance getFormattedDistance={getFormattedDistance} followUserMode={followUserMode} loading={loading} />
                             <TouchableOpacity onPress={adjustCamera} style={{
-                                padding: 10, borderRadius: 25, shadowColor: '#000', backgroundColor: 'white',
+                                padding: 10, borderRadius: 25, shadowColor: '#000', backgroundColor: theme.colors.background,
                                 shadowOffset: {
                                     width: 0,
                                     height: 2,
@@ -297,9 +300,9 @@ const BottomSheet = ({
                                 elevation: 5,
                             }}>
                                 {cameraAdjusted ? (
-                                    <MaterialCommunityIcons name="crosshairs-gps" size={28} color="darkgreen" />
+                                    <MaterialCommunityIcons name="crosshairs-gps" size={28} color={theme.customColors.activeColor} />
                                 ) : (
-                                    <MaterialCommunityIcons name="navigation-variant" size={28} color="darkgreen" />
+                                    <MaterialCommunityIcons name="navigation-variant" size={28} color={theme.customColors.activeColor} />
                                 )}
 
 

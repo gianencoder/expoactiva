@@ -54,12 +54,12 @@ export const authStyle = StyleSheet.create({
         position: 'absolute',
         top: SCREEN_HEIGHT,
         borderRadius: 30,
-        shadowColor: "#000",
+        shadowColor: "black",
         shadowOffset: {
             width: 0,
             height: 10,
         },
-        shadowOpacity: 0.3,
+        shadowOpacity: 0.15,
         shadowRadius: 13.97,
 
         elevation: 21,

@@ -118,7 +118,7 @@ export const LoginFormScreen = () => {
 
     return (
 
-        <ScrollView onScroll={closeKeyboard} style={{ backgroundColor: theme.colors.background }}>
+        <ScrollView onScrollBeginDrag={closeKeyboard} style={{ backgroundColor: theme.colors.background }}>
             <TouchableWithoutFeedback onPress={closeKeyboard} style={{ backgroundColor: theme.colors.background }}>
                 <KeyboardAvoidingView
                     behavior={"height"}
