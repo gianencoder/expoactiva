@@ -59,7 +59,7 @@ export const authStyle = StyleSheet.create({
             width: 0,
             height: 10,
         },
-        shadowOpacity: 0.15,
+        shadowOpacity: 0.2,
         shadowRadius: 13.97,
 
         elevation: 21,

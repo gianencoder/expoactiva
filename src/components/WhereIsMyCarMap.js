@@ -1,12 +1,13 @@
 import Mapbox from '@rnmapbox/maps';
 import Constants from 'expo-constants';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 import * as Location from 'expo-location';
 import { Alert, Linking, TouchableOpacity, View, Text, Image } from 'react-native';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styles from './MapStyles';
 import { useNavigation } from '@react-navigation/native';
 import { useCarLocation } from '../context/CarLocationContext/CarLocationContext';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 const MAPBOX_ACCESS_TOKEN = Constants.expoConfig.extra.mapbox;
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
@@ -17,6 +18,7 @@ const iconImages = {
 };
 
 const ExpoactivaMarker = ({ goToExpoactiva }) => {
+    const { theme } = useContext(ThemeContext);
     const featureCollection = {
         type: 'FeatureCollection',
         features: [{
@@ -49,6 +51,7 @@ const ExpoactivaMarker = ({ goToExpoactiva }) => {
                     textAnchor: 'top',
                     textOffset: [0, 1.7],
                     textSize: 14,
+                    textColor: theme.currentTheme === 'light' ? 'black' : 'white',
                 }}
             />
         </Mapbox.ShapeSource>
@@ -71,6 +74,7 @@ export const WhereIsMyCarMap = () => {
     const initialDeviceCoordinatesRef = useRef(null);
     const initialCameraSetRef = useRef(false);
     const { carLocation, saveCarLocation, removeCarLocation } = useCarLocation();
+    const { theme } = useContext(ThemeContext);
 
     const calcularDistancia = (lat1, lon1, lat2, lon2) => {
         const radioTierra = 6371;
@@ -245,7 +249,7 @@ export const WhereIsMyCarMap = () => {
                 pitchEnabled={false}
                 attributionEnabled={false}
                 logoEnabled={false}
-                styleURL='mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg'
+                styleURL={theme.currentTheme ==='light' ? 'mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' : 'mapbox://styles/lazaroborghi/clp7m30oh014j01nsaju4fd7f'}
                 scaleBarEnabled={false}
             >
                 <Mapbox.UserLocation minDisplacement={0.2} visible={true} renderMode={'normal'} showsUserHeadingIndicator={true} />
@@ -277,10 +281,11 @@ export const WhereIsMyCarMap = () => {
                         opacity: 0.85,
                         justifyContent: 'center',
                         alignItems: 'center',
+                        backgroundColor: theme.currentTheme === 'dark' ? '#1E1E1E' : '#fff',
                     }
                 ]}
             >
-                <MaterialCommunityIcons name="car" size={24} color={carLocation ? 'darkgreen' : 'gray'} />
+                <MaterialCommunityIcons name="car" size={24} color={carLocation ? theme.customColors.activeColor : 'gray'} />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={centerCamera}
@@ -296,10 +301,11 @@ export const WhereIsMyCarMap = () => {
                         opacity: 0.85,
                         justifyContent: 'center',
                         alignItems: 'center',
+                        backgroundColor: theme.currentTheme === 'dark' ? '#1E1E1E' : '#fff',
                     }
                 ]}
             >
-                <MaterialCommunityIcons name="crosshairs-gps" color="darkgreen" size={24} />
+                <MaterialCommunityIcons name="crosshairs-gps" color={theme.customColors.activeColor} size={24} />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={toggleCarMarker}
@@ -312,6 +318,7 @@ export const WhereIsMyCarMap = () => {
                         padding: 15,
                         width: 200,
                         opacity: 0.85,
+                        backgroundColor: theme.currentTheme === 'dark' ? '#1E1E1E' : '#fff',
                     }
                 ]}
             >
@@ -319,17 +326,17 @@ export const WhereIsMyCarMap = () => {
                     <MaterialCommunityIcons
                         name={carLocation ? "car-off" : "car"}
                         size={24}
-                        color={carLocation ? "red" : "darkgreen"}
+                        color={carLocation ? "#F54141" : theme.customColors.activeColor}
                     />
-                    {carLocation ? <Text style={{ fontSize: 17, fontWeight: '500', color: 'red' }}>Eliminar marca</Text> : <Text style={{ fontSize: 17, fontWeight: '500', color: 'darkgreen' }}>Marcar mi vehículo</Text>}
+                    {carLocation ? <Text style={{ fontSize: 17, fontWeight: '500', color: '#F54141' }}>Eliminar marca</Text> : <Text style={{ fontSize: 17, fontWeight: '500', color: theme.customColors.activeColor }}>Marcar mi vehículo</Text>}
                 </View>
             </TouchableOpacity>
 
             {distanceToCarMarker !== null && carLocation && (
-                <View style={ [styles.searchButton, { top: 20, left: 20, backgroundColor: 'white', padding: 8, borderRadius:50, shadowColor: 'darkgray'}] }>
+                <View style={ [styles.searchButton, { top: 20, left: 20, backgroundColor: theme.currentTheme === 'dark' ? '#1E1E1E' : '#fff', padding: 8, borderRadius:50, shadowColor: 'darkgray'}] }>
                     {distanceToCarMarker.toFixed(1) < 5.0
-                        ? <Text style={{fontSize: 14, fontWeight: '400', color: '#00624e'}}>Te encuentras muy cerca de tu vehículo</Text>
-                        : <Text style={{fontSize: 14, fontWeight: '400', color: '#00624e'}}>{distanceToCarMarker.toFixed(1)} metros hasta tu vehículo</Text>
+                        ? <Text style={{fontSize: 14, fontWeight: '400', color: theme.customColors.activeColor}}>Te encuentras muy cerca de tu vehículo</Text>
+                        : <Text style={{fontSize: 14, fontWeight: '400', color: theme.customColors.activeColor}}>{distanceToCarMarker.toFixed(1)} metros hasta tu vehículo</Text>
                     }
                 </View>
             )}

@@ -50,7 +50,7 @@ export const EmailScreen = () => {
                                 visible={!isValid}
                                 title={'¡Error!'}
                                 message={email != '' ? 'El email no es válido' : 'No puedes dejar el campo vacío'} />
-                            <Text style={{ alignSelf: 'center', padding: 20, fontSize: 28, color: theme.colors.text, fontWeight: '400' }}>Iniciar sesión</Text>
+                            <Text style={{ alignSelf: 'center', padding: 20, fontSize: 28, color: theme.colors.text, fontWeight: '300' }}>Iniciar sesión</Text>
 
 
                             <View style={authStyle.formView}>
