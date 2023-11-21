@@ -1,11 +1,7 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { styles } from './src/theme/GlobalTheme';
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-import { LogBox, Platform, StatusBar } from 'react-native';
-import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
-import { MyColors } from './src/theme/ColorsTheme';
+import { LogBox } from 'react-native';
 import { ThemeProvider } from './src/context/themeContext/ThemeContext';
 import LocationDaemon from './src/functions/LocationDaemon';
 import { FavoritesProvider } from './src/context/FavouriteContext/FavouritesContext';

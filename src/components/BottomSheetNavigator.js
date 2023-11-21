@@ -30,7 +30,7 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                             <View style={{ alignItems: 'flex-start' }}>
                                 {distanceData.value > 5 ? (   // Aquí se compara como número y no como string
                                     <>
-                                        <Text style={{ fontSize: 24, fontWeight: '700', color: 'darkgreen' }}>
+                                        <Text style={{ fontSize: 24, fontWeight: '700', color: theme.customColors.activeColor }}>
                                             {distanceData.value}
                                         </Text>
                                         <Text style={{ fontSize: 20, fontWeight: '300', color: 'gray' }}>
@@ -38,7 +38,7 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                                         </Text>
                                     </>
                                 ) : (
-                                    <Text style={{ fontSize: 24, fontWeight: '600', color: 'darkgreen' }}>
+                                    <Text style={{ fontSize: 24, fontWeight: '600', color: theme.customColors.activeColor }}>
                                         Ha llegado a su destino
                                     </Text>
                                 )}
@@ -47,7 +47,7 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                     </>
                 ) : (
                     distanceData.value > -1 && !localLoading && (
-                        <Text style={{ fontSize: 18, fontWeight: '500', color: 'darkgreen', paddingVertical: 20, textAlign: 'center' }}>
+                        <Text style={{ fontSize: 18, fontWeight: '500', color: theme.customColors.activeColor, paddingVertical: 20, textAlign: 'center' }}>
                             {distanceData.value <= 5
                                 ? ('Usted se encuentra en el sitio')
                                 : (`A ${distanceData.value} ${distanceData.unit} de distancia`)}
@@ -214,7 +214,7 @@ const BottomSheet = ({
                     <>
                         {loading ?
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <ActivityIndicator size="small" color="darkgreen" />
+                                <ActivityIndicator size="small" color={theme.customColors.activeColor} />
                             </View> :
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Distance getFormattedDistance={getFormattedDistance} />
@@ -285,7 +285,7 @@ const BottomSheet = ({
                         <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
                             <Text style={{ color: 'gray', fontSize: 18, fontWeight: '500', textAlign: 'left', paddingLeft: 10 }}>En camino a {selectedExhibitor && selectedExhibitor.name}</Text>
                             <TouchableOpacity style={{ paddingRight: 5 }} onPress={onMapPress} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-                                <AntDesign name="close" size={24} color="darkgreen" />
+                                <AntDesign name="close" size={24} color={theme.customColors.activeColor} />
                             </TouchableOpacity>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
