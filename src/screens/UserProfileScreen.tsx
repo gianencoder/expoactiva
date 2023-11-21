@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import * as ImagePicker from 'expo-image-picker';
-import { Text, View, Image, TouchableOpacity, Alert, ActivityIndicator, Linking, Dimensions } from 'react-native'
+import { Text, View, Image, TouchableOpacity, Alert, ActivityIndicator, Linking, useWindowDimensions } from 'react-native'
 import { useAuthContext } from '../context/AuthContext/AuthContext'
 import { userProfileTheme } from '../theme/UserProfileTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
@@ -20,7 +20,7 @@ export const UserProfileScreen = () => {
     const { theme } = useContext(ThemeContext)
     const { deleteAccount, loading, updateUserPicture, changingPicture } = EmailLoginFunction()
     const navigation = useNavigation()
-
+    const { width, height } = useWindowDimensions()
 
     useFocusEffect(
         React.useCallback(() => {
@@ -227,25 +227,31 @@ export const UserProfileScreen = () => {
                             <View style={userProfileTheme.option}>
                                 <Image source={require('../assets/icons/editarPerfil.png')} style={{ width: 20, height: 20, tintColor: theme.customColors.iconColor }} />
                                 <View style={{ flexDirection: 'row', gap: 15 }}>
-                                    <Text style={{ ...userProfileTheme.text, color: theme.colors.text }}>Editar perfil</Text>
+                                    <Text style={{ ...userProfileTheme.text, color: theme.colors.text, fontFamily: 'verdana', fontSize: 18 }}>Editar perfil</Text>
                                     {user?.interests.length <= 0 || user?.birthDay == null || user.birthDay == '' ? <View style={{ borderRadius: 10, width: 10, height: 10, backgroundColor: 'orange', alignSelf: 'center' }} /> : <View />}
                                 </View>
 
                             </View>
-                            <AntDesign name="right" size={18} color={theme.customColors.iconColor} />
+                            <View>
+                                <Image style={{ width: width / 30, height: height / 45, tintColor: theme.customColors.iconColor }}
+                                    source={require('../assets/icons/right.arrow.png')} />
+                            </View>
                         </TouchableOpacity>
-                        <View style={{ backgroundColor: 'gray', width: '100%', height: 1 }} />
+
 
                         <TouchableOpacity
                             onPress={showLogoutConfirmation}
                             style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
                             <View style={userProfileTheme.option}>
                                 <Image source={require('../assets/icons/salida.png')} style={{ width: 20, height: 20, tintColor: theme.customColors.iconColor }} />
-                                <Text style={{ ...userProfileTheme.text, color: theme.colors.text }}>Cerrar sesión</Text>
+                                <Text style={{ ...userProfileTheme.text, color: theme.colors.text, fontFamily: 'verdana', fontSize: 18 }}>Cerrar sesión</Text>
                             </View>
-                            <AntDesign name="right" size={18} color={theme.customColors.iconColor} />
+                            <View>
+                                <Image style={{ width: width / 30, height: height / 45, tintColor: theme.customColors.iconColor }}
+                                    source={require('../assets/icons/right.arrow.png')} />
+                            </View>
                         </TouchableOpacity>
-                        <View style={{ backgroundColor: 'gray', width: '100%', height: 1 }} />
+
                     </View>
                     <View style={{ ...userProfileTheme.footer }}>
                         <Text onPress={handleDeleteAccount} style={{ fontWeight: 'bold', fontSize: 18, color: '#DB2D43' }}>Eliminar cuenta</Text>

@@ -29,6 +29,7 @@ export interface ThemeState extends Theme {
         colorErrorMessage: string
         colorWarningMessage: string
         colorSuccessMessage: string
+        disabled: string
 
     }
 }
@@ -52,7 +53,7 @@ export const lightTheme: ThemeState = {
         littleComponentBg: 'white',
         littleComponentIcon: MyColors.primary,
         bottomTabIcon: 'black',
-        iconColor: 'black',
+        iconColor: MyColors.primary,
         shadow: 'black',
         activeColor: MyColors.primary,
         headerColor: MyColors.primary,
@@ -63,7 +64,8 @@ export const lightTheme: ThemeState = {
         bgSuccesMessage: '#86A789',
         bgWarningMessage: 'rgb(255, 236, 158)',
         colorWarningMessage: 'rgb(76, 33, 0)',
-        colorSuccessMessage: 'white'
+        colorSuccessMessage: 'white',
+        disabled: 'lightgray'
     }
 }
 
@@ -82,11 +84,11 @@ export const darkTheme: ThemeState = {
     customColors: {
         transparent: Platform.OS === 'android' ? 'rgba(27,27,27,0.95)' : 'rgba(27,27,27,0.95)',
         littleComponentBg: '#1d1d1d',
-        littleComponentIcon: '#A0E4CB',
+        littleComponentIcon: '#00B29F',
         bottomTabIcon: 'white',
-        iconColor: '#A0E4CB',
+        iconColor: '#00B29F',
         shadow: 'white',
-        activeColor: '#A0E4CB',
+        activeColor: '#00B29F',
         headerColor: '#1b1b1b',
         subtitles: MyColors.textGrey,
         buttonColor: '#5C8374',
@@ -95,7 +97,8 @@ export const darkTheme: ThemeState = {
         bgSuccesMessage: '#86A789',
         bgWarningMessage: 'rgb(255, 236, 158)',
         colorWarningMessage: 'rgb(76, 33, 0)',
-        colorSuccessMessage: 'white'
+        colorSuccessMessage: 'white',
+        disabled: '#616161'
     }
 }
 
