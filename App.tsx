@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MainScreen } from './src/screens/MainScreen';
 import { CarLocationProvider } from './src/context/CarLocationContext/CarLocationContext';
 import { ThemeContext } from './src/context/themeContext/ThemeContext';
+import Main from './Main';
 
 export default function App() {
 
@@ -72,13 +73,7 @@ export default function App() {
           <PaymentProvider>
             <RedeemTicketProvider>
               <NavigationContainer>
-                <SafeAreaProvider style={{ flex: 1, backgroundColor: theme && theme.colors ? theme.colors.background : MyColors.primary }}>
-                  <StatusBar
-                    barStyle={'light-content'}
-                    backgroundColor={MyColors.primary}
-                  />
-                  <BottomTabNavigator />
-                </SafeAreaProvider>
+                <Main/>
               </NavigationContainer >
               <LocationDaemon />
             </RedeemTicketProvider>
