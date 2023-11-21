@@ -55,7 +55,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
         modalView: {
             top: '35%',
             marginHorizontal: 20,
-            backgroundColor: 'white',
+            backgroundColor: theme.colors.background,
             borderRadius: 20,
             padding: 55,
             alignItems: 'center',
@@ -108,17 +108,17 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                         onPress={() => setIsModalVisible(false)}
                         hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}
                     >
-                        <MaterialIcons name="close" size={24} color="darkgreen" />
+                        <MaterialIcons name="close" size={24} color={theme.customColors.activeColor} />
                     </TouchableOpacity>
 
-                    <Text style={{ marginBottom: 15, textAlign: 'center', fontSize: 17, fontWeight: '500' }}>Código para canjear la entrada:{"\n"}{"\n"}{ticket.ticketId}</Text>
+                    <Text style={{ marginBottom: 15, textAlign: 'center', fontSize: 17, fontWeight: '500', color: theme.colors.text }}>Código para canjear la entrada:{"\n"}{"\n"}{ticket.ticketId}</Text>
 
                     <TouchableOpacity
                         style={styles.copyButton}
                         onPress={handleCopyToClipboard}
                         hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}
                     >
-                        <MaterialIcons name="content-copy" size={24} color="darkgreen" />
+                        <MaterialIcons name="content-copy" size={24} color={theme.customColors.activeColor} />
                     </TouchableOpacity>
                         <Animated.View
                     style={{
@@ -137,10 +137,9 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                         <QRCode
                             value={qrCode}
                             size={80}
-                            color={(sharedTicket || ticket.used) ? 'gray' : theme.colors.text}
+                            color={(sharedTicket || ticket.used) ? theme.currentTheme === 'dark' ? 'gray' : 'lightgray' : theme.colors.text}
                             backgroundColor="transparent"
                         />
-                        {(sharedTicket || ticket.used) && <View style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.7)'}} />}
                     </View>
                 </View>
 
@@ -156,7 +155,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                                     height: 20, 
                                     width: 20, 
                                     alignSelf: 'flex-end', 
-                                    tintColor: (sharedTicket || ticket.used) ? 'lightgray' : theme.customColors.activeColor 
+                                    tintColor: (sharedTicket || ticket.used) ? 'gray' : theme.customColors.activeColor 
                                 }} 
                                 source={require('../assets/icons/share.png')} 
                             />

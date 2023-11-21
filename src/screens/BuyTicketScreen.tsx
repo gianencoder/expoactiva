@@ -86,6 +86,7 @@ export const BuyTicketScreen = () => {
                 backgroundColor={theme.customColors.bgErrorMessage}
                 iconColor={theme.customColors.colorErrorMessage}
                 textColor={theme.customColors.colorErrorMessage}
+                iconName={'closecircleo'}
             />
             <View style={{ ...ticketStyles.btv, flex: 2 }}>
                 <Image style={{ width: '100%', height: '100%' }} source={require('../assets/images/Expoactiva.jpg')} />
