@@ -4,7 +4,7 @@ import { ScrollView, View, Text, Alert } from 'react-native';
 import { styles } from '../theme/GlobalTheme';
 import { HomeLittleComponent } from '../components/HomeLittleComponent';
 import { CarouselComponent } from '../components/CarouselComponent';
-import { data } from '../helper/imageList';
+import { data2, data } from '../helper/imageList';
 import { HomeFunction } from '../functions/HomeFunction';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { InteresPointIconComponent } from '../components/Icons/InteresPointIconComponent';
@@ -27,6 +27,7 @@ export const HomeScreen = ({ navigation }: Props) => {
     const [loginVisible, setLoginVisible] = useState(false);
     const [deletedVisible, setDeletedVisible] = useState(false);
     const globalNavigation = useNavigation();
+    const [darkMode, setDarkMode] = useState(false)
 
     useEffect(() => {
         if (visible) {
@@ -58,6 +59,17 @@ export const HomeScreen = ({ navigation }: Props) => {
         }
     }, [deletedAccount]);
 
+    useEffect(() => {
+        if (theme.currentTheme === 'light') {
+            setDarkMode(false)
+        }
+    }, [theme.currentTheme === 'light'])
+    useEffect(() => {
+        if (theme.currentTheme === 'dark') {
+            setDarkMode(true)
+        }
+    }, [theme.currentTheme === 'dark'])
+
     return (
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <ToastMessageComponent
@@ -88,9 +100,9 @@ export const HomeScreen = ({ navigation }: Props) => {
 
                     <View style={{ ...styles.bigComponentContainer, backgroundColor: theme.customColors.littleComponentBg, shadowColor: 'black' }}>
                         <View style={{ ...styles.bigComponent, backgroundColor: theme.customColors.littleComponentBg }}>
-                            <CarouselComponent data={data} />
+                            {darkMode && <CarouselComponent data={data2} />}
+                            {!darkMode && <CarouselComponent data={data} />}
                         </View>
-
                     </View>
                     <View style={{ ...styles.littleComponentContainer, backgroundColor: theme.colors.background }}>
                         <HomeLittleComponent action={handleTicketsNavigation} page={'Entradas'} icon={<TicketIconComponent />} />
