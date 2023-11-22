@@ -99,27 +99,27 @@ export const EventScreen = () => {
                         horizontal
                         showsHorizontalScrollIndicator={false}>
                         <TouchableOpacity onPress={() => toggleFilter('activa')} >
-                            <View style={{ ...eventStyle.typeFilterView, borderColor: !selectedFilters.includes('activa') && '#116D6E', backgroundColor: selectedFilters.includes('activa') ? '#116D6E' : 'transparent' }}>
-                                <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('activa') ? 'white' : theme.colors.text, }}>ACTIVA</Text>
+                            <View style={{ ...eventStyle.typeFilterView, borderColor: theme.currentTheme === 'dark' ? 'lightgray' : 'black', backgroundColor: selectedFilters.includes('activa') ? theme.currentTheme === 'dark' ? 'white' : 'black' : 'transparent' }}>
+                                <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('activa') ? theme.currentTheme === 'dark' ? 'black' : 'white' : theme.currentTheme === 'dark' ? 'white' : 'black' }}>ACTIVA</Text>
 
                             </View>
                         </TouchableOpacity>
                         <View style={{ width: 15 }}></View>
                         <TouchableOpacity onPress={() => toggleFilter('conferencia')} >
-                            <View style={{ ...eventStyle.typeFilterView, borderColor: !selectedFilters.includes('conferencia') && '#4B2B30', backgroundColor: selectedFilters.includes('conferencia') ? '#4B2B30' : 'transparent' }}>
-                                <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('conferencia') ? 'white' : theme.colors.text }}>CONFERENCIA</Text>
+                            <View style={{ ...eventStyle.typeFilterView, borderColor: theme.currentTheme === 'dark' ? 'lightgray' : 'black', backgroundColor: selectedFilters.includes('conferencia') ? theme.currentTheme === 'dark' ? 'white' : 'black' : 'transparent' }}>
+                                <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('conferencia') ? theme.currentTheme === 'dark' ? 'black' : 'white' : theme.currentTheme === 'dark' ? 'white' : 'black' }}>CONFERENCIA</Text>
                             </View>
                         </TouchableOpacity>
                         <View style={{ width: 15 }}></View>
                         <TouchableOpacity onPress={() => toggleFilter('exhibitor')} >
-                            <View style={{ ...eventStyle.typeFilterView, borderColor: !selectedFilters.includes('exhibitor') && '#D5CEA3', backgroundColor: selectedFilters.includes('exhibitor') ? '#D5CEA3' : 'transparent' }}>
-                                <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('exhibitor') ? 'white' : theme.colors.text }}>EXPOSITOR</Text>
+                            <View style={{ ...eventStyle.typeFilterView, borderColor: theme.currentTheme === 'dark' ? 'lightgray' : 'black', backgroundColor: selectedFilters.includes('exhibitor') ? theme.currentTheme === 'dark' ? 'white' : 'black' : 'transparent' }}>
+                                <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('exhibitor') ? theme.currentTheme === 'dark' ? 'black' : 'white' : theme.currentTheme === 'dark' ? 'white' : 'black' }}>EXPOSITOR</Text>
                             </View>
                         </TouchableOpacity>
                         <View style={{ width: 15 }}></View>
                         <TouchableOpacity onPress={() => toggleFilter('ganadera')} >
-                            <View style={{ ...eventStyle.typeFilterView, borderColor: !selectedFilters.includes('ganadera') && '#27374D', backgroundColor: selectedFilters.includes('ganadera') ? '#27374D' : 'transparent' }}>
-                                <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('ganadera') ? 'white' : theme.colors.text }}>GANADERA</Text>
+                            <View style={{ ...eventStyle.typeFilterView, borderColor: theme.currentTheme === 'dark' ? 'lightgray' : 'black', backgroundColor: selectedFilters.includes('ganadera') ? theme.currentTheme === 'dark' ? 'white' : 'black' : 'transparent' }}>
+                                <Text style={{ ...eventStyle.typeFilterText, color: selectedFilters.includes('ganadera') ? theme.currentTheme === 'dark' ? 'black' : 'white' : theme.currentTheme === 'dark' ? 'white' : 'black' }}>GANADERA</Text>
                             </View>
                         </TouchableOpacity>
                     </ScrollView>
@@ -171,7 +171,6 @@ export const EventScreen = () => {
                         <View style={{ height: 120, width: '100%', alignItems: 'center', justifyContent: 'center' }}>
                             <Text style={{ color: 'gray', fontWeight: 'bold', alignSelf: 'center', fontSize: 16 }}>No hay eventos para mostrar</Text>
                         </View>
-
                 }
             </View>
         </View >
