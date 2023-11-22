@@ -37,7 +37,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
 
 
     return (
-        <View style={{ backgroundColor: 'transparent', flex: 1 }}>
+        <View style={{ width: '100%', height: 'auto' }}>
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => selectEvent(moshiEvent.idEvent)}
@@ -81,7 +81,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
                             ? <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>EN CURSO</Text>
                             : fTimeLeft.includes('hace'.toLowerCase().trim()) && sTimeLeft.includes('hace'.toLowerCase().trim())
                                 ? <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>FINALIZADO</Text>
-                                : <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>{sTimeLeft}</Text>
+                                : <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right', width: 100 }}>{sTimeLeft}</Text>
                         }
                     </View>
                 </View>
