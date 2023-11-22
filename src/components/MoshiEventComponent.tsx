@@ -34,8 +34,6 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
         };
     }, [moshiEvent.dateHourStart, moshiEvent.dateHourEnd]);
 
-
-
     return (
         <View style={{ width: '100%', height: 'auto' }}>
             <TouchableOpacity
@@ -44,25 +42,32 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
             >
                 <View style={{ ...eventStyle.event, padding: 10 }}>
                     <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center', }}>
-                        {
-                            moshiEvent.picture === null
-                                ? <Image
-                                    style={{ ...eventStyle.img, height: '100%', width: '100%' }}
-                                    source={require('../assets/images/noPhoto.jpg')} />
-                                :
+                        {imageLoader &&
+                            <ActivityIndicator style={{ flex: 1, position: 'absolute' }} color={theme.customColors.activeColor} />
+                        }
+                        {moshiEvent.picture === null
+                            ? <Image
 
-                                moshiEvent.picture == ''
-                                    ?
-                                    <Image
-                                        onLoadStart={() => setImageLoader(true)}
-                                        onLoadEnd={() => setImageLoader(true)}
-                                        style={{ borderRadius: 15, height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', resizeMode: 'cover' }}
-                                        source={{ uri: `https://picsum.photos/id/5${moshiEvent.idEvent}/500/500` }} />
-                                    : <Image
-                                        style={{ borderRadius: 15, height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', resizeMode: 'cover' }}
-                                        source={{ uri: moshiEvent.picture.toString() }} />
+                                style={{ ...eventStyle.img, height: '100%', width: '100%' }}
+                                source={require('../assets/images/noPhoto.jpg')} />
+                            :
+
+                            moshiEvent.picture == ''
+                                ?
+                                <Image
+
+                                    style={{ borderRadius: 15, height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', resizeMode: 'cover' }}
+                                    source={{ uri: `https://picsum.photos/id/5${moshiEvent.idEvent}/500/500` }} />
+                                : <Image
+                                    style={{ borderRadius: 15, height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', resizeMode: 'cover' }}
+                                    source={{ uri: moshiEvent.picture.toString() }}
+                                    onLoadStart={() => setImageLoader(true)}
+                                    onLoadEnd={() => setImageLoader(false)}
+                                />
                         }
                     </View>
+
+
                     <View style={eventStyle.eventListTitle}>
                         <Text numberOfLines={2} style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{moshiEvent.eventName}</Text>
                         <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{moshiEvent.type !== null && moshiEvent.type === 'EXHIBITOR' ? 'Expositor' : moshiEvent.type}</Text>
@@ -81,7 +86,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
                             ? <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>EN CURSO</Text>
                             : fTimeLeft.includes('hace'.toLowerCase().trim()) && sTimeLeft.includes('hace'.toLowerCase().trim())
                                 ? <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>FINALIZADO</Text>
-                                : <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right', width: 100 }}>{sTimeLeft}</Text>
+                                : <Text numberOfLines={2} style={{ ...eventStyle.titleMinutes, textAlign: 'right', width: 100 }}>{sTimeLeft}</Text>
                         }
                     </View>
                 </View>
