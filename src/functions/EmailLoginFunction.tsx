@@ -248,7 +248,7 @@ export const EmailLoginFunction = () => {
     const limitRequestByDevice = async (email: string) => {
         setLoading(true)
         try {
-            const response = await fetch(`${properties.desa}device/limitRequest/${uniqueId}`, {
+            const response = await fetch(`${properties.prod}device/limitRequest/${uniqueId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json',
@@ -260,7 +260,6 @@ export const EmailLoginFunction = () => {
                 return
             }
             if (response.status === 429) {
-                console.log('429')
                 setLimitRequest(true)
             }
 
