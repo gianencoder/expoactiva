@@ -66,6 +66,19 @@ export const EventFunction = () => {
     const handleSetFetching = () => {
         setFetching(true)
     }
+
+    const isEventFinished = (event:EventoMoshi) => {
+        return new Date(event.dateHourEnd) < new Date();
+    };
+
+    const reorderEventsWithFinishedLast = (events:EventoMoshi[]) => {
+        const finishedEvents = events.filter(isEventFinished);
+        const ongoingOrUpcomingEvents = events.filter((event:EventoMoshi) => !isEventFinished(event));
+        return [...ongoingOrUpcomingEvents, ...finishedEvents];
+    };
+
+    const orderedEvents = reorderEventsWithFinishedLast(filterEvent);
+
     const { expoPushToken, verifyAndRequestPermissions } = usePushNotifications();
     const notificationToken = expoPushToken?.data;
 
@@ -210,7 +223,6 @@ export const EventFunction = () => {
         }
     }
 
-
     const removeEvent = async (id: number) => {
         const canRemove = favorites.find(e => e === id);
         if (!canRemove) {
@@ -232,7 +244,7 @@ export const EventFunction = () => {
         , iconName
         , currentDay
         , colour
-        , filterEvent
+        , filterEvent: orderedEvents
         , setSearchText
         , fetching
         , handleSetFetching
@@ -241,7 +253,8 @@ export const EventFunction = () => {
         , handleSelectItem
         , removeEvent
         , searchText
-
+        , isEventFinished
+        , reorderEventsWithFinishedLast
 
     })
 }
