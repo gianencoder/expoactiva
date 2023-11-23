@@ -57,7 +57,7 @@ export const NotificationScreen = () => {
                     , height: 45
                     , borderRadius: 8
                 }}>
-                <Text style={{ color: 'white', fontSize: 18 }} >Abrir configuración</Text>
+                <Text style={{ color: 'white', fontSize: 18, fontWeight: '600' }} >Abrir configuración</Text>
             </TouchableOpacity>
 
         </View >

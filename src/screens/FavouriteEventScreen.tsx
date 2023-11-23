@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, RefreshControl, ActivityIndicator, Button, Text } from 'react-native'
+import { View, RefreshControl, ActivityIndicator, Button, Text, Keyboard } from 'react-native'
 import { EventFunction } from '../functions/EventFunction'
 import { eventStyle } from '../theme/EventTheme'
 import SearchBar from '../components/SearchBarComponent';
@@ -15,22 +15,26 @@ import { NotEventScreen } from './NotEventScreen';
 
 export const FavouriteEventScreen = () => {
 
-    const { loading, fetching, handleSetFetching, removeEvent, events, handleSelectItem } = EventFunction()
+    const { loading, fetching, handleSetFetching, removeEvent, events, handleSelectItem, reorderEventsWithFinishedLast } = EventFunction()
     const { theme } = useContext(ThemeContext)
     const { favorites } = useFavorites()
     const [searchText, setSearchText] = useState('');
     const [list, setList] = useState<EventoMoshi[]>([])
 
-
-
     useEffect(() => {
         // Al cargar el componente o al volver a él, actualizamos la lista de favoritos
-        setList(events.filter(evento => favorites.includes(evento.idEvent)));
+        const favourites = events.filter(evento => favorites.includes(evento.idEvent));
+        const ordererFavourites = reorderEventsWithFinishedLast(favourites);
+        setList(ordererFavourites);
     }, [events, favorites]);
 
     const searchByName = events.filter((ev: EventoMoshi) =>
         ev.eventName.toLowerCase().includes(searchText.toLowerCase())
     );
+
+    const onScrollBeginDrag = () => {
+        Keyboard.dismiss()
+    }
 
     searchByName.sort((a, b) => {
         const dateA = new Date(a.dateHourStart).getDate();
@@ -54,6 +58,7 @@ export const FavouriteEventScreen = () => {
                         :
                         searchByName.length > 0 ?
                             <FlashList
+                                onScrollBeginDrag={onScrollBeginDrag}
                                 keyboardShouldPersistTaps="always"
                                 data={list}
                                 keyExtractor={(event) => event.idEvent.toString()}
