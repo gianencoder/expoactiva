@@ -26,6 +26,7 @@ export const EditProfileScreen = () => {
     const [day, month, year] = date.split('-');
     const [badDate, setBadDate] = useState(false)
     const prevLengthRef = useRef(0);
+
     const numericDay = parseInt(day, 10);
     const numericMonth = parseInt(month, 10);
     const numericYear = parseInt(year, 10);
@@ -81,20 +82,14 @@ export const EditProfileScreen = () => {
             return
         }
 
-        if (date.length <= 0 && user?.birthDay == '' || user?.birthDay == null) {
-            setBadDate(true)
-            setTimeout(() => {
-                setBadDate(false)
-            }, 2500)
-            return
-        }
-
-        if (numericDay <= 0 || numericDay > 31 || numericMonth <= 0 || numericMonth > 12 || numericYear < 1900 || numericYear >= new Date().getFullYear() || bornDay >= new Date() || date.length !== 10) {
-            setBadDate(true)
-            setTimeout(() => {
-                setBadDate(false)
-            }, 2500)
-            return
+        if (user?.birthDay == '' || user?.birthDay == null) {
+            if (date.length <= 0 || numericDay <= 0 || numericDay > 31 || numericMonth <= 0 || numericMonth > 12 || numericYear < 1900 || numericYear >= new Date().getFullYear()) {
+                setBadDate(true)
+                setTimeout(() => {
+                    setBadDate(false)
+                }, 2500)
+                return
+            }
         }
 
         editUser(email, name, selected, user?.birthDay == '' || user?.birthDay == null ? bornDay : user.birthDay)
@@ -185,7 +180,7 @@ export const EditProfileScreen = () => {
                     width={'100%'}
                     visible={badDate}
                     title={'¡Error!'}
-                    message={'El campo fecha es obligatorio'}
+                    message={'El complete el campo con una fecha válida'}
                     backgroundColor={customColors.bgErrorMessage}
                     iconColor={customColors.colorErrorMessage}
                     textColor={customColors.colorErrorMessage}
