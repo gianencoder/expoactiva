@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ScrollView, ActivityIndicator, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View, useWindowDimensions } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
@@ -11,10 +11,20 @@ export const EmailScreen = () => {
     const { theme } = useContext(ThemeContext)
     const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const [isValid, setIsValid] = useState(true)
+    const [showLimit, setShowLimit] = useState(false)
     const [email, setEmail] = useState('')
-    const { getUserByEmail, loading, signIn } = EmailLoginFunction()
+    const { loading, limitRequestByDevice, limitRequest } = EmailLoginFunction()
     const { height } = useWindowDimensions()
     const navigation = useNavigation()
+
+
+    useEffect(() => {
+        if (limitRequest)
+            setShowLimit(true)
+        setTimeout(() => {
+            setShowLimit(false)
+        }, 4500)
+    }, [limitRequest])
 
 
     const handleButtonPress = () => {
@@ -23,8 +33,14 @@ export const EmailScreen = () => {
             setTimeout(() => {
                 setIsValid(true)
             }, 2500)
+        }
+        else if (limitRequest) {
+            setShowLimit(true)
+            setTimeout(() => {
+                setShowLimit(false)
+            }, 4500)
         } else {
-            getUserByEmail(email.toLowerCase());
+            limitRequestByDevice(email.toLowerCase());
         }
     };
 
@@ -50,6 +66,15 @@ export const EmailScreen = () => {
                                 visible={!isValid}
                                 title={'¡Error!'}
                                 message={email != '' ? 'El email no es válido' : 'No puedes dejar el campo vacío'} />
+
+                            <ToastMessageComponent
+                                iconName={'exclamationcircleo'}
+                                textColor={theme.customColors.colorWarningMessage}
+                                iconColor={theme.customColors.colorWarningMessage}
+                                backgroundColor={theme.customColors.bgWarningMessage}
+                                visible={showLimit}
+                                title={'¡Cuidado!'}
+                                message={'Has alcanzado el límite de solicitudes, vuelve a intentarlo en unos minutos...'} />
                             <Text style={{ alignSelf: 'center', padding: 20, fontSize: 28, color: theme.colors.text, fontWeight: '300' }}>Iniciar sesión</Text>
 
 
@@ -71,7 +96,7 @@ export const EmailScreen = () => {
                             <TouchableOpacity
                                 disabled={loading}
                                 onPress={handleButtonPress}
-                                activeOpacity={1}
+                                activeOpacity={0.8}
                                 style={{
                                     backgroundColor: validEmail.test(email) ? theme.customColors.buttonColor : '#DBD8E3'
                                     , height: 40

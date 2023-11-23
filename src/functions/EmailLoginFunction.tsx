@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native'
 import { useAuthContext } from '../context/AuthContext/AuthContext';
 import properties from '../../properties.json'
 import axios, { AxiosError } from 'axios';
+import DeviceInfo from "react-native-device-info";
+
 
 
 
@@ -23,6 +25,8 @@ export const EmailLoginFunction = () => {
     const [wrongCredentials, setWrongCredentials] = useState(false)
     const [updated, setUpdated] = useState(false)
     const [changingPicture, setChangingPicture] = useState(false)
+    const uniqueId = DeviceInfo.getUniqueIdSync()
+    const [limitRequest, setLimitRequest] = useState(false)
 
     // const afterEmailVerification = async (email: string) => {
     //     try {
@@ -223,7 +227,7 @@ export const EmailLoginFunction = () => {
             if (axiosError.response) {
 
                 if (axiosError.response.status === 403) {
-                    navigation.navigate('LoginFormScreen', { email });
+                    navigation.navigate('LoginFormScreen2', { email });
                 } else if (axiosError.response.status === 400) {
                     Alert.alert('El correo ya existe', 'El correo ya fue ingresado con una cuenta de Google, inicia sesión con Google para continuar');
                 } else if (axiosError.response.status === 404) {
@@ -240,6 +244,32 @@ export const EmailLoginFunction = () => {
             setLoading(false);
         }
     };
+
+    const limitRequestByDevice = async (email: string) => {
+        setLoading(true)
+        try {
+            const response = await fetch(`${properties.desa}device/limitRequest/${uniqueId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json',
+                }
+            });
+            if (response.status === 200) {
+                getUserByEmail(email)
+                setLimitRequest(false)
+                return
+            }
+            if (response.status === 429) {
+                console.log('429')
+                setLimitRequest(true)
+            }
+
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     const getCode = async (email: string, code: string) => {
         setLoading(true)
@@ -528,6 +558,8 @@ export const EmailLoginFunction = () => {
             , updated
             , updateUserPicture
             , changingPicture
+            , limitRequestByDevice
+            , limitRequest
         }
     )
 }

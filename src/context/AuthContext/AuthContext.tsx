@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 
 
+
 type AuthStateContext = {
     isLoggedIn: boolean;
     visible: boolean;
@@ -52,6 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     };
 
     useEffect(() => {
+
         const getPersistEvent = async () => {
             try {
                 const data = await AsyncStorage.getItem('UserLoggedIn');

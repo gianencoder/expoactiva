@@ -17,7 +17,6 @@ import { ToastMessageComponent } from '../components/ToastMessageComponent';
 import { useAuthContext } from '../context/AuthContext/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 
-
 interface Props extends StackScreenProps<any, any> { }
 export const HomeScreen = ({ navigation }: Props) => {
 
