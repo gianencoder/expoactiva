@@ -180,7 +180,7 @@ export const EditProfileScreen = () => {
                     width={'100%'}
                     visible={badDate}
                     title={'¡Error!'}
-                    message={'El complete el campo con una fecha válida'}
+                    message={'Complete el campo con una fecha válida'}
                     backgroundColor={customColors.bgErrorMessage}
                     iconColor={customColors.colorErrorMessage}
                     textColor={customColors.colorErrorMessage}
