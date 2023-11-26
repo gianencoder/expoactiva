@@ -342,6 +342,31 @@ export const translations = {
             successMessage: "Has recibido tu entrada",
             paymentSuccessTitle: "¡Pago recibido!",
             paymentSuccessMessage: "Se ha completado la compra con éxito"
+        },
+        userProfileScreen: {
+            editProfile: "Editar perfil",
+            logout: "Cerrar sesión",
+            deleteAccount: "Eliminar cuenta",
+            confirmLogoutTitle: "Cerrar sesión",
+            confirmLogoutMessage: "¿Estás seguro de que quieres cerrar sesión?",
+            cancel: "Cancelar",
+            confirm: "Confirmar",
+            editPhoto: "Editar foto",
+            deletePhoto: "Eliminar foto",
+            editProfileSuccess: "¡Perfil editado exitosamente!",
+            deleteAccountConfirmationTitle: "Eliminar cuenta",
+            deleteAccountConfirmationMessage: "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible.",
+            deleteAccountConfirmationConfirm: "Eliminar",
+            sinPermiso: 'Sin permiso',
+            deseasPermitirIngresarGaleria: "¿Deseas permitir ingresar a tu galería? ",
+            configuracion: "Configuración",
+            deseasPermitirUsarTuCamara: "¿Deseas permitir usar tu cámara? ",
+            queDeseaRealizar: '¿Que desea realizar?',
+            eliminar: 'Eliminar',
+            abrirCamara: 'Abrir cámara',
+            subirDesdeGaleria: 'Subir desde la galería',
+            seleccioneUnaOpcion: 'Selecciona una opción'
+
         }
 
     },
@@ -531,6 +556,30 @@ export const translations = {
             successMessage: "You have received your ticket",
             paymentSuccessTitle: "Payment received!",
             paymentSuccessMessage: "Purchase completed successfully"
+        },
+        userProfileScreen: {
+            editProfile: "Edit profile",
+            logout: "Logout",
+            deleteAccount: "Delete account",
+            confirmLogoutTitle: "Logout",
+            confirmLogoutMessage: "Are you sure you want to log out?",
+            cancel: "Cancel",
+            confirm: "Confirm",
+            editPhoto: "Edit photo",
+            deletePhoto: "Delete photo",
+            editProfileSuccess: "Profile edited successfully!",
+            deleteAccountConfirmationTitle: "Delete account",
+            deleteAccountConfirmationMessage: "Are you sure you want to delete your account? This action is irreversible.",
+            deleteAccountConfirmationConfirm: "Delete",
+            sinPermiso: 'No permission',
+            deseasPermitirIngresarGaleria: "Do you want to allow access to your gallery?",
+            configuracion: "Settings",
+            deseasPermitirUsarTuCamara: "Do you want to allow the use of your camera?",
+            queDeseaRealizar: 'What do you want to do?',
+            eliminar: 'Delete',
+            abrirCamara: 'Open camera',
+            subirDesdeGaleria: 'Upload from gallery',
+            seleccioneUnaOpcion: 'Select an option'
         }
     },
     pt: {
@@ -718,6 +767,32 @@ export const translations = {
             successMessage: "Has recibido tu entrada",
             paymentSuccessTitle: "¡Pago recibido!",
             paymentSuccessMessage: "Se ha completado la compra con éxito"
+        },
+        userProfileScreen: {
+            editProfile: "Editar perfil",
+            logout: "Sair",
+            deleteAccount: "Excluir conta",
+            confirmLogoutTitle: "Sair",
+            confirmLogoutMessage: "Tem certeza de que deseja sair?",
+            cancel: "Cancelar",
+            confirm: "Confirmar",
+            editPhoto: "Editar foto",
+            deletePhoto: "Excluir foto",
+            editProfileSuccess: "Perfil editado com sucesso!",
+            deleteAccountConfirmationTitle: "Excluir conta",
+            deleteAccountConfirmationMessage: "Tem certeza de que deseja excluir sua conta? Esta ação é irreversível.",
+            deleteAccountConfirmationConfirm: "Excluir",
+            sinPermiso: 'Sem permissão',
+            deseasPermitirIngresarGaleria: "Deseja permitir o acesso à sua galeria?",
+            configuracao: "Configuração",
+            deseasPermitirUsarTuCamara: "Deseja permitir o uso de sua câmera?",
+            queDeseaRealizar: 'O que deseja realizar?',
+            eliminar: 'Excluir',
+            abrirCamara: 'Abrir câmera',
+            subirDesdeGaleria: 'Carregar da galeria',
+            seleccioneUnaOpcion: 'Selecione uma opção'
+
+
         }
     }
 };

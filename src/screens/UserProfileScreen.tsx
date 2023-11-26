@@ -6,11 +6,12 @@ import { userProfileTheme } from '../theme/UserProfileTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { AntDesign } from '@expo/vector-icons';
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
-import { confirmation } from '../util/utils'
+import { confirmation, loadTranslations, translations } from '../util/utils'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
 
 
 
@@ -21,6 +22,12 @@ export const UserProfileScreen = () => {
     const { deleteAccount, loading, updateUserPicture, changingPicture } = EmailLoginFunction()
     const navigation = useNavigation()
     const { width, height } = useWindowDimensions()
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
+
 
     useFocusEffect(
         React.useCallback(() => {
@@ -37,10 +44,10 @@ export const UserProfileScreen = () => {
 
     const showLogoutConfirmation = () => {
         confirmation(
-            'Cerrar sesión',
-            '¿Seguro deseas cerrar sesión?',
-            'Cancelar',
-            'Cerrar sesión',
+            translation.userProfileScreen.confirmLogoutTitle,
+            translation.userProfileScreen.confirmLogoutMessage,
+            translation.userProfileScreen.cancel,
+            translation.userProfileScreen.confirmLogoutTitle,
             logout,
             'cancel'
         )
@@ -48,10 +55,10 @@ export const UserProfileScreen = () => {
 
     const handleDeleteAccount = () => {
         confirmation(
-            '¿Seguro deseas eliminar tu cuenta?',
-            'Se perderá tu configuración',
-            'Cancelar',
-            'Eliminar',
+            translation.userProfileScreen.deleteAccount,
+            translation.userProfileScreen.deleteAccountConfirmationMessage,
+            translation.userProfileScreen.cancel,
+            translation.userProfileScreen.deleteAccount,
             () => deleteAccount(user?.email, token),
             'destructive'
         )
@@ -76,11 +83,11 @@ export const UserProfileScreen = () => {
 
                 } else {
 
-                    Alert.alert('Sin permiso',
-                        "¿Deseas permitir ingresar a tu galería? ",
+                    Alert.alert(translation.userProfileScreen.sinPermiso,
+                        translation.userProfileScreen.deseasPermitirIngresarGaleria,
                         [
-                            { text: 'Configuración', onPress: () => Linking.openSettings(), style: 'default' },
-                            { text: 'Cancelar' }
+                            { text: translation.userProfileScreen.configuracion, onPress: () => Linking.openSettings(), style: 'default' },
+                            { text: translation.userProfileScreen.cancel }
                         ]
                     )
                 }
@@ -99,21 +106,21 @@ export const UserProfileScreen = () => {
                         await saveImage(result.assets[0].uri)
                     }
                 } else {
-                    Alert.alert('Sin permiso',
-                        "¿Deseas permitir ingresar a tu galería? ",
+                    Alert.alert(translation.userProfileScreen.sinPermiso,
+                        translation.userProfileScreen.deseasPermitirIngresarGaleria,
                         [
-                            { text: 'Configuración', onPress: () => Linking.openSettings(), style: 'default' },
-                            { text: 'Cancelar' }
+                            { text: translation.userProfileScreen.configuracion, onPress: () => Linking.openSettings(), style: 'default' },
+                            { text: translation.userProfileScreen.cancel }
                         ]
                     )
                 }
             }
         } catch (error) {
-            Alert.alert('Sin permiso',
-                "¿Deseas permitir usar tu cámara? ",
+            Alert.alert(translation.userProfileScreen.sinPermiso,
+                translation.userProfileScreen.deseasPermitirUsarTuCamara,
                 [
-                    { text: 'Configuración', onPress: () => Linking.openSettings(), style: 'default' },
-                    { text: 'Cancelar' }
+                    { text: translation.userProfileScreen.configuracion, onPress: () => Linking.openSettings(), style: 'default' },
+                    { text: translation.userProfileScreen.cancel }
                 ]
             )
 
@@ -133,12 +140,12 @@ export const UserProfileScreen = () => {
 
     const options = () => {
         Alert.alert(
-            '¿Que desea realizar?',
+            translation.userProfileScreen.queDeseaRealizar,
             '',
             [
-                { text: 'Editar foto', onPress: () => handleEditImage(), style: 'default' },
-                { text: 'Eliminar foto', onPress: () => optionDeleteImage(), style: 'destructive' },
-                { text: 'Cancelar', style: 'cancel' }
+                { text: translation.userProfileScreen.editPhoto, onPress: () => handleEditImage(), style: 'default' },
+                { text: translation.userProfileScreen.deletePhoto, onPress: () => optionDeleteImage(), style: 'destructive' },
+                { text: translation.userProfileScreen.cancel, style: 'cancel' }
 
             ]
         );
@@ -158,11 +165,11 @@ export const UserProfileScreen = () => {
 
     const optionDeleteImage = () => {
         Alert.alert(
-            'Eliminar imagen de perfil',
+            translation.userProfileScreen.queDeseaRealizar,
             '',
             [
-                { text: 'Eliminar', onPress: () => handleDeleteImage(), style: 'destructive' },
-                { text: 'Cancelar', style: 'cancel' },
+                { text: translation.userProfileScreen.eliminar, onPress: () => handleDeleteImage(), style: 'destructive' },
+                { text: translation.userProfileScreen.cancel, style: 'cancel' },
 
 
             ]
@@ -171,12 +178,12 @@ export const UserProfileScreen = () => {
 
     const handleEditImage = () => {
         Alert.alert(
-            'Selecciona una opción',
+            translation.userProfileScreen.seleccioneUnaOpcion,
             '',
             [
-                { text: 'Abrir cámara', onPress: () => uploadImage('camera'), style: 'default' },
-                { text: 'Subir desde la galería', onPress: () => uploadImage('gallery'), style: 'default' },
-                { text: 'Cancelar', style: 'cancel' },
+                { text: translation.userProfileScreen.abrirCamara, onPress: () => uploadImage('camera'), style: 'default' },
+                { text: translation.userProfileScreen.subirDesdeGaleria, onPress: () => uploadImage('gallery'), style: 'default' },
+                { text: translation.userProfileScreen.cancel, style: 'cancel' },
 
 
             ]
@@ -209,7 +216,7 @@ export const UserProfileScreen = () => {
                         <TouchableOpacity
                             onPress={options}
                             style={{ flexDirection: 'row', width: 'auto', borderWidth: 0.5, borderColor: 'white', borderRadius: 5, height: 25, paddingHorizontal: 5, alignItems: 'center', gap: 5 }}>
-                            <Text style={{ color: 'white' }}>Editar</Text>
+                            <Text style={{ color: 'white' }}>{translation.userProfileScreen.editPhoto}</Text>
                             <Ionicons name="camera-outline" size={16} color='white' />
                         </TouchableOpacity>
 
@@ -227,7 +234,7 @@ export const UserProfileScreen = () => {
                             <View style={userProfileTheme.option}>
                                 <Image source={require('../assets/icons/editarPerfil.png')} style={{ width: 20, height: 20, tintColor: theme.customColors.iconColor }} />
                                 <View style={{ flexDirection: 'row', gap: 15 }}>
-                                    <Text style={{ ...userProfileTheme.text, color: theme.colors.text, fontFamily: 'verdana', fontSize: 18 }}>Editar perfil</Text>
+                                    <Text style={{ ...userProfileTheme.text, color: theme.colors.text, fontFamily: 'verdana', fontSize: 18 }}>{translation.userProfileScreen.editProfile}</Text>
                                     {user?.interests.length <= 0 || user?.birthDay == null || user.birthDay == '' ? <View style={{ borderRadius: 10, width: 10, height: 10, backgroundColor: 'orange', alignSelf: 'center' }} /> : <View />}
                                 </View>
 
@@ -244,7 +251,7 @@ export const UserProfileScreen = () => {
                             style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
                             <View style={userProfileTheme.option}>
                                 <Image source={require('../assets/icons/salida.png')} style={{ width: 20, height: 20, tintColor: theme.customColors.iconColor }} />
-                                <Text style={{ ...userProfileTheme.text, color: theme.colors.text, fontFamily: 'verdana', fontSize: 18 }}>Cerrar sesión</Text>
+                                <Text style={{ ...userProfileTheme.text, color: theme.colors.text, fontFamily: 'verdana', fontSize: 18 }}>{translation.userProfileScreen.logout}</Text>
                             </View>
                             <View>
                                 <Image style={{ width: width / 30, height: height / 45, tintColor: theme.customColors.iconColor }}
@@ -254,7 +261,7 @@ export const UserProfileScreen = () => {
 
                     </View>
                     <View style={{ ...userProfileTheme.footer }}>
-                        <Text onPress={handleDeleteAccount} style={{ fontWeight: 'bold', fontSize: 18, color: '#DB2D43' }}>Eliminar cuenta</Text>
+                        <Text onPress={handleDeleteAccount} style={{ fontWeight: 'bold', fontSize: 18, color: '#DB2D43' }}>{translation.userProfileScreen.deleteAccount}</Text>
                     </View>
                 </View>
 
