@@ -224,6 +224,10 @@ export const translations = {
             enterEmailMessage: 'INGRESA EMAIL PARA CONTINUAR',
             cancelButton: 'Cancelar',
         },
+        eventDetails: {
+            enCurso: 'En Curso',
+            finalizado: 'Finalizado',
+        }
     },
     en: {
         aboutExpoactivaScreen: {
@@ -294,6 +298,10 @@ export const translations = {
             enterEmailMessage: 'ENTER EMAIL TO CONTINUE',
             cancelButton: 'Cancel',
         },
+        eventDetails: {
+            enCurso: 'In Progress',
+            finalizado: 'Completed',
+        }
     },
     pt: {
         aboutExpoactivaScreen: {
@@ -364,6 +372,10 @@ export const translations = {
             enterEmailMessage: 'INSIRA O EMAIL PARA CONTINUAR',
             cancelButton: 'Cancelar',
         },
+        eventDetails: {
+            enCurso: 'Em Andamento',
+            finalizado: 'Concluído',
+        }
     }
 };
 
