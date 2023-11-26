@@ -1,4 +1,4 @@
-import { View, Image, useWindowDimensions, Text, Linking, Alert, ActivityIndicator } from 'react-native'
+import { View, Image, useWindowDimensions, Text, Linking, Alert } from 'react-native'
 import React, { useCallback, useContext, useEffect, useRef, useState, } from 'react'
 import { themeConfig } from '../theme/ConfigurationTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
@@ -8,9 +8,8 @@ import { ModalComponent, ModalRefProps } from '../components/ModalComponent'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { StackScreenProps } from '@react-navigation/stack'
 import { ChangeLanguageScreen } from './ChangeLanguageScreen'
-import { translate, translations } from '../util/utils'
+import { loadTranslations, translations } from '../util/utils'
 import { useLanguage } from '../context/LanguageContext/LanguageContext'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface Props extends StackScreenProps<any, any> { }
 export const ConfigurationScreen = ({ navigation }: Props) => {
@@ -54,24 +53,7 @@ export const ConfigurationScreen = ({ navigation }: Props) => {
 
 
     useEffect(() => {
-        const loadTranslations = async () => {
-            // Obtén el idioma guardado en AsyncStorage (asegúrate de haberlo almacenado previamente)
-            const storedLanguage = await AsyncStorage.getItem('language');
-
-            // Define el conjunto de traducciones según el idioma
-            switch (storedLanguage) {
-                case 'en':
-                    setTranslation(translations.en);
-                    break;
-                case 'pt':
-                    setTranslation(translations.pt);
-                    break;
-                default:
-                    setTranslation(translations.es);
-                    break;
-            }
-        };
-        loadTranslations();
+        loadTranslations(setTranslation);
     }, [languageState]);
 
 

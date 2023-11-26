@@ -32,10 +32,8 @@ export default function App() {
 
   const [showInitScreen, setShowInitScreen] = useState(true);
   const [splashScreen, setSplashScreen] = useState(true)
-  const { theme } = React.useContext(ThemeContext);
 
   useEffect(() => {
-
     // AsyncStorage.setItem('termsAccepted', 'false');
     AsyncStorage.getItem('termsAccepted').then((value) => {
       setSplashScreen(false)
