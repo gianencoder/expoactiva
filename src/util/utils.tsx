@@ -303,6 +303,26 @@ export const translations = {
             privacyPolicyChangesText: "Nos reservamos el derecho de modificar esta política en cualquier momento. Las actualizaciones se comunicarán a través de la aplicación.",
             contactTitle: "Contacto",
             contactText: "Si tienes alguna pregunta o inquietud sobre nuestra política de privacidad para Expoactiva Nacional, no dudes en ponerte en contacto con nosotros a través de cybersoft@hotmail.com. Gracias por ser parte de Expoactiva Nacional y confiar en Cyb3rSoft para mejorar tu experiencia en el evento mientras protegemos tu privacidad. ¡Disfruta del evento!"
+        },
+        reedemTicketScreen: {
+            loadingMessage: "Canjea tu entrada",
+            emptyCodeErrorMessage: {
+                title: "¡Error!",
+                message: "Introduce un código, por favor"
+            },
+            ticketNotFoundError: {
+                title: "¡Error!",
+                message: "La entrada no existe o no está compartida"
+            },
+
+            labelText: "Código",
+
+            placeholder: "Tu código aquí...",
+            redeemButtonText: {
+                withCode: "CANJEAR",
+                withoutCode: "INGRESA UN CÓDIGO"
+            },
+            cancelButtonText: "Cancelar"
         }
     },
     en: {
@@ -433,6 +453,7 @@ export const translations = {
             textoNotificacionesDesactivadas: "Push notifications are disabled.\n\n To enable them and receive event reminders, go to the app permissions in your phone's personal settings.",
             botonAbrirConfiguracion: "Open settings"
         },
+
         privacyPolicyScreen: {
             termsAndPrivacyTitle: "Terms of Use and Privacy Policy",
             welcomeText: "Welcome to Expoactiva Nacional, an event organized by the Asociación Rural de Soriano. Below, we outline our specific privacy policy for this event, so you understand how we handle the information collected during your participation in Expoactiva Nacional.",
@@ -453,6 +474,24 @@ export const translations = {
             privacyPolicyChangesText: "We reserve the right to modify this policy at any time. Updates will be communicated through the application.",
             contactTitle: "Contact",
             contactText: "If you have any questions or concerns about our privacy policy for Expoactiva Nacional, feel free to contact us at cybersoft@hotmail.com. Thank you for being part of Expoactiva Nacional and trusting Cyb3rSoft to enhance your event experience while protecting your privacy. Enjoy the event!"
+        },
+        reedemTicketScreen: {
+            loadingMessage: "Redeem your ticket",
+            emptyCodeErrorMessage: {
+                title: "Error!",
+                message: "Enter a code, please"
+            },
+            ticketNotFoundError: {
+                title: "Error!",
+                message: "The ticket does not exist or is not shared"
+            },
+            labelText: "Code",
+            placeholder: "Your code here...",
+            redeemButtonText: {
+                withCode: "REDEEM",
+                withoutCode: "ENTER A CODE"
+            },
+            cancelButtonText: "Cancel"
         }
     },
     pt: {
@@ -603,6 +642,24 @@ export const translations = {
             privacyPolicyChangesText: "Reservamo-nos o direito de modificar esta política a qualquer momento. As atualizações serão comunicadas por meio do aplicativo.",
             contactTitle: "Contato",
             contactText: "Se tiver alguma dúvida ou preocupação sobre nossa política de privacidade para o Expoactiva Nacional, não hesite em entrar em contato conosco pelo e-mail cybersoft@hotmail.com. Obrigado por fazer parte do Expoactiva Nacional e confiar na Cyb3rSoft para aprimorar sua experiência no evento, ao mesmo tempo que protegemos sua privacidade. Aproveite o evento!"
+        },
+        reedemTicketScreen: {
+            loadingMessage: "Resgate seu ingresso",
+            emptyCodeErrorMessage: {
+                title: "Erro!",
+                message: "Digite um código, por favor"
+            },
+            ticketNotFoundError: {
+                title: "Erro!",
+                message: "O ingresso não existe ou não está compartilhado"
+            },
+            labelText: "Código",
+            placeholder: "Seu código aqui...",
+            redeemButtonText: {
+                withCode: "RESGATAR",
+                withoutCode: "INSIRA UM CÓDIGO"
+            },
+            cancelButtonText: "Cancelar"
         }
     }
 };

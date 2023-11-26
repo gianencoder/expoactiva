@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
-import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, ActivityIndicator, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Keyboard } from 'react-native'
 import { ticketStyles } from '../theme/TicketsTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { editProfileTheme } from '../theme/EditProfileTheme'
@@ -8,6 +8,8 @@ import { useNavigation } from '@react-navigation/native'
 import { useTicketManager } from '../hooks/useTicketManager'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
 import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketContext'
+import { useLanguage } from '../context/LanguageContext/LanguageContext'
+import { loadTranslations, translations } from '../util/utils'
 
 export const ReedemTicketScreen = () => {
     const mounted = useRef(false);
@@ -18,6 +20,12 @@ export const ReedemTicketScreen = () => {
     const [emptyCode, setEmptyCode] = useState(false)
     const [showErrorTicketToast, setShowErrorTicketToast] = useState(false);
     const { claimedTicket, redeemTicketAttempt } = useRedeemTicket();
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
+
 
     useEffect(() => {
 
@@ -47,43 +55,6 @@ export const ReedemTicketScreen = () => {
         }
     }
 
-    // const renderLoadingSpinner = () => {
-    //     return (
-    //         <Modal
-    //             transparent={true}
-    //             animationType="none"
-    //             visible={loading}
-    //         >
-    //             <View style={styles.modalBackground}>
-    //                 <View style={styles.activityIndicatorWrapper}>
-    //                     <ActivityIndicator
-    //                         animating={loading}
-    //                         size="large"
-    //                         color={theme.customColors.activeColor}
-    //                     />
-    //                 </View>
-    //             </View>
-    //         </Modal>
-    //     );
-    // };
-
-    const styles = StyleSheet.create({
-        modalBackground: {
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        },
-        activityIndicatorWrapper: {
-            backgroundColor: theme.colors.background,
-            borderRadius: 10,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            padding: 50,
-        },
-    });
-
     return (
 
         <>
@@ -91,13 +62,13 @@ export const ReedemTicketScreen = () => {
 
                 ? <View style={{ flex: 1, justifyContent: 'center', backgroundColor: theme.colors.background }}><ActivityIndicator size={'large'} color={theme.customColors.activeColor} /></View>
                 : <View style={{ ...ticketStyles.container2, backgroundColor: colors.background }}>
-                    <Text style={{ fontSize: 25, color: colors.text }}>Canjea tu entrada</Text>
+                    <Text style={{ fontSize: 25, color: colors.text }}>{translation.reedemTicketScreen.loadingMessage}</Text>
                     <ToastMessageComponent
                         backgroundColor={customColors.bgErrorMessage}
                         iconColor={customColors.colorErrorMessage}
                         textColor={customColors.colorErrorMessage}
-                        title='¡Error!'
-                        message={'Introduce un código, por favor'}
+                        title={translation.reedemTicketScreen.emptyCodeErrorMessage.title}
+                        message={translation.reedemTicketScreen.emptyCodeErrorMessage.message}
                         visible={emptyCode}
                         iconName={'closecircleo'}
                     />
@@ -105,14 +76,14 @@ export const ReedemTicketScreen = () => {
                         backgroundColor={customColors.bgErrorMessage}
                         iconColor={customColors.colorErrorMessage}
                         textColor={customColors.colorErrorMessage}
-                        title='¡Error!'
-                        message={'La entrada no existe o no está compartida'}
+                        title={translation.reedemTicketScreen.ticketNotFoundError.title}
+                        message={translation.reedemTicketScreen.ticketNotFoundError.message}
                         visible={showErrorTicketToast}
                         iconName={'closecircleo'}
                     />
                     <View style={editProfileTheme.div}>
                         <View style={{ width: '100%', flexDirection: 'row', gap: 5, alignItems: 'center' }}>
-                            <Text style={{ ...editProfileTheme.labelName, color: colors.text }}>Código</Text>
+                            <Text style={{ ...editProfileTheme.labelName, color: colors.text }}>{translation.reedemTicketScreen.labelText}</Text>
                             <Text style={{ ...editProfileTheme.labelName, color: emptyCode ? 'red' : colors.text, fontSize: emptyCode ? 25 : 18 }}>*</Text>
                         </View>
 
@@ -126,7 +97,7 @@ export const ReedemTicketScreen = () => {
                             value={code}
                             onChangeText={text => setCode(text)}
                             style={{ ...authStyle.ef, color: colors.text, backgroundColor: currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
-                            placeholder='Tu código aquí...' placeholderTextColor={'gray'} />
+                            placeholder={translation.reedemTicketScreen.placeholder} placeholderTextColor={'gray'} />
                     </View>
                     <TouchableOpacity
                         onPress={handleReedem}
@@ -139,9 +110,9 @@ export const ReedemTicketScreen = () => {
                             , alignItems: 'center'
                             , alignSelf: 'center'
                         }}>
-                        <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>{code.length > 0 ? 'CANJEAR' : 'INGRESA UN CÓDIGO'}</Text>
+                        <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>{code.length > 0 ? translation.reedemTicketScreen.redeemButtonText.withCode : translation.reedemTicketScreen.redeemButtonText.withoutCode}</Text>
                     </TouchableOpacity>
-                    <Text onPress={() => navigation.goBack()} style={{ alignSelf: 'center', fontWeight: '600', color: currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18 }}>Cancelar</Text>
+                    <Text onPress={() => navigation.goBack()} style={{ alignSelf: 'center', fontWeight: '600', color: currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18 }}>{translation.reedemTicketScreen.cancelButtonText}</Text>
                 </View>
             }
         </>
