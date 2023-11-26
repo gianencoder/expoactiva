@@ -16,6 +16,8 @@ import { ExhibitorsComponent } from '../components/Icons/MyProfileIconComponent'
 import { ToastMessageComponent } from '../components/ToastMessageComponent';
 import { useAuthContext } from '../context/AuthContext/AuthContext';
 import { useNavigation } from '@react-navigation/native';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
 
 interface Props extends StackScreenProps<any, any> { }
 export const HomeScreen = ({ navigation }: Props) => {
@@ -27,6 +29,12 @@ export const HomeScreen = ({ navigation }: Props) => {
     const [deletedVisible, setDeletedVisible] = useState(false);
     const globalNavigation = useNavigation();
     const [darkMode, setDarkMode] = useState(false)
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
+
 
     useEffect(() => {
         if (visible) {
@@ -74,8 +82,8 @@ export const HomeScreen = ({ navigation }: Props) => {
             <ToastMessageComponent
                 width={'90%'}
                 visible={loginVisible}
-                title={'¡Bien hecho!'}
-                message={'Has iniciado sesión con éxito'}
+                title={translation.homeScreen.Bien_hecho}
+                message={translation.homeScreen.Has_iniciado_sesión_con_éxito}
                 backgroundColor={theme.customColors.bgSuccesMessage}
                 iconColor={theme.customColors.colorSuccessMessage}
                 textColor={theme.customColors.colorSuccessMessage}
@@ -84,9 +92,9 @@ export const HomeScreen = ({ navigation }: Props) => {
             <ToastMessageComponent
                 width={'90%'}
                 visible={deletedVisible}
-                title={'Lamentamos que te vayas'}
+                title={translation.homeScreen.Lamentamos_que_te_vayas}
                 iconName={'frowno'}
-                message={'Has eliminado tu cuenta con éxito'}
+                message={translation.homeScreen.Has_eliminado_tu_cuenta_con_éxito}
                 backgroundColor={theme.customColors.bgWarningMessage}
                 iconColor={theme.customColors.colorWarningMessage}
                 textColor={theme.customColors.colorWarningMessage}
@@ -104,12 +112,12 @@ export const HomeScreen = ({ navigation }: Props) => {
                         </View>
                     </View>
                     <View style={{ ...styles.littleComponentContainer, backgroundColor: theme.colors.background }}>
-                        <HomeLittleComponent action={handleTicketsNavigation} page={'Entradas'} icon={<TicketIconComponent />} />
-                        <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={'Mapa expo'} icon={<GoToPlaceIconComponent />} />
-                        <HomeLittleComponent action={() => navigation.navigate('TopTabNavigtorEvent')} page={'Eventos'} icon={<EventIconComponent />} />
-                        <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={'Ir a Expoactiva'} icon={<InteresPointIconComponent />} />
-                        <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={'Ubicar mi vehículo'} icon={<WhereIsMyCarIconComponent />} />
-                        <HomeLittleComponent action={() => navigation.navigate('Exhibitors')} page={'Expositores'} icon={<ExhibitorsComponent />} />
+                        <HomeLittleComponent action={handleTicketsNavigation} page={translation.homeScreen.Entradas} icon={<TicketIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('InterestPointScreen')} page={translation.homeScreen.Mapa_expo} icon={<GoToPlaceIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('TopTabNavigtorEvent')} page={translation.homeScreen.Eventos} icon={<EventIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('GoToPlaceScreen')} page={translation.homeScreen.Ir_a_Expoactiva} icon={<InteresPointIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('WhereIsMyCarScreen')} page={translation.homeScreen.Ubicar_mi_vehículo} icon={<WhereIsMyCarIconComponent />} />
+                        <HomeLittleComponent action={() => navigation.navigate('Exhibitors')} page={translation.homeScreen.Expositores} icon={<ExhibitorsComponent />} />
                     </View>
                 </View >
             </ScrollView>

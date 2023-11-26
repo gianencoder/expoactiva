@@ -249,6 +249,18 @@ export const translations = {
             noEventsText: 'No hay eventos para mostrar',
             noFavoritesText: 'No has agregado ningún favorito',
             extraOptionText: 'Presiona aquí para agregar...',
+        },
+        homeScreen: {
+            Bien_hecho: "¡Bien hecho!",
+            Has_iniciado_sesión_con_éxito: "Has iniciado sesión con éxito",
+            Lamentamos_que_te_vayas: "Lamentamos que te vayas",
+            Has_eliminado_tu_cuenta_con_éxito: "Has eliminado tu cuenta con éxito",
+            Entradas: "Entradas",
+            Mapa_expo: "Mapa expo",
+            Eventos: "Eventos",
+            Ir_a_Expoactiva: "Ir a Expoactiva",
+            Ubicar_mi_vehículo: "Ubicar mi vehículo",
+            Expositores: "Expositores"
         }
     },
     en: {
@@ -345,6 +357,18 @@ export const translations = {
             noEventsText: 'No events to display',
             noFavoritesText: 'You haven\'t added any favorites',
             extraOptionText: 'Press here to add...',
+        },
+        homeScreen: {
+            Bien_hecho: "Well done!",
+            Has_iniciado_sesión_con_éxito: "You have successfully logged in",
+            Lamentamos_que_te_vayas: "We're sorry to see you go",
+            Has_eliminado_tu_cuenta_con_éxito: "You have successfully deleted your account",
+            Entradas: "Tickets",
+            Mapa_expo: "Expo Map",
+            Eventos: "Events",
+            Ir_a_Expoactiva: "Go to Expoactiva",
+            Ubicar_mi_vehículo: "Locate my vehicle",
+            Expositores: "Exhibitors"
         }
     },
     pt: {
@@ -441,6 +465,18 @@ export const translations = {
             noEventsText: 'Nenhum evento para mostrar',
             noFavoritesText: 'Você não adicionou nenhum favorito',
             extraOptionText: 'Pressione aqui para adicionar...',
+        },
+        homeScreen: {
+            Bien_hecho: "Bem feito!",
+            Has_iniciado_sesión_con_éxito: "Você fez login com sucesso",
+            Lamentamos_que_te_vayas: "Lamentamos que você vá",
+            Has_eliminado_tu_cuenta_con_éxito: "Você excluiu sua conta com sucesso",
+            Entradas: "Ingressos",
+            Mapa_expo: "Mapa da Expo",
+            Eventos: "Eventos",
+            Ir_a_Expoactiva: "Ir para a Expoactiva",
+            Ubicar_mi_vehículo: "Localizar meu veículo",
+            Expositores: "Expositores"
         }
     }
 };
