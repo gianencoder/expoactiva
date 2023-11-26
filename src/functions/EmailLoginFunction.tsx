@@ -86,7 +86,7 @@ export const EmailLoginFunction = () => {
             }
 
             if (response.status === 404) {
-                console.log('Usuario no editado')
+
                 Alert.alert('Error 404', ' El usuario no se pudo editar con éxito', [
                     {
                         text: 'Aceptar',
@@ -114,7 +114,7 @@ export const EmailLoginFunction = () => {
 
             }
             else {
-                console.log(response)
+                console.log('error en linea 117 Email Login function')
             }
 
 
@@ -163,7 +163,7 @@ export const EmailLoginFunction = () => {
             }
 
             if (response.status === 404) {
-                console.log('Usuario no editado')
+
                 setLoading(false)
                 Alert.alert('Error 404', ' El usuario no se pudo editar con éxito', [
                     {
@@ -386,7 +386,7 @@ export const EmailLoginFunction = () => {
             } else if (response.status === 401) {
                 setWrongCredentials(true)
                 setLoading(false)
-                console.log(wrongCredentials)
+
             } else if (response.status === 402) {
                 setLoading(false)
                 Alert.alert('Error en su solicitud', 'Vuelve a intentar en unos momentos',
@@ -418,13 +418,13 @@ export const EmailLoginFunction = () => {
             })
 
             if (response.status === 200) {
-                console.log('el codigo es valido'), setIsPendingCode(true)
+                setIsPendingCode(true)
                 setLoading(false)
                 return
             }
 
             if (response.status === 201) {
-                console.log('Codigo reenviado'), setIsCodeResend(true)
+                setIsCodeResend(true)
                 setLoading(false)
                 return
             }

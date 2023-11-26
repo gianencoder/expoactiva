@@ -27,10 +27,9 @@ export const useTicketManager = (ticket = null) => {
             setLoading(true);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const body = { email: user.email, quantity };
-            console.log('body', body)
+
             const response = await axios.post(`${properties.prod}tickets/purchase`, body);
 
-            console.log('response', response.data)
 
 
             if (response.data.data) {
@@ -57,24 +56,24 @@ export const useTicketManager = (ticket = null) => {
     const fetchTickets = useCallback(async () => {
         setLoading(true);
         const ticketsKey = `@tickets_${user.email}`;
-    
+
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const response = await axios.get(`${properties.prod}tickets/${user.email}`);
-    
+
             // Si la respuesta es exitosa, primero actualiza los tickets en el estado
             if (response.data) {
                 setTickets(response.data);
-    
+
                 // Luego borra las entradas antiguas de AsyncStorage
                 await AsyncStorage.removeItem(ticketsKey);
-    
+
                 // Y finalmente almacena los nuevos tickets
                 await AsyncStorage.setItem(ticketsKey, JSON.stringify(response.data));
             }
         } catch (err) {
             console.log('Error al obtener tickets desde la API, intentando cargar desde AsyncStorage:', err);
-            
+
             // Intenta cargar los tickets desde AsyncStorage si hay un error
             const storedTicketsString = await AsyncStorage.getItem(ticketsKey);
             if (storedTicketsString) {
@@ -87,7 +86,7 @@ export const useTicketManager = (ticket = null) => {
             setLoading(false);
         }
     }, [user?.email, token]);
-    
+
 
     const ticketDetail = useCallback((id) => {
         try {
@@ -139,7 +138,7 @@ export const useTicketManager = (ticket = null) => {
                 setIsTicketShared(false)
                 console.log('isTicketShared', isTicketShared)
                 navigation.goBack()
-                
+
             } else {
                 setClaimedTicket(false)
                 setRedeemTicketAttempt(currentAttempt => !currentAttempt)
@@ -167,12 +166,12 @@ export const useTicketManager = (ticket = null) => {
                 });
                 return response.status === 200;
             };
-    
+
             const proceedWithSharing = async () => {
                 const result = await Share.share({
                     message: `Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada:${"\n"}${"\n"}${code}`
                 });
-    
+
                 if (Platform.OS === 'ios' && result.action === Share.sharedAction) {
                     if (result.activityType) {
                         if (await updateTicketStatus()) {
@@ -186,21 +185,23 @@ export const useTicketManager = (ticket = null) => {
                     }
                 }
             };
-    
+
             if (Platform.OS === 'android') {
                 Alert.alert(
                     'Compartir entrada',
                     '¿Realmente desea compartir su entrada?',
                     [
                         { text: 'No', onPress: () => console.log('Compartir cancelado'), style: 'cancel' },
-                        { text: 'Sí', onPress: async () => {
-                            if (await updateTicketStatus()) {
-                                setIsTicketShared(true);
-                                proceedWithSharing();
-                            } else {
-                                console.log('error en la API');
+                        {
+                            text: 'Sí', onPress: async () => {
+                                if (await updateTicketStatus()) {
+                                    setIsTicketShared(true);
+                                    proceedWithSharing();
+                                } else {
+                                    console.log('error en la API');
+                                }
                             }
-                        }},
+                        },
                     ],
                     { cancelable: false }
                 );
@@ -212,8 +213,8 @@ export const useTicketManager = (ticket = null) => {
             Alert.alert('Error', 'Ocurrió un error al compartir la entrada, intente nuevamente');
         }
     };
-    
-    
+
+
     return ({
         tickets
         , ticketDetail

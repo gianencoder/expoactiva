@@ -9,8 +9,6 @@ import { useAuthContext } from '../context/AuthContext/AuthContext';
 const LocationDaemon = () => {
 
   const { user, isLoggedIn } = useAuthContext();
-  console.log('user', user)
-
   const expoactivaCoordinates = [
     [-33.44981, -57.89672],
     [-33.44973, -57.89065],
@@ -54,21 +52,15 @@ const LocationDaemon = () => {
   }, [user, isLoggedIn]);
 
   function calculateAge(birthday) {
-
-    console.log('birthday', birthday)
-
     const birthDate = new Date(birthday);
-
-    console.log('birthDate', birthDate)
-
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDifference = today.getMonth() - birthDate.getMonth();
-  
+
     if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
       age--;
     }
-  
+
     return age;
   }
 
@@ -95,23 +87,16 @@ const LocationDaemon = () => {
       const date = now.toISOString().split('T')[0];
       const time = now.toTimeString().split(' ')[0];
       const deviceId = getUniqueId()._j;
-      
+
       let interests = [];
       let ageRange = 'Unknown';
 
       if (isLoggedIn) {
         interests = user.interests;
         const age = calculateAge(user.date);
-
-        console.log('age', age)
-
         ageRange = getAgeRange(age);
-
-        console.log('interests', interests);
-        console.log('ageRange', ageRange);
-
       }
-      
+
       const body = {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
@@ -121,12 +106,7 @@ const LocationDaemon = () => {
         interests: interests,
         ageRange: ageRange,
       }
-
-      console.log('body', body);
-
-      await axios.post(`${properties.prod}open/locations`,body);
-
-
+      await axios.post(`${properties.prod}open/locations`, body);
     } catch (error) {
       console.log('Error al enviar localizacion', error.message);
     }

@@ -15,6 +15,7 @@ import { MainScreen } from './src/screens/MainScreen';
 import { CarLocationProvider } from './src/context/CarLocationContext/CarLocationContext';
 import { ThemeContext } from './src/context/themeContext/ThemeContext';
 import Main from './Main';
+import { LanguageProvider } from './src/context/LanguageContext/LanguageContext';
 
 export default function App() {
 
@@ -44,8 +45,6 @@ export default function App() {
     });
   }, []);
 
-
-
   const handleAcceptTerms = () => {
     // Guardar el estado en AsyncStorage
     AsyncStorage.setItem('termsAccepted', 'true');
@@ -61,23 +60,24 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider>
-    <AuthProvider>
-      <CarLocationProvider>
-      <FavoritesProvider>
-        
-          <PaymentProvider>
-            <RedeemTicketProvider>
-              <NavigationContainer>
-                <Main/>
-              </NavigationContainer >
-              <LocationDaemon />
-            </RedeemTicketProvider>
-          </PaymentProvider>
+    <LanguageProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <CarLocationProvider>
+            <FavoritesProvider>
 
-      </FavoritesProvider>
-      </CarLocationProvider>
-    </AuthProvider>
-    </ThemeProvider>
+              <PaymentProvider>
+                <RedeemTicketProvider>
+                  <NavigationContainer>
+                    <Main />
+                  </NavigationContainer >
+                  <LocationDaemon />
+                </RedeemTicketProvider>
+              </PaymentProvider>
+            </FavoritesProvider>
+          </CarLocationProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </LanguageProvider>
   );
 }

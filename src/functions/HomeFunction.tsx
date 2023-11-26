@@ -11,7 +11,6 @@ export const HomeFunction = () => {
     const isFocused = useIsFocused();
     const scrollViewRef = useRef<ScrollView>(null);
     const { expoPushToken } = usePushNotifications();
-    console.log('expoPushToken', expoPushToken);
 
     const getStoredExhibitors = async () => {
         try {
@@ -23,7 +22,7 @@ export const HomeFunction = () => {
         }
     };
 
-    const storeExhibitors = async (newExhibitors:Exhibitors[]) => {
+    const storeExhibitors = async (newExhibitors: Exhibitors[]) => {
         try {
             await AsyncStorage.setItem('@exhibitors', JSON.stringify(newExhibitors));
         } catch (error) {

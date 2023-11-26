@@ -17,7 +17,7 @@ export const useExhibitors = () => {
                 })
                 setExhibitors(exhibitors);
             } catch (err) {
-                console.log(err);
+                console.log('error use exhibitors');
             }
         }
         getExhibitors();

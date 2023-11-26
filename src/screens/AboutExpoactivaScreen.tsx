@@ -3,8 +3,15 @@ import { ActivityIndicator, ImageBackground, ScrollView, Text } from 'react-nati
 import { View } from 'react-native';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { translate, translations } from '../util/utils';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export const AboutExpoactivaScreen = () => {
+    const { languageState } = useLanguage();
+    const { language } = languageState;
+
+
     const { theme } = useContext(ThemeContext);
     const [text1, setText1] = useState('');
     const [text2, setText2] = useState('');
@@ -15,21 +22,27 @@ export const AboutExpoactivaScreen = () => {
     useEffect(() => {
         const translateTexts = async () => {
             try {
-                const translatedText1 = await translate(translations.aboutExpoactivaScreen.text1, 'es');
-                const translatedText2 = await translate(translations.aboutExpoactivaScreen.text2, 'es');
-                const translatedText3 = await translate(translations.aboutExpoactivaScreen.text3, 'es');
-                const translatedText4 = await translate(translations.aboutExpoactivaScreen.text4, 'es');
+                const currentLanguage = await AsyncStorage.getItem('language');
+                if (currentLanguage !== 'es') {
+                    const translatedText1 = await translate(translations.aboutExpoactivaScreen.text1, language);
+                    const translatedText2 = await translate(translations.aboutExpoactivaScreen.text2, language);
+                    const translatedText3 = await translate(translations.aboutExpoactivaScreen.text3, language);
+                    const translatedText4 = await translate(translations.aboutExpoactivaScreen.text4, language);
 
-                setText1(translatedText1);
-                setText2(translatedText2);
-                setText3(translatedText3);
-                setText4(translatedText4);
-
-                setLoading(false);
+                    setText1(translatedText1);
+                    setText2(translatedText2);
+                    setText3(translatedText3);
+                    setText4(translatedText4);
+                } else {
+                    setText1(translations.aboutExpoactivaScreen.text1);
+                    setText2(translations.aboutExpoactivaScreen.text2);
+                    setText3(translations.aboutExpoactivaScreen.text3);
+                    setText4(translations.aboutExpoactivaScreen.text4);
+                }
             } catch (error) {
-                console.error('Error en la traducción:', error);
-                // Manejar errores según tus necesidades
-                setLoading(false);
+                console.log('Error en la traducción:', error);
+            } finally {
+                setLoading(false)
             }
         };
 

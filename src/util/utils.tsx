@@ -4,6 +4,7 @@ import esLocale from 'date-fns/locale/es';
 import moment from 'moment';
 import { Alert } from 'react-native';
 import properties from '../../properties.json'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function capitalize(word: any) {
     if (word && typeof word === 'string') {
@@ -124,12 +125,16 @@ export async function translate(text: string, language: string): Promise<string>
         }
 
     } catch (error) {
-        // Manejar errores de red u otros errores
-        console.error('Error en la traducción:', error);
-        Alert.alert('Tiempo agotado', 'Intente nuevamente en unos minutos');
-        throw new Error('Error en la traducción');
+        console.log('Error en la traducción:', error);
+
+        // Establecer automáticamente el idioma español
+        AsyncStorage.setItem('language', 'es');
+
+        // Lanzar una excepción personalizada para detener la ejecución
+        throw new Error('Traducción fallida');
     }
 }
+
 
 
 
@@ -141,5 +146,16 @@ export const translations = {
         text3: 'Edición tras edición se fueron presentando los cambios de forma activa, cada evento tenía su proyección nacional y también regional, lo que hace que esta muestra tenga un concepto diferente; recibir público del sector proveniente de toda la región.',
         text4: 'En la actualidad está consolidada como la mayor muestra de agro negocios del país. Durante los cuatro días que dura el evento, participan más de 300 expositores y se presentan más de 750 marcas generando un impacto positivo en la región en áreas de conocimiento y tecnología. Los avances del sector los puedes ver en Expoactiva Nacional.',
     },
+
+    configurationScreen: {
+        configuration: 'Configuración',
+        myAccount: 'Mi cuenta',
+        notifications: 'Notificaciones',
+        appearance: 'Apariencia',
+        changeLanguage: 'Cambiar idioma',
+        privacyPolicy: 'Política de privacidad y términos',
+        helpAndSupport: 'Ayuda y soporte',
+        aboutApp: 'Sobre Expoactiva Nacional App',
+    }
 };
 
