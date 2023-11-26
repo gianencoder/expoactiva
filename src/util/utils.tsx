@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { formatDistanceToNow } from 'date-fns';
 import esLocale from 'date-fns/locale/es';
 import moment from 'moment';
@@ -103,8 +103,20 @@ export function filterFormmat(date) {
     return moment(date).format('YYYY-MM-DD');
 };
 
+
+
 export async function translate(text: string, language: string): Promise<string> {
     try {
+        // Verificar si la traducción está en caché
+        const cacheKey = `${language}_${text}`;
+        const cachedTranslation = await AsyncStorage.getItem(cacheKey);
+
+        if (cachedTranslation) {
+            // Si está en caché, devolver la traducción almacenada
+            return cachedTranslation;
+        }
+
+        // Si no está en caché, realizar la solicitud de traducción
         const response = await fetch(`${properties.desa}traducir`, {
             method: 'POST',
             headers: {
@@ -112,13 +124,19 @@ export async function translate(text: string, language: string): Promise<string>
             },
             body: JSON.stringify({
                 texto: text,
-                idiomaDestino: language
+                idiomaDestino: language,
             }),
         });
 
         if (response.ok) {
+            // Obtener la traducción y almacenarla en caché
             const result = await response.json();
-            return result.traduccion;
+            const translation = result.traduccion;
+
+            // Almacenar en caché la traducción para futuras llamadas
+            await AsyncStorage.setItem(cacheKey, translation);
+
+            return translation;
         } else {
             // Manejar errores de la solicitud
             throw new Error('Error en la solicitud de traducción');
@@ -135,27 +153,111 @@ export async function translate(text: string, language: string): Promise<string>
     }
 }
 
-
-
-
 export const translations = {
 
-    aboutExpoactivaScreen: {
-        text1: 'Expoactiva Nacional es una iniciativa de la Asociación Rural de Soriano, asociación de productores rurales del departamento, con más de 120 años de trabajo en equipo.',
-        text2: 'En el marco de los festejos de los 100 años, en el año 1992, se organiza la 1era Expoactiva Nacional. Se realiza en el mes de abril de aquel año, en el predio del establecimiento “Santa Amelia” y se concreta como un evento de proyección con el sello de la Asociación Rural de Soriano. En la misma ya se mostraban actividades prácticas de labores agrícolas lo que hoy le llamamos muestra activa.',
-        text3: 'Edición tras edición se fueron presentando los cambios de forma activa, cada evento tenía su proyección nacional y también regional, lo que hace que esta muestra tenga un concepto diferente; recibir público del sector proveniente de toda la región.',
-        text4: 'En la actualidad está consolidada como la mayor muestra de agro negocios del país. Durante los cuatro días que dura el evento, participan más de 300 expositores y se presentan más de 750 marcas generando un impacto positivo en la región en áreas de conocimiento y tecnología. Los avances del sector los puedes ver en Expoactiva Nacional.',
+    es: {
+        aboutExpoactivaScreen: {
+            text1: 'Expoactiva Nacional es una iniciativa de la Asociación Rural de Soriano, asociación de productores rurales del departamento, con más de 120 años de trabajo en equipo.',
+            text2: 'En el marco de los festejos de los 100 años, en el año 1992, se organiza la 1era Expoactiva Nacional. Se realiza en el mes de abril de aquel año, en el predio del establecimiento “Santa Amelia” y se concreta como un evento de proyección con el sello de la Asociación Rural de Soriano. En la misma ya se mostraban actividades prácticas de labores agrícolas lo que hoy le llamamos muestra activa.',
+            text3: 'Edición tras edición se fueron presentando los cambios de forma activa, cada evento tenía su proyección nacional y también regional, lo que hace que esta muestra tenga un concepto diferente; recibir público del sector proveniente de toda la región.',
+            text4: 'En la actualidad está consolidada como la mayor muestra de agro negocios del país. Durante los cuatro días que dura el evento, participan más de 300 expositores y se presentan más de 750 marcas generando un impacto positivo en la región en áreas de conocimiento y tecnología. Los avances del sector los puedes ver en Expoactiva Nacional.'
+        },
+        configurationScreen: {
+            configuration: 'Configuración',
+            myAccount: 'Mi cuenta',
+            notifications: 'Notificaciones',
+            appearance: 'Apariencia',
+            changeLanguage: 'Cambiar idioma',
+            privacyPolicy: 'Política de privacidad y términos',
+            helpAndSupport: 'Ayuda y soporte',
+            aboutApp: 'Sobre Expoactiva Nacional App'
+        },
+        authScreen: {
+            accountTitle: 'Mi cuenta',
+            loginSubtitle: 'Inicia sesión para listar, comprar y compartir tus entradas',
+            loginButton: 'Iniciar sesión',
+            noAccountText: '¿No tienes cuenta?',
+            createAccount: 'Presiona aquí',
+            listar: 'listar',
+            comprar: 'comprar',
+            compartir: 'compartir'
+        }
     },
+    en: {
+        aboutExpoactivaScreen: {
+            text1: 'Expoactiva Nacional is an initiative of the Asociación Rural de Soriano, an association of rural producers in the department, with more than 120 years of teamwork.',
+            text2: 'In the context of the celebrations for the 100 years, in 1992, the 1st Expoactiva Nacional is organized. It takes place in the month of April of that year, on the premises of the "Santa Amelia" establishment, and materializes as an event of projection with the stamp of the Asociación Rural de Soriano. In it, practical activities of agricultural work were already shown, what we now call an active exhibition.',
+            text3: 'Edition after edition, changes were actively presented, each event had its national and also regional projection, which makes this exhibition have a different concept; receiving the public from the sector from the entire region.',
+            text4: 'Currently, it is consolidated as the largest agribusiness exhibition in the country. During the four days of the event, more than 300 exhibitors participate, and more than 750 brands are presented, generating a positive impact on the region in areas of knowledge and technology. You can see the advances of the sector at Expoactiva Nacional.'
+        },
+        configurationScreen: {
+            configuration: 'Settings',
+            myAccount: 'My account',
+            notifications: 'Notifications',
+            appearance: 'Appearance',
+            changeLanguage: 'Change language',
+            privacyPolicy: 'Privacy policy and terms',
+            helpAndSupport: 'Help and support',
+            aboutApp: 'About Expoactiva Nacional App'
+        },
+        authScreen: {
+            accountTitle: 'My account',
+            loginSubtitle: 'Log in to list, buy, and share your tickets',
+            loginButton: 'Log in',
+            noAccountText: 'Don\'t have an account?',
+            createAccount: 'Press here',
+            listar: 'list',
+            comprar: 'buy',
+            compartir: 'share'
+        }
+    },
+    pt: {
+        aboutExpoactivaScreen: {
+            text1: 'Expoactiva Nacional é uma iniciativa da Asociación Rural de Soriano, associação de produtores rurais do departamento, com mais de 120 anos de trabalho em equipe.',
+            text2: 'No contexto das comemorações pelos 100 anos, em 1992, é organizada a 1ª Expoactiva Nacional. Realiza-se no mês de abril daquele ano, nas dependências do estabelecimento "Santa Amelia", e se concretiza como um evento de projeção com o selo da Asociación Rural de Soriano. Nele, já eram mostradas atividades práticas de trabalhos agrícolas, o que hoje chamamos de mostra ativa.',
+            text3: 'Edição após edição, as mudanças foram sendo apresentadas de forma ativa, cada evento tinha sua projeção nacional e também regional, o que faz desta mostra ter um conceito diferente; receber público do setor proveniente de toda a região.',
+            text4: 'Atualmente, está consolidada como a maior mostra de agronegócios do país. Durante os quatro dias do evento, participam mais de 300 expositores e são apresentadas mais de 750 marcas, gerando um impacto positivo na região em áreas de conhecimento e tecnologia. Você pode ver os avanços do setor na Expoactiva Nacional.'
+        },
+        configurationScreen: {
+            configuration: 'Configuração',
+            myAccount: 'Minha conta',
+            notifications: 'Notificações',
+            appearance: 'Aparência',
+            changeLanguage: 'Mudar idioma',
+            privacyPolicy: 'Política de privacidade e termos',
+            helpAndSupport: 'Ajuda e suporte',
+            aboutApp: 'Sobre o aplicativo Expoactiva Nacional'
+        },
+        authScreen: {
+            accountTitle: 'Minha conta',
+            loginSubtitle: 'Faça login para listar, comprar e compartilhar seus ingressos',
+            loginButton: 'Iniciar sessão',
+            noAccountText: 'Não tem uma conta?',
+            createAccount: 'Pressione aqui',
+            listar: 'listar',
+            comprar: 'comprar',
+            compartir: 'compartilhar'
+        }
+    }
+};
 
-    configurationScreen: {
-        configuration: 'Configuración',
-        myAccount: 'Mi cuenta',
-        notifications: 'Notificaciones',
-        appearance: 'Apariencia',
-        changeLanguage: 'Cambiar idioma',
-        privacyPolicy: 'Política de privacidad y términos',
-        helpAndSupport: 'Ayuda y soporte',
-        aboutApp: 'Sobre Expoactiva Nacional App',
+
+export const loadTranslations = async (setTranslation) => {
+
+    // Obtén el idioma guardado en AsyncStorage (asegúrate de haberlo almacenado previamente)
+    const storedLanguage = await AsyncStorage.getItem('language');
+
+    // Define el conjunto de traducciones según el idioma
+    switch (storedLanguage) {
+        case 'en':
+            setTranslation(translations.en);
+            break;
+        case 'pt':
+            setTranslation(translations.pt);
+            break;
+        default:
+            setTranslation(translations.es);
+            break;
     }
 };
 
