@@ -323,7 +323,12 @@ export const translations = {
                 withoutCode: "INGRESA UN CÓDIGO"
             },
             cancelButtonText: "Cancelar"
+        },
+        ticketDetailScreen: {
+            presentarQR: "Presentar QR en la entrada al predio para ingresar",
+            qrNoValido: "Codigo QR no válido"
         }
+
     },
     en: {
         aboutExpoactivaScreen: {
@@ -492,6 +497,10 @@ export const translations = {
                 withoutCode: "ENTER A CODE"
             },
             cancelButtonText: "Cancel"
+        },
+        ticketDetailScreen: {
+            presentarQR: "Present QR at the entrance to access",
+            qrNoValido: "Invalid QR Code"
         }
     },
     pt: {
@@ -660,6 +669,10 @@ export const translations = {
                 withoutCode: "INSIRA UM CÓDIGO"
             },
             cancelButtonText: "Cancelar"
+        },
+        ticketDetailScreen: {
+            presentarQR: "Apresentar o QR na entrada para acessar",
+            qrNoValido: "Código QR inválido"
         }
     }
 };
