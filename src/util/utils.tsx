@@ -242,6 +242,13 @@ export const translations = {
         exhibitorScreen: {
             searchPlaceholder: "Buscar nombre o número stand...",
             noExhibitors: "No hay expositores para mostrar"
+        },
+        favouriteScree: {
+            searchBarPlaceholder: 'Buscar nombre del evento...',
+            loadingText: 'Cargando...',
+            noEventsText: 'No hay eventos para mostrar',
+            noFavoritesText: 'No has agregado ningún favorito',
+            extraOptionText: 'Presiona aquí para agregar...',
         }
     },
     en: {
@@ -331,6 +338,13 @@ export const translations = {
         exhibitorScreen: {
             searchPlaceholder: "Search by name or stand number...",
             noExhibitors: "No exhibitors to show"
+        },
+        favouriteScree: {
+            searchBarPlaceholder: 'Search event name...',
+            loadingText: 'Loading...',
+            noEventsText: 'No events to display',
+            noFavoritesText: 'You haven\'t added any favorites',
+            extraOptionText: 'Press here to add...',
         }
     },
     pt: {
@@ -420,6 +434,13 @@ export const translations = {
         exhibitorScreen: {
             searchPlaceholder: "Pesquisar por nome ou número do estande...",
             noExhibitors: "Não há expositores para mostrar"
+        },
+        favouriteScree: {
+            searchBarPlaceholder: 'Buscar nome do evento...',
+            loadingText: 'Carregando...',
+            noEventsText: 'Nenhum evento para mostrar',
+            noFavoritesText: 'Você não adicionou nenhum favorito',
+            extraOptionText: 'Pressione aqui para adicionar...',
         }
     }
 };

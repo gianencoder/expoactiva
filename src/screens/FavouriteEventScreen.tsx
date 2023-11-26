@@ -10,6 +10,8 @@ import { MyColors } from '../theme/ColorsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
 import { NotEventScreen } from './NotEventScreen';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
 
 
 
@@ -20,6 +22,12 @@ export const FavouriteEventScreen = () => {
     const { favorites } = useFavorites()
     const [searchText, setSearchText] = useState('');
     const [list, setList] = useState<EventoMoshi[]>([])
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
+
 
     useEffect(() => {
         // Al cargar el componente o al volver a él, actualizamos la lista de favoritos
@@ -48,7 +56,7 @@ export const FavouriteEventScreen = () => {
             <View style={eventStyle.container} >
                 <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
                     <View style={{ width: '100%', marginVertical: 10, paddingVertical: 5, paddingHorizontal: 10, height: 45, backgroundColor: 'transparent' }}>
-                        <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder="Buscar nombre del evento..." />
+                        <SearchBar onSearchTextChange={(text: any) => setSearchText(text)} placeholder={translation.favouriteScree.searchBarPlaceholder} />
                     </View>
                     {loading
                         ?
@@ -85,14 +93,14 @@ export const FavouriteEventScreen = () => {
                             />
                             :
                             <View style={{ height: 120, width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ color: 'gray', fontWeight: 'bold', alignSelf: 'center', fontSize: 16 }}>No hay eventos para mostrar</Text>
+                                <Text style={{ color: 'gray', fontWeight: 'bold', alignSelf: 'center', fontSize: 16 }}>{translation.favouriteScree.noEventsText}</Text>
                             </View>
 
                     }
                 </View>
             </View >
             :
-            <NotEventScreen text={'No has agregado ningún favorito'} extraoption={'Presiona aquí para agregar...'}></NotEventScreen>
+            <NotEventScreen text={translation.favouriteScree.noFavoritesText} extraoption={translation.favouriteScree.extraOptionText}></NotEventScreen>
 
 
     );
