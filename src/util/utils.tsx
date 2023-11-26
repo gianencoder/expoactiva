@@ -327,6 +327,21 @@ export const translations = {
         ticketDetailScreen: {
             presentarQR: "Presentar QR en la entrada al predio para ingresar",
             qrNoValido: "Codigo QR no válido"
+        },
+        ticketsScreen: {
+            myTickets: 'Mis entradas',
+            loadingMessage: "Cargando entradas...",
+            redeemTicket: "CANJEAR CON CÓDIGO",
+            buyTicket: "PRESIONE AQUÍ PARA COMPRAR",
+            noTicketsMessage: "No tienes entradas disponibles",
+            noTicketsImage: "../assets/images/no-tickets.png",
+            noTicketsSubtitle: "No tienes entradas disponibles",
+            buyButton: "COMPRAR",
+            redeemButton: "CANJEAR",
+            successTitle: "¡Bien hecho!",
+            successMessage: "Has recibido tu entrada",
+            paymentSuccessTitle: "¡Pago recibido!",
+            paymentSuccessMessage: "Se ha completado la compra con éxito"
         }
 
     },
@@ -501,6 +516,21 @@ export const translations = {
         ticketDetailScreen: {
             presentarQR: "Present QR at the entrance to access",
             qrNoValido: "Invalid QR Code"
+        },
+        ticketsScreen: {
+            myTickets: 'My tickets',
+            loadingMessage: "Loading tickets...",
+            redeemTicket: "REDEEM WITH CODE",
+            buyTicket: "PRESS HERE TO BUY",
+            noTicketsMessage: "You have no available tickets",
+            noTicketsImage: "../assets/images/no-tickets.png",
+            noTicketsSubtitle: "You have no available tickets",
+            buyButton: "BUY",
+            redeemButton: "REDEEM",
+            successTitle: "Well done!",
+            successMessage: "You have received your ticket",
+            paymentSuccessTitle: "Payment received!",
+            paymentSuccessMessage: "Purchase completed successfully"
         }
     },
     pt: {
@@ -673,6 +703,21 @@ export const translations = {
         ticketDetailScreen: {
             presentarQR: "Apresentar o QR na entrada para acessar",
             qrNoValido: "Código QR inválido"
+        },
+        ticketsScreen: {
+            myTickets: 'Minhas entradas',
+            loadingMessage: "Carregando entradas...",
+            redeemTicket: "CANJEAR COM CÓDIGO",
+            buyTicket: "PRESIONE AQUÍ PARA COMPRAR",
+            noTicketsMessage: "No tienes entradas disponibles",
+            noTicketsImage: "../assets/images/sin-resultado.png",
+            noTicketsSubtitle: "No tienes entradas disponibles",
+            buyButton: "COMPRAR",
+            redeemButton: "CANJEAR",
+            successTitle: "¡Bien hecho!",
+            successMessage: "Has recibido tu entrada",
+            paymentSuccessTitle: "¡Pago recibido!",
+            paymentSuccessMessage: "Se ha completado la compra con éxito"
         }
     }
 };

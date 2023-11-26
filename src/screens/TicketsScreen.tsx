@@ -11,6 +11,8 @@ import { usePayment } from '../context/PaymentContext/PaymentContext';
 import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketContext';
 import { useAuthContext } from '../context/AuthContext/AuthContext';
 import { AuthScreen } from './AuthScreen';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
 
 
 export const TicketsScreen = () => {
@@ -24,6 +26,12 @@ export const TicketsScreen = () => {
     const { claimedTicket, setClaimedTicket, setRedeemTicketAttempt } = useRedeemTicket();
     const [charging, setCharging] = useState(true)
     const isFocused = useIsFocused();
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
+
 
     useFocusEffect(
         React.useCallback(() => {
@@ -83,8 +91,8 @@ export const TicketsScreen = () => {
                                 <ToastMessageComponent
                                     width={'95%'}
                                     visible={showRedeemToast}
-                                    title={'¡Bien hecho!'}
-                                    message={'Has recibido tu entrada'}
+                                    title={translation.ticketsScreen.successTitle}
+                                    message={translation.ticketsScreen.successMessage}
                                     backgroundColor={theme.customColors.bgSuccesMessage}
                                     iconColor={theme.customColors.colorSuccessMessage}
                                     textColor={theme.customColors.colorSuccessMessage}
@@ -92,15 +100,15 @@ export const TicketsScreen = () => {
                                 <ToastMessageComponent
                                     width={'95%'}
                                     visible={showPaymentToast}
-                                    title={'¡Pago recibido!'}
-                                    message={'Se ha completado la compra con éxito'}
+                                    title={translation.ticketsScreen.paymentSuccessTitle}
+                                    message={translation.ticketsScreen.paymentSuccessMessage}
                                     backgroundColor={theme.customColors.bgSuccesMessage}
                                     iconColor={theme.customColors.colorSuccessMessage}
                                     textColor={theme.customColors.colorSuccessMessage}
                                 />
                                 <View style={ticketStyles.topSide}>
                                     <View style={{ width: '100%', paddingHorizontal: 20, paddingTop: 15, paddingBottom: 5 }}>
-                                        <Text style={{ fontSize: 34, color: theme.colors.text, fontWeight: '300' }}>Mis entradas</Text>
+                                        <Text style={{ fontSize: 34, color: theme.colors.text, fontWeight: '300' }}>{translation.ticketsScreen.myTickets}</Text>
                                     </View>
 
                                     <View style={{ width: '100%', height: '90%' }}>
@@ -128,7 +136,7 @@ export const TicketsScreen = () => {
                                                     , justifyContent: 'center'
                                                     , alignItems: 'center'
                                                 }}>
-                                                <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>COMPRAR</Text>
+                                                <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>{translation.ticketsScreen.buyButton}</Text>
                                             </TouchableOpacity>
 
                                             <TouchableOpacity
@@ -141,7 +149,7 @@ export const TicketsScreen = () => {
                                                     , justifyContent: 'center'
                                                     , alignItems: 'center'
                                                 }}>
-                                                <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>CANJEAR</Text>
+                                                <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>{translation.ticketsScreen.redeemButton}</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
@@ -152,7 +160,7 @@ export const TicketsScreen = () => {
                             <View style={{ flex: 1, justifyContent: 'space-evenly', alignItems: 'center', backgroundColor: theme.colors.background }}>
 
                                 <Image style={{ width: '50%', height: '45%', tintColor: theme.customColors.activeColor }} source={require('../assets/images/sin-resultado.png')} />
-                                <Text style={{ fontWeight: '500', fontSize: 24, color: theme.customColors.subtitles }}>No tienes entradas disponibles</Text>
+                                <Text style={{ fontWeight: '500', fontSize: 24, color: theme.customColors.subtitles }}>{translation.ticketsScreen.noTicketsSubtitle}</Text>
 
                                 <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', gap: 15 }}>
 
@@ -166,7 +174,7 @@ export const TicketsScreen = () => {
                                             , justifyContent: 'center'
                                             , alignItems: 'center'
                                         }}>
-                                        <Text style={{ ...ticketStyles.btt, color: 'white', letterSpacing: 1 }}>PRESIONE AQUÍ PARA COMPRAR</Text>
+                                        <Text style={{ ...ticketStyles.btt, color: 'white', letterSpacing: 1 }}>{translation.ticketsScreen.buyTicket}</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         onPress={() => navigation.navigate('ReedemTicketScreen2')}
@@ -178,14 +186,14 @@ export const TicketsScreen = () => {
                                             , justifyContent: 'center'
                                             , alignItems: 'center'
                                         }}>
-                                        <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>CANJEAR CON CÓDIGO</Text>
+                                        <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>{translation.ticketsScreen.redeemTicket}</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>}
                     </View>
                     : <View style={{ flex: 1, backgroundColor: theme.colors.background, justifyContent: 'center', alignItems: 'center', gap: 15 }}>
                         <ActivityIndicator size={'large'} color={theme.customColors.activeColor} />
-                        <Text style={{ fontSize: 18, color: theme.colors.text }}>Cargando entradas...</Text>
+                        <Text style={{ fontSize: 18, color: theme.colors.text }}>{translation.ticketsScreen.loadingMessage}</Text>
                     </View>
                 : <AuthScreen />
             }
