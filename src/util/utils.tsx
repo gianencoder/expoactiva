@@ -238,6 +238,10 @@ export const translations = {
         },
         exhibitorDetails: {
             website: 'Sitio web'
+        },
+        exhibitorScreen: {
+            searchPlaceholder: "Buscar nombre o número stand...",
+            noExhibitors: "No hay expositores para mostrar"
         }
     },
     en: {
@@ -323,6 +327,10 @@ export const translations = {
         },
         exhibitorDetails: {
             website: 'Website'
+        },
+        exhibitorScreen: {
+            searchPlaceholder: "Search by name or stand number...",
+            noExhibitors: "No exhibitors to show"
         }
     },
     pt: {
@@ -408,6 +416,10 @@ export const translations = {
         },
         exhibitorDetails: {
             website: 'Site web'
+        },
+        exhibitorScreen: {
+            searchPlaceholder: "Pesquisar por nome ou número do estande...",
+            noExhibitors: "Não há expositores para mostrar"
         }
     }
 };
