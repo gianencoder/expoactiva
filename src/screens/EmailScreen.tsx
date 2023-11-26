@@ -5,6 +5,8 @@ import { ToastMessageComponent } from '../components/ToastMessageComponent'
 import { authStyle } from '../theme/AuthTheme'
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { useNavigation } from '@react-navigation/native'
+import { useLanguage } from '../context/LanguageContext/LanguageContext'
+import { loadTranslations, translations } from '../util/utils'
 
 export const EmailScreen = () => {
 
@@ -16,6 +18,11 @@ export const EmailScreen = () => {
     const { loading, limitRequestByDevice, limitRequest } = EmailLoginFunction()
     const { height } = useWindowDimensions()
     const navigation = useNavigation()
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
 
 
     useEffect(() => {
@@ -64,8 +71,8 @@ export const EmailScreen = () => {
                                 iconColor={theme.customColors.colorErrorMessage}
                                 backgroundColor={theme.customColors.bgErrorMessage}
                                 visible={!isValid}
-                                title={'¡Error!'}
-                                message={email != '' ? 'El email no es válido' : 'No puedes dejar el campo vacío'} />
+                                title={translation.emailScreen.errorTitle}
+                                message={email != '' ? translation.emailScreen.invalidEmailMessage : translation.emailScreen.emptyEmailError} />
 
                             <ToastMessageComponent
                                 iconName={'exclamationcircleo'}
@@ -73,9 +80,9 @@ export const EmailScreen = () => {
                                 iconColor={theme.customColors.colorWarningMessage}
                                 backgroundColor={theme.customColors.bgWarningMessage}
                                 visible={showLimit}
-                                title={'¡Cuidado!'}
-                                message={'Has alcanzado el límite de solicitudes, vuelve a intentarlo en unos minutos...'} />
-                            <Text style={{ alignSelf: 'center', padding: 20, fontSize: 28, color: theme.colors.text, fontWeight: '300' }}>Iniciar sesión</Text>
+                                title={translation.emailScreen.warningTitle}
+                                message={translation.emailScreen.warningMessage} />
+                            <Text style={{ alignSelf: 'center', padding: 20, fontSize: 28, color: theme.colors.text, fontWeight: '300' }}>{translation.emailScreen.loginTitle}</Text>
 
 
                             <View style={authStyle.formView}>
@@ -90,7 +97,7 @@ export const EmailScreen = () => {
                                     keyboardType='email-address'
                                     value={email}
                                     onChangeText={text => setEmail(text.toLowerCase())}
-                                    style={{ ...authStyle.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }} placeholder='ejemplo@hotmail.com' placeholderTextColor={'gray'} />
+                                    style={{ ...authStyle.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }} placeholder={translation.emailScreen.placeholder} placeholderTextColor={'gray'} />
 
                             </View>
                             <TouchableOpacity
@@ -109,9 +116,9 @@ export const EmailScreen = () => {
                                 }}>
                                 {loading
                                     ? <ActivityIndicator color={'white'} style={{ height: 0, width: 150, borderRadius: 200 }} />
-                                    : <Text style={{ color: validEmail.test(email) ? 'white' : '#313131', letterSpacing: 1 }}>{email != '' ? validEmail.test(email) ? 'CONTINUAR' : 'EMAIL INVÁLIDO' : 'INGRESA EMAIL PARA CONTINUAR'}</Text>}
+                                    : <Text style={{ color: validEmail.test(email) ? 'white' : '#313131', letterSpacing: 1 }}>{email != '' ? validEmail.test(email) ? translation.emailScreen.continueButton : translation.emailScreen.invalidEmailMessage : translation.emailScreen.enterEmailMessage}</Text>}
                             </TouchableOpacity>
-                            <Text onPress={() => navigation.goBack()} style={{ alignSelf: 'center', fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
+                            <Text onPress={() => navigation.goBack()} style={{ alignSelf: 'center', fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>{translation.emailScreen.cancelButton}</Text>
                         </View>
                     </View>
 
