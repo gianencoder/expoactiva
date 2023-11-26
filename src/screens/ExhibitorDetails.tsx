@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { View } from '@motify/components'
 import { Image, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
@@ -14,7 +14,8 @@ import { Ionicons } from '@expo/vector-icons'
 import { useRoute } from '@react-navigation/native';
 import { exhibitorTheme } from '../theme/ExhibitorTheme'
 import { ExhibitorFunction } from '../functions/ExhibitorFunction'
-import { formatPhoneNumber } from '../util/utils'
+import { formatPhoneNumber, loadTranslations, translate, translations } from '../util/utils'
+import { useLanguage } from '../context/LanguageContext/LanguageContext'
 
 interface Props {
     Event: EventoMoshi
@@ -28,6 +29,19 @@ export const ExhibitorDetails = () => {
     const snapPoints = useMemo(() => ['32%', '90%'], [])
     const { goSite, showInMap, callPhone } = ExhibitorFunction()
     const route = useRoute()
+    const { languageState } = useLanguage();
+    const { language } = languageState
+    const [translateName, setTranslateName] = useState('')
+    const [translateDescription, setTranslateDescription] = useState('')
+    const [translateType, setTranslateType] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [translation, setTranslation] = useState(translations.es);
+
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
+
+
     const {
         id
         , name
@@ -43,7 +57,33 @@ export const ExhibitorDetails = () => {
 
     }: any = route.params
 
-    // let isFavorite = favorites.find(event => event.idEvent === id)
+    useEffect(() => {
+        const fetchTranslations = async () => {
+            setLoading(true)
+            try {
+                const translatedEventName = await translate(name, language);
+                const translatedType = await translate(description, language);
+                const translatedDescription = await translate(type, language);
+                setTranslateName(translatedEventName);
+                setTranslateDescription(translatedType);
+                setTranslateType(translatedDescription);
+
+            } catch (error) {
+                console.log('Error translating:', error);
+                // En caso de error, asignar el valor original
+                setTranslateName(translateName);
+                setTranslateDescription(translateType);
+                setTranslateType(translateDescription);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (language) {
+            fetchTranslations();
+        }
+    }, [language, name, type, description]);
+
 
     const nameStyle = useAnimatedStyle(() => ({
         color: interpolateColor(
@@ -150,12 +190,12 @@ export const ExhibitorDetails = () => {
                     >
                         <View style={{ ...eDetailTheme.header, flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ width: 220 }}>
-                                <Animated.Text style={[eDetailTheme.title, nameStyle]}>{name}</Animated.Text>
+                                <Animated.Text style={[eDetailTheme.title, nameStyle]}>{loading ? name : translateName}</Animated.Text>
                             </View>
                             {/* <TouchableOpacity onPress={() => console.log('')} style={{ ...eDetailTheme.favouriteButton, alignSelf: 'flex-start' }} ><Ionicons name={'ios-heart'} size={24} color={'#A50000'} /></TouchableOpacity> */}
                         </View>
                         <View style={eDetailTheme.header}>
-                            <Animated.Text style={[eDetailTheme.type, typeStyle]}>{type}</Animated.Text>
+                            <Animated.Text style={[eDetailTheme.type, typeStyle]}>{loading ? type : translateType}</Animated.Text>
                             <Animated.Text style={[eDetailTheme.type, standStyle]}>stand: {standId}</Animated.Text>
                         </View>
 
@@ -167,7 +207,7 @@ export const ExhibitorDetails = () => {
                         {webPage &&
                             <View style={exhibitorTheme.iconView}>
                                 <Animated.Image style={[imageStyle, { ...exhibitorTheme.icons, tintColor: theme.customColors.activeColor }]} source={require('../assets/icons/web-page.png')} />
-                                <Animated.Text onPress={() => goSite(webPage)} style={[{ ...eDetailTheme.date, textTransform: 'none', textDecorationLine: 'underline' }, telStyle]}> Sitio web </Animated.Text>
+                                <Animated.Text onPress={() => goSite(webPage)} style={[{ ...eDetailTheme.date, textTransform: 'none', textDecorationLine: 'underline' }, telStyle]}>{translation.exhibitorDetails.website}</Animated.Text>
                             </View>
                         }
                         {tel &&
@@ -186,21 +226,11 @@ export const ExhibitorDetails = () => {
                             <Text style={exhibitorTheme.textMap}>Ver en mapa</Text>
                         </TouchableOpacity> */}
                     </View>
-                    <Text style={{ paddingHorizontal: 30, fontSize: 20, color: '#6E6E6E', textAlign: 'left' }}>{description !== '' ? description : 'No tiene descripción'}</Text>
+                    <Text style={{ paddingHorizontal: 30, fontSize: 20, color: '#6E6E6E', textAlign: 'left' }}>{description !== '' ? loading ? description : translateDescription : 'No tiene descripción'}</Text>
                 </BottomSheetScrollView>
             </BottomSheet>
 
         </View>
-
     )
 }
 
-const styles = StyleSheet.create({
-    sectionHeader: {
-        marginTop: 10,
-        paddingHorizontal: 10
-    },
-    sectionTitle: {
-
-    }
-})

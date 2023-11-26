@@ -235,6 +235,9 @@ export const translations = {
             exhibitor: "EXPOSITOR",
             livestock: "GANADERA",
             noEvents: "No hay eventos para mostrar",
+        },
+        exhibitorDetails: {
+            website: 'Sitio web'
         }
     },
     en: {
@@ -317,6 +320,9 @@ export const translations = {
             exhibitor: "EXHIBITOR",
             livestock: "LIVESTOCK",
             noEvents: "No events to display",
+        },
+        exhibitorDetails: {
+            website: 'Website'
         }
     },
     pt: {
@@ -399,6 +405,9 @@ export const translations = {
             exhibitor: "EXPOSITOR",
             livestock: "PECUÁRIA",
             noEvents: "Nenhum evento para mostrar",
+        },
+        exhibitorDetails: {
+            website: 'Site web'
         }
     }
 };
