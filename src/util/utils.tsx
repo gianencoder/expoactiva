@@ -227,6 +227,14 @@ export const translations = {
         eventDetails: {
             enCurso: 'En Curso',
             finalizado: 'Finalizado',
+        },
+        eventScreen: {
+            searchPlaceholder: "Buscar nombre del evento...",
+            active: "ACTIVA",
+            conference: "CONFERENCIA",
+            exhibitor: "EXPOSITOR",
+            livestock: "GANADERA",
+            noEvents: "No hay eventos para mostrar",
         }
     },
     en: {
@@ -301,6 +309,14 @@ export const translations = {
         eventDetails: {
             enCurso: 'In Progress',
             finalizado: 'Completed',
+        },
+        eventScreen: {
+            searchPlaceholder: "Search event name...",
+            active: "ACTIVE",
+            conference: "CONFERENCE",
+            exhibitor: "EXHIBITOR",
+            livestock: "LIVESTOCK",
+            noEvents: "No events to display",
         }
     },
     pt: {
@@ -375,6 +391,14 @@ export const translations = {
         eventDetails: {
             enCurso: 'Em Andamento',
             finalizado: 'Concluído',
+        },
+        eventScreen: {
+            searchPlaceholder: "Buscar nome do evento...",
+            active: "ATIVO",
+            conference: "CONFERÊNCIA",
+            exhibitor: "EXPOSITOR",
+            livestock: "PECUÁRIA",
+            noEvents: "Nenhum evento para mostrar",
         }
     }
 };
