@@ -275,6 +275,13 @@ export const translations = {
             mensajeErrorCampos: "COMPLETA TODA LA INFORMACIÓN",
             mensajeCrear: "CREAR",
             textoCancelar: "Cancelar"
+        },
+        notificationScreen: {
+            desactivarNotificaciones: "Desactivar las notificaciones push",
+            activarNotificaciones: "Activar las notificaciones push",
+            textoNotificacionesActivadas: "Las notificaciones push se encuentran activadas.\n Si quieres desactivarlas, ten en cuenta que no recibirás recordatorios de eventos favoritos.\n\n Para desactivarlas dirígete a los permisos de la aplicación en la configuración personal de tu teléfono.",
+            textoNotificacionesDesactivadas: "Las notificaciones push se encuentran desactivadas.\n\n Para activarlas y recibir recordatorios de eventos, dirígete a los permisos de la aplicación en la configuración personal de tu teléfono.",
+            botonAbrirConfiguracion: "Abrir configuración"
         }
     },
     en: {
@@ -397,6 +404,13 @@ export const translations = {
             mensajeErrorCampos: "COMPLETE ALL INFORMATION",
             mensajeCrear: "CREATE",
             textoCancelar: "Cancel"
+        },
+        notificationScreen: {
+            desactivarNotificaciones: "Disable push notifications",
+            activarNotificaciones: "Enable push notifications",
+            textoNotificacionesActivadas: "Push notifications are enabled.\n If you want to disable them, keep in mind that you won't receive reminders for favorite events.\n\n To disable them, go to the app permissions in your phone's personal settings.",
+            textoNotificacionesDesactivadas: "Push notifications are disabled.\n\n To enable them and receive event reminders, go to the app permissions in your phone's personal settings.",
+            botonAbrirConfiguracion: "Open settings"
         }
     },
     pt: {
@@ -519,6 +533,13 @@ export const translations = {
             mensajeErrorCampos: "COMPLETE TODAS AS INFORMAÇÕES",
             mensajeCrear: "CRIAR",
             textoCancelar: "Cancelar"
+        },
+        notificationScreen: {
+            desactivarNotificaciones: "Desativar notificações push",
+            activarNotificaciones: "Ativar notificações push",
+            textoNotificacionesActivadas: "As notificações push estão ativadas.\n Se deseja desativá-las, tenha em mente que você não receberá lembretes de eventos favoritos.\n\n Para desativá-las, vá para as permissões do aplicativo nas configurações pessoais do seu telefone.",
+            textoNotificacionesDesactivadas: "As notificações push estão desativadas.\n\n Para ativá-las e receber lembretes de eventos, vá para as permissões do aplicativo nas configurações pessoais do seu telefone.",
+            botonAbrirConfiguracion: "Abrir configurações"
         }
     }
 };

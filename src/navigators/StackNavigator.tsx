@@ -1,6 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/HomeScreen';
-import { MenuScreen } from '../screens/MenuScreen';
 import { TicketsScreen } from '../screens/TicketsScreen';
 import { InterestPointScreen } from '../screens/InterestPointScreen';
 import { AuthScreen } from '../screens/AuthScreen';
@@ -33,7 +32,6 @@ export const MyStack = () => {
             }}
         >
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen name="MenuScreen" component={MenuScreen} />
             <Stack.Screen name="TopTabNavigtorEvent" component={TopTabNavigator} />
             <Stack.Screen name="TicketsScreen" component={TicketsScreen} />
             <Stack.Screen name="InterestPointScreen" component={InterestPointScreen} />
