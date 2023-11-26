@@ -14,12 +14,11 @@ import { useLanguage } from '../context/LanguageContext/LanguageContext'
 interface Props extends StackScreenProps<any, any> { }
 export const ConfigurationScreen = ({ navigation }: Props) => {
     const { theme } = useContext(ThemeContext)
-    const { width, height } = useWindowDimensions()
+    const { height } = useWindowDimensions()
     const ref = useRef<ModalRefProps>(null)
     const [selectedOption, setSelectedOption] = useState('');
     const { languageState } = useLanguage();
     const [translation, setTranslation] = useState(translations.es);
-
 
 
     const toggleModal = useCallback((option) => {

@@ -181,6 +181,14 @@ export const translations = {
             listar: 'listar',
             comprar: 'comprar',
             compartir: 'compartir'
+        },
+        buyTicketScreen: {
+            showToastTitle: '¡Pago rechazado!',
+            showToastMessage: 'No se pudo realizar la compra',
+            expoactivaTitle: 'Expoactiva Nacional',
+            quantityLabel: 'Cantidad',
+            totalLabel: 'TOTAL',
+            confirmButton: 'CONFIRMAR',
         }
     },
     en: {
@@ -209,6 +217,14 @@ export const translations = {
             listar: 'list',
             comprar: 'buy',
             compartir: 'share'
+        },
+        buyTicketScreen: {
+            showToastTitle: 'Payment rejected!',
+            showToastMessage: 'Purchase could not be completed',
+            expoactivaTitle: 'Expoactiva Nacional',
+            quantityLabel: 'Quantity',
+            totalLabel: 'TOTAL',
+            confirmButton: 'CONFIRM',
         }
     },
     pt: {
@@ -237,6 +253,14 @@ export const translations = {
             listar: 'listar',
             comprar: 'comprar',
             compartir: 'compartilhar'
+        },
+        buyTicketScreen: {
+            showToastTitle: 'Pagamento recusado!',
+            showToastMessage: 'Não foi possível concluir a compra',
+            expoactivaTitle: 'Expoactiva Nacional',
+            quantityLabel: 'Quantidade',
+            totalLabel: 'TOTAL',
+            confirmButton: 'CONFIRMAR',
         }
     }
 };

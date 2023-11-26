@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState, useRef } from 'react'
 import { View, Text, Image, TouchableOpacity, useWindowDimensions, ActivityIndicator, Modal, StyleSheet } from 'react-native'
 import { ticketStyles } from '../theme/TicketsTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
-import {useTicketManager} from '../hooks/useTicketManager'
+import { useTicketManager } from '../hooks/useTicketManager'
 import { usePayment } from '../context/PaymentContext/PaymentContext'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
+import { useLanguage } from '../context/LanguageContext/LanguageContext'
+import { loadTranslations, translations } from '../util/utils'
 
 export const BuyTicketScreen = () => {
     const { theme } = useContext(ThemeContext)
@@ -14,7 +16,13 @@ export const BuyTicketScreen = () => {
     const { purchaseTicket, operations, quantity, loading } = useTicketManager()
     const { payment, paymentAttempt } = usePayment();
     const mounted = useRef(false);
-    
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
+
     useEffect(() => {
         console.log('ejecuta')
         if (mounted.current) {
@@ -31,7 +39,7 @@ export const BuyTicketScreen = () => {
             mounted.current = true;
         }
     }, [paymentAttempt]);
-    
+
 
     const handleConfirmPress = () => {
         purchaseTicket();
@@ -81,8 +89,8 @@ export const BuyTicketScreen = () => {
             <ToastMessageComponent
                 width={'95%'}
                 visible={showToast}
-                title={'¡Pago rechazado!'}
-                message={'No se pudo realizar la compra'}
+                title={translation.buyTicketScreen.showToastTitle}
+                message={translation.buyTicketScreen.showToastMessage}
                 backgroundColor={theme.customColors.bgErrorMessage}
                 iconColor={theme.customColors.colorErrorMessage}
                 textColor={theme.customColors.colorErrorMessage}
@@ -95,10 +103,9 @@ export const BuyTicketScreen = () => {
 
             <View style={{ ...ticketStyles.btv, backgroundColor: theme.colors.background, padding: 10, gap: 15 }}>
                 <Text style={{ ...ticketStyles.btt, alignSelf: 'flex-start', color: theme.colors.text, fontWeight: 'bold' }}>Expoactiva Nacional</Text>
-
                 <View style={{ alignSelf: 'flex-start', flexDirection: 'row', width: '100%' }}>
                     <View style={{ flex: 1 }}>
-                        <Text style={{ ...ticketStyles.btt, color: theme.colors.text }}>Cantidad</Text>
+                        <Text style={{ ...ticketStyles.btt, color: theme.colors.text }}>{translation.buyTicketScreen.quantityLabel}</Text>
                     </View>
                     <View style={{ flex: 1, flexDirection: 'row', gap: 10, justifyContent: 'flex-end', alignItems: 'center' }}>
                         <TouchableOpacity onPress={() => operations(1)} style={{ ...ticketStyles.tbtn, backgroundColor: theme.dividerColor, height: height / 25 }}>
@@ -114,7 +121,7 @@ export const BuyTicketScreen = () => {
                 </View>
 
                 <View style={{ flex: 1, alignItems: 'flex-start', width: '100%' }}>
-                    <Text style={{ ...ticketStyles.btt, color: theme.colors.text, fontWeight: 'bold' }}>TOTAL</Text>
+                    <Text style={{ ...ticketStyles.btt, color: theme.colors.text, fontWeight: 'bold' }}>{translation.buyTicketScreen.totalLabel}</Text>
                     <Text style={{ ...ticketStyles.btt, color: theme.colors.text }}>${price * quantity}</Text>
                 </View>
 
@@ -127,20 +134,10 @@ export const BuyTicketScreen = () => {
                         , alignItems: 'center'
                         , borderRadius: 10
                     }}>
-                        <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>CONFIRMAR</Text>
+                        <Text style={{ ...ticketStyles.btt, color: 'white', fontVariant: ['small-caps'], letterSpacing: 1 }}>{translation.buyTicketScreen.confirmButton}</Text>
                     </TouchableOpacity>
-
-
                 </View>
-
-
             </View>
-
-
-
-
-
-
         </View >
     )
 }
