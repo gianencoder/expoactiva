@@ -7,8 +7,9 @@ import { authStyle } from '../theme/AuthTheme'
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native'
-import { data } from '../util/utils'
+import { data, loadTranslations, translations } from '../util/utils'
 import { Feather } from '@expo/vector-icons';
+import { useLanguage } from '../context/LanguageContext/LanguageContext'
 
 
 export const LoginFormScreen = () => {
@@ -28,6 +29,13 @@ export const LoginFormScreen = () => {
     const prevLengthRef = useRef(0);
     const [day, month, year] = date.split('-');
     const [badDate, setBadDate] = useState(false)
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    const { language } = languageState
+
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
 
 
     const numericDay = parseInt(day, 10);
@@ -127,7 +135,7 @@ export const LoginFormScreen = () => {
                 >
                     <View style={{ ...authStyle.mainView, backgroundColor: theme.colors.background }}>
                         <View style={{ flex: 1, gap: 25 }}>
-                            <Text style={{ alignSelf: 'center', padding: 20, fontSize: 30, color: theme.colors.text, fontWeight: '300' }}>Crear cuenta</Text>
+                            <Text style={{ alignSelf: 'center', padding: 20, fontSize: 30, color: theme.colors.text, fontWeight: '300' }}>{translation.LoginFormScreen.tituloCrearCuenta}</Text>
                             <ToastMessageComponent
                                 iconName={'closecircleo'}
                                 textColor={theme.customColors.colorErrorMessage}
@@ -137,7 +145,7 @@ export const LoginFormScreen = () => {
                                 iconSize={24}
                                 visible={isVisible}
                                 title={'¡Error!'}
-                                message={name.length <= 0 ? 'Nombre y apellido es un campo obligatorio' : 'Debes ingresar una fecha'} />
+                                message={name.length <= 0 ? translation.LoginFormScreen.errorNombreCampoObligatorio : translation.LoginFormScreen.errorFechaCampoObligatorio} />
                             <ToastMessageComponent
                                 iconName={'closecircleo'}
                                 textColor={theme.customColors.colorErrorMessage}
@@ -151,7 +159,7 @@ export const LoginFormScreen = () => {
 
                             <View style={authStyle.formView}>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Nombre y Apellido </Text>
+                                    <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>{translation.LoginFormScreen.labelNombreApellido} </Text>
                                     <Text style={{ fontSize: name === '' ? 25 : 20, color: name === '' ? 'red' : theme.colors.text }}>*</Text>
                                 </View>
                                 <TextInput
@@ -162,13 +170,13 @@ export const LoginFormScreen = () => {
                                     value={name}
                                     onChangeText={text => setName(text)}
                                     style={{ ...authStyle.ef, color: theme.colors.text, backgroundColor: theme.currentTheme === 'light' ? '#e8e8e8' : '#272727' }}
-                                    placeholder='Nombre y Apellido'
+                                    placeholder={translation.LoginFormScreen.placeholderNombreApellido}
                                     placeholderTextColor={'gray'} />
                             </View>
 
                             <View style={authStyle.formView}>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>Fecha de nacimiento</Text>
+                                    <Text style={{ ...authStyle.formLabel, color: theme.colors.text }}>{translation.LoginFormScreen.labelFechaNacimiento}</Text>
                                     <Text style={{ fontSize: date === '' ? 25 : 20, color: date === '' ? 'red' : theme.colors.text }}>*</Text>
                                 </View>
 
@@ -185,7 +193,7 @@ export const LoginFormScreen = () => {
                             </View>
 
                             <View style={{ ...authStyle.formView, gap: 15 }}>
-                                <Text style={{ fontSize: 16, color: theme.colors.text }}>Seleccionar intereses</Text>
+                                <Text style={{ fontSize: 16, color: theme.colors.text }}>{translation.LoginFormScreen.labelSeleccionarIntereses}</Text>
                                 <View style={{ height: 1, width: '100%', backgroundColor: 'gray' }} />
                                 <View style={{ flexDirection: 'row', gap: 15, flexWrap: 'wrap', width: '100%', justifyContent: 'center' }}>
                                     {data.map(i => (
@@ -203,7 +211,33 @@ export const LoginFormScreen = () => {
                                                 , paddingHorizontal: 5
                                                 , borderRadius: 5
                                             }}>
-                                            <Text style={{ color: !selected.includes(i.label) ? theme.colors.text : 'white' }} >{i.label}</Text>
+                                            <Text style={{ color: !selected.includes(i.label) ? theme.colors.text : 'white' }} >
+                                                {language === 'es' && `${i.label}`}
+
+                                                {
+                                                    language === 'en'
+                                                        ? i.label.toLowerCase() === 'agricultura' ? "Agriculture"
+                                                            : i.label.toLowerCase() === 'automóviles' ? "Automobiles"
+                                                                : i.label.toLowerCase() === 'ganadería' ? "Livestock"
+                                                                    : i.label.toLowerCase() === 'lácteos' ? "Dairy"
+                                                                        : i.label.toLowerCase() === 'máquinas' ? "Machinery"
+                                                                            : i.label.toLowerCase() === 'tecnología' && "Technology"
+                                                        : ""
+
+                                                }
+                                                {
+                                                    language === 'pt'
+                                                        ? i.label.toLowerCase() === 'agricultura' ? "Agricultura"
+                                                            : i.label.toLowerCase() === 'automóviles' ? "Automóveis"
+                                                                : i.label.toLowerCase() === 'ganadería' ? "Pecuária"
+                                                                    : i.label.toLowerCase() === 'lácteos' ? "Lácteos"
+                                                                        : i.label.toLowerCase() === 'máquinas' ? "Máquinas"
+                                                                            : i.label.toLowerCase() === 'tecnología' && "Tecnologia"
+                                                        : ""
+                                                }
+
+
+                                            </Text>
                                             {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? theme.colors.text : 'white'} />}
                                         </TouchableOpacity>
                                     ))}
@@ -223,10 +257,10 @@ export const LoginFormScreen = () => {
                                         , alignSelf: 'center'
                                         , marginVertical: 10
                                     }}>
-                                    {loading ? <ActivityIndicator color={'white'} /> : <Text style={{ color: name !== '' && date.length === 10 ? 'white' : '#4B5D67', letterSpacing: 1 }}>{name === '' || date.length !== 10 ? 'COMPLETA TODA LA INFORMACIÓN' : 'CREAR'}</Text>}
+                                    {loading ? <ActivityIndicator color={'white'} /> : <Text style={{ color: name !== '' && date.length === 10 ? 'white' : '#4B5D67', letterSpacing: 1 }}>{name === '' || date.length !== 10 ? translation.LoginFormScreen.mensajeErrorCampos : translation.LoginFormScreen.mensajeCrear}</Text>}
                                 </TouchableOpacity>
                                 <Text onPress={() => navigation.goBack()}
-                                    style={{ alignSelf: 'center', fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
+                                    style={{ alignSelf: 'center', fontWeight: '600', color: theme.currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>{translation.LoginFormScreen.textoCancelar}</Text>
                             </View>
                         </View>
                     </View>

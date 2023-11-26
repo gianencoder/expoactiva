@@ -261,6 +261,20 @@ export const translations = {
             Ir_a_Expoactiva: "Ir a Expoactiva",
             Ubicar_mi_vehículo: "Ubicar mi vehículo",
             Expositores: "Expositores"
+        },
+        LoginFormScreen: {
+            tituloCrearCuenta: "Crear cuenta",
+            errorNombreCampoObligatorio: "Nombre y apellido es un campo obligatorio",
+            errorFechaCampoObligatorio: "Debes ingresar una fecha",
+            errorFechaInvalida: "Debes ingresar una fecha válida",
+            labelNombreApellido: "Nombre y Apellido",
+            placeholderNombreApellido: "Nombre y Apellido",
+            labelFechaNacimiento: "Fecha de nacimiento",
+            placeholderFechaNacimiento: "DD-MM-YYYY",
+            labelSeleccionarIntereses: "Seleccionar intereses",
+            mensajeErrorCampos: "COMPLETA TODA LA INFORMACIÓN",
+            mensajeCrear: "CREAR",
+            textoCancelar: "Cancelar"
         }
     },
     en: {
@@ -369,6 +383,20 @@ export const translations = {
             Ir_a_Expoactiva: "Go to Expoactiva",
             Ubicar_mi_vehículo: "Locate my vehicle",
             Expositores: "Exhibitors"
+        },
+        LoginFormScreen: {
+            tituloCrearCuenta: "Create Account",
+            errorNombreCampoObligatorio: "Name and surname is a required field",
+            errorFechaCampoObligatorio: "You must enter a date",
+            errorFechaInvalida: "Please enter a valid date",
+            labelNombreApellido: "Name and Surname",
+            placeholderNombreApellido: "Name and Surname",
+            labelFechaNacimiento: "Date of Birth",
+            placeholderFechaNacimiento: "DD-MM-YYYY",
+            labelSeleccionarIntereses: "Select Interests",
+            mensajeErrorCampos: "COMPLETE ALL INFORMATION",
+            mensajeCrear: "CREATE",
+            textoCancelar: "Cancel"
         }
     },
     pt: {
@@ -477,6 +505,20 @@ export const translations = {
             Ir_a_Expoactiva: "Ir para a Expoactiva",
             Ubicar_mi_vehículo: "Localizar meu veículo",
             Expositores: "Expositores"
+        },
+        LoginFormScreen: {
+            tituloCrearCuenta: "Criar Conta",
+            errorNombreCampoObligatorio: "Nome e sobrenome são campos obrigatórios",
+            errorFechaCampoObligatorio: "Você deve inserir uma data",
+            errorFechaInvalida: "Por favor, insira uma data válida",
+            labelNombreApellido: "Nome e Sobrenome",
+            placeholderNombreApellido: "Nome e Sobrenome",
+            labelFechaNacimiento: "Data de Nascimento",
+            placeholderDataNascimento: "DD-MM-AAAA",
+            labelSeleccionarIntereses: "Selecionar interesses",
+            mensajeErrorCampos: "COMPLETE TODAS AS INFORMAÇÕES",
+            mensajeCrear: "CRIAR",
+            textoCancelar: "Cancelar"
         }
     }
 };

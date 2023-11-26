@@ -18,6 +18,7 @@ import { useAuthContext } from '../context/AuthContext/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import { useLanguage } from '../context/LanguageContext/LanguageContext';
 import { loadTranslations, translations } from '../util/utils';
+import { LoadingScreen } from './LoadingScreen';
 
 interface Props extends StackScreenProps<any, any> { }
 export const HomeScreen = ({ navigation }: Props) => {
