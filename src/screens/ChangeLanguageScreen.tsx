@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Switch, Text, View } from 'react-native';
 import { useLanguage } from '../context/LanguageContext/LanguageContext';
 import { visibilityTheme } from '../theme/VisibilityTheme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
+import { loadTranslations, translations } from '../util/utils';
 
 export const ChangeLanguageScreen = () => {
     const { languageState, dispatchLanguage } = useLanguage();
     const { language } = languageState;
+    const [translation, setTranslation] = useState(translations.es);
+
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
 
     const handleSwitchChange = (selectedLanguage: string) => {
         console.log(selectedLanguage)
@@ -19,19 +26,20 @@ export const ChangeLanguageScreen = () => {
     return (
         <View style={{ flex: 1, paddingVertical: 5, gap: 5 }}>
             <SwitchOption
-                label="Español"
+                label={translation.changeLanguage.español}
                 languageCode="es"
                 selectedLanguage={language}
                 onSwitchChange={handleSwitchChange}
+
             />
             <SwitchOption
-                label="English"
+                label={translation.changeLanguage.ingles}
                 languageCode="en"
                 selectedLanguage={language}
                 onSwitchChange={handleSwitchChange}
             />
             <SwitchOption
-                label="Português"
+                label={translation.changeLanguage.portugues}
                 languageCode="pt"
                 selectedLanguage={language}
                 onSwitchChange={handleSwitchChange}
@@ -42,12 +50,12 @@ export const ChangeLanguageScreen = () => {
 
 export const SwitchOption = ({ label, languageCode, selectedLanguage, onSwitchChange }) => {
     const isEnabled = selectedLanguage === languageCode;
-
+    const { theme } = useContext(ThemeContext)
     return (
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around', alignItems: 'center' }}>
-            <Text style={{ ...visibilityTheme.text, color: 'black' }}>{label}</Text>
+        <View style={{ paddingHorizontal: 20, flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text style={{ ...visibilityTheme.text, color: theme.colors.text }}>{label}</Text>
             <Switch
-                trackColor={{ false: 'grey', true: 'blue' }}
+                trackColor={{ false: 'grey', true: theme.customColors.activeColor }}
                 thumbColor={'white'}
                 ios_backgroundColor={'grey'}
                 onValueChange={() => onSwitchChange(languageCode)}

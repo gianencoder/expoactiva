@@ -189,7 +189,26 @@ export const translations = {
             quantityLabel: 'Cantidad',
             totalLabel: 'TOTAL',
             confirmButton: 'CONFIRMAR',
-        }
+        },
+        changeLanguage: {
+            español: "Español",
+            ingles: "Inglés",
+            portugues: "Portugués"
+        },
+        editProfileScreen: {
+            title: 'Editar perfil',
+            toastSuccessTitle: '¡Bien hecho!',
+            toastSuccessMessage: 'Usuario guardado con éxito',
+            toastErrorEmptyNameTitle: '¡Error!',
+            toastErrorEmptyNameMessage: 'El campo nombre es obligatorio',
+            toastErrorBadDateTitle: '¡Error!',
+            toastErrorBadDateMessage: 'Complete el campo con una fecha válida',
+            nameLabel: 'Nombre y Apellido',
+            dateOfBirthLabel: 'Fecha de nacimiento',
+            selectInterestsLabel: 'Seleccionar intereses',
+            saveButtonLabel: 'GUARDAR',
+            cancelButtonLabel: 'Cancelar',
+        },
     },
     en: {
         aboutExpoactivaScreen: {
@@ -225,7 +244,26 @@ export const translations = {
             quantityLabel: 'Quantity',
             totalLabel: 'TOTAL',
             confirmButton: 'CONFIRM',
-        }
+        },
+        changeLanguage: {
+            español: "Spanish",
+            ingles: "English",
+            portugues: "Portuguese"
+        },
+        editProfileScreen: {
+            title: 'Edit profile',
+            toastSuccessTitle: 'Well done!',
+            toastSuccessMessage: 'User saved successfully',
+            toastErrorEmptyNameTitle: 'Error!',
+            toastErrorEmptyNameMessage: 'The name field is required',
+            toastErrorBadDateTitle: 'Error!',
+            toastErrorBadDateMessage: 'Please complete the field with a valid date',
+            nameLabel: 'Name and Surname',
+            dateOfBirthLabel: 'Date of birth',
+            selectInterestsLabel: 'Select interests',
+            saveButtonLabel: 'SAVE',
+            cancelButtonLabel: 'Cancel',
+        },
     },
     pt: {
         aboutExpoactivaScreen: {
@@ -261,7 +299,26 @@ export const translations = {
             quantityLabel: 'Quantidade',
             totalLabel: 'TOTAL',
             confirmButton: 'CONFIRMAR',
-        }
+        },
+        changeLanguage: {
+            español: "Espanhol",
+            ingles: "Inglês",
+            portugues: "Português"
+        },
+        editProfileScreen: {
+            title: 'Editar perfil',
+            toastSuccessTitle: 'Muito bem!',
+            toastSuccessMessage: 'Usuário salvo com sucesso',
+            toastErrorEmptyNameTitle: 'Erro!',
+            toastErrorEmptyNameMessage: 'O campo do nome é obrigatório',
+            toastErrorBadDateTitle: 'Erro!',
+            toastErrorBadDateMessage: 'Complete o campo com uma data válida',
+            nameLabel: 'Nome e Sobrenome',
+            dateOfBirthLabel: 'Data de nascimento',
+            selectInterestsLabel: 'Selecionar interesses',
+            saveButtonLabel: 'SALVAR',
+            cancelButtonLabel: 'Cancelar',
+        },
     }
 };
 

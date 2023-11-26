@@ -8,8 +8,9 @@ import { authStyle } from '../theme/AuthTheme'
 import { useFocusEffect } from '@react-navigation/native';
 import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
-import { data } from '../util/utils'
+import { data, loadTranslations, translations } from '../util/utils'
 import { Feather } from '@expo/vector-icons'
+import { useLanguage } from '../context/LanguageContext/LanguageContext'
 
 
 export const EditProfileScreen = () => {
@@ -30,6 +31,12 @@ export const EditProfileScreen = () => {
     const numericDay = parseInt(day, 10);
     const numericMonth = parseInt(month, 10);
     const numericYear = parseInt(year, 10);
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
 
 
     useEffect(() => {
@@ -154,13 +161,13 @@ export const EditProfileScreen = () => {
         <ScrollView onScrollBeginDrag={handleScroll} style={{ backgroundColor: colors.background }}>
             <View style={{ ...editProfileTheme.container, backgroundColor: colors.background, gap: 20 }}>
                 <View style={{ width: '100%', height: 100, justifyContent: 'center' }}>
-                    <Text style={{ ...editProfileTheme.title, color: colors.text, fontWeight: '300', fontSize: 30 }}>Editar perfil</Text>
+                    <Text style={{ ...editProfileTheme.title, color: colors.text, fontWeight: '300', fontSize: 30 }}>{translation.editProfileScreen.title}</Text>
                 </View>
                 <ToastMessageComponent
                     width={'100%'}
                     visible={showToast}
-                    title={'¡Bien hecho!'}
-                    message={'Usuario guardado con éxito'}
+                    title={translation.editProfileScreen.toastSuccessTitle}
+                    message={translation.editProfileScreen.toastSuccessMessage}
                     backgroundColor={customColors.bgSuccesMessage}
                     iconColor={customColors.colorSuccessMessage}
                     textColor={customColors.colorSuccessMessage}
@@ -168,8 +175,8 @@ export const EditProfileScreen = () => {
                 <ToastMessageComponent
                     width={'100%'}
                     visible={emptyName}
-                    title={'¡Error!'}
-                    message={'El campo nombre es obligatorio'}
+                    title={translation.editProfileScreen.toastErrorEmptyNameTitle}
+                    message={translation.editProfileScreen.toastErrorEmptyNameMessage}
                     backgroundColor={customColors.bgErrorMessage}
                     iconColor={customColors.colorErrorMessage}
                     textColor={customColors.colorErrorMessage}
@@ -179,8 +186,8 @@ export const EditProfileScreen = () => {
                 <ToastMessageComponent
                     width={'100%'}
                     visible={badDate}
-                    title={'¡Error!'}
-                    message={'El complete el campo con una fecha válida'}
+                    title={translation.editProfileScreen.toastErrorBadDateTitle}
+                    message={translation.editProfileScreen.toastErrorBadDateMessage}
                     backgroundColor={customColors.bgErrorMessage}
                     iconColor={customColors.colorErrorMessage}
                     textColor={customColors.colorErrorMessage}
@@ -189,7 +196,7 @@ export const EditProfileScreen = () => {
 
                 <View style={editProfileTheme.div}>
                     <View style={{ flexDirection: 'row', alignSelf: 'flex-start' }}>
-                        <Text style={{ ...authStyle.formLabel, color: colors.text }}>Nombre y Apellido</Text>
+                        <Text style={{ ...authStyle.formLabel, color: colors.text }}>{translation.editProfileScreen.nameLabel}</Text>
                         <Text style={{ fontSize: date === '' ? 25 : 20, color: name === '' ? 'red' : colors.text }}>*</Text>
                     </View>
 
@@ -207,7 +214,7 @@ export const EditProfileScreen = () => {
                     <View style={editProfileTheme.div}>
                         <View style={{ flexDirection: 'row', alignSelf: 'flex-start', gap: 15 }}>
                             <View style={{ flexDirection: 'row', gap: 2 }}>
-                                <Text style={{ ...authStyle.formLabel, color: colors.text, alignSelf: 'center' }}>Fecha de nacimiento</Text>
+                                <Text style={{ ...authStyle.formLabel, color: colors.text, alignSelf: 'center' }}>{translation.editProfileScreen.dateOfBirthLabel}</Text>
                                 {date.length <= 0 && <View style={{ height: 10, width: 10, borderRadius: 20, backgroundColor: 'orange', alignSelf: 'center' }} />}
                             </View>
                             <Text style={{ fontSize: date === '' || date.length <= 0 ? 25 : 20, color: date === '' || date.length <= 0 ? 'red' : colors.text }}>*</Text>
@@ -228,7 +235,7 @@ export const EditProfileScreen = () => {
 
                 <View style={{ gap: 15 }}>
                     <View style={{ flexDirection: 'row', gap: 5 }}>
-                        <Text style={{ fontSize: 16, color: colors.text }}>Seleccionar intereses</Text>
+                        <Text style={{ fontSize: 16, color: colors.text }}>{translation.editProfileScreen.selectInterestsLabel}</Text>
                         {user?.interests.length <= 0 && selected.length <= 0 && <View style={{ height: 10, width: 10, borderRadius: 20, backgroundColor: 'orange', alignSelf: 'center' }} />}
                     </View>
                     <View style={{ height: 1, width: '100%', backgroundColor: 'gray' }} />
@@ -269,9 +276,9 @@ export const EditProfileScreen = () => {
                             , alignSelf: 'center'
                             , marginVertical: 10
                         }}>
-                        <Text style={{ color: 'white', letterSpacing: 1 }}>{loading ? <ActivityIndicator color={'white'} size={'small'} /> : 'GUARDAR'}</Text>
+                        <Text style={{ color: 'white', letterSpacing: 1 }}>{loading ? <ActivityIndicator color={'white'} size={'small'} /> : `${translation.editProfileScreen.saveButtonLabel}`}</Text>
                     </TouchableOpacity>
-                    <Text onPress={() => navigation.goBack()} style={{ alignSelf: 'center', fontWeight: '600', color: currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>Cancelar</Text>
+                    <Text onPress={() => navigation.goBack()} style={{ alignSelf: 'center', fontWeight: '600', color: currentTheme === 'light' ? '#474747' : '#787878', fontSize: 18, padding: 10, }}>{translation.editProfileScreen.cancelButtonLabel}</Text>
 
 
                 </View>
