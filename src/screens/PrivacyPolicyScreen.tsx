@@ -1,111 +1,92 @@
-import React, { useContext, useState } from 'react'
-import { ScrollView, TouchableOpacity, View } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
+import { ScrollView, View } from 'react-native'
 import { privacyTheme } from '../theme/PrivacyPolicyTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { Text } from 'react-native'
-import Checkbox from 'expo-checkbox';
-import { useNavigation } from '@react-navigation/native'
+import { useLanguage } from '../context/LanguageContext/LanguageContext'
+import { loadTranslations, translations } from '../util/utils'
 
 export const PrivacyPolicyScreen = () => {
 
-    const [isChecked, setIsChecked] = useState(false)
-    const navigation = useNavigation()
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
 
-    const accept = () => {
-        setIsChecked(previousState => !previousState)
-    }
 
-    const { theme: { colors, customColors, currentTheme } } = useContext(ThemeContext)
+    const { theme: { colors } } = useContext(ThemeContext)
     return (
         <View style={{ ...privacyTheme.container, backgroundColor: colors.background }}>
 
             <ScrollView style={{ backgroundColor: colors.background, flex: 1 }}>
                 <View style={{ flex: 3, gap: 15 }}>
                     <Text style={{ ...privacyTheme.title, color: colors.text }}>
-                        Términos de Uso y Política de Privacidad
+                        {translation.privacyPolicyScreen.termsAndPrivacyTitle}
                     </Text>
                     <Text style={{ ...privacyTheme.text, color: colors.text }}>
-                        Bienvenido a Expoactiva Nacional, un evento
-                        organizado por la Asociación Rural de Soriano.
-                        A continuación, detallamos nuestra política de privacidad específica para este evento,
-                        para que comprendas cómo manejamos la información recopilada durante tu participación en Expoactiva Nacional.
+                        {translation.privacyPolicyScreen.welcomeText}
                     </Text>
 
                     <Text style={{ ...privacyTheme.title, color: colors.text }}>
-                        Información Recopilada durante Expoactiva Nacional
+                        {translation.privacyPolicyScreen.infoCollectedTitle}
                     </Text>
 
                     <Text style={{ ...privacyTheme.subtitle, color: 'gray' }}>
-                        1. Coordenadas de Ubicación
+                        {translation.privacyPolicyScreen.locationCoordinatesSubtitle}
                     </Text>
                     <Text style={{ ...privacyTheme.text, color: colors.text }}>
-                        Durante Expoactiva Nacional,
-                        Cyb3rSoft, equipo desarrollador de la aplicación, puede recopilar tus coordenadas de ubicación únicamente cuando hayas otorgado permiso explícito para acceder a tu GPS.
-                        Esta información se utilizará para proporcionarte servicios y contenido personalizado relacionado con Expoactiva Nacional,
-                        y no se asociará con datos que identifiquen personalmente a un individuo.
-                    </Text>
-
-
-                    <Text style={{ ...privacyTheme.subtitle, color: 'gray' }}>
-                        2. Información del Evento
-                    </Text>
-                    <Text style={{ ...privacyTheme.text, color: colors.text }}>
-                        Cyb3rSoft puede recopilar información relacionada con tus interacciones dentro de Expoactiva Nacional,
-                        como los stands que visitas, las actividades en las que participas y los horarios que seleccionas.
-                        Esta información se utiliza para mejorar tu experiencia en el evento y personalizar recomendaciones.
+                        {translation.privacyPolicyScreen.locationCoordinatesText}
                     </Text>
 
                     <Text style={{ ...privacyTheme.subtitle, color: 'gray' }}>
-                        3. Intereses y Edad
+                        {translation.privacyPolicyScreen.eventInfoSubtitle}
                     </Text>
                     <Text style={{ ...privacyTheme.text, color: colors.text }}>
-                        Con el fin de ofrecerte una experiencia más personalizada durante Expoactiva Nacional,
-                        Cyb3rSoft puede recopilar información sobre tus intereses y edad.
-                        Estos datos se utilizan exclusivamente para adaptar las recomendaciones y el contenido del evento.
+                        {translation.privacyPolicyScreen.eventInfoText}
+                    </Text>
+
+                    <Text style={{ ...privacyTheme.subtitle, color: 'gray' }}>
+                        {translation.privacyPolicyScreen.interestsAgeSubtitle}
+                    </Text>
+                    <Text style={{ ...privacyTheme.text, color: colors.text }}>
+                        {translation.privacyPolicyScreen.interestsAgeText}
                     </Text>
 
                     <Text style={{ ...privacyTheme.title, color: colors.text }}>
-                        Uso de la Información
+                        {translation.privacyPolicyScreen.useOfInformationTitle}
                     </Text>
                     <Text style={{ ...privacyTheme.text, color: colors.text }}>
-                        La información recopilada durante Expoactiva Nacional se utiliza para mejorar y personalizar tu experiencia en el evento.
-                        Cyb3rSoft se compromete a no compartir,
-                        vender ni divulgar tus datos personales a terceros de manera que te identifique de manera individual.
+                        {translation.privacyPolicyScreen.useOfInformationText}
                     </Text>
 
                     <Text style={{ ...privacyTheme.title, color: colors.text }}>
-                        Cumplimiento con las Leyes de Protección de Datos
+                        {translation.privacyPolicyScreen.dataProtectionLawsTitle}
                     </Text>
                     <Text style={{ ...privacyTheme.text, color: colors.text }}>
-                        Cyb3rSoft garantiza el cumplimiento con las leyes vigentes de protección de datos personales en Uruguay, especialmente durante la participación en Expoactiva Nacional.
+                        {translation.privacyPolicyScreen.dataProtectionLawsText}
                     </Text>
 
                     <Text style={{ ...privacyTheme.title, color: colors.text }}>
-                        Derecho de Rechazo
+                        {translation.privacyPolicyScreen.rightToRejectTitle}
                     </Text>
                     <Text style={{ ...privacyTheme.text, color: colors.text }}>
-                        Si no estás de acuerdo con nuestra política de privacidad específica para Expoactiva Nacional,
-                        te recomendamos que no utilices la aplicación durante el evento. Al no aceptar nuestras políticas,
-                        es posible que algunas funcionalidades personalizadas no estén disponibles.
+                        {translation.privacyPolicyScreen.rightToRejectText}
                     </Text>
 
                     <Text style={{ ...privacyTheme.title, color: colors.text }}>
-                        Cambios en la Política de Privacidad
+                        {translation.privacyPolicyScreen.privacyPolicyChangesTitle}
                     </Text>
                     <Text style={{ ...privacyTheme.text, color: colors.text }}>
-                        Nos reservamos el derecho de modificar esta política en cualquier momento. Las actualizaciones se comunicarán a través de la aplicación.
+                        {translation.privacyPolicyScreen.privacyPolicyChangesText}
                     </Text>
 
                     <Text style={{ ...privacyTheme.title, color: colors.text }}>
-                        Contacto
+                        {translation.privacyPolicyScreen.contactTitle}
                     </Text>
                     <Text style={{ ...privacyTheme.text, color: colors.text }}>
-                        Si tienes alguna pregunta o inquietud sobre nuestra política de privacidad para Expoactiva Nacional, no dudes en ponerte en contacto con nosotros a través de cybersoft@hotmail.com.
-                        Gracias por ser parte de Expoactiva Nacional y confiar en Cyb3rSoft para mejorar tu experiencia en el evento mientras protegemos tu privacidad. ¡Disfruta del evento!
+                        {translation.privacyPolicyScreen.contactText}
                     </Text>
-
-
-
                 </View>
             </ScrollView>
         </View >

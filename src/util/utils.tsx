@@ -282,6 +282,27 @@ export const translations = {
             textoNotificacionesActivadas: "Las notificaciones push se encuentran activadas.\n Si quieres desactivarlas, ten en cuenta que no recibirás recordatorios de eventos favoritos.\n\n Para desactivarlas dirígete a los permisos de la aplicación en la configuración personal de tu teléfono.",
             textoNotificacionesDesactivadas: "Las notificaciones push se encuentran desactivadas.\n\n Para activarlas y recibir recordatorios de eventos, dirígete a los permisos de la aplicación en la configuración personal de tu teléfono.",
             botonAbrirConfiguracion: "Abrir configuración"
+        },
+        privacyPolicyScreen: {
+            termsAndPrivacyTitle: "Términos de Uso y Política de Privacidad",
+            welcomeText: "Bienvenido a Expoactiva Nacional, un evento organizado por la Asociación Rural de Soriano. A continuación, detallamos nuestra política de privacidad específica para este evento, para que comprendas cómo manejamos la información recopilada durante tu participación en Expoactiva Nacional.",
+            infoCollectedTitle: "Información Recopilada durante Expoactiva Nacional",
+            locationCoordinatesSubtitle: "1. Coordenadas de Ubicación",
+            locationCoordinatesText: "Durante Expoactiva Nacional, Cyb3rSoft, equipo desarrollador de la aplicación, puede recopilar tus coordenadas de ubicación únicamente cuando hayas otorgado permiso explícito para acceder a tu GPS. Esta información se utilizará para proporcionarte servicios y contenido personalizado relacionado con Expoactiva Nacional, y no se asociará con datos que identifiquen personalmente a un individuo.",
+            eventInfoSubtitle: "2. Información del Evento",
+            eventInfoText: "Cyb3rSoft puede recopilar información relacionada con tus interacciones dentro de Expoactiva Nacional, como los stands que visitas, las actividades en las que participas y los horarios que seleccionas. Esta información se utiliza para mejorar tu experiencia en el evento y personalizar recomendaciones.",
+            interestsAgeSubtitle: "3. Intereses y Edad",
+            interestsAgeText: "Con el fin de ofrecerte una experiencia más personalizada durante Expoactiva Nacional, Cyb3rSoft puede recopilar información sobre tus intereses y edad. Estos datos se utilizan exclusivamente para adaptar las recomendaciones y el contenido del evento.",
+            useOfInformationTitle: "Uso de la Información",
+            useOfInformationText: "La información recopilada durante Expoactiva Nacional se utiliza para mejorar y personalizar tu experiencia en el evento. Cyb3rSoft se compromete a no compartir, vender ni divulgar tus datos personales a terceros de manera que te identifique de manera individual.",
+            dataProtectionLawsTitle: "Cumplimiento con las Leyes de Protección de Datos",
+            dataProtectionLawsText: "Cyb3rSoft garantiza el cumplimiento con las leyes vigentes de protección de datos personales en Uruguay, especialmente durante la participación en Expoactiva Nacional.",
+            rightToRejectTitle: "Derecho de Rechazo",
+            rightToRejectText: "Si no estás de acuerdo con nuestra política de privacidad específica para Expoactiva Nacional, te recomendamos que no utilices la aplicación durante el evento. Al no aceptar nuestras políticas, es posible que algunas funcionalidades personalizadas no estén disponibles.",
+            privacyPolicyChangesTitle: "Cambios en la Política de Privacidad",
+            privacyPolicyChangesText: "Nos reservamos el derecho de modificar esta política en cualquier momento. Las actualizaciones se comunicarán a través de la aplicación.",
+            contactTitle: "Contacto",
+            contactText: "Si tienes alguna pregunta o inquietud sobre nuestra política de privacidad para Expoactiva Nacional, no dudes en ponerte en contacto con nosotros a través de cybersoft@hotmail.com. Gracias por ser parte de Expoactiva Nacional y confiar en Cyb3rSoft para mejorar tu experiencia en el evento mientras protegemos tu privacidad. ¡Disfruta del evento!"
         }
     },
     en: {
@@ -411,6 +432,27 @@ export const translations = {
             textoNotificacionesActivadas: "Push notifications are enabled.\n If you want to disable them, keep in mind that you won't receive reminders for favorite events.\n\n To disable them, go to the app permissions in your phone's personal settings.",
             textoNotificacionesDesactivadas: "Push notifications are disabled.\n\n To enable them and receive event reminders, go to the app permissions in your phone's personal settings.",
             botonAbrirConfiguracion: "Open settings"
+        },
+        privacyPolicyScreen: {
+            termsAndPrivacyTitle: "Terms of Use and Privacy Policy",
+            welcomeText: "Welcome to Expoactiva Nacional, an event organized by the Asociación Rural de Soriano. Below, we outline our specific privacy policy for this event, so you understand how we handle the information collected during your participation in Expoactiva Nacional.",
+            infoCollectedTitle: "Information Collected during Expoactiva Nacional",
+            locationCoordinatesSubtitle: "1. Location Coordinates",
+            locationCoordinatesText: "During Expoactiva Nacional, Cyb3rSoft, the application's development team, may collect your location coordinates only when you have granted explicit permission to access your GPS. This information will be used to provide you with services and personalized content related to Expoactiva Nacional, and will not be associated with personally identifiable data.",
+            eventInfoSubtitle: "2. Event Information",
+            eventInfoText: "Cyb3rSoft may collect information related to your interactions within Expoactiva Nacional, such as the booths you visit, the activities you participate in, and the schedules you select. This information is used to enhance your experience at the event and personalize recommendations.",
+            interestsAgeSubtitle: "3. Interests and Age",
+            interestsAgeText: "In order to offer you a more personalized experience during Expoactiva Nacional, Cyb3rSoft may collect information about your interests and age. This data is used exclusively to tailor recommendations and event content.",
+            useOfInformationTitle: "Use of Information",
+            useOfInformationText: "The information collected during Expoactiva Nacional is used to improve and personalize your experience at the event. Cyb3rSoft is committed to not sharing, selling, or disclosing your personal data to third parties in a way that individually identifies you.",
+            dataProtectionLawsTitle: "Compliance with Data Protection Laws",
+            dataProtectionLawsText: "Cyb3rSoft ensures compliance with current personal data protection laws in Uruguay, especially during participation in Expoactiva Nacional.",
+            rightToRejectTitle: "Right to Reject",
+            rightToRejectText: "If you do not agree with our specific privacy policy for Expoactiva Nacional, we recommend that you do not use the application during the event. By not accepting our policies, some personalized features may not be available.",
+            privacyPolicyChangesTitle: "Changes to the Privacy Policy",
+            privacyPolicyChangesText: "We reserve the right to modify this policy at any time. Updates will be communicated through the application.",
+            contactTitle: "Contact",
+            contactText: "If you have any questions or concerns about our privacy policy for Expoactiva Nacional, feel free to contact us at cybersoft@hotmail.com. Thank you for being part of Expoactiva Nacional and trusting Cyb3rSoft to enhance your event experience while protecting your privacy. Enjoy the event!"
         }
     },
     pt: {
@@ -540,6 +582,27 @@ export const translations = {
             textoNotificacionesActivadas: "As notificações push estão ativadas.\n Se deseja desativá-las, tenha em mente que você não receberá lembretes de eventos favoritos.\n\n Para desativá-las, vá para as permissões do aplicativo nas configurações pessoais do seu telefone.",
             textoNotificacionesDesactivadas: "As notificações push estão desativadas.\n\n Para ativá-las e receber lembretes de eventos, vá para as permissões do aplicativo nas configurações pessoais do seu telefone.",
             botonAbrirConfiguracion: "Abrir configurações"
+        },
+        privacyPolicyScreen: {
+            termsAndPrivacyTitle: "Termos de Uso e Política de Privacidade",
+            welcomeText: "Bem-vindo ao Expoactiva Nacional, um evento organizado pela Associação Rural de Soriano. Abaixo, detalhamos nossa política de privacidade específica para este evento, para que você compreenda como lidamos com as informações coletadas durante sua participação no Expoactiva Nacional.",
+            infoCollectedTitle: "Informações Coletadas durante o Expoactiva Nacional",
+            locationCoordinatesSubtitle: "1. Coordenadas de Localização",
+            locationCoordinatesText: "Durante o Expoactiva Nacional, a Cyb3rSoft, equipe desenvolvedora do aplicativo, pode coletar suas coordenadas de localização apenas quando você tiver concedido permissão explícita para acessar seu GPS. Essas informações serão utilizadas para fornecer serviços e conteúdo personalizado relacionado ao Expoactiva Nacional e não serão associadas a dados que identifiquem pessoalmente um indivíduo.",
+            eventInfoSubtitle: "2. Informações do Evento",
+            eventInfoText: "A Cyb3rSoft pode coletar informações relacionadas às suas interações dentro do Expoactiva Nacional, como os estandes que você visita, as atividades em que participa e os horários que seleciona. Essas informações são usadas para aprimorar sua experiência no evento e personalizar recomendações.",
+            interestsAgeSubtitle: "3. Interesses e Idade",
+            interestsAgeText: "Com o objetivo de oferecer uma experiência mais personalizada durante o Expoactiva Nacional, a Cyb3rSoft pode coletar informações sobre seus interesses e idade. Esses dados são usados exclusivamente para adaptar recomendações e conteúdo do evento.",
+            useOfInformationTitle: "Uso das Informações",
+            useOfInformationText: "As informações coletadas durante o Expoactiva Nacional são usadas para aprimorar e personalizar sua experiência no evento. A Cyb3rSoft compromete-se a não compartilhar, vender ou divulgar seus dados pessoais a terceiros de maneira que o identifique individualmente.",
+            dataProtectionLawsTitle: "Conformidade com as Leis de Proteção de Dados",
+            dataProtectionLawsText: "A Cyb3rSoft garante a conformidade com as leis vigentes de proteção de dados pessoais no Uruguai, especialmente durante a participação no Expoactiva Nacional.",
+            rightToRejectTitle: "Direito de Recusar",
+            rightToRejectText: "Se você não concorda com nossa política de privacidade específica para o Expoactiva Nacional, recomendamos que não use o aplicativo durante o evento. Ao não aceitar nossas políticas, algumas funcionalidades personalizadas podem não estar disponíveis.",
+            privacyPolicyChangesTitle: "Alterações na Política de Privacidade",
+            privacyPolicyChangesText: "Reservamo-nos o direito de modificar esta política a qualquer momento. As atualizações serão comunicadas por meio do aplicativo.",
+            contactTitle: "Contato",
+            contactText: "Se tiver alguma dúvida ou preocupação sobre nossa política de privacidade para o Expoactiva Nacional, não hesite em entrar em contato conosco pelo e-mail cybersoft@hotmail.com. Obrigado por fazer parte do Expoactiva Nacional e confiar na Cyb3rSoft para aprimorar sua experiência no evento, ao mesmo tempo que protegemos sua privacidade. Aproveite o evento!"
         }
     }
 };
