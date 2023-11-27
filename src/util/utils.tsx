@@ -396,6 +396,11 @@ export const translations = {
             inicio: "Inicio",
             misEntradas: "Mis entradas",
             configuracion: "Configuración"
+        },
+        goToPlaceScreen: {
+            googleMaps: "Ir con Google Maps",
+            appleMaps: "Ir con Apple Maps",
+            waze: "Ir con Waze"
         }
 
     },
@@ -638,6 +643,11 @@ export const translations = {
             inicio: "Home",
             misEntradas: "My tickets",
             configuracion: "Settings"
+        },
+        goToPlaceScreen: {
+            googleMaps: "Go with Google Maps",
+            appleMaps: "Go with Apple Maps",
+            waze: "Go with Waze"
         }
     },
     pt: {
@@ -880,6 +890,11 @@ export const translations = {
             inicio: "Início",
             misEntradas: "Minhas Entradas",
             configuracion: "Configurações"
+        },
+        goToPlaceScreen: {
+            googleMaps: "Ir com o Google Maps",
+            appleMaps: "Ir com o Apple Maps",
+            waze: "Ir com o Waze"
         }
     }
 };

@@ -1,11 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, TouchableOpacity, Text, Image } from 'react-native';
 import { GoToPlaceFunction } from '../functions/GoToPlaceFunction';
 import { mapsTheme } from '../theme/MapsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { Platform } from 'react-native';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
 
 export const GoToPlaceScreen = () => {
+  const { languageState } = useLanguage();
+  const [translation, setTranslation] = useState(translations.es);
+  useEffect(() => {
+    loadTranslations(setTranslation);
+  }, [languageState]);
+
   const { theme } = useContext(ThemeContext)
   const android = Platform.OS === 'android'
   const googleApp = "https://www.google.com/maps/dir/?api=1&destination="
@@ -30,21 +38,21 @@ export const GoToPlaceScreen = () => {
             onPress={() => GoToPlaceFunction({ appUrl: googleApp, webUrl: googleWeb, optional: "" })}
           >
             <Image style={{ width: 50, height: 50, borderRadius: 10 }} source={require('../assets/icons/googleMaps.png')} />
-            <Text style={mapsTheme.googleTxt}>Ir con Google Maps</Text>
+            <Text style={mapsTheme.googleTxt}>{translation.goToPlaceScreen.googleMaps}</Text>
           </TouchableOpacity>
           {!android &&
             <TouchableOpacity style={mapsTheme.appleBtn}
               onPress={() => GoToPlaceFunction({ appUrl: appleApp, webUrl: appleWeb, optional: "" })}
             >
               <Image style={{ width: 50, height: 50, borderRadius: 10 }} source={require('../assets/icons/appleMaps.png')} />
-              <Text style={mapsTheme.txtBtn}>Ir con Apple maps</Text>
+              <Text style={mapsTheme.txtBtn}>{translation.goToPlaceScreen.appleMaps}</Text>
             </TouchableOpacity>
           }
           <TouchableOpacity style={mapsTheme.wazeBtn}
             onPress={() => GoToPlaceFunction({ appUrl: wazeApp, webUrl: wazeUrl, optional: "&navigate=yes" })}
           >
             <Image style={{ width: 40, height: 40 }} source={require('../assets/icons/wazeMaps.png')} />
-            <Text style={mapsTheme.txtBtn}>Ir con Waze</Text>
+            <Text style={mapsTheme.txtBtn}>{translation.goToPlaceScreen.waze}</Text>
           </TouchableOpacity>
         </View>
       </View>
