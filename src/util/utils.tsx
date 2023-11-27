@@ -367,6 +367,26 @@ export const translations = {
             subirDesdeGaleria: 'Subir desde la galería',
             seleccioneUnaOpcion: 'Selecciona una opción'
 
+        },
+        validateCodeScreen: {
+            titleTxt: 'Código de verificación',
+            subtxt: 'Ingresa el código de verificación enviado a tu correo para iniciar sesión.',
+            successMessage: 'El código se ha reenviado',
+            errorMessage: 'El código ingresado no es válido',
+            expiredMessage: 'Error, el código ha vencido. Reenvía el código y vuelve a intentar.',
+            warningMessage: 'Revisa tu email. El código es válido por 10 minutos.',
+            resendPrompt: '¿Aún no lo has recibido?',
+            resendLink: 'Reenviar',
+            confirmButton: 'Confirmar',
+            cancelButton: 'Cancelar',
+            placeholder: '______',
+            bienHechoTitle: '¡Bien hecho!',
+            bienHechoMessage: 'El código se ha reenviado',
+            errorTitle: '¡Error!',
+            errorVencidoTitle: '¡Error, el código ha vencido!',
+            errorVencidoMessage: 'Reenvíe el código y vuelva a intentar',
+            revisaEmailTitle: '¡Revisa tu correo!',
+            revisaEmailMessage: 'El código es válido por 10 minutos',
         }
 
     },
@@ -580,6 +600,26 @@ export const translations = {
             abrirCamara: 'Open camera',
             subirDesdeGaleria: 'Upload from gallery',
             seleccioneUnaOpcion: 'Select an option'
+        },
+        validateCodeScreen: {
+            titleTxt: 'Verification Code',
+            subtxt: 'Enter the verification code sent to your email to log in.',
+            successMessage: 'The code has been resent',
+            errorMessage: 'The entered code is not valid',
+            expiredMessage: 'Error, the code has expired. Resend the code and try again.',
+            warningMessage: 'Check your email. The code is valid for 10 minutes.',
+            resendPrompt: 'Haven\'t received it yet?',
+            resendLink: 'Resend',
+            confirmButton: 'Confirm',
+            cancelButton: 'Cancel',
+            placeholder: '______',
+            bienHechoTitle: 'Well done!',
+            bienHechoMessage: 'The code has been resent',
+            errorTitle: 'Error!',
+            errorVencidoTitle: 'Error, the code has expired!',
+            errorVencidoMessage: 'Resend the code and try again',
+            revisaEmailTitle: 'Check your email!',
+            revisaEmailMessage: 'The code is valid for 10 minutes',
         }
     },
     pt: {
@@ -793,6 +833,26 @@ export const translations = {
             seleccioneUnaOpcion: 'Selecione uma opção'
 
 
+        },
+        validateCodeScreen: {
+            titleTxt: 'Código de Verificação',
+            subtxt: 'Digite o código de verificação enviado para o seu e-mail para fazer login.',
+            successMessage: 'O código foi reenviado',
+            errorMessage: 'O código inserido não é válido',
+            expiredMessage: 'Erro, o código expirou. Reenvie o código e tente novamente.',
+            warningMessage: 'Verifique seu e-mail. O código é válido por 10 minutos.',
+            resendPrompt: 'Ainda não recebeu?',
+            resendLink: 'Reenviar',
+            confirmButton: 'Confirmar',
+            cancelButton: 'Cancelar',
+            placeholder: '______',
+            bienHechoTitle: 'Muito bem!',
+            bienHechoMessage: 'O código foi reenviado',
+            errorTitle: 'Erro!',
+            errorVencidoTitle: 'Erro, o código expirou!',
+            errorVencidoMessage: 'Reenvie o código e tente novamente',
+            revisaEmailTitle: 'Verifique seu e-mail!',
+            revisaEmailMessage: 'O código é válido por 10 minutos',
         }
     }
 };

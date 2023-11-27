@@ -7,6 +7,8 @@ import { EmailLoginFunction } from '../functions/EmailLoginFunction'
 import { useRoute } from '@react-navigation/native';
 import { ToastMessageComponent } from '../components/ToastMessageComponent'
 import { useNavigation } from '@react-navigation/native'
+import { useLanguage } from '../context/LanguageContext/LanguageContext'
+import { loadTranslations, translations } from '../util/utils'
 
 export const ValidateCodeScreen = () => {
 
@@ -17,6 +19,11 @@ export const ValidateCodeScreen = () => {
     const { email }: any = route.params
     const { height } = useWindowDimensions()
     const [waiting, setWaiting] = useState(true)
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
 
     const { getCode
         , isInvalidCode
@@ -83,16 +90,16 @@ export const ValidateCodeScreen = () => {
                             >
                                 <View style={{ ...vct.container, backgroundColor: colors.background }}>
                                     <View style={{ ...vct.titleDiv }}>
-                                        <Text style={{ ...vct.titleTxt, color: colors.text }}>Código de verificación</Text>
-                                        <Text style={{ ...vct.subtxt, color: colors.text }}>Ingresa el código de verificación enviado a tu correo para iniciar sesión.</Text>
+                                        <Text style={{ ...vct.titleTxt, color: colors.text }}>{translation.validateCodeScreen.titleTxt}</Text>
+                                        <Text style={{ ...vct.subtxt, color: colors.text }}>{translation.validateCodeScreen.subtxt}</Text>
                                     </View>
 
                                     <ToastMessageComponent
                                         backgroundColor={customColors.bgSuccesMessage}
                                         iconColor={customColors.colorSuccessMessage}
                                         textColor={customColors.colorSuccessMessage}
-                                        title='¡Bien hecho!'
-                                        message={'El código se ha reenviado'}
+                                        title={translation.validateCodeScreen.bienHechoTitle}
+                                        message={translation.validateCodeScreen.bienHechoMessage}
                                         visible={isCodeResend}
                                         iconName={'checkcircleo'}
                                     />
@@ -101,8 +108,8 @@ export const ValidateCodeScreen = () => {
                                         backgroundColor={customColors.bgErrorMessage}
                                         iconColor={customColors.colorErrorMessage}
                                         textColor={customColors.colorErrorMessage}
-                                        title='¡Error!'
-                                        message={'El código ingresado no es válido'}
+                                        title={translation.validateCodeScreen.errorTitle}
+                                        message={translation.validateCodeScreen.errorMessage}
                                         visible={isInvalidCode}
                                         iconName={'closecircleo'}
                                     />
@@ -111,8 +118,8 @@ export const ValidateCodeScreen = () => {
                                         backgroundColor={customColors.bgErrorMessage}
                                         iconColor={customColors.colorErrorMessage}
                                         textColor={customColors.colorErrorMessage}
-                                        title='¡Error, el código ha vencido!'
-                                        message={'Reenvíe el código y vuelva a intentar'}
+                                        title={translation.validateCodeScreen.errorTitle}
+                                        message={translation.validateCodeScreen.errorVencidoMessage}
                                         visible={isExpiredCode}
                                         iconName={'closecircleo'}
                                     />
@@ -121,8 +128,8 @@ export const ValidateCodeScreen = () => {
                                         textColor={customColors.colorWarningMessage}
                                         iconColor={customColors.colorWarningMessage}
                                         backgroundColor={customColors.bgWarningMessage}
-                                        title='¡Revisa tu email!'
-                                        message={'El código es válido por 10 minutos'}
+                                        title={translation.validateCodeScreen.revisaEmailTitle}
+                                        message={translation.validateCodeScreen.revisaEmailMessage}
                                         visible={isPendingCode}
                                         iconName={'exclamationcircleo'}
                                     />
@@ -143,13 +150,12 @@ export const ValidateCodeScreen = () => {
                                     </View>
                                     <View style={{ ...vct.buttonDiv, gap: 20 }}>
                                         <View style={{ flexDirection: 'row', gap: 5 }}>
-                                            <Text style={{ color: 'gray', fontSize: 16 }}>¿Aún no lo has recibido?</Text>
+                                            <Text style={{ color: 'gray', fontSize: 16 }}>{translation.validateCodeScreen.resendPrompt}</Text>
                                             <TouchableOpacity
                                                 disabled={loading}
                                                 onPress={() => resendCode(email)}
                                                 hitSlop={{ bottom: 25, top: 25, left: 25, right: 25 }}>
-
-                                                <Text style={{ fontWeight: 'bold', color: isExpiredCode ? customColors.activeColor : 'gray', fontSize: 16, textDecorationLine: 'underline', textTransform: isExpiredCode ? 'uppercase' : 'none' }}> Reenviar</Text>
+                                                <Text style={{ fontWeight: 'bold', color: isExpiredCode ? customColors.activeColor : 'gray', fontSize: 16, textDecorationLine: 'underline', textTransform: isExpiredCode ? 'uppercase' : 'none' }}>{translation.validateCodeScreen.resendLink}</Text>
                                             </TouchableOpacity>
                                         </View>
 
@@ -158,10 +164,10 @@ export const ValidateCodeScreen = () => {
                                                 disabled={loading}
                                                 onPress={() => getCode(email, code)}
                                                 style={{ ...vct.btn, backgroundColor: customColors.buttonColor }}>
-                                                {loading ? <ActivityIndicator color={'white'} style={{ height: 0, width: 150, borderRadius: 200 }} /> : <Text style={{ ...vct.btnTxt }}>Confirmar</Text>}
+                                                {loading ? <ActivityIndicator color={'white'} style={{ height: 0, width: 150, borderRadius: 200 }} /> : <Text style={{ ...vct.btnTxt }}>{translation.validateCodeScreen.confirmButton}</Text>}
                                             </TouchableOpacity>
 
-                                            <Text onPress={() => navigation.goBack()} style={{ fontSize: 17, fontWeight: 'bold', color: 'gray', alignSelf: 'center' }}>Cancelar</Text>
+                                            <Text onPress={() => navigation.goBack()} style={{ fontSize: 17, fontWeight: 'bold', color: 'gray', alignSelf: 'center' }}>{translation.validateCodeScreen.cancelButton}</Text>
                                         </View>
                                     </View>
                                 </View>
