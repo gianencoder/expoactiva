@@ -401,6 +401,10 @@ export const translations = {
             googleMaps: "Ir con Google Maps",
             appleMaps: "Ir con Apple Maps",
             waze: "Ir con Waze"
+        },
+        authComponent: {
+            continueWithEmail: "Continuar con correo",
+            continueWithGoogle: "Continuar con Google"
         }
 
     },
@@ -648,6 +652,10 @@ export const translations = {
             googleMaps: "Go with Google Maps",
             appleMaps: "Go with Apple Maps",
             waze: "Go with Waze"
+        },
+        authComponent: {
+            continueWithEmail: "Continue with email",
+            continueWithGoogle: "Continue with Google"
         }
     },
     pt: {
@@ -895,6 +903,10 @@ export const translations = {
             googleMaps: "Ir com o Google Maps",
             appleMaps: "Ir com o Apple Maps",
             waze: "Ir com o Waze"
+        },
+        authComponent: {
+            continueWithEmail: "Continuar com o e-mail",
+            continueWithGoogle: "Continuar com o Google"
         }
     }
 };

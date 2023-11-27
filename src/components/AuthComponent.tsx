@@ -9,6 +9,8 @@ import { useNavigation } from "@react-navigation/native"
 import properties from '../../properties.json'
 import { useAuthContext } from '../context/AuthContext/AuthContext';
 import Constants from 'expo-constants';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
 
 const webClientId = Constants.expoConfig?.extra?.webClientId;
 const iosClientId = Constants.expoConfig?.extra?.iosClientId;
@@ -31,6 +33,12 @@ export const AuthComponent = () => {
     const [loading, setLoading] = useState(false);
     const { theme } = useContext(ThemeContext)
     const navigation = useNavigation()
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
+
 
     useEffect(() => {
 
@@ -138,14 +146,14 @@ export const AuthComponent = () => {
                 <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
                     <TouchableOpacity onPress={() => navigation.navigate('EmailScreen')} style={{ ...authStyle.authComponentForm, borderColor: 'gray' }}>
                         <Image style={authStyle.img} source={require('../assets/icons/email.png')} />
-                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text, fontSize: 17.5, textAlign: 'center' }}>Continuar con correo</Text>
+                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text, fontSize: 17.5, textAlign: 'center' }}>{translation.authComponent.continueWithEmail}</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={{ ...authStyle.loginButton, backgroundColor: theme.colors.background }}>
                     <TouchableOpacity onPress={signIn} style={{ ...authStyle.authComponentForm, borderColor: 'gray' }}>
                         <Image style={authStyle.img} source={require('../assets/icons/googleIcon.png')} />
-                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text, fontSize: 17.5, textAlign: 'center' }}>Continuar con Google</Text>
+                        <Text style={{ ...authStyle.btnTxt, color: theme.colors.text, fontSize: 17.5, textAlign: 'center' }}>{translation.authComponent.continueWithGoogle}</Text>
                     </TouchableOpacity>
                 </View>
 
