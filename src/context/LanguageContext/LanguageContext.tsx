@@ -33,7 +33,7 @@ const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children })
                     dispatchLanguage({ type: 'set_language', payload: storedLanguage });
                 }
             } catch (error) {
-                console.error('Error fetching language from AsyncStorage:', error);
+                console.log('Error fetching language from AsyncStorage:', error);
             }
         };
 

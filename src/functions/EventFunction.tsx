@@ -67,13 +67,13 @@ export const EventFunction = () => {
         setFetching(true)
     }
 
-    const isEventFinished = (event:EventoMoshi) => {
+    const isEventFinished = (event: EventoMoshi) => {
         return new Date(event.dateHourEnd) < new Date();
     };
 
-    const reorderEventsWithFinishedLast = (events:EventoMoshi[]) => {
+    const reorderEventsWithFinishedLast = (events: EventoMoshi[]) => {
         const finishedEvents = events.filter(isEventFinished);
-        const ongoingOrUpcomingEvents = events.filter((event:EventoMoshi) => !isEventFinished(event));
+        const ongoingOrUpcomingEvents = events.filter((event: EventoMoshi) => !isEventFinished(event));
         return [...ongoingOrUpcomingEvents, ...finishedEvents];
     };
 
@@ -179,7 +179,7 @@ export const EventFunction = () => {
                 console.log('Favorito agregado en el backend con éxito');
             }
         } catch (error) {
-            console.error('Error al enviar favorito a la API:', error);
+            console.log('Error al enviar favorito a la API:', error);
         }
     }
 
@@ -219,7 +219,7 @@ export const EventFunction = () => {
 
             }
         } catch (error) {
-            console.error('Error al eliminar favorito en la API:', error);
+            console.log('Error al eliminar favorito en la API:', error);
         }
     }
 

@@ -387,6 +387,15 @@ export const translations = {
             errorVencidoMessage: 'Reenvíe el código y vuelva a intentar',
             revisaEmailTitle: '¡Revisa tu correo!',
             revisaEmailMessage: 'El código es válido por 10 minutos',
+        },
+        visibilityScree: {
+            activarModoOscuro: 'Activar modo oscuro',
+            desactivarModoOscuro: 'Desactivar modo oscuro',
+        },
+        bottomTab: {
+            inicio: "Inicio",
+            misEntradas: "Mis entradas",
+            configuracion: "Configuración"
         }
 
     },
@@ -620,6 +629,15 @@ export const translations = {
             errorVencidoMessage: 'Resend the code and try again',
             revisaEmailTitle: 'Check your email!',
             revisaEmailMessage: 'The code is valid for 10 minutes',
+        },
+        visibilityScree: {
+            activarModoOscuro: 'Activate Dark Mode',
+            desactivarModoOscuro: 'Deactivate Dark Mode',
+        },
+        bottomTab: {
+            inicio: "Home",
+            misEntradas: "My tickets",
+            configuracion: "Settings"
         }
     },
     pt: {
@@ -853,6 +871,15 @@ export const translations = {
             errorVencidoMessage: 'Reenvie o código e tente novamente',
             revisaEmailTitle: 'Verifique seu e-mail!',
             revisaEmailMessage: 'O código é válido por 10 minutos',
+        },
+        visibilityScree: {
+            activarModoOscuro: 'Ativar Modo Escuro',
+            desactivarModoOscuro: 'Desativar Modo Escuro',
+        },
+        bottomTab: {
+            inicio: "Início",
+            misEntradas: "Minhas Entradas",
+            configuracion: "Configurações"
         }
     }
 };

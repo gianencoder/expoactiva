@@ -2,6 +2,8 @@ import React, { createContext, useReducer, useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeState, lightTheme, themeReducer } from "../themeContext/themeReducer";
 import { MainScreen } from "../../screens/MainScreen";
+import { useLanguage } from "../LanguageContext/LanguageContext";
+import { loadTranslations, translations } from "../../util/utils";
 
 interface ThemeContextProps {
     theme: ThemeState;
@@ -20,6 +22,11 @@ export const ThemeProvider = ({ children }: any) => {
     const [enabled, setEnabled] = useState(false);
     const [text, setText] = useState('');
     const [isReady, setIsReady] = useState(false);
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
 
     useEffect(() => {
         const getStoredTheme = async () => {
@@ -27,7 +34,7 @@ export const ThemeProvider = ({ children }: any) => {
                 const storedTheme = await AsyncStorage.getItem('darkMode');
                 if (storedTheme !== null) {
                     setEnabled(storedTheme === 'true');
-                    setText(storedTheme === 'true' ? 'Desactivar modo oscuro' : 'Activar modo oscuro');
+                    setText(storedTheme === 'true' ? translation.visibilityScree.desactivarModoOscuro : translation.visibilityScree.activarModoOscuro);
                     dispatch({ type: storedTheme === 'true' ? 'set_dark_theme' : 'set_light_theme' });
                 } else {
                     // Si no hay un tema almacenado, establece el tema por defecto (claro)
@@ -37,7 +44,7 @@ export const ThemeProvider = ({ children }: any) => {
                 // Indica que la promesa se ha resuelto y la aplicación está lista para mostrarse
                 setIsReady(true);
             } catch (error) {
-                console.error('Error al recuperar el tema desde AsyncStorage:', error);
+                console.log('Error al recuperar el tema desde AsyncStorage:', error);
             }
         };
 
@@ -47,22 +54,22 @@ export const ThemeProvider = ({ children }: any) => {
     const setDarkTheme = async () => {
         try {
             await AsyncStorage.setItem('darkMode', 'true');
-            setText('Desactivar modo oscuro');
+            setText(translation.visibilityScree.desactivarModoOscuro);
             setEnabled(true);
             dispatch({ type: 'set_dark_theme' });
         } catch (error) {
-            console.error('Error al establecer el tema oscuro en AsyncStorage:', error);
+            console.log('Error al establecer el tema oscuro en AsyncStorage:', error);
         }
     };
 
     const setLightTheme = async () => {
         try {
             await AsyncStorage.setItem('darkMode', 'false');
-            setText('Activar modo oscuro');
+            setText(translation.visibilityScree.activarModoOscuro);
             setEnabled(false);
             dispatch({ type: 'set_light_theme' });
         } catch (error) {
-            console.error('Error al establecer el tema claro en AsyncStorage:', error);
+            console.log('Error al establecer el tema claro en AsyncStorage:', error);
         }
     };
 

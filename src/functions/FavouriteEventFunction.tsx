@@ -8,7 +8,7 @@ export const FavouriteEventFunction = () => {
     const { favoritos, setFavoritos } = EventFunction()
 
     const agregarFavorito = async (item: Event) => {
-        console.log('item',item)
+        console.log('item', item)
         try {
             // Recupera la lista de favoritos actual desde AsyncStorage
             const favoritosGuardados = await AsyncStorage.getItem('favoritosUsuario');
@@ -24,7 +24,7 @@ export const FavouriteEventFunction = () => {
             if (!nuevaListaFavoritos.some((favorito: Event) => favorito._id === item._id)) {
                 nuevaListaFavoritos.push(item);
 
-                
+
                 // Almacena la lista actualizada de favoritos en AsyncStorage
                 await AsyncStorage.setItem('favoritosUsuario', JSON.stringify(nuevaListaFavoritos));
 
@@ -32,7 +32,7 @@ export const FavouriteEventFunction = () => {
                 setFavoritos(nuevaListaFavoritos);
             }
         } catch (error) {
-            console.error('Error al agregar favorito:', error);
+            console.log('Error al agregar favorito:', error);
         }
     };
 
@@ -56,7 +56,7 @@ export const FavouriteEventFunction = () => {
                 setFavoritos(listaFavoritos);
             }
         } catch (error) {
-            console.error('Error al quitar favorito:', error);
+            console.log('Error al quitar favorito:', error);
         }
     };
 

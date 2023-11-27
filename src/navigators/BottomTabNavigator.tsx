@@ -1,7 +1,6 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MyStack } from './StackNavigator';
-import { TicketsScreen } from '../screens/TicketsScreen';
 import { IconHomeComponent } from '../components/IconHomeComponent';
 import { IconUserComponent } from '../components/IconUserComponent';
 import { IconMyTicketsComponent } from '../components/IconMyTicketsComponent';
@@ -32,7 +31,6 @@ export const BottomTabNavigator = () => {
                 <Tab.Screen name='Inicio' component={MyStack} options={{ tabBarIcon: ({ focused }) => (<IconHomeComponent iconSize={focused ? 25 : 22} txtSize={focused ? 15 : 12} color={focused ? theme.customColors.activeColor : theme.customColors.bottomTabIcon} />) }} />
                 <Tab.Screen name='Mis entradas' component={TicketsNavigator} options={{ tabBarIcon: ({ focused }) => (<IconMyTicketsComponent iconSize={focused ? 25 : 22} txtSize={focused ? 15 : 12} color={focused ? theme.customColors.activeColor : theme.customColors.bottomTabIcon} />) }} />
                 <Tab.Screen name='Configuracion' component={ConfigurationNavigator} options={{ tabBarIcon: ({ focused }) => (<IconUserComponent iconSize={focused ? 25 : 22} txtSize={focused ? 15 : 12} color={focused ? theme.customColors.activeColor : theme.customColors.bottomTabIcon} />) }} />
-
             </Tab.Navigator >
         </GestureHandlerRootView>
 
