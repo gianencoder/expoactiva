@@ -8,6 +8,8 @@ import styles from './MapStyles';
 import { useNavigation } from '@react-navigation/native';
 import { useCarLocation } from '../context/CarLocationContext/CarLocationContext';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
 
 const MAPBOX_ACCESS_TOKEN = Constants.expoConfig.extra.mapbox;
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
@@ -75,6 +77,12 @@ export const WhereIsMyCarMap = () => {
     const initialCameraSetRef = useRef(false);
     const { carLocation, saveCarLocation, removeCarLocation } = useCarLocation();
     const { theme } = useContext(ThemeContext);
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
+
 
     const calcularDistancia = (lat1, lon1, lat2, lon2) => {
         const radioTierra = 6371;
@@ -101,16 +109,16 @@ export const WhereIsMyCarMap = () => {
                 if (status !== 'granted') {
                     console.log('Permission to access location was denied');
                     Alert.alert(
-                        "Mapa no disponible",
-                        "Para ver el mapa, tiene que permitir el acceso a su ubicación.",
+                        translation.whereismycar.mapNotAvailable,
+                        translation.whereismycar.mapAccessPermission,
                         [
                             {
-                                text: "Ir a Configuración",
+                                text: translation.whereismycar.goToSettings,
                                 onPress: () => Linking.openSettings(),
                                 style: "cancel"
                             },
                             {
-                                text: "Cancelar",
+                                text: translation.whereismycar.cancel,
                                 onPress: () => console.log("Cancel Pressed"),
                                 style: "destructive"
                             }
@@ -214,16 +222,16 @@ export const WhereIsMyCarMap = () => {
     const toggleCarMarker = async () => {
         if (carLocation) {
             Alert.alert(
-                "Eliminar marca",
-                "¿Estás seguro de que quieres eliminar la marca de tu vehículo?",
+                translation.whereismycar.removeMarker,
+                translation.whereismycar.removeMarkerConfirmation,
                 [
                     {
-                        text: "Cancelar",
+                        text: translation.whereismycar.cancel,
                         onPress: () => console.log("Cancelado"),
                         style: "cancel"
                     },
                     {
-                        text: "Eliminar",
+                        text: translation.whereismycar.delete,
                         onPress: async () => {
                             removeCarLocation();
                         },
@@ -249,7 +257,7 @@ export const WhereIsMyCarMap = () => {
                 pitchEnabled={false}
                 attributionEnabled={false}
                 logoEnabled={false}
-                styleURL={theme.currentTheme ==='light' ? 'mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' : 'mapbox://styles/lazaroborghi/clp7m30oh014j01nsaju4fd7f'}
+                styleURL={theme.currentTheme === 'light' ? 'mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' : 'mapbox://styles/lazaroborghi/clp7m30oh014j01nsaju4fd7f'}
                 scaleBarEnabled={false}
             >
                 <Mapbox.UserLocation minDisplacement={0.2} visible={true} renderMode={'normal'} showsUserHeadingIndicator={true} />
@@ -328,15 +336,15 @@ export const WhereIsMyCarMap = () => {
                         size={24}
                         color={carLocation ? "#F54141" : theme.customColors.activeColor}
                     />
-                    {carLocation ? <Text style={{ fontSize: 17, fontWeight: '500', color: '#F54141' }}>Eliminar marca</Text> : <Text style={{ fontSize: 17, fontWeight: '500', color: theme.customColors.activeColor }}>Marcar mi vehículo</Text>}
+                    {carLocation ? <Text style={{ fontSize: 17, fontWeight: '500', color: '#F54141' }}>{translation.whereismycar.deleteMarker}</Text> : <Text style={{ fontSize: 17, fontWeight: '500', color: theme.customColors.activeColor }}>{translation.whereismycar.markMyCar}</Text>}
                 </View>
             </TouchableOpacity>
 
             {distanceToCarMarker !== null && carLocation && (
-                <View style={ [styles.searchButton, { top: 20, left: 20, backgroundColor: theme.currentTheme === 'dark' ? '#1E1E1E' : '#fff', padding: 8, borderRadius:50, shadowColor: 'darkgray'}] }>
+                <View style={[styles.searchButton, { top: 20, left: 20, backgroundColor: theme.currentTheme === 'dark' ? '#1E1E1E' : '#fff', padding: 8, borderRadius: 50, shadowColor: 'darkgray' }]}>
                     {distanceToCarMarker.toFixed(1) < 5.0
-                        ? <Text style={{fontSize: 14, fontWeight: '400', color: theme.customColors.activeColor}}>Te encuentras muy cerca de tu vehículo</Text>
-                        : <Text style={{fontSize: 14, fontWeight: '400', color: theme.customColors.activeColor}}>{distanceToCarMarker.toFixed(1)} metros hasta tu vehículo</Text>
+                        ? <Text style={{ fontSize: 14, fontWeight: '400', color: theme.customColors.activeColor }}>{translation.whereismycar.veryCloseToYourCar}</Text>
+                        : <Text style={{ fontSize: 14, fontWeight: '400', color: theme.customColors.activeColor }}>{distanceToCarMarker.toFixed(1)} {translation.whereismycar.metersToYourCar}</Text>
                     }
                 </View>
             )}

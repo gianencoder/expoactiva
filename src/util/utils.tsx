@@ -437,6 +437,19 @@ export const translations = {
             navigationDirectionsRequirement: "Para recibir indicaciones, tiene que estar cerca del predio de Expoactiva.",
             howToGetThere: "¿Cómo llegar?",
             search: "Buscar"
+        },
+        whereismycar: {
+            mapNotAvailable: "Mapa no disponible",
+            mapAccessPermission: "Para ver el mapa, tiene que permitir el acceso a su ubicación.",
+            goToSettings: "Ir a Configuración",
+            cancel: "Cancelar",
+            removeMarker: "Eliminar marca",
+            removeMarkerConfirmation: "¿Estás seguro de que quieres eliminar la marca de tu vehículo?",
+            delete: "Eliminar",
+            veryCloseToYourCar: "Te encuentras muy cerca de tu vehículo",
+            metersToYourCar: "metros hasta tu vehículo",
+            deleteMarker: "Eliminar marca",
+            markMyCar: "Marcar mi vehículo"
         }
     },
     en: {
@@ -719,6 +732,19 @@ export const translations = {
             navigationDirectionsRequirement: "To receive directions, you must be near the Expoactiva site.",
             howToGetThere: "How to get there?",
             search: "Search"
+        },
+        whereismycar: {
+            mapNotAvailable: "Map not available",
+            mapAccessPermission: "To view the map, you must allow access to your location.",
+            goToSettings: "Go to Settings",
+            cancel: "Cancel",
+            removeMarker: "Remove marker",
+            removeMarkerConfirmation: "Are you sure you want to remove your vehicle's marker?",
+            delete: "Delete",
+            veryCloseToYourCar: "You are very close to your vehicle",
+            metersToYourCar: "meters to your vehicle",
+            deleteMarker: "Remove marker",
+            markMyCar: "Mark my vehicle"
         }
     },
     pt: {
@@ -1003,6 +1029,19 @@ export const translations = {
             navigationDirectionsRequirement: "Para receber direções, você deve estar perto do local da Expoactiva.",
             howToGetThere: "Como chegar?",
             search: "Buscar"
+        },
+        whereismycar: {
+            mapNotAvailable: "Mapa não disponível",
+            mapAccessPermission: "Para ver o mapa, você deve permitir o acesso à sua localização.",
+            goToSettings: "Ir para Configurações",
+            cancel: "Cancelar",
+            removeMarker: "Remover marca",
+            removeMarkerConfirmation: "Tem certeza de que deseja remover a marca do seu veículo?",
+            delete: "Excluir",
+            veryCloseToYourCar: "Você está muito perto do seu veículo",
+            metersToYourCar: "metros até o seu veículo",
+            deleteMarker: "Remover marca",
+            markMyCar: "Marcar meu veículo"
         }
 
     }
