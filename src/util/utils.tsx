@@ -426,6 +426,18 @@ export const translations = {
             placeholder: "Expositor, Comidas, Baños...",
             noResultsText: "Sin resultados"
         },
+        maps: {
+            mapNotAvailable: "Mapa no disponible",
+            mapAccessPermission: "Para ver el mapa, tiene que permitir el acceso a su ubicación.",
+            goToSettings: "Ir a Configuración",
+            cancel: "Cancelar",
+            navigationCancelled: "Navegación cancelada",
+            navigationAutoCancelled: "La navegación se ha cancelado automáticamente después de 1 hora.",
+            navigationNotAvailable: "Navegación no disponible",
+            navigationDirectionsRequirement: "Para recibir indicaciones, tiene que estar cerca del predio de Expoactiva.",
+            howToGetThere: "¿Cómo llegar?",
+            search: "Buscar"
+        }
     },
     en: {
         aboutExpoactivaScreen: {
@@ -696,6 +708,18 @@ export const translations = {
             placeholder: "Exhibitor, Food, Bathrooms...",
             noResultsText: "No results"
         },
+        maps: {
+            mapNotAvailable: "Map not available",
+            mapAccessPermission: "To view the map, you must allow access to your location.",
+            goToSettings: "Go to Settings",
+            cancel: "Cancel",
+            navigationCancelled: "Navigation cancelled",
+            navigationAutoCancelled: "Navigation has been automatically cancelled after 1 hour.",
+            navigationNotAvailable: "Navigation not available",
+            navigationDirectionsRequirement: "To receive directions, you must be near the Expoactiva site.",
+            howToGetThere: "How to get there?",
+            search: "Search"
+        }
     },
     pt: {
         aboutExpoactivaScreen: {
@@ -968,6 +992,18 @@ export const translations = {
             placeholder: "Expositor, Comidas, Banheiros...",
             noResultsText: "Sem resultados"
         },
+        maps: {
+            mapNotAvailable: "Mapa não disponível",
+            mapAccessPermission: "Para ver o mapa, você deve permitir o acesso à sua localização.",
+            goToSettings: "Ir para Configurações",
+            cancel: "Cancelar",
+            navigationCancelled: "Navegação cancelada",
+            navigationAutoCancelled: "A navegação foi cancelada automaticamente após 1 hora.",
+            navigationNotAvailable: "Navegação não disponível",
+            navigationDirectionsRequirement: "Para receber direções, você deve estar perto do local da Expoactiva.",
+            howToGetThere: "Como chegar?",
+            search: "Buscar"
+        }
 
     }
 };

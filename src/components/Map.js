@@ -13,6 +13,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import { capitalize } from '../util/utils.tsx';
 import { ThemeContext } from '../context/themeContext/ThemeContext.tsx';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
 
 
 const MAPBOX_ACCESS_TOKEN = Constants.expoConfig.extra.mapbox;
@@ -143,6 +145,11 @@ const Map = ({ showModal }) => {
     const { navigation } = NavigationHook()
     const [exhibitors, setExhibitors] = useState([]);
     const { theme } = React.useContext(ThemeContext);
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = React.useState(translations.es);
+    React.useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
 
     const getExhibitors = async () => {
         try {
@@ -178,16 +185,16 @@ const Map = ({ showModal }) => {
                 if (status !== 'granted') {
                     console.log('Permission to access location was denied');
                     Alert.alert(
-                        "Mapa no disponible",
-                        "Para ver el mapa, tiene que permitir el acceso a su ubicación.",
+                        translation.maps.mapNotAvailable,
+                        translation.maps.mapAccessPermission,
                         [
                             {
-                                text: "Ir a Configuración",
+                                text: translation.maps.goToSettings,
                                 onPress: () => Linking.openSettings(),
                                 style: "cancel"
                             },
                             {
-                                text: "Cancelar",
+                                text: translation.maps.goToSettings,
                                 onPress: () => console.log("Cancel Pressed"),
                                 style: "destructive"
                             }
@@ -332,7 +339,7 @@ const Map = ({ showModal }) => {
         if (navigationMode) {
             timerId = setTimeout(() => {
                 setNavigationMode(false);
-                Alert.alert("Navegación cancelada", "La navegación se ha cancelado automáticamente después de 1 hora.");
+                Alert.alert(translation.maps.navigationCancelled, translation.maps.navigationAutoCancelled);
             }, 60 * 60 * 1000);  // 60 minutos
         }
 
@@ -525,11 +532,11 @@ const Map = ({ showModal }) => {
         console.log(disableNavigation);
         if (disableNavigation) {
             Alert.alert(
-                "Navegación no disponible",
-                "Para recibir indicaciones, tiene que estar cerca del predio de Expoactiva.",
+                translation.maps.navigationNotAvailable,
+                translation.maps.navigationDirectionsRequirement,
                 [
                     {
-                        text: "¿Cómo llegar?",
+                        text: translation.maps.howToGetThere,
                         onPress: () => {
                             showModal();
                             navigation.navigate('GoToPlaceScreen');
@@ -539,7 +546,7 @@ const Map = ({ showModal }) => {
                     },
 
                     {
-                        text: "Cancelar",
+                        text: translation.maps.cancel,
                         onPress: () => console.log("OK Pressed"),
                         style: "cancel"
                     },
@@ -580,7 +587,7 @@ const Map = ({ showModal }) => {
                     outputRange: followUserMode || isSearchMode ? [1, 1] : [1, 0.43]
                 })
             }}>
-                <Mapbox.MapView pitchEnabled={false} attributionEnabled={false} logoEnabled={false} ref={mapRef} style={{ flex: 1 }} onPress={!followUserMode && onMapPress} styleURL={theme.currentTheme ==='light' ? 'mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' : 'mapbox://styles/lazaroborghi/clp7m30oh014j01nsaju4fd7f'} onCameraChanged={handleRegionChange} scaleBarEnabled={false}>
+                <Mapbox.MapView pitchEnabled={false} attributionEnabled={false} logoEnabled={false} ref={mapRef} style={{ flex: 1 }} onPress={!followUserMode && onMapPress} styleURL={theme.currentTheme === 'light' ? 'mapbox://styles/lazaroborghi/cln8wy7yk07c001qb4r5h2yrg' : 'mapbox://styles/lazaroborghi/clp7m30oh014j01nsaju4fd7f'} onCameraChanged={handleRegionChange} scaleBarEnabled={false}>
                     <Mapbox.UserLocation minDisplacement={0.2} visible={true} androidRenderMode={followUserMode ? 'gps' : 'normal'} renderMode={Platform.OS === 'android' && followUserMode ? 'native' : 'normal'} showsUserHeadingIndicator={true} />
                     <Mapbox.Camera
                         ref={cameraRef}
@@ -625,9 +632,9 @@ const Map = ({ showModal }) => {
                                 }
                             ]}
                         >
-                            <AntDesign name="search1" size={15} style={[styles.searchIcon, {color: theme.customColors.activeColor}]} />
-                            <Text style={[styles.searchText, { fontSize: selectedExhibitor ? 14 : 16, color: theme.customColors.activeColor } ]}>
-                                Buscar
+                            <AntDesign name="search1" size={15} style={[styles.searchIcon, { color: theme.customColors.activeColor }]} />
+                            <Text style={[styles.searchText, { fontSize: selectedExhibitor ? 14 : 16, color: theme.customColors.activeColor }]}>
+                                {translation.maps.search}
                             </Text>
                         </TouchableOpacity>
                         {!selectedExhibitor && (
