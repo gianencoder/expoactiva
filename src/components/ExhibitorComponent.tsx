@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Image, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { View } from 'react-native'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
 import { eventStyle } from '../theme/EventTheme'
 import { exhibitorTheme } from '../theme/ExhibitorTheme'
 import { ExhibitorFunction } from '../functions/ExhibitorFunction'
-import { formatPhoneNumber } from '../util/utils'
+import { formatPhoneNumber, loadTranslations, translate, translations } from '../util/utils'
+import { useLanguage } from '../context/LanguageContext/LanguageContext'
 
 
 interface Props {
@@ -16,8 +17,38 @@ interface Props {
 export const ExhibitorComponent = ({ ex, selectEx }: Props) => {
   const { theme } = useContext(ThemeContext)
   const [imgLoader, setImgLoader] = useState(false)
-
+  const { languageState } = useLanguage();
+  const { language } = languageState
+  const [translation, setTranslation] = useState(translations.es);
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    loadTranslations(setTranslation);
+  }, [languageState]);
+  const [translateType, setTranslateType] = useState('')
   const { goSite, callPhone, whatsapp } = ExhibitorFunction()
+
+  useEffect(() => {
+    const fetchTranslations = async () => {
+      setLoading(true)
+      try {
+
+        const translatedType = await translate(ex.type, language);
+
+        setTranslateType(translatedType);
+
+      } catch (error) {
+        console.log('Error translating:', error);
+        // En caso de error, asignar el valor original
+        setTranslateType(ex.type);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (language) {
+      fetchTranslations();
+    }
+  }, [language, ex.type]);
+
 
   return (
     <View style={{ backgroundColor: 'transparent', flex: 1 }}>
@@ -32,10 +63,10 @@ export const ExhibitorComponent = ({ ex, selectEx }: Props) => {
           </View>
           <View style={{ ...eventStyle.eventListTitle, marginVertical: 5 }}>
             <Text numberOfLines={1} style={{ ...eventStyle.titleTxt, color: theme.colors.text, textTransform: 'uppercase' }}>{ex.name}</Text>
-            <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{ex.type}</Text>
+            <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{loading ? ex.type : translateType}</Text>
             {ex.webPage && <View style={exhibitorTheme.linksView}>
               <Image style={{ ...exhibitorTheme.linksImg, tintColor: theme.customColors.activeColor }} source={require('../assets/icons/web-page.png')} />
-              <Text onPress={() => goSite(ex.webPage)} numberOfLines={1} style={{ ...exhibitorTheme.wbeSiteTxt, color: theme.colors.text }}>Sitio web</Text>
+              <Text onPress={() => goSite(ex.webPage)} numberOfLines={1} style={{ ...exhibitorTheme.wbeSiteTxt, color: theme.colors.text }}>{translation.exhibitorDetails.website}</Text>
             </View>
             }
             {ex.tel && <View style={exhibitorTheme.linksView}>
