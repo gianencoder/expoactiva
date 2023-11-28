@@ -138,7 +138,7 @@ export const AuthComponent = () => {
             {renderLoadingSpinner()}
             <View style={{ ...authStyle.formContainer }}>
                 <View style={{ height: 1, width: '10%', backgroundColor: theme.customColors.activeColor, borderRadius: 40 }} />
-                <Text style={{ color: theme.colors.text, fontSize: 16 }}>Inicia sesión o registrate</Text>
+                <Text style={{ color: theme.colors.text, fontSize: 16 }}>{translation.authComponent.iniciarSesionORegistrarse}</Text>
                 <View style={{ height: 1, width: '10%', backgroundColor: theme.customColors.activeColor, borderRadius: 40 }} />
             </View>
 

@@ -4,11 +4,20 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import Exhibitors from './Exhibitors';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { SeparatorComponent } from './SeparatorComponent';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
+
 
 const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) => {
     const [localLoading, setLocalLoading] = React.useState(true);
     const [distanceData, setDistanceData] = React.useState({ value: 0, unit: 'Metros' });
     const { theme } = React.useContext(ThemeContext)
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = React.useState(translations.es);
+    React.useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
+
 
     React.useEffect(() => {
         setLocalLoading(true);
@@ -39,7 +48,7 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                                     </>
                                 ) : (
                                     <Text style={{ fontSize: 24, fontWeight: '600', color: theme.customColors.activeColor }}>
-                                        Ha llegado a su destino
+                                        {translation.bottomSheetNavigator.youHaveArrived}
                                     </Text>
                                 )}
                             </View>
@@ -49,8 +58,8 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                     distanceData.value > -1 && !localLoading && (
                         <Text style={{ fontSize: 18, fontWeight: '500', color: theme.customColors.activeColor, paddingVertical: 20, textAlign: 'center' }}>
                             {distanceData.value <= 5
-                                ? ('Usted se encuentra en el sitio')
-                                : (`A ${distanceData.value} ${distanceData.unit} de distancia`)}
+                                ? translation.bottomSheetNavigator.youAreAtTheSite
+                                : (`${translation.bottomSheetNavigator.distanceAway} ${distanceData.value} ${distanceData.unit} ${translation.bottomSheetNavigator.distanceAway2}`)}
                         </Text>
                     )
                 )
@@ -79,7 +88,11 @@ const BottomSheet = ({
 
     const timeoutRef = React.useRef();
     const { theme } = React.useContext(ThemeContext)
-
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = React.useState(translations.es);
+    React.useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
     React.useEffect(() => {
         const { value } = getFormattedDistance();
         if (followUserMode && navigationMode && value < 5) {
@@ -223,11 +236,11 @@ const BottomSheet = ({
                         <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row', paddingBottom: 10, gap: 15 }}>
                             <TouchableOpacity onPress={toggleFollowUserMode} style={buttonStyle}>
                                 <MaterialCommunityIcons name="navigation" size={24} color={theme.customColors.activeColor} />
-                                <Text style={{ fontSize: 15, color: theme.customColors.activeColor, fontWeight: '500' }}>Iniciar</Text>
+                                <Text style={{ fontSize: 15, color: theme.customColors.activeColor, fontWeight: '500' }}>{translation.bottomSheetNavigator.start}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={toggleNavigationMode} style={buttonStyle}>
                                 <MaterialCommunityIcons name="cancel" size={24} color={theme.customColors.activeColor} />
-                                <Text style={{ fontSize: 15, color: theme.customColors.activeColor, fontWeight: '500' }}>Cancelar</Text>
+                                <Text style={{ fontSize: 15, color: theme.customColors.activeColor, fontWeight: '500' }}>{translation.bottomSheetNavigator.cancel}</Text>
                             </TouchableOpacity>
                         </View>
                     </>
@@ -235,7 +248,7 @@ const BottomSheet = ({
                     <View style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 10, paddingTop: 10 }}>
                         <TouchableOpacity onPress={toggleNavigationMode} style={buttonStyle}>
                             <MaterialCommunityIcons name="arrow-right-top" size={24} color={theme.customColors.activeColor} />
-                            <Text style={{ fontSize: 16, color: theme.customColors.activeColor, fontWeight: '500' }}>Como llegar</Text>
+                            <Text style={{ fontSize: 16, color: theme.customColors.activeColor, fontWeight: '500' }}>{translation.bottomSheetNavigator.howToGetThere}</Text>
                         </TouchableOpacity>
                     </View>
                 )
@@ -260,7 +273,6 @@ const BottomSheet = ({
         elevation: 5,
     };
 
-
     return (
         <>
             {followUserMode ?
@@ -283,7 +295,7 @@ const BottomSheet = ({
                     }}>
                     <View style={{ flex: 1, padding: 10 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                            <Text style={{ color: 'gray', fontSize: 18, fontWeight: '500', textAlign: 'left', paddingLeft: 10 }}>En camino a {selectedExhibitor && selectedExhibitor.name}</Text>
+                            <Text style={{ color: 'gray', fontSize: 18, fontWeight: '500', textAlign: 'left', paddingLeft: 10 }}>{translation.bottomSheetNavigator.onTheWayTo} {selectedExhibitor && selectedExhibitor.name}</Text>
                             <TouchableOpacity style={{ paddingRight: 5 }} onPress={onMapPress} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
                                 <AntDesign name="close" size={24} color={theme.customColors.activeColor} />
                             </TouchableOpacity>
@@ -304,8 +316,6 @@ const BottomSheet = ({
                                 ) : (
                                     <MaterialCommunityIcons name="navigation-variant" size={28} color={theme.customColors.activeColor} />
                                 )}
-
-
                             </TouchableOpacity>
                         </View>
                     </View>

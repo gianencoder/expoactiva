@@ -117,7 +117,7 @@ export async function translate(text: string, language: string): Promise<string>
         }
 
         // Si no está en caché, realizar la solicitud de traducción
-        const response = await fetch(`${properties.desa}traducir`, {
+        const response = await fetch(`${properties.prod}translate`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -174,7 +174,8 @@ export const translations = {
         },
         authScreen: {
             accountTitle: 'Mi cuenta',
-            loginSubtitle: 'Inicia sesión para listar, comprar y compartir tus entradas',
+            loginSubtitle: 'Inicia sesión para',
+            loginSubtitle2: 'tus entradas',
             loginButton: 'Iniciar sesión',
             noAccountText: '¿No tienes cuenta?',
             createAccount: 'Presiona aquí',
@@ -404,9 +405,23 @@ export const translations = {
         },
         authComponent: {
             continueWithEmail: "Continuar con correo",
-            continueWithGoogle: "Continuar con Google"
+            continueWithGoogle: "Continuar con Google",
+            iniciarSesionORegistrarse: "Inicia sesión o regístrate"
+        },
+        bottomSheetNavigator: {
+            meters: "Metros",
+            kilometers: "Kilómetros",
+            youHaveArrived: "Ha llegado a su destino",
+            youAreAtTheSite: "Usted se encuentra en el sitio",
+            distanceAway: "A {distance} {unit} de distancia",
+            start: "Iniciar",
+            cancel: "Cancelar",
+            howToGetThere: "Cómo llegar",
+            onTheWayTo: "En camino a",
+            close: "Cerrar",
+            defaultDistanceValue: "0 Metros", // Valor por defecto cuando la distancia no está disponible
+            loading: "Cargando" // Para el indicador de carga
         }
-
     },
     en: {
         aboutExpoactivaScreen: {
@@ -427,7 +442,8 @@ export const translations = {
         },
         authScreen: {
             accountTitle: 'My account',
-            loginSubtitle: 'Log in to list, buy, and share your tickets',
+            loginSubtitle: 'Log in to',
+            loginSubtitle2: 'your tickets',
             loginButton: 'Log in',
             noAccountText: 'Don\'t have an account?',
             createAccount: 'Press here',
@@ -655,7 +671,22 @@ export const translations = {
         },
         authComponent: {
             continueWithEmail: "Continue with email",
-            continueWithGoogle: "Continue with Google"
+            continueWithGoogle: "Continue with Google",
+            iniciarSesionORegistrarse: "Log in or register"
+        },
+        bottomSheetNavigator: {
+            meters: "Meters",
+            kilometers: "Kilometers",
+            youHaveArrived: "You have arrived at your destination",
+            youAreAtTheSite: "You are at the site",
+            distanceAway: "A {distance} {unit} away",
+            start: "Start",
+            cancel: "Cancel",
+            howToGetThere: "How to get there",
+            onTheWayTo: "On the way to",
+            close: "Close",
+            defaultDistanceValue: "0 Meters", // Default value when distance is not available
+            loading: "Loading" // For the loading indicator
         }
     },
     pt: {
@@ -677,7 +708,8 @@ export const translations = {
         },
         authScreen: {
             accountTitle: 'Minha conta',
-            loginSubtitle: 'Faça login para listar, comprar e compartilhar seus ingressos',
+            loginSubtitle: 'Faça login para',
+            loginSubtitle2: 'seus ingressos',
             loginButton: 'Iniciar sessão',
             noAccountText: 'Não tem uma conta?',
             createAccount: 'Pressione aqui',
@@ -906,8 +938,25 @@ export const translations = {
         },
         authComponent: {
             continueWithEmail: "Continuar com o e-mail",
-            continueWithGoogle: "Continuar com o Google"
+            continueWithGoogle: "Continuar com o Google",
+            iniciarSesionORegistrarse: "Iniciar sessão ou cadastrar"
+        },
+        bottomSheetNavigator: {
+            meters: "Metros",
+            kilometers: "Quilômetros",
+            youHaveArrived: "Você chegou ao seu destino",
+            youAreAtTheSite: "Você está no local",
+            distanceAway: "A",
+            distanceAway2: "de distância",
+            start: "Iniciar",
+            cancel: "Cancelar",
+            howToGetThere: "Como chegar",
+            onTheWayTo: "A caminho de",
+            close: "Fechar",
+            defaultDistanceValue: "0 Metros", // Valor padrão quando a distância não está disponível
+            loading: "Carregando" // Para o indicador de carregamento
         }
+
     }
 };
 

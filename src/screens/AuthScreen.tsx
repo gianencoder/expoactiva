@@ -1,14 +1,12 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { View, Text, TouchableOpacity, Image, useWindowDimensions, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { authStyle } from '../theme/AuthTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
-import { ConfigurationItemComponent } from '../components/ConfigurationItemComponent';
 import { ModalComponent, ModalRefProps } from '../components/ModalComponent';
 import { AuthComponent } from '../components/AuthComponent';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserProfileScreen } from './UserProfileScreen';
 import { useAuthContext } from '../context/AuthContext/AuthContext';
-import { loadTranslations, translate, translations } from '../util/utils';
+import { loadTranslations, translations } from '../util/utils';
 import { useLanguage } from '../context/LanguageContext/LanguageContext';
 
 export const AuthScreen = () => {
@@ -53,10 +51,10 @@ export const AuthScreen = () => {
                         <View style={{ flex: 1, backgroundColor: 'transparent', padding: 10, gap: 20, paddingTop: 20 }}>
                             <Text style={{ ...authStyle.title, color: theme.colors.text }}>{translation.authScreen.accountTitle}</Text>
                             <Text style={{ ...authStyle.subtitle, color: theme.customColors.subtitles }}>
-                                Inicia sesión para
+                                {translation.authScreen.loginSubtitle}
                                 <Text style={{ fontWeight: '700' }}> {translation.authScreen.listar}</Text>,
                                 <Text style={{ fontWeight: '700' }}> {translation.authScreen.comprar}</Text> y
-                                <Text style={{ fontWeight: '700' }}> {translation.authScreen.compartir}</Text> tus entradas
+                                <Text style={{ fontWeight: '700' }}> {translation.authScreen.compartir}</Text> {translation.authScreen.loginSubtitle2}
                             </Text>
 
                             <TouchableOpacity onPress={toggleModal} style={{
