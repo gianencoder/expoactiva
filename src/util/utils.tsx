@@ -175,7 +175,7 @@ export const translations = {
             changeLanguage: 'Cambiar idioma',
             privacyPolicy: 'Política de privacidad y términos',
             helpAndSupport: 'Ayuda y soporte',
-            aboutApp: 'Sobre Expoactiva Nacional App'
+            aboutApp: 'Sobre Expoactiva Nacional'
         },
         authScreen: {
             accountTitle: 'Mi cuenta',
@@ -472,7 +472,7 @@ export const translations = {
             changeLanguage: 'Change language',
             privacyPolicy: 'Privacy policy and terms',
             helpAndSupport: 'Help and support',
-            aboutApp: 'About Expoactiva Nacional App'
+            aboutApp: 'About Expoactiva Nacional'
         },
         authScreen: {
             accountTitle: 'My account',
@@ -767,11 +767,11 @@ export const translations = {
             changeLanguage: 'Mudar idioma',
             privacyPolicy: 'Política de privacidade e termos',
             helpAndSupport: 'Ajuda e suporte',
-            aboutApp: 'Sobre o aplicativo Expoactiva Nacional'
+            aboutApp: 'Sobre Expoactiva Nacional'
         },
         authScreen: {
             accountTitle: 'Minha conta',
-            loginSubtitle: 'Faça login para',
+            loginSubtitle: 'Iniciar sessão para',
             loginSubtitle2: 'seus ingressos',
             loginButton: 'Iniciar sessão',
             noAccountText: 'Não tem uma conta?',
@@ -813,7 +813,7 @@ export const translations = {
             emptyEmailError: 'Você não pode deixar o campo vazio',
             warningTitle: 'Cuidado!',
             warningMessage: 'Você atingiu o limite de solicitações, tente novamente em alguns minutos...',
-            loginTitle: 'Login',
+            loginTitle: 'Iniciar sessão',
             emailLabel: 'Email',
             requiredSymbol: '*',
             placeholder: 'exemplo@hotmail.com',
@@ -933,11 +933,11 @@ export const translations = {
             noTicketsImage: "../assets/images/sin-resultado.png",
             noTicketsSubtitle: "No tienes entradas disponibles",
             buyButton: "COMPRAR",
-            redeemButton: "CANJEAR",
-            successTitle: "¡Bien hecho!",
-            successMessage: "Has recibido tu entrada",
-            paymentSuccessTitle: "¡Pago recibido!",
-            paymentSuccessMessage: "Se ha completado la compra con éxito"
+            redeemButton: "RESGATAR",
+            successTitle: "Feito!",
+            successMessage: "Você recebeu seu ingresso",
+            paymentSuccessTitle: "Pagamento Recebido!",
+            paymentSuccessMessage: "A compra foi concluída com sucesso"
         },
         userProfileScreen: {
             editProfile: "Editar perfil",
@@ -967,7 +967,7 @@ export const translations = {
         },
         validateCodeScreen: {
             titleTxt: 'Código de Verificação',
-            subtxt: 'Digite o código de verificação enviado para o seu e-mail para fazer login.',
+            subtxt: 'Digite o código de verificação enviado para o seu e-mail para iniciar sessão.',
             successMessage: 'O código foi reenviado',
             errorMessage: 'O código inserido não é válido',
             expiredMessage: 'Erro, o código expirou. Reenvie o código e tente novamente.',
