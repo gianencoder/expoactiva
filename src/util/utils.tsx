@@ -421,7 +421,11 @@ export const translations = {
             close: "Cerrar",
             defaultDistanceValue: "0 Metros", // Valor por defecto cuando la distancia no está disponible
             loading: "Cargando" // Para el indicador de carga
-        }
+        },
+        exhibitors: {
+            placeholder: "Expositor, Comidas, Baños...",
+            noResultsText: "Sin resultados"
+        },
     },
     en: {
         aboutExpoactivaScreen: {
@@ -687,7 +691,11 @@ export const translations = {
             close: "Close",
             defaultDistanceValue: "0 Meters", // Default value when distance is not available
             loading: "Loading" // For the loading indicator
-        }
+        },
+        exhibitors: {
+            placeholder: "Exhibitor, Food, Bathrooms...",
+            noResultsText: "No results"
+        },
     },
     pt: {
         aboutExpoactivaScreen: {
@@ -955,7 +963,11 @@ export const translations = {
             close: "Fechar",
             defaultDistanceValue: "0 Metros", // Valor padrão quando a distância não está disponível
             loading: "Carregando" // Para o indicador de carregamento
-        }
+        },
+        exhibitors: {
+            placeholder: "Expositor, Comidas, Banheiros...",
+            noResultsText: "Sem resultados"
+        },
 
     }
 };

@@ -15,6 +15,8 @@ import { FlashList } from '@shopify/flash-list';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
 
 export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigationMode, toggleFollowUserMode, navigationMode }) {
   const [searchText, setSearchText] = useState('');
@@ -22,6 +24,11 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
   const [exhibitors, setExhibitors] = useState([]);
   const [loading, setLoading] = useState(false);
   const { theme } = useContext(ThemeContext)
+  const { languageState } = useLanguage();
+  const [translation, setTranslation] = React.useState(translations.es);
+  React.useEffect(() => {
+    loadTranslations(setTranslation);
+  }, [languageState]);
 
   const getExhibitors = async () => {
     try {
@@ -120,7 +127,7 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
     <View style={{ ...styles.container, backgroundColor: theme.colors.background }}>
       <View style={styles.header}>
         <View style={{ width: '85%', height: 50 }}>
-          <SearchBar placeholder="Expositor, Comidas, Baños..." onSearchTextChange={setSearchText} setKeyboardVisible={setKeyboardVisible} />
+          <SearchBar placeholder={translation.exhibitors.placeholder} onSearchTextChange={setSearchText} setKeyboardVisible={setKeyboardVisible} />
         </View>
         <TouchableOpacity
           style={styles.closeButton}
@@ -148,7 +155,7 @@ export default function Exhibitors({ onMapPress, selectExhibitor, toggleNavigati
         ) : (
           <ScrollView scrollEventThrottle={16} onScrollBeginDrag={handleScroll}>
             <View style={emptyContainerStyle}>
-              <Text style={styles.emptyText}>Sin resultados</Text>
+              <Text style={styles.emptyText}>{translation.exhibitors.noResultsText}</Text>
             </View>
           </ScrollView>
         )}
