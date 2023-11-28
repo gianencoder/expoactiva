@@ -21,7 +21,7 @@ export const ConfigurationItemComponent = ({ title, image, method }: Props) => {
                 <View style={{ ...themeConfig.itemContainer }}>
                     <View style={themeConfig.item}>
                         {image}
-                        <Text style={{ fontSize: 17, color: theme.colors.text, fontFamily: 'verdana' }}>
+                        <Text style={{ fontSize: 18.5, color: theme.colors.text, fontFamily: 'verdana' }}>
                             {title}
                         </Text>
                     </View>

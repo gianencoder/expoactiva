@@ -12,7 +12,8 @@ export const themeConfig = StyleSheet.create
         itemContainer: {
             justifyContent: 'space-between',
             height: 30,
-            flexDirection: 'row'
+            flexDirection: 'row',
+            alignItems: 'center'
 
         },
         item: {
