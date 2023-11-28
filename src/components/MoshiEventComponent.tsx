@@ -6,7 +6,8 @@ import { formatDistanceToNow } from 'date-fns';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 import esLocale from 'date-fns/locale/es';
-import { dateFormmater } from '../util/utils';
+import { dateFormmater, loadTranslations, translate, translations } from '../util/utils';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
 
 interface Props {
     event?: Event
@@ -19,8 +20,17 @@ interface Props {
 export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, selectEvent, }: Props) => {
     const { theme } = useContext(ThemeContext);
     const [imageLoader, setImageLoader] = useState(true)
-
-
+    const { languageState } = useLanguage();
+    const { language } = languageState
+    const [translatedEventName, setTranslatedEventName] = useState('');
+    const [translatedType, setTranslatedType] = useState('');
+    const [translateDay, setTranslateDay] = useState('')
+    const [translation, setTranslation] = useState(translations.es);
+    const [loading, setLoading] = useState(false)
+    const [translateDate, setTranslateDate] = useState('')
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
     const [sTimeLeft, setsTimeLeft] = useState(formatDistanceToNow(new Date(moshiEvent.dateHourStart), { addSuffix: true, locale: esLocale }));
     const [fTimeLeft, setfTimeLeft] = useState(formatDistanceToNow(new Date(moshiEvent.dateHourEnd), { addSuffix: true, locale: esLocale }));
 
@@ -33,6 +43,36 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
             clearInterval(interval);
         };
     }, [moshiEvent.dateHourStart, moshiEvent.dateHourEnd]);
+
+    useEffect(() => {
+        const fetchTranslations = async () => {
+            setLoading(true)
+            try {
+                const translatedEventName = await translate(moshiEvent.eventName, language);
+                const translatedType = await translate(moshiEvent.type, language);
+                const date = await translate(sTimeLeft, language)
+                const day = await translate(dateFormmater(moshiEvent.dateHourStart).day, language)
+
+                setTranslatedEventName(translatedEventName);
+                setTranslatedType(translatedType);
+                setTranslateDay(day)
+                setTranslateDate(date)
+            } catch (error) {
+                console.log('Error translating:', error);
+                // En caso de error, asignar el valor original
+                setTranslatedEventName(moshiEvent.eventName);
+                setTranslateDate(sTimeLeft)
+                setTranslatedType(moshiEvent.type);
+                setTranslateDay(dateFormmater(moshiEvent.dateHourStart).day)
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (language) {
+            fetchTranslations();
+        }
+    }, [language, moshiEvent.eventName, moshiEvent.type]);
 
     return (
         <View style={{ width: '100%', height: 'auto' }}>
@@ -69,9 +109,9 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
 
 
                     <View style={eventStyle.eventListTitle}>
-                        <Text numberOfLines={2} style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{moshiEvent.eventName}</Text>
-                        <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{moshiEvent.type !== null && moshiEvent.type === 'EXHIBITOR' ? 'Expositor' : moshiEvent.type}</Text>
-                        <Text style={{ ...eventStyle.titleMinutes, width: '70%' }}>{dateFormmater(moshiEvent.dateHourStart).day} {dateFormmater(moshiEvent.dateHourStart).dayNumber}</Text>
+                        <Text numberOfLines={2} style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{loading ? moshiEvent.eventName : translatedEventName}</Text>
+                        <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{moshiEvent.type !== null && moshiEvent.type === 'EXHIBITOR' ? 'Expositor' : loading ? moshiEvent.type : translatedType}</Text>
+                        <Text style={{ ...eventStyle.titleMinutes, width: '70%' }}>{loading ? dateFormmater(moshiEvent.dateHourStart).day : translateDay} {dateFormmater(moshiEvent.dateHourStart).dayNumber}</Text>
                         <Text style={{ ...eventStyle.titleMinutes, textTransform: 'capitalize', width: '70%' }}>{dateFormmater(moshiEvent.dateHourStart).time} - {dateFormmater(moshiEvent.dateHourEnd).time} </Text>
                     </View>
                     <View style={eventStyle.eventListFavourite}>
@@ -83,10 +123,10 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
 
 
                         {sTimeLeft.includes('hace'.toLowerCase().trim()) && !fTimeLeft.includes('hace'.toLowerCase().trim())
-                            ? <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>EN CURSO</Text>
+                            ? <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>{translation.eventDetails.enCurso}</Text>
                             : fTimeLeft.includes('hace'.toLowerCase().trim()) && sTimeLeft.includes('hace'.toLowerCase().trim())
-                                ? <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>FINALIZADO</Text>
-                                : <Text numberOfLines={2} style={{ ...eventStyle.titleMinutes, textAlign: 'right', width: 100 }}>{sTimeLeft}</Text>
+                                ? <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>{translation.eventDetails.finalizado}</Text>
+                                : <Text numberOfLines={2} style={{ ...eventStyle.titleMinutes, textAlign: 'right', width: 100 }}>{loading ? sTimeLeft : translateDate}</Text>
                         }
                     </View>
                 </View>

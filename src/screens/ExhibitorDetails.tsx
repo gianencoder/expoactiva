@@ -62,11 +62,11 @@ export const ExhibitorDetails = () => {
             setLoading(true)
             try {
                 const translatedEventName = await translate(name, language);
-                const translatedType = await translate(description, language);
-                const translatedDescription = await translate(type, language);
+                const translatedType = await translate(type, language);
+                const translatedDescription = await translate(description, language);
                 setTranslateName(translatedEventName);
-                setTranslateDescription(translatedType);
-                setTranslateType(translatedDescription);
+                setTranslateDescription(translatedDescription);
+                setTranslateType(translatedType);
 
             } catch (error) {
                 console.log('Error translating:', error);
