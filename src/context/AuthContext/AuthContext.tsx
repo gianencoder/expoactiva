@@ -56,9 +56,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         const getPersistEvent = async () => {
             try {
+                const imageKey = `profileImage_${user?.email}`
                 const data = await AsyncStorage.getItem('UserLoggedIn');
                 const token = await AsyncStorage.getItem('AccessToken');
-                const image = await AsyncStorage.getItem('profileImage');
+                const image = await AsyncStorage.getItem(imageKey);
 
                 if (data !== null) {
                     setUser(JSON.parse(data));
@@ -83,9 +84,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const logout = async () => {
         try {
+            const imageKey = `profileImage_${user?.email}`
             await AsyncStorage.removeItem('UserLoggedIn');
             await AsyncStorage.removeItem('AccessToken');
-            await AsyncStorage.removeItem('profileImage');
+            await AsyncStorage.removeItem(imageKey);
             // Restablecer los valores del estado del contexto
             setUser(null);
             setIsLoggedIn(false);
@@ -98,9 +100,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const deleteUser = async () => {
         try {
+            const imageKey = `profileImage_${user?.email}`
             await AsyncStorage.removeItem('UserLoggedIn');
             await AsyncStorage.removeItem('AccessToken');
-            await AsyncStorage.removeItem('profileImage');
+            await AsyncStorage.removeItem(imageKey);
             // Restablecer los valores del estado del contexto
             setUser(null);
             setIsLoggedIn(false);

@@ -130,7 +130,8 @@ export const UserProfileScreen = () => {
 
     const saveImage = async (image) => {
         try {
-            await AsyncStorage.setItem("profileImage", JSON.stringify(image))
+            const imageKey = `profileImage_${user?.email}`
+            await AsyncStorage.setItem(imageKey, JSON.stringify(image))
             setImage(image)
             updateUserPicture(user?.email, image)
         } catch (error) {
@@ -153,7 +154,8 @@ export const UserProfileScreen = () => {
 
     const handleDeleteImage = async () => {
         try {
-            await AsyncStorage.removeItem('profileImage')
+            const imageKey = `profileImage_${user?.email}`
+            await AsyncStorage.removeItem(imageKey)
             setImage('')
             updateUserPicture(user?.email, '')
         } catch (error) {
