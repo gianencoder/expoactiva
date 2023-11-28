@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import properties from '../../properties.json'
 import { Alert, Linking } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import Constants from 'expo-constants';
+
+const apikey = Constants.expoConfig?.extra?.apikey;
 
 export const ExhibitorFunction = () => {
     const [exhibitor, setExhibitor] = useState<Exhibitors[]>([])
@@ -19,7 +22,7 @@ export const ExhibitorFunction = () => {
         await fetch(`${properties.prod}exhibitors/`, {
             method: 'GET',
             headers: {
-
+                'apikey': apikey,
             }
         })
             .then(async res => await res.json())

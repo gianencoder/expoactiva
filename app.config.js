@@ -66,6 +66,7 @@ export default {
       webClientId: "951022193723-dq3kifjg3s3i9qbjj8krit2a6cfq8mmm.apps.googleusercontent.com",
       iosClientId: IS_DEV ? "951022193723-7ts70jmmutkr8vnu5qubp0ssr973pek2.apps.googleusercontent.com" : "951022193723-to54ihjmtqpmvet6ho2ohburoe96duip.apps.googleusercontent.com",
       mapbox: "sk.eyJ1IjoibGF6YXJvYm9yZ2hpIiwiYSI6ImNsbTczaW5jdzNncGgzam85bjdjcDc3ZnQifQ.hhdcu0s0SZ2gm_ZHQZ4h7A",
+      apikey: "AIzaSyDQq-0XW4Zi0zK9z0t5vF1uN1Y9ZJ7m4Q4",
     },
     userInterfaceStyle: 'automatic', // Configuración para admitir temas claros y oscuros
   },

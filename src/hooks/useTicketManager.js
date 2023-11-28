@@ -8,6 +8,9 @@ import { usePayment } from '../context/PaymentContext/PaymentContext'
 import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketContext'
 import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Constants from 'expo-constants';
+
+const apikey = Constants.expoConfig.extra.apikey
 
 export const useTicketManager = (ticket = null) => {
     const { user, token } = useAuthContext()
@@ -26,6 +29,7 @@ export const useTicketManager = (ticket = null) => {
 
             setLoading(true);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            axios.defaults.headers.common['apikey'] = apikey;
             const body = { email: user.email, quantity };
 
             const response = await axios.post(`${properties.prod}tickets/purchase`, body);
@@ -59,6 +63,7 @@ export const useTicketManager = (ticket = null) => {
 
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            axios.defaults.headers.common['apikey'] = apikey;
             const response = await axios.get(`${properties.prod}tickets/${user.email}`);
 
             // Si la respuesta es exitosa, primero actualiza los tickets en el estado
@@ -124,6 +129,7 @@ export const useTicketManager = (ticket = null) => {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-type': 'application/json',
+                    'apikey': apikey
                 },
                 body: JSON.stringify({
                     email: user.email,
@@ -159,6 +165,7 @@ export const useTicketManager = (ticket = null) => {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-type': 'application/json',
+                        'apikey': apikey
                     },
                     body: JSON.stringify({
                         shared: true
