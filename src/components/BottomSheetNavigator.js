@@ -5,7 +5,7 @@ import Exhibitors from './Exhibitors';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { SeparatorComponent } from './SeparatorComponent';
 import { useLanguage } from '../context/LanguageContext/LanguageContext';
-import { loadTranslations, translations } from '../util/utils';
+import { loadTranslations, translate, translations } from '../util/utils';
 
 
 const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) => {
@@ -89,7 +89,34 @@ const BottomSheet = ({
     const timeoutRef = React.useRef();
     const { theme } = React.useContext(ThemeContext)
     const { languageState } = useLanguage();
+    const { language } = languageState
     const [translation, setTranslation] = React.useState(translations.es);
+    const [translatedDescription, setTranslatedDescription] = React.useState('')
+    const [translating, setTranslating] = React.useState(false)
+
+
+
+
+    React.useEffect(() => {
+        const fetchTranslations = async () => {
+            setTranslating(true)
+            try {
+                const translated = await translate(selectedExhibitor.description, language);
+                setTranslatedDescription(translated);
+
+            } catch (error) {
+                console.log('Error translating:', error);
+                // En caso de error, asignar el valor original
+                setTranslatedDescription(selectedExhibitor.description);
+            } finally {
+                setTranslating(false);
+            }
+        };
+        if (language) {
+            fetchTranslations();
+        }
+    }, [languageState, selectedExhibitor]);
+
     React.useEffect(() => {
         loadTranslations(setTranslation);
     }, [languageState]);
@@ -216,7 +243,7 @@ const BottomSheet = ({
                                 maxHeight: Dimensions.get("screen").height * (navigationMode && Dimensions.get("screen").height < 840 ? 0.16 : 0.22),
                             }}
                         >
-                            <Text style={{ fontSize: 17, color: theme.colors.text }}>{selectedExhibitor.description}</Text>
+                            <Text style={{ fontSize: 17, color: theme.colors.text }}>{translating ? selectedExhibitor.description : translatedDescription}</Text>
                         </ScrollView>
                     </View>
                 </>
