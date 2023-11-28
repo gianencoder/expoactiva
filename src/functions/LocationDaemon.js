@@ -5,6 +5,9 @@ import * as turf from '@turf/turf';
 import { getUniqueId } from 'react-native-device-info';
 import properties from '../../properties.json';
 import { useAuthContext } from '../context/AuthContext/AuthContext';
+import Constants from 'expo-constants';
+
+const apikey = Constants.expoConfig.extra.apikey;
 
 const LocationDaemon = () => {
 
@@ -106,6 +109,7 @@ const LocationDaemon = () => {
         interests: interests,
         ageRange: ageRange,
       }
+      axios.defaults.headers.common['apikey'] = apikey;
       await axios.post(`${properties.prod}open/locations`, body);
     } catch (error) {
       console.log('Error al enviar localizacion', error.message);

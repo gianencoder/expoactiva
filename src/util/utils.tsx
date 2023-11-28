@@ -5,6 +5,7 @@ import moment from 'moment';
 import { Alert } from 'react-native';
 import properties from '../../properties.json'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 
 export function capitalize(word: any) {
     if (word && typeof word === 'string') {
@@ -107,6 +108,9 @@ export function filterFormmat(date) {
 
 export async function translate(text: string, language: string): Promise<string> {
     try {
+
+        const apikey = Constants.expoConfig?.extra?.apikey;
+
         // Verificar si la traducción está en caché
         const cacheKey = `${language}_${text}`;
         const cachedTranslation = await AsyncStorage.getItem(cacheKey);
@@ -121,6 +125,7 @@ export async function translate(text: string, language: string): Promise<string>
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'apikey': apikey,
             },
             body: JSON.stringify({
                 texto: text,

@@ -14,6 +14,7 @@ import { loadTranslations, translations } from '../util/utils';
 
 const webClientId = Constants.expoConfig?.extra?.webClientId;
 const iosClientId = Constants.expoConfig?.extra?.iosClientId;
+const apikey = Constants.expoConfig?.extra?.apikey;
 
 const googleSignInConfigAndroid = {
     scopes: ["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"],
@@ -69,7 +70,8 @@ export const AuthComponent = () => {
             const response = await fetch(`${properties.prod}/auth/google`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "apikey": apikey,
                 },
                 body: JSON.stringify({
                     tokenId: googleToken,

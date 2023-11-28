@@ -6,9 +6,9 @@ import { useAuthContext } from '../context/AuthContext/AuthContext';
 import properties from '../../properties.json'
 import axios, { AxiosError } from 'axios';
 import DeviceInfo from "react-native-device-info";
+import Constants from 'expo-constants';
 
-
-
+const apikey = Constants.expoConfig?.extra?.apikey;
 
 export const EmailLoginFunction = () => {
     const [exist, setExist] = useState(false)
@@ -28,32 +28,6 @@ export const EmailLoginFunction = () => {
     const uniqueId = DeviceInfo.getUniqueIdSync()
     const [limitRequest, setLimitRequest] = useState(false)
 
-    // const afterEmailVerification = async (email: string) => {
-    //     try {
-    //         await fetch(`${properties.prod}user/update/${email}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-type': 'application/json',
-    //             },
-    //             body: JSON.stringify({
-    //                 validateEmail: true,
-    //                 expirationCode: null,
-    //                 code: null
-    //             }),
-    //         })
-    //             .then(res => {
-
-    //             })
-    //             .catch(err => {
-
-    //             })
-
-    //     } catch (error) {
-    //         throw new Error('Error verificando el email')
-    //     }
-    // };
-
-
     const updateUserPicture = async (email: string, image: string) => {
         setChangingPicture(true)
         try {
@@ -62,6 +36,7 @@ export const EmailLoginFunction = () => {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-type': 'application/json',
+                    'apikey': apikey,
                 },
                 body: JSON.stringify({
                     picture: image
@@ -135,6 +110,7 @@ export const EmailLoginFunction = () => {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-type': 'application/json',
+                    'apikey': apikey,
                 },
                 body: JSON.stringify({
                     name: name,
@@ -212,6 +188,7 @@ export const EmailLoginFunction = () => {
     const getUserByEmail = async (email: string) => {
         setLoading(true);
         try {
+            axios.defaults.headers.common['apikey'] = apikey;
             const response = await axios.get(`${properties.prod}user/get/${email}`);
 
             if (response.status === 200) {
@@ -252,6 +229,7 @@ export const EmailLoginFunction = () => {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json',
+                    'apikey': apikey,
                 }
             });
             if (response.status === 200) {
@@ -277,6 +255,7 @@ export const EmailLoginFunction = () => {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
+                    'apikey': apikey,
                 },
             });
             if (response.status === 200) {
@@ -314,6 +293,7 @@ export const EmailLoginFunction = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'apikey': apikey,
                 },
                 body: JSON.stringify({
                     name: name,
@@ -362,6 +342,7 @@ export const EmailLoginFunction = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'apikey': apikey,
                 },
                 body: JSON.stringify({
                     email: email,
@@ -414,6 +395,7 @@ export const EmailLoginFunction = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'apikey': apikey,
                 }
             })
 
@@ -459,9 +441,9 @@ export const EmailLoginFunction = () => {
             const response = await fetch(`${properties.prod}user/delete/${email}`, {
                 method: 'DELETE',
                 headers: {
-
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
+                    'apikey': apikey,
                 },
             });
 

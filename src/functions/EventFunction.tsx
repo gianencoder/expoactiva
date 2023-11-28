@@ -7,6 +7,9 @@ import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { usePushNotifications } from '../hooks/usePushNotifications';
+import Constants from 'expo-constants';
+
+const apikey = Constants.expoConfig?.extra?.apikey;
 
 export const EventFunction = () => {
 
@@ -45,6 +48,7 @@ export const EventFunction = () => {
                     headers: {
                         'Content-type': 'application/json',
                         'Authorization': `Bearer ${properties.token}`,
+                        'apikey': apikey
                     }
                 }).then(async res => await res.json())
                     .then(res => {
@@ -171,6 +175,7 @@ export const EventFunction = () => {
         console.log('Enviando favorito a la API:', body)
 
         try {
+            axios.defaults.headers.common['apikey'] = apikey;
             const response = await axios.post(url, body);
 
 
@@ -210,6 +215,7 @@ export const EventFunction = () => {
         };
 
         try {
+            axios.defaults.headers.common['apikey'] = apikey;
             const response = await axios.delete(url, { data: body });
 
             console.log(response);
