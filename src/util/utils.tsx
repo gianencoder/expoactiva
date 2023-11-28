@@ -588,7 +588,7 @@ export const translations = {
             placeholder: "Your code here...",
             redeemButtonText: {
                 withCode: "REDEEM",
-                withoutCode: "ENTER A CODE"
+                withoutCode: "ENTER CODE"
             },
             cancelButtonText: "Cancel"
         },
@@ -657,7 +657,7 @@ export const translations = {
         },
         visibilityScree: {
             activarModoOscuro: 'Activate Dark Mode',
-            desactivarModoOscuro: 'Deactivate Dark Mode',
+            desactivarModoOscuro: 'Desactivate Dark Mode',
         },
         bottomTab: {
             inicio: "Home",
