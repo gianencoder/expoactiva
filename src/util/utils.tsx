@@ -457,7 +457,7 @@ export const translations = {
             markMyCar: "Marcar mi vehículo"
         },
         ticketAlert: {
-            proceedWithSharing: "Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada:",
+            proceedWithSharing: "Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada",
             iosShareSuccessTitle: "¡Bien hecho!",
             iosShareSuccessMessage: "La entrada se compartió correctamente",
             iosShareErrorMessage: "Error al compartir",
@@ -470,6 +470,13 @@ export const translations = {
             androidShareErrorMessage: "Error en la API",
             generalErrorTitle: "Error",
             generalErrorMessage: "Ocurrió un error al compartir la entrada, inténtelo nuevamente"
+        },
+        favoriteEvent: {
+            checkAsFavorite: 'Has marcado como favorito!',
+            favoriteMessage: 'Te notificaremos 10 minutos antes de que comience el evento.',
+            confirmation: "¿Deseas eliminar el favorito?",
+            cancel: "Cancelar",
+            delete: "Eliminar"
         }
     },
     en: {
@@ -767,7 +774,7 @@ export const translations = {
             markMyCar: "Mark my vehicle"
         },
         ticketAlert: {
-            proceedWithSharing: "Redeem the following code in the Expoactiva app to receive your ticket:",
+            proceedWithSharing: "Redeem the following code in the Expoactiva app to receive your ticket",
             iosShareSuccessTitle: "Well done!",
             iosShareSuccessMessage: "The ticket has been shared successfully",
             iosShareErrorMessage: "Error sharing",
@@ -780,6 +787,13 @@ export const translations = {
             androidShareErrorMessage: "API error",
             generalErrorTitle: "Error",
             generalErrorMessage: "An error occurred while sharing the ticket, please try again"
+        },
+        favoriteEvent: {
+            checkAsFavorite: 'You have marked as a favorite!',
+            favoriteMessage: 'We will notify you 10 minutes before the event starts.',
+            confirmation: "Do you want to delete the favorite?",
+            cancel: "Cancel",
+            delete: "Delete"
         }
     },
     pt: {
@@ -1063,7 +1077,7 @@ export const translations = {
             navigationNotAvailable: "Navegação não disponível",
             navigationDirectionsRequirement: "Para receber direções, você deve estar perto do local da Expoactiva.",
             howToGetThere: "Como chegar?",
-            search: "Buscar"
+            search: "Procurar"
         },
         whereismycar: {
             mapNotAvailable: "Mapa não disponível",
@@ -1079,7 +1093,7 @@ export const translations = {
             markMyCar: "Marcar meu veículo"
         },
         ticketAlert: {
-            proceedWithSharing: "Resgate o seguinte código no aplicativo Expoactiva para receber seu ingresso:",
+            proceedWithSharing: "Resgate o seguinte código no aplicativo Expoactiva para receber seu ingresso",
             iosShareSuccessTitle: "Feito!",
             iosShareSuccessMessage: "O ingresso foi compartilhado com sucesso",
             iosShareErrorMessage: "Erro ao compartilhar",
@@ -1092,8 +1106,15 @@ export const translations = {
             androidShareErrorMessage: "Erro na API",
             generalErrorTitle: "Erro",
             generalErrorMessage: "Ocorreu um erro ao compartilhar o ingresso, tente novamente"
-        }
+        },
+        favoriteEvent: {
+            checkAsFavorite: 'Você marcou como favorito!',
+            favoriteMessage: 'Vamos notificá-lo 10 minutos antes de começar o evento.',
+            confirmation: "Deseja excluir dos favoritos?",
+            cancel: "Cancelar",
+            delete: "Excluir"
 
+        }
     }
 };
 

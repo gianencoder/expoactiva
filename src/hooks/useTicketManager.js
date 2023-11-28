@@ -8,14 +8,11 @@ import { usePayment } from '../context/PaymentContext/PaymentContext'
 import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketContext'
 import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-<<<<<<< HEAD
 import { useLanguage } from '../context/LanguageContext/LanguageContext';
 import { loadTranslations, translations } from '../util/utils';
-=======
 import Constants from 'expo-constants';
 
 const apikey = Constants.expoConfig.extra.apikey
->>>>>>> b78e1d23a5440294b601c49c2354ee29569460cc
 
 export const useTicketManager = (ticket = null) => {
     const { user, token } = useAuthContext()

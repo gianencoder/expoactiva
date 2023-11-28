@@ -8,6 +8,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { usePushNotifications } from '../hooks/usePushNotifications';
 import Constants from 'expo-constants';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
 
 const apikey = Constants.expoConfig?.extra?.apikey;
 
@@ -23,6 +25,11 @@ export const EventFunction = () => {
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState('');
     const [showNotificationAlert, setShowNotificationAlert] = useState(false);
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
 
 
     const filterEvent = events.filter((exp: EventoMoshi) =>
@@ -121,7 +128,7 @@ export const EventFunction = () => {
                 const eventTokenMapping = JSON.parse(await AsyncStorage.getItem('eventTokenMapping')) || {};
                 eventTokenMapping[id] = notificationToken;
                 await AsyncStorage.setItem('eventTokenMapping', JSON.stringify(eventTokenMapping));
-                !showNotificationAlert && Alert.alert('¡Has marcado un favorito!', 'Te avisaremos 10 minutos antes de que comience el evento.', [{ text: 'Ok', onPress: () => setShowNotificationAlert(true) }], { cancelable: false });
+                !showNotificationAlert && Alert.alert(translation.favoriteEvent.checkAsFavorite, translation.favoriteEvent.favoriteMessage, [{ text: 'Ok', onPress: () => setShowNotificationAlert(true) }], { cancelable: false });
                 await sendFavouriteAPI(selectedEvent.idEvent, selectedEvent.dateHourStart);
             }
         } else {
@@ -137,11 +144,11 @@ export const EventFunction = () => {
     const presentRemoveFavoriteAlert = () => {
         return new Promise(resolve => {
             Alert.alert(
-                '¿Desea eliminar el favorito?',
+                translation.favoriteEvent.confirmation,
                 '',
                 [
-                    { text: 'Cancelar', onPress: () => resolve(false), style: 'cancel' },
-                    { text: 'Eliminar', onPress: () => resolve(true), style: 'destructive' }
+                    { text: translation.favoriteEvent.cancel, onPress: () => resolve(false), style: 'cancel' },
+                    { text: translation.favoriteEvent.delete, onPress: () => resolve(true), style: 'destructive' }
                 ]
             );
         });
