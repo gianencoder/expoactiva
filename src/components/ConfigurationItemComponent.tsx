@@ -3,8 +3,6 @@ import React, { ReactElement, useContext } from 'react'
 import { View, Text, Image, useWindowDimensions, TouchableOpacity } from 'react-native'
 import { themeConfig } from '../theme/ConfigurationTheme'
 import { ThemeContext } from '../context/themeContext/ThemeContext'
-import { SeparatorComponent } from './SeparatorComponent'
-
 interface Props {
     title: string,
     image: any

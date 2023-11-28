@@ -450,6 +450,21 @@ export const translations = {
             metersToYourCar: "metros hasta tu vehículo",
             deleteMarker: "Eliminar marca",
             markMyCar: "Marcar mi vehículo"
+        },
+        ticketAlert: {
+            proceedWithSharing: "Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada:",
+            iosShareSuccessTitle: "¡Bien hecho!",
+            iosShareSuccessMessage: "La entrada se compartió correctamente",
+            iosShareErrorMessage: "Error al compartir",
+            androidShareConfirmationTitle: "Compartir entrada",
+            androidShareConfirmationMessage: "¿Realmente desea compartir su entrada?",
+            androidShareConfirmationNoText: "No",
+            androidShareConfirmationNoAction: "Compartir cancelado",
+            androidShareConfirmationYesText: "Sí",
+            androidShareConfirmationYesAction: "proceedWithSharing",
+            androidShareErrorMessage: "Error en la API",
+            generalErrorTitle: "Error",
+            generalErrorMessage: "Ocurrió un error al compartir la entrada, inténtelo nuevamente"
         }
     },
     en: {
@@ -745,6 +760,21 @@ export const translations = {
             metersToYourCar: "meters to your vehicle",
             deleteMarker: "Remove marker",
             markMyCar: "Mark my vehicle"
+        },
+        ticketAlert: {
+            proceedWithSharing: "Redeem the following code in the Expoactiva app to receive your ticket:",
+            iosShareSuccessTitle: "Well done!",
+            iosShareSuccessMessage: "The ticket has been shared successfully",
+            iosShareErrorMessage: "Error sharing",
+            androidShareConfirmationTitle: "Share ticket",
+            androidShareConfirmationMessage: "Do you really want to share your ticket?",
+            androidShareConfirmationNoText: "No",
+            androidShareConfirmationNoAction: "Sharing canceled",
+            androidShareConfirmationYesText: "Yes",
+            androidShareConfirmationYesAction: "proceedWithSharing",
+            androidShareErrorMessage: "API error",
+            generalErrorTitle: "Error",
+            generalErrorMessage: "An error occurred while sharing the ticket, please try again"
         }
     },
     pt: {
@@ -1042,6 +1072,21 @@ export const translations = {
             metersToYourCar: "metros até o seu veículo",
             deleteMarker: "Remover marca",
             markMyCar: "Marcar meu veículo"
+        },
+        ticketAlert: {
+            proceedWithSharing: "Resgate o seguinte código no aplicativo Expoactiva para receber seu ingresso:",
+            iosShareSuccessTitle: "Feito!",
+            iosShareSuccessMessage: "O ingresso foi compartilhado com sucesso",
+            iosShareErrorMessage: "Erro ao compartilhar",
+            androidShareConfirmationTitle: "Compartilhar ingresso",
+            androidShareConfirmationMessage: "Você realmente deseja compartilhar seu ingresso?",
+            androidShareConfirmationNoText: "Não",
+            androidShareConfirmationNoAction: "Compartilhamento cancelado",
+            androidShareConfirmationYesText: "Sim",
+            androidShareConfirmationYesAction: "proceedWithSharing",
+            androidShareErrorMessage: "Erro na API",
+            generalErrorTitle: "Erro",
+            generalErrorMessage: "Ocorreu um erro ao compartilhar o ingresso, tente novamente"
         }
 
     }

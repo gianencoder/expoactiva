@@ -8,6 +8,8 @@ import { usePayment } from '../context/PaymentContext/PaymentContext'
 import { useRedeemTicket } from '../context/RedeemTicketContext/RedeemTicketContext'
 import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
 
 export const useTicketManager = (ticket = null) => {
     const { user, token } = useAuthContext()
@@ -17,9 +19,14 @@ export const useTicketManager = (ticket = null) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { setPayment, setPaymentAttempt, paymentAttempt } = usePayment()
-    const { setClaimedTicket, setRedeemTicketAttempt, redeemTicketAttempt } = useRedeemTicket()
+    const { setClaimedTicket, setRedeemTicketAttempt } = useRedeemTicket()
     const [isTicketShared, setIsTicketShared] = useState(ticket ? ticket.shared : false)
     const indexPage = navigation.getState().index
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = React.useState(translations.es);
+    React.useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
 
     const purchaseTicket = useCallback(async () => {
         try {
@@ -169,13 +176,13 @@ export const useTicketManager = (ticket = null) => {
 
             const proceedWithSharing = async () => {
                 const result = await Share.share({
-                    message: `Canjea el siguiente código en la aplicación de Expoactiva para recibir tu entrada:${"\n"}${"\n"}${code}`
+                    message: `${translation.ticketAlert.proceedWithSharing}:${"\n"}${"\n"}${code}`
                 });
 
                 if (Platform.OS === 'ios' && result.action === Share.sharedAction) {
                     if (result.activityType) {
                         if (await updateTicketStatus()) {
-                            Alert.alert('¡Bien hecho!', 'La entrada se compartió correctamente');
+                            Alert.alert(translation.ticketAlert.iosShareSuccessTitle, translation.ticketAlert.iosShareSuccessMessage);
                             setIsTicketShared(true);
                         } else {
                             console.log('error en la API');
@@ -188,8 +195,8 @@ export const useTicketManager = (ticket = null) => {
 
             if (Platform.OS === 'android') {
                 Alert.alert(
-                    'Compartir entrada',
-                    '¿Realmente desea compartir su entrada?',
+                    translation.ticketAlert.androidShareConfirmationTitle,
+                    translation.ticketAlert.androidShareConfirmationMessage,
                     [
                         { text: 'No', onPress: () => console.log('Compartir cancelado'), style: 'cancel' },
                         {
@@ -210,7 +217,7 @@ export const useTicketManager = (ticket = null) => {
             }
         } catch (error) {
             console.log('error', error);
-            Alert.alert('Error', 'Ocurrió un error al compartir la entrada, intente nuevamente');
+            Alert.alert(translation.ticketAlert.generalErrorTitle, translation.ticketAlert.generalErrorMessage);
         }
     };
 
