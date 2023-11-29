@@ -147,6 +147,8 @@ const Map = ({ showModal }) => {
     const { theme } = React.useContext(ThemeContext);
     const { languageState } = useLanguage();
     const [translation, setTranslation] = React.useState(translations.es);
+    const { language } = languageState
+
     React.useEffect(() => {
         loadTranslations(setTranslation);
     }, [languageState]);
@@ -185,8 +187,13 @@ const Map = ({ showModal }) => {
                 if (status !== 'granted') {
                     console.log('Permission to access location was denied');
                     Alert.alert(
-                        translation.maps.mapNotAvailable,
-                        translation.maps.mapAccessPermission,
+                        language === 'es' ? 'Mapa no disponible'
+                            : language === 'en' ? 'Map not available'
+                                : language === 'pt' && 'Mapa não disponível'
+                        ,
+                        language === 'es' ? 'Para ver el mapa, tiene que permitir el acceso a su ubicación.'
+                            : language === 'en' ? 'To view the map, you must allow access to your location.'
+                                : language === 'pt' && 'Para ver o mapa, você deve permitir o acesso à sua localização.',
                         [
                             {
                                 text: translation.maps.goToSettings,
@@ -194,7 +201,7 @@ const Map = ({ showModal }) => {
                                 style: "cancel"
                             },
                             {
-                                text: translation.maps.goToSettings,
+                                text: translation.maps.cancel,
                                 onPress: () => console.log("Cancel Pressed"),
                                 style: "destructive"
                             }

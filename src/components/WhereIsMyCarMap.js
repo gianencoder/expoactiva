@@ -79,6 +79,7 @@ export const WhereIsMyCarMap = () => {
     const { theme } = useContext(ThemeContext);
     const { languageState } = useLanguage();
     const [translation, setTranslation] = useState(translations.es);
+    const { language } = languageState
     useEffect(() => {
         loadTranslations(setTranslation);
     }, [languageState]);
@@ -109,8 +110,13 @@ export const WhereIsMyCarMap = () => {
                 if (status !== 'granted') {
                     console.log('Permission to access location was denied');
                     Alert.alert(
-                        translation.whereismycar.mapNotAvailable,
-                        translation.whereismycar.mapAccessPermission,
+                        language === 'es' ? 'Mapa no disponible'
+                            : language === 'en' ? 'Map not available'
+                                : language === 'pt' && 'Mapa não disponível'
+                        ,
+                        language === 'es' ? 'Para ver el mapa, tiene que permitir el acceso a su ubicación.'
+                            : language === 'en' ? 'To view the map, you must allow access to your location.'
+                                : language === 'pt' && 'Para ver o mapa, você deve permitir o acesso à sua localização.',
                         [
                             {
                                 text: translation.whereismycar.goToSettings,
