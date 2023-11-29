@@ -178,7 +178,7 @@ export const EventFunction = () => {
             expoPushToken,
             eventId,
             eventStartTime,
-            language: languageState.language
+            language: languageState.language,
         };
 
         console.log('Enviando favorito a la API:', body)
