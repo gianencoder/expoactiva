@@ -489,7 +489,9 @@ export const translations = {
             ticket: 'Entrada',
             valid: "válida",
             noValid: "no válida",
-            share: "compartida"
+            share: "compartida",
+            sharedModalMessage: "Código para canjear la entrada:",
+            copy: "Copiado al portapapeles",
         }
     },
     en: {
@@ -819,7 +821,9 @@ export const translations = {
             ticket: 'Ticket',
             valid: "valid",
             noValid: "not valid",
-            share: "shared"
+            share: "shared",
+            sharedModalMessage: "Code to redeem ticket:",
+            copy: "Copied to clipboard",
         }
     },
     pt: {
@@ -1152,7 +1156,9 @@ export const translations = {
             ticket: 'Ingresso',
             valid: "válido",
             noValid: "não válido",
-            share: "compartilhado"
+            share: "compartilhado",
+            sharedModalMessage: "Código para resgatar ingresso:",
+            copy: "Copiado para a área de transferência",
         }
     }
 };

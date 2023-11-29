@@ -121,7 +121,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                         <MaterialIcons name="close" size={24} color={theme.customColors.activeColor} />
                     </TouchableOpacity>
 
-                    <Text style={{ marginBottom: 15, textAlign: 'center', fontSize: 17, fontWeight: '500', color: theme.colors.text }}>Código para canjear la entrada:{"\n"}{"\n"}{ticket.ticketId}</Text>
+                    <Text style={{ marginBottom: 15, textAlign: 'center', fontSize: 17, fontWeight: '500', color: theme.colors.text }}>{translation.ticketComponent.sharedModalMessage}{"\n"}{"\n"}{ticket.ticketId}</Text>
 
                     <TouchableOpacity
                         style={styles.copyButton}
@@ -136,7 +136,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                             opacity: fadeAnim, // Enlaza la opacidad a la variable de animación
                         }}
                     >
-                        <Text style={{ color: 'white' }}>Copiado al portapapeles</Text>
+                        <Text style={{ color: 'white' }}>{translation.ticketComponent.copy}</Text>
                     </Animated.View>
                 </View>
             </Modal>
