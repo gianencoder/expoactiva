@@ -157,7 +157,7 @@ export const EventScreen = () => {
 
                                 refreshControl={
                                     <RefreshControl
-                                        refreshing={fetching}
+                                        refreshing={loading}
                                         progressBackgroundColor={theme.colors.background}
                                         onRefresh={() => {
                                             handleSetFetching()

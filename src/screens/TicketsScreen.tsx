@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator, Alert, RefreshControl } from 'react-native';
 import { ticketStyles } from '../theme/TicketsTheme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { TicketComponent } from '../components/TicketComponent';
@@ -113,6 +113,18 @@ export const TicketsScreen = () => {
 
                                     <View style={{ width: '100%', height: '90%' }}>
                                         <FlatList
+                                            refreshControl={
+                                                <RefreshControl
+                                                    refreshing={charging}
+                                                    progressBackgroundColor={theme.colors.background}
+                                                    onRefresh={() => {
+                                                        fetchTickets()
+
+                                                    }}
+                                                    colors={[theme.customColors.activeColor]} // for android
+                                                    tintColor={theme.customColors.activeColor} // for ios
+                                                />
+                                            }
                                             data={tickets}
                                             extraData={tickets}
                                             renderItem={({ item }: any) => <TicketComponent key={item.ticketId} ticket={item} qrCode={item.ticketId} method={() => ticketDetail(item.ticketId)} />}
