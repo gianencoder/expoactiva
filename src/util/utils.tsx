@@ -486,6 +486,12 @@ export const translations = {
         topTabNavigator: {
             events: 'Eventos',
             favoriteEvents: 'Favoritos'
+        },
+        ticketComponent: {
+            ticket: 'Entrada',
+            valid: "válida",
+            noValid: "no válida",
+            share: "compartida"
         }
     },
     en: {
@@ -812,6 +818,12 @@ export const translations = {
         topTabNavigator: {
             events: 'Events',
             favoriteEvents: 'Favorites'
+        },
+        ticketComponent: {
+            ticket: 'Ticket',
+            valid: "valid",
+            noValid: "not valid",
+            share: "shared"
         }
     },
     pt: {
@@ -1141,6 +1153,12 @@ export const translations = {
         topTabNavigator: {
             events: 'Eventos',
             favoriteEvents: 'Favoritos'
+        },
+        ticketComponent: {
+            ticket: 'Ingresso',
+            valid: "válido",
+            noValid: "não válido",
+            share: "compartilhado"
         }
     }
 };

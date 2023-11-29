@@ -5,14 +5,24 @@ import QRCode from "react-native-qrcode-svg";
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { useTicketManager } from '../hooks/useTicketManager';
 import { MaterialIcons } from '@expo/vector-icons';
+import { loadTranslations, translations } from '../util/utils';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
 
 export const TicketComponent = ({ ticket, qrCode, method }) => {
 
     const { theme } = useContext(ThemeContext)
     const { shareTicket, isTicketShared } = useTicketManager(ticket)
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [fadeAnim] = useState(new Animated.Value(0)); 
+    const [fadeAnim] = useState(new Animated.Value(0));
     const [sharedTicket, setSharedTicket] = useState(isTicketShared);
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+
+
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
+
 
     useEffect(() => {
         setSharedTicket(isTicketShared);
@@ -93,7 +103,7 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
             activeOpacity={0.5}
             onPress={handlePress}
             style={{ justifyContent: 'center', alignItems: 'center' }}
-            disabled={ticket.used} 
+            disabled={ticket.used}
         >
 
             <Modal
@@ -120,14 +130,14 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                     >
                         <MaterialIcons name="content-copy" size={24} color={theme.customColors.activeColor} />
                     </TouchableOpacity>
-                        <Animated.View
-                    style={{
-                        ...styles.copyNotification,
-                        opacity: fadeAnim, // Enlaza la opacidad a la variable de animación
-                    }}
-                >
-                    <Text style={{ color: 'white' }}>Copiado al portapapeles</Text>
-                </Animated.View>
+                    <Animated.View
+                        style={{
+                            ...styles.copyNotification,
+                            opacity: fadeAnim, // Enlaza la opacidad a la variable de animación
+                        }}
+                    >
+                        <Text style={{ color: 'white' }}>Copiado al portapapeles</Text>
+                    </Animated.View>
                 </View>
             </Modal>
 
@@ -146,22 +156,22 @@ export const TicketComponent = ({ ticket, qrCode, method }) => {
                 <View style={ticketStyles.infoContainer}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingRight: 5 }}>
                         <Text style={{ color: (sharedTicket || ticket.used) ? theme.customColors.subtitles : theme.colors.text, fontSize: 15, fontWeight: '500' }}>Expoactiva Nacional Soriano</Text>
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             onPress={() => (!sharedTicket && !ticket.used) && shareTicket(ticket.ticketId)}
                             disabled={sharedTicket || ticket.used}
                             hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}>
-                            <Image 
-                                style={{ 
-                                    height: 20, 
-                                    width: 20, 
-                                    alignSelf: 'flex-end', 
-                                    tintColor: (sharedTicket || ticket.used) ? 'gray' : theme.customColors.activeColor 
-                                }} 
-                                source={require('../assets/icons/share.png')} 
+                            <Image
+                                style={{
+                                    height: 20,
+                                    width: 20,
+                                    alignSelf: 'flex-end',
+                                    tintColor: (sharedTicket || ticket.used) ? 'gray' : theme.customColors.activeColor
+                                }}
+                                source={require('../assets/icons/share.png')}
                             />
                         </TouchableOpacity>
                     </View>
-                    <Text style={{ color: theme.customColors.subtitles }}>Entrada {sharedTicket ? 'compartida' : ticket.used ? 'no válida' : 'válida'}</Text>
+                    <Text style={{ color: theme.customColors.subtitles }}>{translation.ticketComponent.ticket} {sharedTicket ? translation.ticketComponent.share : ticket.used ? translation.ticketComponent.noValid : translation.ticketComponent.valid}</Text>
                 </View>
             </View>
         </TouchableOpacity>

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, ImageBackground, ScrollView, Text } from 'react-native';
+import { ImageBackground, ScrollView, Text } from 'react-native';
 import { View } from 'react-native';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
-import { loadTranslations, translate, translations } from '../util/utils';
+import { loadTranslations, translations } from '../util/utils';
 import { useLanguage } from '../context/LanguageContext/LanguageContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 export const AboutExpoactivaScreen = () => {
