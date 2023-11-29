@@ -27,11 +27,11 @@ export const EditProfileScreen = () => {
     const [day, month, year] = date.split('-');
     const [badDate, setBadDate] = useState(false)
     const prevLengthRef = useRef(0);
-
     const numericDay = parseInt(day, 10);
     const numericMonth = parseInt(month, 10);
     const numericYear = parseInt(year, 10);
     const { languageState } = useLanguage();
+    const { language } = languageState
     const [translation, setTranslation] = useState(translations.es);
 
     useEffect(() => {
@@ -256,7 +256,34 @@ export const EditProfileScreen = () => {
                                     , paddingHorizontal: 5
                                     , borderRadius: 5
                                 }}>
-                                <Text style={{ color: !selected.includes(i.label) ? colors.text : 'white' }} >{i.label}</Text>
+                                <Text style={{ color: !selected.includes(i.label) ? colors.text : 'white' }} >
+                                    {language === 'es' && `${i.label}`}
+
+                                    {
+                                        language === 'en'
+                                            ? i.label.toLowerCase() === 'agricultura' ? "Agriculture"
+                                                : i.label.toLowerCase() === 'automóviles' ? "Automobiles"
+                                                    : i.label.toLowerCase() === 'ganadería' ? "Livestock"
+                                                        : i.label.toLowerCase() === 'lácteos' ? "Dairy"
+                                                            : i.label.toLowerCase() === 'máquinas' ? "Machinery"
+                                                                : i.label.toLowerCase() === 'tecnología' && "Technology"
+                                            : ""
+
+                                    }
+                                    {
+                                        language === 'pt'
+                                            ? i.label.toLowerCase() === 'agricultura' ? "Agricultura"
+                                                : i.label.toLowerCase() === 'automóviles' ? "Automóveis"
+                                                    : i.label.toLowerCase() === 'ganadería' ? "Pecuária"
+                                                        : i.label.toLowerCase() === 'lácteos' ? "Lácteos"
+                                                            : i.label.toLowerCase() === 'máquinas' ? "Máquinas"
+                                                                : i.label.toLowerCase() === 'tecnología' && "Tecnologia"
+                                            : ""
+                                    }
+
+
+                                </Text>
+
                                 {selected.includes(i.label) && <Feather name="x" size={16} color={!selected.includes(i.label) ? colors.text : 'white'} />}
                             </TouchableOpacity>
                         ))}
