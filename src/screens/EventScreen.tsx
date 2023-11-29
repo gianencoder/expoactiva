@@ -44,10 +44,33 @@ export const EventScreen = () => {
 
 
     const toggleFilter = (filter) => {
-        if (selectedFilters.includes(filter)) {
-            setSelectedFilters(selectedFilters.filter(item => item !== filter));
-        } else {
-            setSelectedFilters([...selectedFilters, filter]);
+        if (filter === 'active' || filter === 'ativo' || filter === 'activa') {
+            if (selectedFilters.includes('activa')) {
+                setSelectedFilters(selectedFilters.filter(item => item !== 'activa'));
+            } else {
+                setSelectedFilters([...selectedFilters, 'activa']);
+            }
+        }
+        if (filter === 'conference' || filter === 'conferência' || filter === 'conferencia') {
+            if (selectedFilters.includes('conferencia')) {
+                setSelectedFilters(selectedFilters.filter(item => item !== 'conferencia'));
+            } else {
+                setSelectedFilters([...selectedFilters, 'conferencia']);
+            }
+        }
+        if (filter === 'exhibitor' || filter === 'expositor') {
+            if (selectedFilters.includes('exhibitor')) {
+                setSelectedFilters(selectedFilters.filter(item => item !== 'exhibitor'));
+            } else {
+                setSelectedFilters([...selectedFilters, 'exhibitor']);
+            }
+        }
+        if (filter === 'livestock' || filter === 'pecuária' || filter === 'ganadera') {
+            if (selectedFilters.includes('ganadera')) {
+                setSelectedFilters(selectedFilters.filter(item => item !== 'ganadera'));
+            } else {
+                setSelectedFilters([...selectedFilters, 'ganadera']);
+            }
         }
     };
 
