@@ -477,6 +477,11 @@ export const translations = {
             confirmation: "¿Deseas eliminar el favorito?",
             cancel: "Cancelar",
             delete: "Eliminar"
+        },
+        accountExists: {
+            message1: "El correo ya existe",
+            message2: "No se pudo iniciar sesión.",
+            message3: "Ya existe un usuario ingresado con ese correo desde otro método de autenticación."
         }
     },
     en: {
@@ -794,6 +799,11 @@ export const translations = {
             confirmation: "Do you want to delete the favorite?",
             cancel: "Cancel",
             delete: "Delete"
+        },
+        accountExists: {
+            message1: "Email already exists",
+            message2: "Unable to log in.",
+            message3: "A user is already registered with that email using another authentication method."
         }
     },
     pt: {
@@ -1114,6 +1124,11 @@ export const translations = {
             cancel: "Cancelar",
             delete: "Excluir"
 
+        },
+        accountExists: {
+            message1: "E-mail já existe",
+            message2: "Não foi possível iniciar sessão.",
+            message3: "Já existe um usuário registrado com esse e-mail através de outro método de autenticação."
         }
     }
 };

@@ -83,7 +83,7 @@ export const AuthComponent = () => {
 
 
             if (response.status == 400) {
-                Alert.alert(`El correo ya existe`, `No se pudo iniciar sesión. ${"\n"} Ya existe un usuario ingresado con ese correo desde otro método de autenticación.`)
+                Alert.alert(`${translation.accountExists.message1} ${translation.accountExists.message2} ${"\n"} ${translation.accountExists.message3}`)
             }
             await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user));
             await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token));
