@@ -27,10 +27,10 @@ export const EventFunction = () => {
     const [showNotificationAlert, setShowNotificationAlert] = useState(false);
     const { languageState } = useLanguage();
     const [translation, setTranslation] = useState(translations.es);
+
     useEffect(() => {
         loadTranslations(setTranslation);
     }, [languageState]);
-
 
     const filterEvent = events.filter((exp: EventoMoshi) =>
         exp.eventName.toLowerCase().includes(searchText.toLowerCase())
@@ -173,10 +173,12 @@ export const EventFunction = () => {
         const url = `${properties.prod}favourites/create`;
 
         let expoPushToken = notificationToken;
+
         const body = {
             expoPushToken,
             eventId,
-            eventStartTime
+            eventStartTime,
+            language: languageState.language,
         };
 
         console.log('Enviando favorito a la API:', body)
