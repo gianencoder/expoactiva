@@ -482,7 +482,8 @@ export const translations = {
             message1: "El correo ya existe",
             message2: "No se pudo iniciar sesión.",
             message3: "Ya existe un usuario ingresado con ese correo desde otro método de autenticación."
-        }
+        },
+
     },
     en: {
         aboutExpoactivaScreen: {
