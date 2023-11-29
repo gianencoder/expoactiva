@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import { useAuthContext } from '../context/AuthContext/AuthContext';
@@ -7,6 +7,8 @@ import properties from '../../properties.json'
 import axios, { AxiosError } from 'axios';
 import DeviceInfo from "react-native-device-info";
 import Constants from 'expo-constants';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
+import { loadTranslations, translations } from '../util/utils';
 
 const apikey = Constants.expoConfig?.extra?.apikey;
 
@@ -27,6 +29,13 @@ export const EmailLoginFunction = () => {
     const [changingPicture, setChangingPicture] = useState(false)
     const uniqueId = DeviceInfo.getUniqueIdSync()
     const [limitRequest, setLimitRequest] = useState(false)
+    const { languageState } = useLanguage();
+    const [translation, setTranslation] = useState(translations.es);
+    const { language } = languageState
+
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
 
     const updateUserPicture = async (email: string, image: string) => {
         setChangingPicture(true)
@@ -206,7 +215,7 @@ export const EmailLoginFunction = () => {
                 if (axiosError.response.status === 403) {
                     navigation.navigate('LoginFormScreen2', { email });
                 } else if (axiosError.response.status === 400) {
-                    Alert.alert('El correo ya existe', 'El correo ya fue ingresado con una cuenta de Google, inicia sesión con Google para continuar');
+                    Alert.alert(`${translation.accountExists.message1} ${translation.accountExists.message2} ${"\n"} ${translation.accountExists.message3}`)
                 } else if (axiosError.response.status === 404) {
                     handleError('Intenta nuevamente en unos minutos', 'AuthScreen');
                 } else {
