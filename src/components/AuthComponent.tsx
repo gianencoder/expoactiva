@@ -35,20 +35,32 @@ export const AuthComponent = () => {
     const { theme } = useContext(ThemeContext)
     const navigation = useNavigation()
     const { languageState } = useLanguage();
+    const { language } = languageState
     const [translation, setTranslation] = useState(translations.es);
+    const [text1, setText1] = useState('')
+    const [text2, setText2] = useState('')
+    const [text3, setText3] = useState('')
+
     useEffect(() => {
         loadTranslations(setTranslation);
-    }, [languageState]);
-
+        setText1(translation.accountExists.message1)
+        setText2(translation.accountExists.message2)
+        setText3(translation.accountExists.message3)
+    }, [languageState, language]);
 
     useEffect(() => {
-
+        console.log("languageState:", languageState);
+        console.log("language:", translation.accountExists.message3);
+        console.log("language:", translation.accountExists.message2);
+        console.log("language:", translation.accountExists.message1);
+        console.log("language cambiado:", language);
+        // Resto del código...
+    }, [languageState, language]);
+    useEffect(() => {
         if (userInfo && userToken) {
             login(userInfo, userToken);
             navigation.navigate('HomeScreen');
         }
-
-
     }, [userInfo, userToken]);
 
     const signIn = useCallback(async () => {
@@ -64,8 +76,8 @@ export const AuthComponent = () => {
     }, []);
 
     const exchangeGoogleTokenForJWT = useCallback(async (googleToken: any) => {
+        loadTranslations(setTranslation);
         try {
-
             setLoading(true);
             const response = await fetch(`${properties.prod}/auth/google`, {
                 method: "POST",
@@ -83,7 +95,10 @@ export const AuthComponent = () => {
 
 
             if (response.status == 400) {
-                Alert.alert(`${translation.accountExists.message1} ${translation.accountExists.message2} ${"\n"} ${translation.accountExists.message3}`)
+                Alert.alert(`${language === 'es' ? 'No se pudo iniciar sesión. El correo ya existe con ótro método de autenticación'
+                    : language === 'en' ? "Unable to log in. The email already exists with another authentication method."
+                        : language === 'pt' && "Não foi possível iniciar sessão. O e-mail já existe com outro método de autenticação."
+                    }`)
             }
             await AsyncStorage.setItem("UserLoggedIn", JSON.stringify(data.user));
             await AsyncStorage.setItem("AccessToken", JSON.stringify(data.token));

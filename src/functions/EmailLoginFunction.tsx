@@ -215,7 +215,7 @@ export const EmailLoginFunction = () => {
                 if (axiosError.response.status === 403) {
                     navigation.navigate('LoginFormScreen2', { email });
                 } else if (axiosError.response.status === 400) {
-                    Alert.alert(`${translation.accountExists.message1} ${translation.accountExists.message2} ${"\n"} ${translation.accountExists.message3}`)
+                    Alert.alert(`${translation.accountExists.message1}`)
                 } else if (axiosError.response.status === 404) {
                     handleError('Intenta nuevamente en unos minutos', 'AuthScreen');
                 } else {
