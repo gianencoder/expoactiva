@@ -414,7 +414,7 @@ export const translations = {
             iniciarSesionORegistrarse: "Inicia sesión o regístrate"
         },
         bottomSheetNavigator: {
-            meters: "Metros",
+            meters: "metros",
             kilometers: "Kilómetros",
             youHaveArrived: "Ha llegado a su destino",
             youAreAtTheSite: "Usted se encuentra en el sitio",
@@ -747,11 +747,11 @@ export const translations = {
             iniciarSesionORegistrarse: "Log in or register"
         },
         bottomSheetNavigator: {
-            meters: "Meters",
-            kilometers: "Kilometers",
+            meters: "meters",
+            kilometers: "kilometers",
             youHaveArrived: "You have arrived at your destination",
             youAreAtTheSite: "You are at the site",
-            distanceAway: "A ",
+            distanceAway: "",
             distanceAway2: " away",
             start: "Start",
             cancel: "Cancel",
@@ -1081,7 +1081,7 @@ export const translations = {
             iniciarSesionORegistrarse: "Iniciar sessão ou cadastrar"
         },
         bottomSheetNavigator: {
-            meters: "Metros",
+            meters: "metros",
             kilometers: "Quilômetros",
             youHaveArrived: "Você chegou ao seu destino",
             youAreAtTheSite: "Você está no local",

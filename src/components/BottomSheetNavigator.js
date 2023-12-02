@@ -9,14 +9,16 @@ import { loadTranslations, translate, translations } from '../util/utils';
 
 
 const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) => {
-    const [localLoading, setLocalLoading] = React.useState(true);
-    const [distanceData, setDistanceData] = React.useState({ value: 0, unit: 'Metros' });
-    const { theme } = React.useContext(ThemeContext)
+
     const { languageState } = useLanguage();
     const [translation, setTranslation] = React.useState(translations.es);
     React.useEffect(() => {
         loadTranslations(setTranslation);
     }, [languageState]);
+    const [localLoading, setLocalLoading] = React.useState(true);
+    const [distanceData, setDistanceData] = React.useState({ value: 0, unit: translation.bottomSheetNavigator.meters });
+    const { theme } = React.useContext(ThemeContext)
+
 
 
     React.useEffect(() => {
@@ -59,7 +61,7 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                         <Text style={{ fontSize: 18, fontWeight: '500', color: theme.customColors.activeColor, paddingVertical: 20, textAlign: 'center' }}>
                             {distanceData.value <= 5
                                 ? translation.bottomSheetNavigator.youAreAtTheSite
-                                : (`${translation.bottomSheetNavigator.distanceAway} ${distanceData.value} ${distanceData.unit} ${translation.bottomSheetNavigator.distanceAway2}`)}
+                                : (`${distanceData.value} ${distanceData.unit} ${translation.bottomSheetNavigator.distanceAway2}`)}
                         </Text>
                     )
                 )
@@ -93,6 +95,7 @@ const BottomSheet = ({
     const [translation, setTranslation] = React.useState(translations.es);
     const [translatedDescription, setTranslatedDescription] = React.useState('')
     const [translating, setTranslating] = React.useState(false)
+
 
 
 
@@ -143,10 +146,10 @@ const BottomSheet = ({
             if (rawDistance >= 1000) {
                 return { value: (rawDistance / 1000).toFixed(1), unit: 'Km' }; // para kilómetros
             } else {
-                return { value: rawDistance, unit: 'Metros' }; // para metros
+                return { value: rawDistance, unit: translation.bottomSheetNavigator.meters }; // para metros
             }
         } else {
-            return { value: 0, unit: 'Metros' }; // Ejemplo de valor por defecto
+            return { value: 0, unit: translation.bottomSheetNavigator.meters }; // Ejemplo de valor por defecto
         }
 
     }, [distance]);
