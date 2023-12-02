@@ -110,7 +110,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
 
                     <View style={eventStyle.eventListTitle}>
                         <Text numberOfLines={2} style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{loading ? moshiEvent.eventName : translatedEventName}</Text>
-                        <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{moshiEvent.type !== null && moshiEvent.type === 'EXHIBITOR' ? 'Expositor' : loading ? moshiEvent.type : translatedType}</Text>
+                        <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{moshiEvent.type !== null && loading ? moshiEvent.type : translatedType}</Text>
                         <Text style={{ ...eventStyle.titleMinutes, width: '70%' }}>{loading ? dateFormmater(moshiEvent.dateHourStart).day : translateDay} {dateFormmater(moshiEvent.dateHourStart).dayNumber}</Text>
                         <Text style={{ ...eventStyle.titleMinutes, textTransform: 'capitalize', width: '70%' }}>{dateFormmater(moshiEvent.dateHourStart).time} - {dateFormmater(moshiEvent.dateHourEnd).time} </Text>
                     </View>
