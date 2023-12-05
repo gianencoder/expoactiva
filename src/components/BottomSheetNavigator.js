@@ -7,19 +7,16 @@ import { SeparatorComponent } from './SeparatorComponent';
 import { useLanguage } from '../context/LanguageContext/LanguageContext';
 import { loadTranslations, translate, translations } from '../util/utils';
 
-
 const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) => {
-
+    const [localLoading, setLocalLoading] = React.useState(true);
+    const [distanceData, setDistanceData] = React.useState({ value: 0, unit: 'metros' });
+    const { theme } = React.useContext(ThemeContext)
     const { languageState } = useLanguage();
     const [translation, setTranslation] = React.useState(translations.es);
+
     React.useEffect(() => {
         loadTranslations(setTranslation);
     }, [languageState]);
-    const [localLoading, setLocalLoading] = React.useState(true);
-    const [distanceData, setDistanceData] = React.useState({ value: 0, unit: translation.bottomSheetNavigator.meters });
-    const { theme } = React.useContext(ThemeContext)
-
-
 
     React.useEffect(() => {
         setLocalLoading(true);
@@ -39,7 +36,7 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
                     <>
                         <View style={{ flexDirection: 'row', paddingTop: 5, alignItems: 'baseline', justifyContent: 'flex-start', width: Dimensions.get("screen").width * 0.696, paddingLeft: 10 }}>
                             <View style={{ alignItems: 'flex-start' }}>
-                                {distanceData.value > 5 ? (   // Aquí se compara como número y no como string
+                                {distanceData.value > 5 ? (
                                     <>
                                         <Text style={{ fontSize: 24, fontWeight: '700', color: theme.customColors.activeColor }}>
                                             {distanceData.value}
@@ -70,7 +67,6 @@ const Distance = React.memo(({ getFormattedDistance, followUserMode, loading }) 
     );
 });
 
-
 const BottomSheet = ({
     slideAnim,
     heightAnim,
@@ -96,10 +92,6 @@ const BottomSheet = ({
     const [translatedDescription, setTranslatedDescription] = React.useState('')
     const [translating, setTranslating] = React.useState(false)
 
-
-
-
-
     React.useEffect(() => {
         const fetchTranslations = async () => {
             setTranslating(true)
@@ -109,7 +101,7 @@ const BottomSheet = ({
 
             } catch (error) {
                 console.log('Error translating:', error);
-                // En caso de error, asignar el valor original
+
                 setTranslatedDescription(selectedExhibitor.description);
             } finally {
                 setTranslating(false);
@@ -138,13 +130,12 @@ const BottomSheet = ({
 
     const [isImageLoading, setImageLoading] = React.useState(false);
 
-
     const getFormattedDistance = React.useCallback(() => {
         const rawDistance = Math.round(distance);
 
         if (typeof rawDistance !== 'undefined' && rawDistance !== null) {
             if (rawDistance >= 1000) {
-                return { value: (rawDistance / 1000).toFixed(1), unit: 'Km' }; // para kilómetros
+                return { value: (rawDistance / 1000).toFixed(1), unit: 'km' };
             } else {
                 return { value: rawDistance, unit: translation.bottomSheetNavigator.meters }; // para metros
             }
