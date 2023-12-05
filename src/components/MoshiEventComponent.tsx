@@ -51,7 +51,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
                 const translatedEventName = await translate(moshiEvent.eventName, language);
                 const translatedType = await translate(moshiEvent.type, language);
                 const date = await translate(sTimeLeft, language)
-                const day = await translate(dateFormmater(moshiEvent.dateHourStart).day, language)
+                const day = await translate(dateFormmater(moshiEvent.dateHourStart).day === 'martes' ? 'Tuesday' : dateFormmater(moshiEvent.dateHourStart).day, language)
 
                 setTranslatedEventName(translatedEventName);
                 setTranslatedType(translatedType);
@@ -73,6 +73,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
             fetchTranslations();
         }
     }, [language, moshiEvent.eventName, moshiEvent.type]);
+
 
     return (
         <View style={{ width: '100%', height: 'auto' }}>
@@ -111,7 +112,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
                     <View style={eventStyle.eventListTitle}>
                         <Text numberOfLines={2} style={{ ...eventStyle.titleTxt, color: theme.colors.text }}>{loading ? moshiEvent.eventName : translatedEventName}</Text>
                         <Text style={{ ...eventStyle.titleMinutes, width: '100%' }}>{moshiEvent.type !== null && loading ? moshiEvent.type : translatedType}</Text>
-                        <Text style={{ ...eventStyle.titleMinutes, width: '70%' }}>{loading ? dateFormmater(moshiEvent.dateHourStart).day : translateDay} {dateFormmater(moshiEvent.dateHourStart).dayNumber}</Text>
+                        <Text style={{ ...eventStyle.titleMinutes, width: '78%' }}>{loading ? dateFormmater(moshiEvent.dateHourStart).day : translateDay} {dateFormmater(moshiEvent.dateHourStart).dayNumber}</Text>
                         <Text style={{ ...eventStyle.titleMinutes, textTransform: 'capitalize', width: '70%' }}>{dateFormmater(moshiEvent.dateHourStart).time} - {dateFormmater(moshiEvent.dateHourEnd).time} </Text>
                     </View>
                     <View style={eventStyle.eventListFavourite}>
