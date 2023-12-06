@@ -32,6 +32,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
     useEffect(() => {
         loadTranslations(setTranslation);
     }, [languageState]);
+
     const [sTimeLeft, setsTimeLeft] = useState(formatDistanceToNow(new Date(moshiEvent.dateHourStart), { addSuffix: true, locale: esLocale }));
     const [fTimeLeft, setfTimeLeft] = useState(formatDistanceToNow(new Date(moshiEvent.dateHourEnd), { addSuffix: true, locale: esLocale }));
 
@@ -39,11 +40,13 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
         const interval = setInterval(() => {
             setsTimeLeft(formatDistanceToNow(new Date(moshiEvent.dateHourStart), { addSuffix: true, locale: esLocale }));
             setfTimeLeft(formatDistanceToNow(new Date(moshiEvent.dateHourEnd), { addSuffix: true, locale: esLocale }));
-        }, 1000);
+
+        }, 5000);
         return () => {
             clearInterval(interval);
         };
-    }, [moshiEvent.dateHourStart, moshiEvent.dateHourEnd]);
+    }, []);
+
 
     useEffect(() => {
         const fetchTranslations = async () => {
@@ -73,7 +76,8 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
         if (language) {
             fetchTranslations();
         }
-    }, [language, moshiEvent.eventName, moshiEvent.type]);
+    }, [language, moshiEvent.eventName, moshiEvent.type, sTimeLeft]);
+
 
 
     return (
@@ -122,7 +126,6 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
                                 <Ionicons style={{ position: 'absolute' }} name={isFavorite ? 'ios-heart-sharp' : 'ios-heart-outline'} size={24} color={isFavorite ? '#A50000' : theme.customColors.activeColor} />
                             </View>
                         </TouchableOpacity>
-
 
                         {sTimeLeft.includes('hace'.toLowerCase().trim()) && !fTimeLeft.includes('hace'.toLowerCase().trim())
                             ? <Text style={{ ...eventStyle.titleMinutes, textAlign: 'right' }}>{translation.eventDetails.enCurso}</Text>
