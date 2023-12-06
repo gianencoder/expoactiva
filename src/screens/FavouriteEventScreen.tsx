@@ -11,7 +11,7 @@ import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { useFavorites } from '../context/FavouriteContext/FavouritesContext';
 import { NotEventScreen } from './NotEventScreen';
 import { useLanguage } from '../context/LanguageContext/LanguageContext';
-import { loadTranslations, translations } from '../util/utils';
+import { loadTranslations, translate, translations } from '../util/utils';
 
 
 
@@ -23,18 +23,28 @@ export const FavouriteEventScreen = () => {
     const [searchText, setSearchText] = useState('');
     const [list, setList] = useState<EventoMoshi[]>([])
     const { languageState } = useLanguage();
+    const { language } = languageState
+
+    useEffect(() => {
+        loadTranslations(setTranslation);
+    }, [languageState]);
     const [translation, setTranslation] = useState(translations.es);
     useEffect(() => {
         loadTranslations(setTranslation);
     }, [languageState]);
 
-
     useEffect(() => {
-        // Al cargar el componente o al volver a él, actualizamos la lista de favoritos
+
         const favourites = events.filter(evento => favorites.includes(evento.idEvent));
         const ordererFavourites = reorderEventsWithFinishedLast(favourites);
-        setList(ordererFavourites);
-    }, [events, favorites]);
+
+        const filteredByName = ordererFavourites.filter((ev: EventoMoshi) =>
+            ev.eventName.toLowerCase().includes(searchText.toLowerCase())
+        );
+
+        setList(filteredByName);
+    }, [events, favorites, searchText]);
+
 
     const searchByName = events.filter((ev: EventoMoshi) =>
         ev.eventName.toLowerCase().includes(searchText.toLowerCase())

@@ -28,6 +28,7 @@ export const MoshiEventComponent = ({ event, moshiEvent, method, isFavorite, sel
     const [translation, setTranslation] = useState(translations.es);
     const [loading, setLoading] = useState(false)
     const [translateDate, setTranslateDate] = useState('')
+
     useEffect(() => {
         loadTranslations(setTranslation);
     }, [languageState]);
